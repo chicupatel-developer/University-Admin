@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Entities.Models;
+using Entities.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using UniversityAPI.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+
+namespace UniversityAPI.Controllers
+{
+    [Authorize]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class DepartmentController : ControllerBase
+    {
+        private readonly IDepartmentRepository _deptRepo;
+        private APIResponse _response;
+        
+        // ok
+        public DepartmentController(IDepartmentRepository deptRepo)
+        {
+            _deptRepo = deptRepo;
+        }
+
+        // ok        
+        [HttpGet]
+        [Route("allDepartments")]
+        public IActionResult GetAllDepartments()
+        {
+            var allDepartments = _deptRepo.GetAllDepartments();
+            return Ok(allDepartments);
+        }
+
+        // ok
+        [HttpPost]
+        [Route("addDepartment")]
+        public IActionResult AddDepartment(Department department)
+        {
+            _response = new APIResponse();
+            try
+            {
+                // throw new Exception();
+                _deptRepo.AddDepartment(department);
+                _response.ResponseCode = 0;
+                _response.ResponseMessage = "Department Added Successfully!";
+                _response.ResponseError = null;
+            }
+            catch(Exception ex)
+            {
+                _response.ResponseCode = -1;
+                _response.ResponseMessage = "Server Error!";
+                _response.ResponseError = ex.Message.ToString();
+            }
+            return Ok(_response);
+        }
+    }
+}

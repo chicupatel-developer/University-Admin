@@ -1,0 +1,3 @@
+﻿Add-Migration Assignment_Edit -context DataAccess.EFCore.UniversityContext -OutputDir Migrations
+update-database -context DataAccess.EFCore.UniversityContext
+

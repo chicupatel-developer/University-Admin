@@ -1,0 +1,146 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        <div>
+                            Faculties (Authentication Not Required...jwt)
+                        </div>
+                        <hr />
+                        <div>
+                            <button *ngIf="!newFacAddPanel" 
+                                type="button" (click)="addFac()"
+                                class="btn btn-success">Add Faculty</button>
+                        </div>
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="container" *ngIf="newFacAddPanel">
+                        <div class="col-md-7 mx-auto">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>New Faculty</h3>
+                                    <h6 *ngIf="apiResponse">
+                                        <span style="color: red;">
+                                            {{apiResponse}}
+                                        </span>
+                                    </h6>
+                                </div>
+                                <div class="card-body">
+                                    <form class="form-fac" 
+                                        [formGroup]="facForm" 
+                                        (ngSubmit)="onSubmit()">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input type="text" 
+                                                class="form-control" 
+                                                formControlName="FirstName">
+                                            <span class="text-danger"
+                                                *ngIf="(facFormControl.FirstName.touched || submitted) && facFormControl.FirstName.errors?.required">
+                                                First Name is required
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input type="text" 
+                                                class="form-control" 
+                                                formControlName="LastName">
+                                            <span class="text-danger"
+                                                *ngIf="(facFormControl.LastName.touched || submitted) && facFormControl.LastName.errors?.required">
+                                                Last Name is required
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="text" 
+                                                class="form-control" 
+                                                formControlName="Email">
+                                            <span class="text-danger"
+                                                *ngIf="(facFormControl.Email.touched || submitted) && facFormControl.Email.errors?.required">
+                                                Email is required
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Gender : </label>
+                                            <select class="form-control" 
+                                                formControlName="Gender">
+                                                <option disabled>Select Gender</option>
+                                                <option  value="">Choose Gender</option>
+                                                <option *ngFor="let g of genderCollection">
+                                                    {{g}}
+                                                </option>
+                                            </select>    
+                                            <span class="text-danger" 
+                                                *ngIf="(facFormControl.Gender.touched || submitted) && handleError('Gender', 'required')">
+                                                Gender is required
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Department : </label>
+                                            <select class="form-control" 
+                                                formControlName="DepartmentId">
+                                                <option disabled>Select Department</option>
+                                                <option value="">Choose Department</option>
+                                                <option value={{d.departmentId}}
+                                                    *ngFor="let d of departments">
+                                                    {{d.departmentName}}
+                                                </option>
+                                            </select>       
+                                            <span class="text-danger" 
+                                                *ngIf="(facFormControl.DepartmentId.touched || submitted) && handleError('DepartmentId', 'required')">
+                                                Department is required
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <button type="submit" 
+                                                        class="btn btn-success">
+                                                            New Faculty
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <button type="button" 
+                                                        (click)="resetFac()" 
+                                                        class="btn btn-primary">
+                                                            Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <p></p>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Gender</th>
+                                <th>Department</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let f of faculties">
+                                <td>{{f.facultyId}}</td>
+                                <td>{{f.firstName}}</td>
+                                <td>{{f.lastName}}</td>
+                                <td>{{f.email}}</td>
+                                <td *ngIf="f.gender==0">Male</td>
+                                <td *ngIf="f.gender==1">Female</td>
+                                <td *ngIf="f.gender==2">Other</td>
+                                <td>{{f.departmentName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
