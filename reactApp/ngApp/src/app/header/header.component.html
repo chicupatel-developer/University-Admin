@@ -1,0 +1,60 @@
+<nav class="navbar navbar-expand-md navbar-dark" style="background-color: green;">
+    
+    <div class="mx-auto order-0">
+        <span>University</span>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" 
+            data-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class='nav-link' routerLinkActive='active' [routerLink]="['/home']">Home</a>
+            </li>        
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/department']">Department</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/faculty']">Faculty</a>
+            </li>      
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/assignment']">Assignment</a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+        <ul class="navbar-nav ml-auto">        
+            <li class="nav-item">
+                <a class='nav-link' *ngIf="!this._authService.isLoggedIn" [routerLink]="['/signin']">Login
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class='nav-link' *ngIf="!this._authService.isLoggedIn" [routerLink]="['/registration']">Register
+                </a>
+            </li>
+
+            <span *ngIf="this.localDataService.getUserName() || userName" style="font-size: xx-large; color: red;">
+                Welcome...
+            </span>
+            <!-- both needed -->
+            <span *ngIf="this.localDataService.getUserName()" style="font-size: xx-large; color: red;">
+                {{this.localDataService.getUserName()}}
+            </span>
+            <span *ngIf="userName" style="font-size: xx-large; color: red;">
+                {{userName}}
+            </span>
+            <span *ngIf="this.localDataService.getUserName() || userName"
+                style="font-size: xx-large; color: red; margin-right: 100px;">
+                !
+            </span>
+
+            <button (click)="logout()" *ngIf="this._authService.isLoggedIn" 
+                type="button" class="btn btn-danger">Logout
+            </button>
+
+        </ul>
+    </div>
+</nav>
