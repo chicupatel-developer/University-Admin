@@ -23,6 +23,8 @@ namespace Entities.Models
         public string Email { get; set; }
         public Gender Gender { get; set; }
 
+        public string PhoneNumber { get; set; }
+
         [Required]
         [ForeignKey(nameof(Department))]
         public int DepartmentId { get; set; }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "bSY8NhUwfgK6LuDCh0VbqNOzr7bjVc5RXrX8jZZRJ9y63qD4dPtkxFUWYisoaq1ij79D1WI5nGdjC2r/KGm3bg==",
+  "dgSpecHash": "HIyxVCMuJIJ1XC/+EEJHr59hxj1+lSw3+5nztPvgXxzIizZ/b2sfM9RpALdnQvA5ZmqyNgFwliuTJLzUATvDHQ==",
   "success": true,
-  "projectFilePath": "C:\\University\\Server\\UniversityAPI\\UniversityAPI\\UniversityAPI.csproj",
+  "projectFilePath": "C:\\University\\UniversityAPI\\UniversityAPI\\UniversityAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Satellite\\.nuget\\packages\\google.apis\\1.50.0\\google.apis.1.50.0.nupkg.sha512",
     "C:\\Users\\Satellite\\.nuget\\packages\\google.apis.auth\\1.50.0\\google.apis.auth.1.50.0.nupkg.sha512",

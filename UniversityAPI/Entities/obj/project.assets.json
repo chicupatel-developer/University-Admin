@@ -4953,11 +4953,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\University\\Server\\UniversityAPI\\Entities\\Entities.csproj",
+      "projectUniqueName": "C:\\University\\UniversityAPI\\Entities\\Entities.csproj",
       "projectName": "Entities",
-      "projectPath": "C:\\University\\Server\\UniversityAPI\\Entities\\Entities.csproj",
+      "projectPath": "C:\\University\\UniversityAPI\\Entities\\Entities.csproj",
       "packagesPath": "C:\\Users\\Satellite\\.nuget\\packages\\",
-      "outputPath": "C:\\University\\Server\\UniversityAPI\\Entities\\obj\\",
+      "outputPath": "C:\\University\\UniversityAPI\\Entities\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",

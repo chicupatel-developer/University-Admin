@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/AbZvLoC8sJhj7C43+lHyNfb7YL5I84EeC9DD6dIR+UZzHKoE1mOhEHVriZAdiYj7INgY11y8ZNBz2rwnkH7eQ==",
+  "dgSpecHash": "72LGKYpa0sdPAyQ+jrog/u+x3D3coXmTsZoaa6hiyKokjcWp3Nu5uY16DYCY0i+PrED1AdoouDUVsZAYVUuFDg==",
   "success": true,
-  "projectFilePath": "C:\\University\\Server\\UniversityAPI\\Entities\\Entities.csproj",
+  "projectFilePath": "C:\\University\\UniversityAPI\\Entities\\Entities.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Satellite\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\Satellite\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

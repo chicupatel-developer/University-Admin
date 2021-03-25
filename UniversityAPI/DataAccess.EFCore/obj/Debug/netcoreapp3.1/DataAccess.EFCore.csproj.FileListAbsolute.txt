@@ -10,3 +10,15 @@ C:\University\Server\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\Dat
 C:\University\Server\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.csproj.CopyComplete
 C:\University\Server\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.dll
 C:\University\Server\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.pdb
+C:\University\UniversityAPI\DataAccess.EFCore\bin\Debug\netcoreapp3.1\DataAccess.EFCore.deps.json
+C:\University\UniversityAPI\DataAccess.EFCore\bin\Debug\netcoreapp3.1\DataAccess.EFCore.dll
+C:\University\UniversityAPI\DataAccess.EFCore\bin\Debug\netcoreapp3.1\DataAccess.EFCore.pdb
+C:\University\UniversityAPI\DataAccess.EFCore\bin\Debug\netcoreapp3.1\Entities.dll
+C:\University\UniversityAPI\DataAccess.EFCore\bin\Debug\netcoreapp3.1\Entities.pdb
+C:\University\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.csprojAssemblyReference.cache
+C:\University\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.AssemblyInfoInputs.cache
+C:\University\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.AssemblyInfo.cs
+C:\University\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.csproj.CoreCompileInputs.cache
+C:\University\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.csproj.CopyComplete
+C:\University\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.dll
+C:\University\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.pdb
