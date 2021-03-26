@@ -1,4 +1,4 @@
-# DotNetCore_NG
+# DotNet Core
 
 Server side technology: .net core web api, ef core- code first, sql server, repository pattern, custom jwt authentication, google oauth2 authentication
 
