@@ -33,6 +33,7 @@ import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-logi
 import { GoogleLoginProvider } from 'angularx-social-login';
 
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { GoogleLoginProvider } from 'angularx-social-login';
     ReactiveFormsModule,
     HttpClientModule,
     AppRoutingModule,
-    SocialLoginModule
+    SocialLoginModule,
+    NgbModule
   ],
   providers: [HttpClientModule, LocalDataService, DataService, UserService, CustomValidationService, {
     provide: HTTP_INTERCEPTORS,

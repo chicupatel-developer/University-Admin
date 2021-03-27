@@ -19,6 +19,13 @@ namespace Entities.Models
         public string Details { get; set; }
 
         [Required]
+        public DateTime AsmtCreateDate { get; set; }
+
+        [Required]
+        public DateTime AsmtLastDate { get; set; }
+
+
+        [Required]
         [ForeignKey(nameof(Faculty))]
         public int FacultyId { get; set; }
 

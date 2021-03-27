@@ -4,4 +4,6 @@ export default class Assignment {
     details: string;
     facultyId: number;
     facultyName: string;
+    asmtCreateDate: Date;
+    asmtLastDate: Date;
 }

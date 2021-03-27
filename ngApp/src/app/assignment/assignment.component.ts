@@ -10,6 +10,7 @@ import AssignmentCreate from '../models/assignmentCreate';
 import AsmtFacDept from '../models/asmtFacDept';
 import Department from '../models/department';
 
+
 @Component({
   selector: 'app-assignment',
   templateUrl: './assignment.component.html',
@@ -28,7 +29,7 @@ export class AssignmentComponent implements OnInit {
   apiResponse = '';
 
   asmtDetailsPanel = false;
-
+  
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
   // ok
@@ -38,13 +39,16 @@ export class AssignmentComponent implements OnInit {
       Title: ['', Validators.required],
       Details: ['', Validators.required],
       DepartmentId: ['', Validators.required],
-      FacultyId: ['', Validators.required]
+      FacultyId: ['', Validators.required],
+      AsmtLastDate: ['', Validators.required]
     })
 
     this.loadDept();
     this.loadAsmtFacDept();
   }
   
+
+
   // ok
   changeDepartment(e) {
     this.loadFacs(e.target.value);
@@ -102,11 +106,16 @@ export class AssignmentComponent implements OnInit {
 
   // ok
   onSubmit(): void {
+
+    console.log(this.asmtForm.value["AsmtLastDate"].year);
+
     this.submitted = true;
     if (this.asmtForm.valid) {
       this.assignmentModel.title = this.asmtForm.value["Title"];
       this.assignmentModel.details = this.asmtForm.value["Details"];
       this.assignmentModel.facultyId = Number(this.asmtForm.value["FacultyId"]);
+      this.assignmentModel.asmtLastDate = new Date( this.asmtForm.value["AsmtLastDate"].year + '/' + this.asmtForm.value["AsmtLastDate"].month + '/' + this.asmtForm.value["AsmtLastDate"].day);
+      this.assignmentModel.asmtCreateDate = new Date();
 
       // retrive asmtUploadId from local-data service
       this.assignmentModel.asmtUploadId = this.localDataService.getAsmtUploadId();

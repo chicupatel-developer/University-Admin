@@ -3,4 +3,6 @@ export default class AssignmentCreate {
     details: string;
     facultyId: number;
     asmtUploadId: number;
+    asmtCreateDate: Date;
+    asmtLastDate: Date;
 }
