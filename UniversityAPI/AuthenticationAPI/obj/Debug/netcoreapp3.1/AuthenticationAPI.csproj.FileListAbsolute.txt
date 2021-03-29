@@ -87,7 +87,6 @@ C:\University\UniversityAPI\AuthenticationAPI\bin\Debug\netcoreapp3.1\runtimes\w
 C:\University\UniversityAPI\AuthenticationAPI\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\University\UniversityAPI\AuthenticationAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\University\UniversityAPI\AuthenticationAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
-C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\AuthenticationAPI.csprojAssemblyReference.cache
 C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\AuthenticationAPI.AssemblyInfoInputs.cache
 C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\AuthenticationAPI.AssemblyInfo.cs
 C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\AuthenticationAPI.csproj.CoreCompileInputs.cache
@@ -100,3 +99,4 @@ C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\Authentica
 C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\AuthenticationAPI.dll
 C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\AuthenticationAPI.pdb
 C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\AuthenticationAPI.genruntimeconfig.cache
+C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\AuthenticationAPI.csprojAssemblyReference.cache

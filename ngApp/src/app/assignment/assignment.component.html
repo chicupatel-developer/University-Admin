@@ -141,17 +141,19 @@
                                 <th>#</th>
                                 <th>Title</th>
                                 <th>Details</th>
-                                <th>By Faculty</th>
-                                <th>From Department</th>
+                                <th>Fac. / Dept.</th>
+                                <th>Last Submission Date</th>
+                                <th>Asmt. File</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let a of assignments">
                                 <td>{{a.assignmentId}}</td>
                                 <td>{{a.title}}</td>
-                                <td>{{a.details}}</td>
-                                <td>{{a.facultyName}}</td>
-                                <td>{{a.departmentId}} ) {{a.departmentName}}</td>
+                                <td>{{formatingDetails(a)}}</td>                          
+                                <td>{{formatingFacDeptName(a)}}</td>
+                                <td>{{a.asmtLastDate | date : "dd-MMM-y"}}</td>
+                                <td>{{a.asmtFileName}}</td>
                             </tr>
                         </tbody>
                     </table>

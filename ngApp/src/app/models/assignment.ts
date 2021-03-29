@@ -6,4 +6,5 @@ export default class Assignment {
     facultyName: string;
     asmtCreateDate: Date;
     asmtLastDate: Date;
+    asmtFileName: string;
 }

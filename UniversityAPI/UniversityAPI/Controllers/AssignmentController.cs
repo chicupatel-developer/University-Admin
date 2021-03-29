@@ -102,13 +102,19 @@ namespace UniversityAPI.Controllers
             {
                 string asmtStoragePath = _configuration.GetSection("AsmtUploadLocation").GetSection("Path").Value;
 
+                // unique random number to edit file name
+                var guid = Guid.NewGuid();
+                var bytes = guid.ToByteArray();
+                var rawValue = BitConverter.ToInt64(bytes, 0);
+                var inRangeValue = Math.Abs(rawValue) % DateTime.MaxValue.Ticks;
+
 
                 var file = Request.Form.Files[0];
                 var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), asmtStoragePath);
 
                 if (file.Length > 0)
                 {
-                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fileName = inRangeValue + "_" + ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
                     var fullPath = Path.Combine(pathToSave, fileName);                    
 
                     using (var stream = new FileStream(fullPath, FileMode.Create))

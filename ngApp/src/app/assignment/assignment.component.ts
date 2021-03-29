@@ -47,7 +47,45 @@ export class AssignmentComponent implements OnInit {
     this.loadAsmtFacDept();
   }
   
+  // ok
+  // format fac. / dept. column
+  formatingFacDeptName(a){
+    var editedFacName = '';
+    var editedDeptName = '';
 
+    // faculty name
+    if(a.facultyName.length>=8){
+      editedFacName = a.facultyName.substring(0, 7) +'...';
+    }
+    else{
+      editedFacName = a.facultyName;
+    }
+
+    // department name
+    if (a.departmentName.length >= 6) {
+      editedDeptName = a.departmentName.substring(0, 5) + '...';
+    }
+    else {
+      editedDeptName = a.departmentName;
+    }
+
+    return editedFacName + ' / ' + editedDeptName;
+  }
+
+  // ok
+  // format details column
+  formatingDetails(a) {
+    var editedDetails = '';
+
+    if (a.details.length >= 21) {
+      editedDetails = a.details.substring(0, 20) + '...';
+    }
+    else {
+      editedDetails = a.details;
+    }
+
+    return editedDetails;
+  }
 
   // ok
   changeDepartment(e) {
@@ -133,6 +171,9 @@ export class AssignmentComponent implements OnInit {
               // fail
               // display error message
               this.apiResponse = res.responseCode + ' : ' + res.responseMessage;
+
+              this.asmtForm.reset();
+              this.submitted = false;
             }
           },
           error => {

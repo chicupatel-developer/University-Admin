@@ -61,7 +61,7 @@ namespace DataAccess.EFCore.Repositories
             if (appDbContext.Assignments.Count() >= 1)
             {
                 foreach(var asmt in appDbContext.Assignments.Include(x=>x.Faculty).Include(y=>y.Faculty.Department))
-                {                  
+                {
                     AsmtFacDeptVM data = new AsmtFacDeptVM()
                     {
                         AssignmentId = asmt.AssignmentId,
@@ -70,10 +70,24 @@ namespace DataAccess.EFCore.Repositories
                         FacultyId = asmt.FacultyId,
                         FacultyName = asmt.Faculty.FirstName + ", " + asmt.Faculty.LastName,
                         DepartmentId = asmt.Faculty.DepartmentId,
-                        DepartmentName = asmt.Faculty.Department.DepartmentName
+                        DepartmentName = asmt.Faculty.Department.DepartmentName,
+                        AsmtCreateDate = asmt.AsmtCreateDate,
+                        AsmtLastDate = asmt.AsmtLastDate,
+                        AsmtUploadId = asmt.AsmtUploadId
                     };
                     datas.Add(data);
                 }
+
+                // load asmt. file name
+                foreach(var asmt in datas)
+                {
+                    var asmtFileName = appDbContext.AsmtUploads.Where(x => x.AsmtUploadId == asmt.AsmtUploadId).FirstOrDefault();
+                    if (asmtFileName != null)
+                    {
+                        asmt.AsmtFileName = asmtFileName.FileName;
+                    }
+                }
+
             }
             else
             {
