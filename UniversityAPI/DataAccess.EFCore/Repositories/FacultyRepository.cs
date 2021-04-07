@@ -5,28 +5,26 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Entities.DTO;
 
 namespace DataAccess.EFCore.Repositories
 {
-    public class CourseRepository : ICourseRepository
+    public class FacultyRepository : IFacultyRepository
     {
         private readonly UniversityContext appDbContext;
 
-        public CourseRepository(UniversityContext appDbContext)
+        public FacultyRepository(UniversityContext appDbContext)
         {
             this.appDbContext = appDbContext;
         }
 
-        public IEnumerable<CourseListVM> GetCourses()
+        public IEnumerable<Faculty> GetFaculties()
         {
-            // return appDbContext.Faculties.ToList();
-            return null;
+            return appDbContext.Faculties.ToList();
         }
 
-        public Course AddCourse(Course course)
+        public Faculty AddFaculty(Faculty faculty)
         {
-            var result = appDbContext.Courses.Add(course);
+            var result = appDbContext.Faculties.Add(faculty);
             appDbContext.SaveChanges();
             return result.Entity;
         }
