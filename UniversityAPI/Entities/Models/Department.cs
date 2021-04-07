@@ -16,5 +16,6 @@ namespace Entities.Models
         [Required]
         public string DepartmentName { get; set; }
         public ICollection<Faculty> Faculties { get; set; }
+        public ICollection<Course> Courses { get; set; }
     }
 }

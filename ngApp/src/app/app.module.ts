@@ -34,6 +34,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CourseComponent } from './course/course.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     UploadComponent,
     DepartmentComponent,
     FacultyComponent,
-    AssignmentComponent
+    AssignmentComponent,
+    CourseComponent
   ],
   imports: [
     BrowserModule,

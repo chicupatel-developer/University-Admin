@@ -73,6 +73,30 @@ namespace DataAccess.EFCore.Migrations
                     b.ToTable("Assignments");
                 });
 
+            modelBuilder.Entity("Entities.Models.Course", b =>
+                {
+                    b.Property<int>("CouseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CouseName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DepartmentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FacultyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CouseId");
+
+                    b.HasIndex("DepartmentId");
+
+                    b.ToTable("Courses");
+                });
+
             modelBuilder.Entity("Entities.Models.Department", b =>
                 {
                     b.Property<int>("DepartmentId")
@@ -129,6 +153,15 @@ namespace DataAccess.EFCore.Migrations
                     b.HasOne("Entities.Models.Faculty", "Faculty")
                         .WithMany("Assignments")
                         .HasForeignKey("FacultyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.Models.Course", b =>
+                {
+                    b.HasOne("Entities.Models.Department", "Department")
+                        .WithMany("Courses")
+                        .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

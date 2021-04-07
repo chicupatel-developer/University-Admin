@@ -15,5 +15,6 @@ namespace DataAccess.EFCore
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<AsmtUpload> AsmtUploads { get; set; }
+        public DbSet<Course> Courses { get; set; }
     }
 }
