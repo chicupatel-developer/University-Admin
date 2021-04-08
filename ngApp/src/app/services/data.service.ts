@@ -7,6 +7,7 @@ import Faculty from '../models/faculty';
 import  Assignment  from '../models/assignment';
 import FacultyList from '../models/facultyList';
 import AsmtFacDept from '../models/asmtFacDept';
+import CourseListVM from '../models/courseView';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class DataService {
   public DEPARTMENT_API = `${this.API}/api/department`;
   public FACULTY_API = `${this.API}/api/faculty`;
   public ASSIGNMENT_API = `${this.API}/api/assignment`;
+  public COURSE_API = `${this.API}/api/course`;
 
   constructor(private http: HttpClient, public localDataService: LocalDataService) { }
 
@@ -62,6 +64,17 @@ export class DataService {
       observe: 'events'
     });
   }
+
+  //////////// course
+  // list course
+  getCourses(): Observable<Array<CourseListVM>> {
+    return this.http.get<Array<CourseListVM>>(this.COURSE_API + '/allCourses');
+  }
+  // add course
+  addCourse(courseModel): Observable<any> {
+    return this.http.post(this.COURSE_API + '/addCourse', courseModel)
+  }
+  
   //////////////// university api end
 
 

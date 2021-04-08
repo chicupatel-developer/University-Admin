@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-
 ////////components
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,6 +16,7 @@ import { UploadComponent } from './upload/upload.component';
 import { DepartmentComponent } from './department/department.component';
 import { FacultyComponent } from './faculty/faculty.component';
 import { AssignmentComponent } from './assignment/assignment.component';
+import { CourseComponent } from './course/course.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -32,9 +32,10 @@ import { CustomValidationService } from './services/custom-validation.service';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 
-
+////////bootstrap
+///////date-picker ngbDatepicker
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CourseComponent } from './course/course.component';
+
 
 
 @NgModule({

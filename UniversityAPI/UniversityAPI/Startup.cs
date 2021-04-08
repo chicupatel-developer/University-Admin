@@ -50,6 +50,7 @@ namespace UniversityAPI
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
             services.AddTransient<IFacultyRepository, FacultyRepository>();
             services.AddTransient<IAssignmentRepository, AssignmentRepository>();
+            services.AddTransient<ICourseRepository, CourseRepository>();
             #endregion
 
             #region token configuration

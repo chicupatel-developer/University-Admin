@@ -1,3 +1,8 @@
 ﻿Add-Migration Assignment_Edit -context DataAccess.EFCore.UniversityContext -OutputDir Migrations
 update-database -context DataAccess.EFCore.UniversityContext
 
+// course can not exist without department and faculty
+// one course can connect with one department and one faculty
+// department has multiple courses and faculties
+// faculty can have multiple or zero course(s)
+// faculty can not exist without department

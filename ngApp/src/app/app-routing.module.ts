@@ -3,13 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 
 import { AuthGuard } from './auth/auth.guard';
+
 import { SigninComponent } from './signin/signin.component';
 import { RegistrationComponent } from './registration/registration.component';
-
 import { HomeComponent } from './home/home.component';
 import { DepartmentComponent } from './department/department.component';
 import { FacultyComponent } from './faculty/faculty.component';
 import { AssignmentComponent } from './assignment/assignment.component';
+import { CourseComponent } from './course/course.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'department', component: DepartmentComponent, canActivate: [AuthGuard] },
   { path: 'faculty', component: FacultyComponent, canActivate: [AuthGuard] },
   { path: 'assignment', component: AssignmentComponent, canActivate: [AuthGuard] },
+  { path: 'course', component: CourseComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
