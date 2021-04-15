@@ -11,6 +11,7 @@ import { DepartmentComponent } from './department/department.component';
 import { FacultyComponent } from './faculty/faculty.component';
 import { AssignmentComponent } from './assignment/assignment.component';
 import { CourseComponent } from './course/course.component';
+import { DepartmentEditComponent } from './department-edit/department-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'faculty', component: FacultyComponent, canActivate: [AuthGuard] },
   { path: 'assignment', component: AssignmentComponent, canActivate: [AuthGuard] },
   { path: 'course', component: CourseComponent, canActivate: [AuthGuard] },
+  { path: 'department-edit/:id', component: DepartmentEditComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

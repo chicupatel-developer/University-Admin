@@ -10,6 +10,7 @@ namespace Entities.Interfaces
         IEnumerable<Department> GetAllDepartments();
         IEnumerable<Department> GetDepartments();
         Department AddDepartment(Department department);
+        Department GetDepartment(int deptId);
     }
   
 }

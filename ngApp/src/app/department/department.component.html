@@ -1,3 +1,5 @@
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
 <div class="container">
     <div class="row">
         <div class="col-md-10 mx-auto">
@@ -62,15 +64,41 @@
                     </div>
                     <table class="table table-striped">
                         <thead>
-                            <tr>
+                            <tr>                                
                                 <th>#</th>
                                 <th>Department Name</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let d of departments">
+                            <tr *ngFor="let d of departments">                       
                                 <td>{{d.departmentId}}</td>
-                                <td>{{d.departmentName}}</td>
+                                <td>
+                                    {{d.departmentName}}                                 
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-1"></div>
+                                        <div class="col-1">
+                                            <button type="button" 
+                                                (click)="editDept(d)" 
+                                                class="btn btn-primary">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-1"></div>
+                                        <div class="col-1">
+                                            <button type="button" 
+                                                (click)="removeDept(d)" 
+                                                class="btn btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-8"></div>
+                                    </div>
+
+                                   
+                                </td>
                             </tr>
                         </tbody>
                     </table>

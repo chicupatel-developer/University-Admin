@@ -33,6 +33,14 @@ export class DataService {
   addDept(departmentModel): Observable<any> {
     return this.http.post(this.DEPARTMENT_API + '/addDepartment', departmentModel)
   }
+  // edit department
+  getDepartment(selectedDeptId: number): Observable<Department> {
+    return this.http.get<Department>(this.DEPARTMENT_API + '/getDepartment/' + selectedDeptId);
+  }
+  // edit department in action
+  updateDept(id, data): Observable<any> {
+    return this.http.post(this.DEPARTMENT_API + '/editDepartment' + `/${id}`, data);
+  }
 
   //////////// faculty
   // list faculty

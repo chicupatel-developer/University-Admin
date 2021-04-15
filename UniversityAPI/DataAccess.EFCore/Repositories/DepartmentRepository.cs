@@ -32,7 +32,13 @@ namespace DataAccess.EFCore.Repositories
             var result = appDbContext.Departments.Add(department);
             appDbContext.SaveChanges();
             return result.Entity;
-        }               
-    
+        }      
+        
+        public Department GetDepartment(int deptId)
+        {
+            var dept = appDbContext.Departments.Where(x => x.DepartmentId == deptId).FirstOrDefault();
+            return dept;
+        }
+
     }
 }

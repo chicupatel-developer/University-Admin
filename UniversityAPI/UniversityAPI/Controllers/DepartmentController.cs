@@ -56,5 +56,14 @@ namespace UniversityAPI.Controllers
             }
             return Ok(_response);
         }
+
+        // ok
+        [HttpGet]
+        [Route("getDepartment/{selectedDeptId}")]
+        public IActionResult GetDepartment(int selectedDeptId)
+        {
+            var dept = _deptRepo.GetDepartment(selectedDeptId);
+            return Ok(dept);
+        }
     }
 }

@@ -21,6 +21,15 @@ export class DepartmentComponent implements OnInit {
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
+  editDept(editDepartment){
+    // redirect to department-edit component
+    this.router.navigate(['/department-edit/'+ editDepartment.departmentId]);
+  }
+  removeDept(removeDepartment){
+
+  }
+
+
   // ok
   ngOnInit() {
 
