@@ -11,6 +11,7 @@ namespace Entities.Interfaces
         IEnumerable<Department> GetDepartments();
         Department AddDepartment(Department department);
         Department GetDepartment(int deptId);
+        Department EditDepartment(Department department);
     }
   
 }

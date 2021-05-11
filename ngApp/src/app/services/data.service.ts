@@ -38,8 +38,8 @@ export class DataService {
     return this.http.get<Department>(this.DEPARTMENT_API + '/getDepartment/' + selectedDeptId);
   }
   // edit department in action
-  updateDept(id, data): Observable<any> {
-    return this.http.post(this.DEPARTMENT_API + '/editDepartment' + `/${id}`, data);
+  editDept(data): Observable<any> {
+    return this.http.post(this.DEPARTMENT_API + '/editDepartment' , data);
   }
 
   //////////// faculty

@@ -1,1 +1,47 @@
-<p>department-edit works!</p>
+<div class="container">
+    <div class="col-md-5 mx-auto">
+        <div class="card">
+            <div class="card-header">              
+                <h3>Edit Department</h3>   
+                <h4 *ngIf="apiResponse">
+                    <span [style.color]="responseColor">
+                        {{apiResponse}}
+                    </span>
+                </h4>
+            </div>
+            <div class="card-body" *ngIf="editDeptPanel">
+                <form class="form-dept" 
+                    [formGroup]="deptForm" 
+                    (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>Department Name</label>
+                        <input type="text" 
+                            class="form-control" 
+                            formControlName="DepartmentName">
+                        <span class="text-danger"
+                            *ngIf="(deptFormControl.DepartmentName.touched || submitted) && deptFormControl.DepartmentName.errors?.required">
+                            Department Name is required
+                        </span>
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <button type="submit" 
+                                    class="btn btn-success">
+                                    Edit
+                                </button>
+                            </div>  
+                            <div class="col-sm-6">
+                                <button type="button" 
+                                    (click)="resetDept()" 
+                                    class="btn btn-primary">
+                                    Cancel
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

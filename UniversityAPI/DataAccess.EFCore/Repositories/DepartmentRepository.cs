@@ -40,5 +40,19 @@ namespace DataAccess.EFCore.Repositories
             return dept;
         }
 
+        public Department EditDepartment(Department department)
+        {
+            var result = appDbContext.Departments.Where(x => x.DepartmentId == department.DepartmentId).FirstOrDefault();
+            if (result != null)
+            {
+                result.DepartmentName = department.DepartmentName;
+                appDbContext.SaveChanges();
+                return department;
+                // return null;
+            }
+            else{
+                return null;
+            }            
+        }
     }
 }

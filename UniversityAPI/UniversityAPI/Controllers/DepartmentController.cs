@@ -58,12 +58,47 @@ namespace UniversityAPI.Controllers
         }
 
         // ok
+        // edit department
         [HttpGet]
         [Route("getDepartment/{selectedDeptId}")]
         public IActionResult GetDepartment(int selectedDeptId)
         {
             var dept = _deptRepo.GetDepartment(selectedDeptId);
             return Ok(dept);
+        }
+        // ok
+        [HttpPost]
+        [Route("editDepartment")]
+        public IActionResult EditDepartment(Department department)
+        {
+            _response = new APIResponse();
+            try
+            {
+                // throw new Exception();
+                Department editedDepartment = _deptRepo.EditDepartment(department);
+                if (editedDepartment == null)
+                {
+                    // department not found
+                    // data mis-match either at client or server side
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Department Not Found @ Server Side!";
+                    _response.ResponseError = "Department Not Found @ Server Side!";
+                }
+                else
+                {
+                    // success
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "Department Edited Successfully!";
+                    _response.ResponseError = null;
+                }               
+            }
+            catch (Exception ex)
+            {
+                _response.ResponseCode = -1;
+                _response.ResponseMessage = "Server Error!";
+                _response.ResponseError = ex.Message.ToString();
+            }
+            return Ok(_response);
         }
     }
 }

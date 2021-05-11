@@ -32,11 +32,9 @@ export class DepartmentComponent implements OnInit {
 
   // ok
   ngOnInit() {
-
     this.deptForm = this.fb.group({
       DepartmentName: ['', Validators.required]
     })
-
     this.loadDepts();  
   }
 
