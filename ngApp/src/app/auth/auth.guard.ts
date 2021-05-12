@@ -14,7 +14,16 @@ export class AuthGuard implements CanActivate {
         next: ActivatedRouteSnapshot,
         state: RouterStateSnapshot): boolean {
         if (localStorage.getItem('token') != null)
-            return true;
+        {
+            const expiry = (JSON.parse(atob(localStorage.getItem('token').split('.')[1]))).exp;
+            if ((Math.floor((new Date).getTime() / 1000)) >= expiry) {                
+                this.router.navigate(['/signin']);
+                return false;
+            }
+            else {
+                return true;
+            }
+        }            
         else {
             this.router.navigate(['/signin']);
             return false;

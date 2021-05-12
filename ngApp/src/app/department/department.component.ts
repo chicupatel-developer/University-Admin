@@ -21,14 +21,23 @@ export class DepartmentComponent implements OnInit {
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
+  // ok
   editDept(editDepartment){
     // redirect to department-edit component
     this.router.navigate(['/department-edit/'+ editDepartment.departmentId]);
   }
+
+  // wip
   removeDept(removeDepartment){
-
+    this.dataService.removeDepartment(Number(removeDepartment.departmentId))
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
   }
-
 
   // ok
   ngOnInit() {
@@ -47,6 +56,8 @@ export class DepartmentComponent implements OnInit {
         },
         error => {
           console.log(error);
+
+          console.log('token expires...');
       });
   }
 

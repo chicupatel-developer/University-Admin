@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
+using Entities.DTO;
 
 namespace DataAccess.EFCore.Repositories
 {
@@ -53,6 +54,68 @@ namespace DataAccess.EFCore.Repositories
             else{
                 return null;
             }            
+        }
+
+        public DeptRemoveVM RemoveDepartment(int deptId)
+        {
+            DeptRemoveVM deptRemoveVM = new DeptRemoveVM();
+            List<FacultyRemoveVM> faculties = new List<FacultyRemoveVM>();
+            List<CourseRemoveVM> courses = new List<CourseRemoveVM>();
+            deptRemoveVM.DependingFaculties = faculties;
+            deptRemoveVM.DependingCourses = courses;
+
+            // check for faculty dependancy
+            var facs = appDbContext.Faculties.Where(x => x.DepartmentId == deptId);
+            if (facs != null)
+            {
+                // faculty found
+                // send warning to user @ department remove action
+                foreach(var fac in facs)
+                {
+                    faculties.Add(new FacultyRemoveVM 
+                        {   FacultyId = fac.FacultyId, 
+                            Name = fac.FirstName + ", " + fac.LastName 
+                        });
+                }
+            }
+            else
+            {
+            }
+
+            // check for course dependancy
+            var crs = appDbContext.Courses.Where(x => x.DepartmentId == deptId);
+            if (crs != null)
+            {
+                // course found
+                // send warning to user @ department remove action
+                foreach (var cr in crs)
+                {
+                    courses.Add(new CourseRemoveVM
+                    {
+                        CourseId = cr.CouseId,
+                        Name = cr.CouseName
+                    });
+                }
+            }
+            else
+            {
+            }
+
+            if ((deptRemoveVM.DependingFaculties.Count() >= 1) || (deptRemoveVM.DependingCourses.Count() >= 1) )
+            {
+                deptRemoveVM.ErrorCode = -1;
+                deptRemoveVM.ErrorMessage = "Database Dependancy Found. Force Remove Action?";
+                deptRemoveVM.DepartmentId = deptId;
+                deptRemoveVM.DepartmentName = appDbContext.Departments.Where(x => x.DepartmentId == deptId).FirstOrDefault().DepartmentName;
+            }
+            else
+            {
+                deptRemoveVM.ErrorCode = 0;
+                deptRemoveVM.ErrorMessage = "Ready To Remove Department?";
+                deptRemoveVM.DepartmentId = deptId;
+                deptRemoveVM.DepartmentName = appDbContext.Departments.Where(x => x.DepartmentId == deptId).FirstOrDefault().DepartmentName;
+            }
+            return deptRemoveVM;
         }
     }
 }

@@ -166,6 +166,7 @@ namespace UniversityAPI.Controllers
                                   issuer: _configuration["JWT:ValidIssuer"],
                                   audience: _configuration["JWT:ValidAudience"],
                                   expires: DateTime.Now.AddHours(3),
+                                  // expires: DateTime.UtcNow.AddSeconds(30),
                                   claims: authClaims,
                                   signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                                );

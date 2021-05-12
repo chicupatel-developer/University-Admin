@@ -100,5 +100,15 @@ namespace UniversityAPI.Controllers
             }
             return Ok(_response);
         }
+
+        // ok
+        // remove department
+        [HttpGet]
+        [Route("removeDepartment/{selectedDeptId}")]
+        public IActionResult RemoveDepartment(int selectedDeptId)
+        {
+            var dept = _deptRepo.RemoveDepartment(selectedDeptId);
+            return Ok(dept);
+        }
     }
 }

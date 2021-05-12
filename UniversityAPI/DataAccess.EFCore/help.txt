@@ -6,3 +6,9 @@ update-database -context DataAccess.EFCore.UniversityContext
 // department has multiple courses and faculties
 // faculty can have multiple or zero course(s)
 // faculty can not exist without department
+// department - faculty - course
+// sequence...
+// first create department
+// second create faculty... faculty needs only department
+// third create course... course needs both department and faculty
+
