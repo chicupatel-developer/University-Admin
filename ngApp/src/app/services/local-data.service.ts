@@ -10,7 +10,19 @@ export class LocalDataService {
   private RegisterMessage;
   private AsmtUploadId;
 
+  private DeptRemoveVM;
+
+
   constructor() { }
+
+  // department-remove
+  setDeptRemoveVM(val) {
+    this.DeptRemoveVM = val;
+  }
+  getDeptRemoveVM() {
+    return this.DeptRemoveVM;
+  }
+
 
   // login
   setUserName(val) {

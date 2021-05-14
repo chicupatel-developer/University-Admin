@@ -18,6 +18,7 @@ import { FacultyComponent } from './faculty/faculty.component';
 import { AssignmentComponent } from './assignment/assignment.component';
 import { CourseComponent } from './course/course.component';
 import { DepartmentEditComponent } from './department-edit/department-edit.component';
+import { DepartmentRemoveComponent } from './department-remove/department-remove.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -40,6 +41,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,7 +54,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FacultyComponent,
     AssignmentComponent,
     CourseComponent,
-    DepartmentEditComponent
+    DepartmentEditComponent,
+    DepartmentRemoveComponent
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {LocalDataService} from '../services/local-data.service';
+
 @Component({
   selector: 'app-department',
   templateUrl: './department.component.html',
@@ -17,7 +18,7 @@ export class DepartmentComponent implements OnInit {
   submitted = false;
   departmentModel = new Department();
   newDeptAddPanel = false;
-  apiResponse = '';
+  apiResponse = '';  
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
@@ -31,8 +32,9 @@ export class DepartmentComponent implements OnInit {
   removeDept(removeDepartment){
     this.dataService.removeDepartment(Number(removeDepartment.departmentId))
       .subscribe(
-        data => {
-          console.log(data);
+        data => {       
+          this.localDataService.setDeptRemoveVM(data);
+          this.router.navigate(['/department-remove']);
         },
         error => {
           console.log(error);

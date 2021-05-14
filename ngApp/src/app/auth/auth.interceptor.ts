@@ -24,8 +24,23 @@ export class AuthInterceptor implements HttpInterceptor {
                 Authorization: "Bearer " + token
             }
         });
+
+        // added
+        return next.handle(req).pipe(
+            tap(
+                succ => { },
+                err => {
+                    if (err.status == 401) {
+                        localStorage.removeItem('token');
+                        this.router.navigateByUrl('/signin');
+                    }
+                }
+            )
+        )
         console.log('interceptor...'+token);
-        return next.handle(req);
+
+        // removed
+        // return next.handle(req);
 
 
 
