@@ -61,6 +61,7 @@ namespace DataAccess.EFCore.Repositories
             DeptRemoveVM deptRemoveVM = new DeptRemoveVM();
             List<FacultyRemoveVM> faculties = new List<FacultyRemoveVM>();
             List<CourseRemoveVM> courses = new List<CourseRemoveVM>();
+            
             deptRemoveVM.DependingFaculties = faculties;
             deptRemoveVM.DependingCourses = courses;
 
@@ -72,10 +73,37 @@ namespace DataAccess.EFCore.Repositories
                 // send warning to user @ department remove action
                 foreach(var fac in facs)
                 {
-                    faculties.Add(new FacultyRemoveVM 
-                        {   FacultyId = fac.FacultyId, 
-                            Name = fac.FirstName + ", " + fac.LastName 
+                    // check for assignment dependancy
+                    var asmts = appDbContext.Assignments.Where(y => y.FacultyId == fac.FacultyId);
+                    if (asmts != null)
+                    {
+                        List<AssignmentRemoveVM> assignments = new List<AssignmentRemoveVM>();
+                        // assignment found
+                        // send warning to user @ department remove action
+                        foreach (var asmt in asmts)
+                        {
+                            assignments.Add(new AssignmentRemoveVM
+                            {
+                                AssignmentId = asmt.AssignmentId,
+                                AsmtUploadId = asmt.AsmtUploadId,
+                                Title = asmt.Title
+                            });
+                        }
+                        faculties.Add(new FacultyRemoveVM
+                        {
+                            FacultyId = fac.FacultyId,
+                            Name = fac.FirstName + ", " + fac.LastName,
+                            DependingAssignments = assignments
                         });
+                    }
+                    else
+                    {
+                        faculties.Add(new FacultyRemoveVM
+                        {
+                            FacultyId = fac.FacultyId,
+                            Name = fac.FirstName + ", " + fac.LastName
+                        });
+                    }                  
                 }
             }
             else

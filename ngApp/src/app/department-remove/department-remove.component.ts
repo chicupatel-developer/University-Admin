@@ -36,4 +36,7 @@ export class DepartmentRemoveComponent implements OnInit {
     }
   }
 
+  removeDept(deptRemoveVM){
+    console.log(deptRemoveVM);
+  }
 }

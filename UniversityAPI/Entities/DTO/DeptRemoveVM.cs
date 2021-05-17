@@ -21,10 +21,18 @@ namespace Entities.DTO
     {
         public int FacultyId { get; set; }
         public string Name { get; set; }
+        public List<AssignmentRemoveVM> DependingAssignments { get; set; }
     }
     public class CourseRemoveVM
     {
         public int CourseId { get; set; }
         public string Name { get; set; }
+    }
+
+    public class AssignmentRemoveVM
+    {
+        public int AssignmentId { get; set; }
+        public int AsmtUploadId { get; set; }
+        public string Title { get; set; }
     }
 }
