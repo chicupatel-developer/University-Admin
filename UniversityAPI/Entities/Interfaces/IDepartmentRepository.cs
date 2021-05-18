@@ -13,8 +13,8 @@ namespace Entities.Interfaces
         Department AddDepartment(Department department);
         Department GetDepartment(int deptId);
         Department EditDepartment(Department department);
-        DeptRemoveVM RemoveDepartment(int deptId);
-        
+        DeptRemoveVM InitializeRemoveDepartment(int deptId);
+        bool RemoveDepartment(DeptRemoveVM department);
     }
   
 }

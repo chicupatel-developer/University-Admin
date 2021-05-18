@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UniversityAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Entities.DTO;
 
 namespace UniversityAPI.Controllers
 {
@@ -104,11 +105,47 @@ namespace UniversityAPI.Controllers
         // ok
         // remove department
         [HttpGet]
-        [Route("removeDepartment/{selectedDeptId}")]
-        public IActionResult RemoveDepartment(int selectedDeptId)
+        [Route("initializeRemoveDepartment/{selectedDeptId}")]
+        public IActionResult InitializeRemoveDepartment(int selectedDeptId)
         {
-            var dept = _deptRepo.RemoveDepartment(selectedDeptId);
+            var dept = _deptRepo.InitializeRemoveDepartment(selectedDeptId);
             return Ok(dept);
         }
+
+
+        // ok
+        [HttpPost]
+        [Route("removeDepartment")]
+        public IActionResult RemoveDepartment(DeptRemoveVM department)
+        {
+            _response = new APIResponse();
+            try
+            {
+                // throw new Exception();
+                bool result = _deptRepo.RemoveDepartment(department);
+                if (result)
+                {
+                    // success
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "Department Removed Successfully!";
+                    _response.ResponseError = null;                   
+                }
+                else
+                {
+                    // fail
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Server Error while removing Department!";
+                    _response.ResponseError = "Server Error while removing Department!";
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.ResponseCode = -1;
+                _response.ResponseMessage = "Server Error while removing Department!";
+                _response.ResponseError = "Server Error while removing Department!";
+            }
+            return Ok(_response);
+        }
+
     }
 }

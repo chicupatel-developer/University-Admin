@@ -30,7 +30,7 @@ export class DepartmentComponent implements OnInit {
 
   // wip
   removeDept(removeDepartment){
-    this.dataService.removeDepartment(Number(removeDepartment.departmentId))
+    this.dataService.initializeRemoveDepartment(Number(removeDepartment.departmentId))
       .subscribe(
         data => {       
           this.localDataService.setDeptRemoveVM(data);

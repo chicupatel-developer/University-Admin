@@ -9,7 +9,7 @@ import { UserService } from "../services/user.service";
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-    constructor(private router: Router, private userService: UserService) 
+    constructor( private router: Router, private userService: UserService)
     {
 
     }
@@ -25,22 +25,8 @@ export class AuthInterceptor implements HttpInterceptor {
             }
         });
 
-        // added
-        return next.handle(req).pipe(
-            tap(
-                succ => { },
-                err => {
-                    if (err.status == 401) {
-                        localStorage.removeItem('token');
-                        this.router.navigateByUrl('/signin');
-                    }
-                }
-            )
-        )
         console.log('interceptor...'+token);
-
-        // removed
-        // return next.handle(req);
+        return next.handle(req);
 
 
 

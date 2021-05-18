@@ -41,9 +41,13 @@ export class DataService {
   editDept(data): Observable<any> {
     return this.http.post(this.DEPARTMENT_API + '/editDepartment' , data);
   }
-  // remove department
-  removeDepartment(selectedDeptId: number): Observable<any> {
-    return this.http.get<any>(this.DEPARTMENT_API + '/removeDepartment/' + selectedDeptId);
+  // initialise remove department
+  initializeRemoveDepartment(selectedDeptId: number): Observable<any> {
+    return this.http.get<any>(this.DEPARTMENT_API + '/initializeRemoveDepartment/' + selectedDeptId);
+  }
+  // remove department in action
+  removeDepartment(data): Observable<any> {
+    return this.http.post(this.DEPARTMENT_API + '/removeDepartment', data);
   }
 
   //////////// faculty

@@ -8,8 +8,6 @@ import { Observable } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
 
-  strings: Array<string>;
-
   constructor() { }
 
   ngOnInit() {  

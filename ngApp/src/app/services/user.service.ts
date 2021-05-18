@@ -47,25 +47,9 @@ export class UserService {
   }
 
   // ok
-  get isLoggedIn(): boolean {
-    let authToken = localStorage.getItem('token');
-    if(authToken!=null){
-      const expiry = (JSON.parse(atob(localStorage.getItem('token').split('.')[1]))).exp;
-      if ((Math.floor((new Date).getTime() / 1000)) >= expiry) {   
-        this.doLogout();     
-        return false;
-      }
-      else {
-        return true;
-      }
-    }
-    else{
-      return false;
-    }
-    /*
+  get isLoggedIn(): boolean {   
     let authToken = localStorage.getItem('token');
     return (authToken !== null) ? true : false;
-    */
   }
 
   // ok

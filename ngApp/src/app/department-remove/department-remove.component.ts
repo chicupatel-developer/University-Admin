@@ -38,5 +38,15 @@ export class DepartmentRemoveComponent implements OnInit {
 
   removeDept(deptRemoveVM){
     console.log(deptRemoveVM);
+
+    this.dataService.removeDepartment(this.deptRemoveVM)
+      .subscribe(
+        response => {
+          console.log(response);
+        },
+        error => {
+          console.log(error);         
+        }
+      );
   }
 }

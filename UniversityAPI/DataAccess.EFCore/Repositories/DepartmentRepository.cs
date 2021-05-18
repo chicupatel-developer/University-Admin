@@ -56,7 +56,7 @@ namespace DataAccess.EFCore.Repositories
             }            
         }
 
-        public DeptRemoveVM RemoveDepartment(int deptId)
+        public DeptRemoveVM InitializeRemoveDepartment(int deptId)
         {
             DeptRemoveVM deptRemoveVM = new DeptRemoveVM();
             List<FacultyRemoveVM> faculties = new List<FacultyRemoveVM>();
@@ -144,6 +144,47 @@ namespace DataAccess.EFCore.Repositories
                 deptRemoveVM.DepartmentName = appDbContext.Departments.Where(x => x.DepartmentId == deptId).FirstOrDefault().DepartmentName;
             }
             return deptRemoveVM;
+        }
+
+        public bool RemoveDepartment(DeptRemoveVM department)
+        {
+            // removing depending course if any
+            appDbContext.Courses.RemoveRange(appDbContext.Courses.Where(x => x.DepartmentId == department.DepartmentId).ToList());
+
+            // removing depending assignment if any belong to depending faculty
+            var facultiesToRemove = appDbContext.Faculties.Where(x => x.DepartmentId == department.DepartmentId);
+            if (facultiesToRemove != null)
+            {
+                // check for depending assignment on faculty, if any then remove assignment first then faculty
+                // assignment remove
+                foreach(var fac in facultiesToRemove)
+                {
+                    var asmtsToRemove = appDbContext.Assignments.Where(y => y.FacultyId == fac.FacultyId);
+                    if (asmtsToRemove != null)
+                    {
+                        // remove depending assignments
+                        appDbContext.Assignments.RemoveRange(asmtsToRemove);
+                    }
+                    else
+                    {
+                    }
+                }
+                // faculty remove
+                appDbContext.Faculties.RemoveRange(facultiesToRemove);
+            }
+            else
+            {
+                // no need to remove either assignment or faculty
+            }
+
+
+            // removing department
+            appDbContext.Departments.Remove(appDbContext.Departments.Where(b => b.DepartmentId == department.DepartmentId).FirstOrDefault());
+
+            // throw new Exception();
+
+            appDbContext.SaveChanges();
+            return true;
         }
     }
 }
