@@ -18,7 +18,9 @@ export class DepartmentComponent implements OnInit {
   submitted = false;
   departmentModel = new Department();
   newDeptAddPanel = false;
+
   apiResponse = '';  
+  responseColor = '';
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
@@ -28,7 +30,7 @@ export class DepartmentComponent implements OnInit {
     this.router.navigate(['/department-edit/'+ editDepartment.departmentId]);
   }
 
-  // wip
+  // ok
   removeDept(removeDepartment){
     this.dataService.initializeRemoveDepartment(Number(removeDepartment.departmentId))
       .subscribe(
@@ -82,24 +84,34 @@ export class DepartmentComponent implements OnInit {
         .subscribe(
           response => {
             if(response.responseCode==0){
-              // success
-              this.loadDepts();
+              // success    
+              this.apiResponse = response.responseMessage;
 
-              this.resetDept();
+              this.responseColor = 'green';
+              this.deptForm.reset();
+              this.submitted = false;
+
+              setTimeout(() => {
+                this.newDeptAddPanel = false;
+                this.apiResponse = ''; 
+              }, 3000);
+
+              this.loadDepts();
             }
             else{
               // fail
               // display error message
               this.apiResponse = response.responseCode + ' : ' + response.responseMessage;
+              this.responseColor = 'red';
             }
           },
           error => {
-            console.log(error);
+            this.apiResponse = error;
+            this.responseColor = 'red';
           }
         );
     }
-  }
-
+  } 
   // ok
   resetDept() {
     this.newDeptAddPanel = false;

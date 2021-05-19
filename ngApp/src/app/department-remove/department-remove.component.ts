@@ -14,6 +14,8 @@ export class DepartmentRemoveComponent implements OnInit {
   deptRemoveVM: DeptRemoveVM;
   responseColor = '';
 
+  apiResponse = '';
+
   constructor(public localDataService: LocalDataService, public dataService: DataService, private router: Router) { }
 
   ngOnInit(): void {
@@ -42,10 +44,27 @@ export class DepartmentRemoveComponent implements OnInit {
     this.dataService.removeDepartment(this.deptRemoveVM)
       .subscribe(
         response => {
-          console.log(response);
+          if (response.responseCode == 0) {
+            // success
+            this.apiResponse = response.responseMessage;
+            this.responseColor = 'green';
+            this.deptRemoveVM = null;
+
+            // redirect to department component
+            setTimeout(() => {
+              this.router.navigate(['/department']);
+            }, 3000);
+          }
+          else {
+            // fail
+            // display error message
+            this.apiResponse = response.responseCode + ' : ' + response.responseMessage;
+            this.responseColor = 'red';
+          }
         },
         error => {
-          console.log(error);         
+          this.apiResponse = error;
+          this.responseColor = 'red';
         }
       );
   }

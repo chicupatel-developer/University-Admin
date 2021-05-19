@@ -40,7 +40,7 @@ namespace UniversityAPI.Controllers
         [Route("addDepartment")]
         public IActionResult AddDepartment(Department department)
         {
-            _response = new APIResponse();
+            _response = new APIResponse();            
             try
             {
                 // throw new Exception();
