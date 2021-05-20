@@ -12,8 +12,6 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
 
-  userName: string;
-
   public isExternalAuth: boolean;
   public isUserAuthenticated: boolean;
  
@@ -27,28 +25,22 @@ export class HeaderComponent implements OnInit {
 
   // ok
   ngOnInit(): void {
-
     //////////// google rework
     this._authService.authChanged
       .subscribe(res => {
         this.isUserAuthenticated = res;
       })
-
     this._socialAuthService.authState.subscribe(user => {
       this.isExternalAuth = user != null;
     })
     //////////// google rework end //////////////
 
-    this.userName = localStorage.getItem('userName');
+    this.localDataService.setUserName(localStorage.getItem('userName'));    
   }
 
   // ok
   logout() {
     this._authService.doLogout();
-
-    // need to reset UserName in header component
-    this.userName = '';
-
     ///////////// google rework
     if (this.isExternalAuth)
       this._authService.signOutExternal();    

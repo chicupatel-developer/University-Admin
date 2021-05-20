@@ -141,5 +141,49 @@ namespace UniversityAPI.Controllers
             }
         }
 
+        // ok
+        // assignment file download
+        [HttpGet, DisableRequestSizeLimit]
+        [Route("download")]
+        public async Task<IActionResult> Download(string fileName)
+        {
+            try
+            {
+                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+                currentDirectory = currentDirectory + "\\StaticFiles\\Assignments";
+                var file = Path.Combine(currentDirectory, fileName);
+
+                var memory = new MemoryStream();
+                using (var stream = new FileStream(file, FileMode.Open))
+                {
+                    await stream.CopyToAsync(memory);
+                }
+
+                memory.Position = 0;
+                return File(memory, GetMimeType(file), fileName);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }    
+        private string GetMimeType(string file)
+        {
+            string extension = Path.GetExtension(file).ToLowerInvariant();
+            switch (extension)
+            {
+                case ".txt": return "text/plain";
+                case ".pdf": return "application/pdf";
+                case ".doc": return "application/vnd.ms-word";
+                case ".docx": return "application/vnd.ms-word";
+                case ".xls": return "application/vnd.ms-excel";
+                case ".png": return "image/png";
+                case ".jpg": return "image/jpeg";
+                case ".jpeg": return "image/jpeg";
+                case ".gif": return "image/gif";
+                case ".csv": return "text/csv";
+                default: return "";
+            }
+        }
     }
 }

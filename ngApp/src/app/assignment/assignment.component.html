@@ -5,30 +5,103 @@
                 <div class="card-header">
                     <h3>
                         <div>
-                            Assignments
+                            Assignment
                         </div>
                         <hr />
-                        <div>
-                            <button *ngIf="!newAsmtAddPanel" type="button" (click)="addAsmt()"
-                                class="btn btn-success">Add Assignment</button>
+                        <h4 *ngIf="apiResponse">
+                            <span [style.color]="responseColor">
+                                {{apiResponse}}
+                            </span>
+                        </h4>  
+                    </h3> 
+                    <div class="row" *ngIf="!newAsmtAddPanel">
+                        <div class="col-4">
+                            <button type="button" 
+                                (click)="addAsmt()" 
+                                class="btn btn-success">Add Assignment
+                            </button>
                         </div>
-                    </h3>
+                        <div class="col-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>
+                                        Serach Panel
+                                        <!-- this will remove all filter conditions and default load all assignments -->
+                                        <button type="button" 
+                                            (click)="clearAllFilter()" 
+                                            class="btn btn-success">
+                                                Clear All Filter
+                                        </button>
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <form class="form-search" 
+                                                [formGroup]="searchForm">
+                                                <!-- department list -->
+                                                <div class="form-group">
+                                                    <label>Department : </label>
+                                                    <select class="form-control" 
+                                                        formControlName="SDepartmentId">
+                                                        <option disabled>Select Department</option>
+                                                        <option value={{d.departmentId}} 
+                                                            *ngFor="let d of departments">
+                                                            {{d.departmentName}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <!-- faculty list -->
+                                                <div class="form-group">
+                                                    <label>Faculty : </label>
+                                                    <select class="form-control" 
+                                                        formControlName="SFacultyId">
+                                                        <option disabled>Choose Faculty</option>
+                                                        <option value={{f.facultyId}} 
+                                                            *ngFor="let f of facs">
+                                                            {{f.facultyName}}
+                                                        </option>
+                                                    </select>                                                
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <button type="button" 
+                                                                (click)="searchBy()" 
+                                                                class="btn btn-success">
+                                                                Search
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
                 </div>
                 <div class="card-body">
                     <div class="container" *ngIf="newAsmtAddPanel">
                         <div class="col-md-7 mx-auto">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3>New Assignment</h3>
-                                    <h6 *ngIf="apiResponse">
-                                        <span style="color: red;">
-                                            {{apiResponse}}
-                                        </span>
-                                    </h6>
-                                    <!-- file upload control -->
-                                    <app-upload (onUploadFinished)="uploadFinished($event)">
-                                    </app-upload>
-
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <!-- file upload control -->
+                                            <app-upload 
+                                                (onUploadFinished)="uploadFinished($event)">
+                                            </app-upload>
+                                        </div>
+                                        <div class="col-4">
+                                            <button type="button" 
+                                                (click)="cancel()" 
+                                                class="btn btn-primary">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </div>                               
                                 </div>
                                 <div class="card-body">
                                     <form *ngIf="asmtDetailsPanel" 
@@ -134,31 +207,68 @@
                         <p></p>
                     </div>
 
-                <div class="col-md-12 mx-auto">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Title</th>
-                                <th>Details</th>
-                                <th>Fac. / Dept.</th>
-                                <th>Last Submission Date</th>
-                                <th>Asmt. File</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let a of assignments">
-                                <td>{{a.assignmentId}}</td>
-                                <td>{{a.title}}</td>
-                                <td>{{formatingDetails(a)}}</td>                          
-                                <td>{{formatingFacDeptName(a)}}</td>
-                                <td>{{a.asmtLastDate | date : "dd-MMM-y"}}</td>
-                                <td>{{a.asmtFileName}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                <!-- if search is enabled -->
+                <div *ngIf="searchEnabled" class="col-md-10 mx-auto">
+                    <div *ngFor="let a of filteredAssignments">
+                        <div class="card">
+                            <div class="card-header" style="background-color: lightcoral;">
+                                <h5>
+                                    Department : {{a.departmentId}} # {{a.departmentName}}
+                                    <p></p>
+                                    Faculty : {{a.facultyName}}
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                Assignment : {{a.assignmentId}} # {{a.title}}
+                                <p></p>
+                                Details : {{a.details}}
+                                <p></p>
+                                Submission Date : {{a.asmtLastDate | date : "dd-MMM-y"}}
+                            </div>
+                            <div class="card-footer">
+                                Assignment File : {{a.asmtFileName}}
+                                <p></p>
+                                <button type="button" (click)="downloadAsmt(a)" class="btn btn-primary">
+                                    Download
+                                </button>
+                            </div>
+                        </div>
+                        <hr />
+                    </div>
                 </div>
-           
+                    
+                <!-- if search is not enabled -->
+                <div *ngIf="!searchEnabled" class="col-md-10 mx-auto">
+                    <div *ngFor="let a of assignments">
+                        <div class="card">
+                            <div class="card-header" 
+                                style="background-color: lightcoral;">
+                                <h5>
+                                    Department : {{a.departmentId}} # {{a.departmentName}}
+                                    <p></p>
+                                    Faculty : {{a.facultyName}}
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                Assignment : {{a.assignmentId}} # {{a.title}}
+                                <p></p>
+                                Details : {{a.details}} 
+                                <p></p>
+                                Submission Date : {{a.asmtLastDate | date : "dd-MMM-y"}}
+                            </div>
+                            <div class="card-footer">
+                                Assignment File : {{a.asmtFileName}}
+                                <p></p>
+                                <button type="button" 
+                                    (click)="downloadAsmt(a)" 
+                                    class="btn btn-primary">
+                                    Download
+                                </button>                            
+                            </div>                          
+                        </div>
+                        <hr />
+                    </div>                 
                 </div>
             </div>
         </div>

@@ -80,6 +80,11 @@ export class DataService {
       observe: 'events'
     });
   }
+  // file download    
+  public download(fileName: string): Observable<Blob> {    
+    return this.http.get<Blob>(this.ASSIGNMENT_API + '/download?fileName=' + fileName,
+      { responseType: 'blob' as 'json' });      
+  }
 
   //////////// course
   // list course

@@ -26,10 +26,17 @@ export class AssignmentComponent implements OnInit {
   submitted = false;
   assignmentModel = new AssignmentCreate();
   newAsmtAddPanel = false;
+
   apiResponse = '';
+  responseColor = '';
 
   asmtDetailsPanel = false;
-  
+
+  // search form
+  searchForm: FormGroup;
+  filteredAssignments: Array<AsmtFacDept>;
+  searchEnabled = false;
+  facs: Array<FacultyList> = [];
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
   // ok
@@ -44,9 +51,64 @@ export class AssignmentComponent implements OnInit {
     })
 
     this.loadDept();
+
     this.loadAsmtFacDept();
+
+
+    this.searchForm = this.fb.group({    
+      SDepartmentId: [''],
+      SFacultyId: ['']
+    })
+  }  
+
+  // wip
+  // search by department
+  searchBy(){
+    var selectedDepartmentId = Number(this.searchForm.value["SDepartmentId"]);      
+    var selectedFacultyId = Number(this.searchForm.value["SFacultyId"]);
+    if(selectedDepartmentId<=0 && selectedFacultyId<=0){
+      return;
+    }
+    else{
+      console.log('department : ' + selectedDepartmentId);
+      console.log('faculty : ' + selectedFacultyId);
+      var filterByDepartment = this.assignments.filter(xx => xx.departmentId == selectedDepartmentId);
+      this.filteredAssignments = this.assignments.filter(xx => xx.departmentId == selectedDepartmentId);
+      console.log(this.filteredAssignments);
+      // OR condition between department and faculty filter
+      var filterByFaculty = this.assignments.filter(xx => xx.facultyId == selectedFacultyId);
+      this.filteredAssignments = this.assignments.filter(xx => xx.facultyId == selectedFacultyId);
+      console.log(this.filteredAssignments);
+
+      this.searchEnabled = true;
+    }
+    
   }
-  
+  // displays faculties belong to all assignments in db
+  // no api call
+  // displays unique list of faculties from current list of assignments
+  displayFacs() {
+    const map = new Map();
+    for (const item of this.assignments) {
+      if (!map.has(item.facultyId)) {
+        map.set(item.facultyId, true);
+        this.facs.push({
+          facultyId: item.facultyId,
+          facultyName: item.facultyName
+        });
+      }
+    }
+  }
+  // reset filter
+  clearAllFilter(){
+    this.searchEnabled = false;
+    this.searchForm.reset();
+  }
+
+
+
+
+
   // ok
   // format fac. / dept. column
   formatingFacDeptName(a){
@@ -110,6 +172,9 @@ export class AssignmentComponent implements OnInit {
       .subscribe(
         data => {
           this.assignments = data;
+
+
+          this.displayFacs();
         },
         error => {
           console.log(error);
@@ -117,6 +182,7 @@ export class AssignmentComponent implements OnInit {
   }
   
   // ok
+  // displays faculties belong to selected department
   loadFacs(selectedDeptId) {
     this.dataService.listOfFaculties(selectedDeptId)
       .subscribe(
@@ -163,21 +229,35 @@ export class AssignmentComponent implements OnInit {
           res => {
             if (res.responseCode == 0) {
               // success
-              this.loadAsmtFacDept();
+              this.apiResponse = res.responseMessage;
+              this.responseColor = 'green';
+              this.newAsmtAddPanel = false;
+              this.asmtDetailsPanel = false;
+              this.submitted = false;
+              this.asmtForm.reset();
+              this.localDataService.setAsmtUploadId(0);
 
-              this.resetAsmt();
+              // clear success message after 3 seconds
+              setTimeout(() => {
+                this.apiResponse = '';
+              }, 3000);
+
+              this.loadAsmtFacDept();
             }
             else {
               // fail
               // display error message
               this.apiResponse = res.responseCode + ' : ' + res.responseMessage;
-
-              this.asmtForm.reset();
-              this.submitted = false;
+              this.responseColor = 'red';
+              this.newAsmtAddPanel = true;
+              this.asmtDetailsPanel = true;
             }
           },
           error => {
-            console.log(error);
+            this.apiResponse = error;
+            this.responseColor = 'red'; 
+            this.newAsmtAddPanel = true;
+            this.asmtDetailsPanel = true;
           }
         );
     }
@@ -211,5 +291,27 @@ export class AssignmentComponent implements OnInit {
 
     // make visible asmtDetailsPanel 
     this.asmtDetailsPanel = true;
+  }  
+
+  // ok
+  public downloadAsmt(assignment){
+    console.log(assignment.asmtFileName);
+    this.dataService.download(assignment.asmtFileName)
+      .subscribe(blob => {
+        console.log(blob);
+
+        // const myFile = new Blob([blob], { type: 'text/csv' });
+        const myFile = new Blob([blob], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(myFile);
+        window.open(url);
+      }, error => {
+        console.log("Error while downloading assignment file!");
+      });
   }
+
+  // ok
+  cancel(){
+    this.newAsmtAddPanel = false;
+    this.asmtDetailsPanel = false;
+  }  
 }
