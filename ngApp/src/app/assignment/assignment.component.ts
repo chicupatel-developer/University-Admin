@@ -34,9 +34,11 @@ export class AssignmentComponent implements OnInit {
 
   // search form
   searchForm: FormGroup;
-  filteredAssignments: Array<AsmtFacDept>;
+  filteredAssignments: Array<AsmtFacDept> = [];
+  filteredAssignments_: Array<AsmtFacDept> = [];
   searchEnabled = false;
   facs: Array<FacultyList> = [];
+  
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
   // ok
@@ -54,32 +56,52 @@ export class AssignmentComponent implements OnInit {
 
     this.loadAsmtFacDept();
 
-
     this.searchForm = this.fb.group({    
       SDepartmentId: [''],
       SFacultyId: ['']
     })
   }  
 
-  // wip
+  // ok
   // search by department
   searchBy(){
     var selectedDepartmentId = Number(this.searchForm.value["SDepartmentId"]);      
     var selectedFacultyId = Number(this.searchForm.value["SFacultyId"]);
+    if (this.searchForm.value["SDepartmentId"] == "" && this.searchForm.value["SFacultyId"] =="") {      
+      this.searchEnabled = false;
+      return;
+    }    
     if(selectedDepartmentId<=0 && selectedFacultyId<=0){
+      this.searchEnabled = false;
       return;
     }
-    else{
-      console.log('department : ' + selectedDepartmentId);
-      console.log('faculty : ' + selectedFacultyId);
+    else{            
       var filterByDepartment = this.assignments.filter(xx => xx.departmentId == selectedDepartmentId);
-      this.filteredAssignments = this.assignments.filter(xx => xx.departmentId == selectedDepartmentId);
-      console.log(this.filteredAssignments);
-      // OR condition between department and faculty filter
       var filterByFaculty = this.assignments.filter(xx => xx.facultyId == selectedFacultyId);
-      this.filteredAssignments = this.assignments.filter(xx => xx.facultyId == selectedFacultyId);
-      console.log(this.filteredAssignments);
+      
+      // first combine filterByDepartment and filterByFaculty
+      this.filteredAssignments_ = [...filterByDepartment, ...filterByFaculty];
+   
+      const map = new Map();
+      // reset UI's assignments collection
+      this.filteredAssignments = [];
 
+      for (const item of this.filteredAssignments_) {
+        if (!map.has(item.assignmentId)) {
+          map.set(item.assignmentId, true);  
+          this.filteredAssignments.push({
+            facultyId: item.facultyId,
+            facultyName: item.facultyName,
+            departmentId: item.departmentId,
+            departmentName: item.departmentName,
+            title: item.title,
+            details: item.details,
+            assignmentId: item.assignmentId,
+            asmtFileName: item.asmtFileName,
+            asmtLastDate: item.asmtLastDate
+          });
+        }
+      }
       this.searchEnabled = true;
     }
     

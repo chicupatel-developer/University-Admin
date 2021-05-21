@@ -6,4 +6,7 @@ export default class AsmtFacDept {
     facultyName: string;
     departmentId: number;
     departmentName: string;
+
+    asmtLastDate: Date;
+    asmtFileName: string;
 }

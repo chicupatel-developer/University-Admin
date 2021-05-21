@@ -45,6 +45,7 @@
                                                     <select class="form-control" 
                                                         formControlName="SDepartmentId">
                                                         <option disabled>Select Department</option>
+                                                        <option value="">Choose Department</option>
                                                         <option value={{d.departmentId}} 
                                                             *ngFor="let d of departments">
                                                             {{d.departmentName}}
@@ -57,6 +58,7 @@
                                                     <select class="form-control" 
                                                         formControlName="SFacultyId">
                                                         <option disabled>Choose Faculty</option>
+                                                        <option value="">Choose Faculty</option>
                                                         <option value={{f.facultyId}} 
                                                             *ngFor="let f of facs">
                                                             {{f.facultyName}}
@@ -212,29 +214,37 @@
                 <div *ngIf="searchEnabled" class="col-md-10 mx-auto">
                     <div *ngFor="let a of filteredAssignments">
                         <div class="card">
-                            <div class="card-header" style="background-color: lightcoral;">
-                                <h5>
-                                    Department : {{a.departmentId}} # {{a.departmentName}}
-                                    <p></p>
-                                    Faculty : {{a.facultyName}}
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                Assignment : {{a.assignmentId}} # {{a.title}}
-                                <p></p>
-                                Details : {{a.details}}
-                                <p></p>
-                                Submission Date : {{a.asmtLastDate | date : "dd-MMM-y"}}
-                            </div>
-                            <div class="card-footer">
-                                Assignment File : {{a.asmtFileName}}
-                                <p></p>
-                                <button type="button" (click)="downloadAsmt(a)" class="btn btn-primary">
-                                    Download
-                                </button>
+                            <div class="card-header" 
+                                style="background-color: lightcoral;">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>
+                                            Department : {{a.departmentId}} # {{a.departmentName}}
+                                            <p></p>
+                                            Faculty : {{a.facultyName}}
+                                        </h5>
+                                    </div>
+                                    <div class="col-6">                                  
+                                        {{a.asmtFileName}}
+                                        <p></p>
+                                        <button type="button" 
+                                            (click)="downloadAsmt(a)" 
+                                            class="btn btn-primary">
+                                            Download Assignment File
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <hr />
+                        <div class="card-body">
+                            Assignment : {{a.assignmentId}} # {{a.title}}
+                            <p></p>
+                            Details : {{a.details}}
+                            <p></p>
+                            Submission Date : {{a.asmtLastDate | date : "dd-MMM-y"}}
+                        </div>
+                        <div class="card-footer">
+                        </div>
                     </div>
                 </div>
                     
@@ -244,11 +254,24 @@
                         <div class="card">
                             <div class="card-header" 
                                 style="background-color: lightcoral;">
-                                <h5>
-                                    Department : {{a.departmentId}} # {{a.departmentName}}
-                                    <p></p>
-                                    Faculty : {{a.facultyName}}
-                                </h5>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <h5>
+                                            Department : {{a.departmentId}} # {{a.departmentName}}
+                                            <p></p>
+                                            Faculty : {{a.facultyName}}
+                                        </h5>
+                                    </div>
+                                    <div class="col-6">                                  
+                                            {{a.asmtFileName}}
+                                            <p></p>
+                                            <button type="button" 
+                                                (click)="downloadAsmt(a)" 
+                                                class="btn btn-primary">
+                                                Download Assignment File
+                                            </button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-body">
                                 Assignment : {{a.assignmentId}} # {{a.title}}
@@ -258,16 +281,8 @@
                                 Submission Date : {{a.asmtLastDate | date : "dd-MMM-y"}}
                             </div>
                             <div class="card-footer">
-                                Assignment File : {{a.asmtFileName}}
-                                <p></p>
-                                <button type="button" 
-                                    (click)="downloadAsmt(a)" 
-                                    class="btn btn-primary">
-                                    Download
-                                </button>                            
-                            </div>                          
+                            </div>
                         </div>
-                        <hr />
                     </div>                 
                 </div>
             </div>

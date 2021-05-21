@@ -73,8 +73,8 @@ namespace UniversityAPI.Controllers
                     var token = new JwtSecurityToken(
                         issuer: _configuration["JWT:ValidIssuer"],
                         audience: _configuration["JWT:ValidAudience"],
-                        // expires: DateTime.Now.AddHours(3),
-                        expires: DateTime.UtcNow.AddSeconds(8),
+                        expires: DateTime.Now.AddHours(3),
+                        // expires: DateTime.UtcNow.AddSeconds(8),
                         claims: authClaims,
                         signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                         );
@@ -166,8 +166,8 @@ namespace UniversityAPI.Controllers
                 var tokenObj = new JwtSecurityToken(
                                   issuer: _configuration["JWT:ValidIssuer"],
                                   audience: _configuration["JWT:ValidAudience"],
-                                  // expires: DateTime.Now.AddHours(3),
-                                  expires: DateTime.UtcNow.AddSeconds(8),
+                                  expires: DateTime.Now.AddHours(3),
+                                  // expires: DateTime.UtcNow.AddSeconds(8),
                                   claims: authClaims,
                                   signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                                );
