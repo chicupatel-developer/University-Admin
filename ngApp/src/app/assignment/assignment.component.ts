@@ -63,7 +63,7 @@ export class AssignmentComponent implements OnInit {
   }  
 
   // ok
-  // search by department
+  // search by department / faculty
   searchBy(){
     var selectedDepartmentId = Number(this.searchForm.value["SDepartmentId"]);      
     var selectedFacultyId = Number(this.searchForm.value["SFacultyId"]);
