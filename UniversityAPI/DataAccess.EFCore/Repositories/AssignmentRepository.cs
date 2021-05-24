@@ -54,6 +54,29 @@ namespace DataAccess.EFCore.Repositories
             return faculties;
         }
 
+        public IEnumerable<CourseListVM> GetCourseList(int selectedFacId)
+        {
+            List<CourseListVM> courses = new List<CourseListVM>();
+            var crs = appDbContext.Courses.Where(x => x.FacultyId == selectedFacId);
+
+            if (crs != null)
+            {
+                foreach (var cr in crs)
+                {
+                    CourseListVM course = new CourseListVM
+                    {
+                        CourseId = cr.CouseId,
+                        CourseName = cr.CouseName
+                    };
+                   courses.Add(course);
+                }
+            }
+            else
+            {
+
+            }
+            return courses;
+        }
         public IEnumerable<AsmtFacDeptVM> GetAsmtFacDept()
         {
             List<AsmtFacDeptVM> datas = new List<AsmtFacDeptVM>();

@@ -1,4 +1,4 @@
-﻿Add-Migration Assignment_Edit -context DataAccess.EFCore.UniversityContext -OutputDir Migrations
+﻿Add-Migration init-db-create -context DataAccess.EFCore.UniversityContext -OutputDir Migrations
 update-database -context DataAccess.EFCore.UniversityContext
 
 // course can not exist without department and faculty

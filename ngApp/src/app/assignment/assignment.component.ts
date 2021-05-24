@@ -9,6 +9,7 @@ import FacultyList from '../models/facultyList';
 import AssignmentCreate from '../models/assignmentCreate';
 import AsmtFacDept from '../models/asmtFacDept';
 import Department from '../models/department';
+import CourseList from '../models/courseList';
 
 
 @Component({
@@ -20,6 +21,7 @@ export class AssignmentComponent implements OnInit {
 
   departments: Array<Department>;
   faculties: Array<FacultyList>;
+  courses: Array<CourseList>;
   assignments: Array<AsmtFacDept>;
 
   asmtForm: FormGroup;
@@ -49,6 +51,7 @@ export class AssignmentComponent implements OnInit {
       Details: ['', Validators.required],
       DepartmentId: ['', Validators.required],
       FacultyId: ['', Validators.required],
+      CourseId: ['', Validators.required],
       AsmtLastDate: ['', Validators.required]
     })
 
@@ -62,6 +65,7 @@ export class AssignmentComponent implements OnInit {
     })
   }  
 
+  // search panel
   // ok
   // search by department / faculty
   searchBy(){
@@ -172,8 +176,41 @@ export class AssignmentComponent implements OnInit {
   }
 
   // ok
+  // this will reset all 3 related select list
+  resetSelectList(){
+    this.faculties = [];
+    this.asmtForm.get("FacultyId").patchValue("");
+    this.courses = [];
+    this.asmtForm.get("CourseId").patchValue("");
+  }
+  // ok
+  // this will reset CourseId select list
+  resetCourseIdSelectList() {
+    this.courses = [];
+    this.asmtForm.get("CourseId").patchValue("");
+  }
+
+  // ok
   changeDepartment(e) {
-    this.loadFacs(e.target.value);
+    if (e.target.value == "") {
+      this.resetSelectList();
+      return;
+    }
+    else {
+      this.resetSelectList();
+      this.loadFacs(e.target.value);
+    }
+  }
+  // ok
+  changeFaculty(e) {
+    if(e.target.value==""){
+      this.resetCourseIdSelectList();
+      return;
+    }
+    else{
+      this.resetCourseIdSelectList();
+      this.loadCrs(e.target.value);
+    }    
   }
 
   // ok
@@ -221,8 +258,30 @@ export class AssignmentComponent implements OnInit {
   }
 
   // ok
+  // displays courses belong to selected faculty
+  loadCrs(selectedFacId) {
+    this.dataService.listOfCourses(selectedFacId)
+      .subscribe(
+        data => {
+          if (data.length <= 0) {
+            // reset courseId select list control
+            this.asmtForm.controls['CourseId'].setValue('');
+          }
+          this.courses = data;
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+
+  // ok
   addAsmt() {
     this.newAsmtAddPanel = true;
+
+    // this will reset search panel
+    // so after adding new assignment, user can see the updated list of assignments
+    this.clearAllFilter();
   }
 
   // ok
@@ -233,13 +292,14 @@ export class AssignmentComponent implements OnInit {
   // ok
   onSubmit(): void {
 
-    console.log(this.asmtForm.value["AsmtLastDate"].year);
+    // console.log(this.asmtForm.value["AsmtLastDate"].year);
 
     this.submitted = true;
     if (this.asmtForm.valid) {
       this.assignmentModel.title = this.asmtForm.value["Title"];
       this.assignmentModel.details = this.asmtForm.value["Details"];
       this.assignmentModel.facultyId = Number(this.asmtForm.value["FacultyId"]);
+      this.assignmentModel.courseId = Number(this.asmtForm.value["CourseId"]);
       this.assignmentModel.asmtLastDate = new Date( this.asmtForm.value["AsmtLastDate"].year + '/' + this.asmtForm.value["AsmtLastDate"].month + '/' + this.asmtForm.value["AsmtLastDate"].day);
       this.assignmentModel.asmtCreateDate = new Date();
 

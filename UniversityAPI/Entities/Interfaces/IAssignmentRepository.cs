@@ -11,6 +11,7 @@ namespace Entities.Interfaces
         IEnumerable<Assignment> GetAssignments();
         Assignment AddAssignment(Assignment assignment);
         IEnumerable<FacultyListVM> GetFacultyList(int selectedDeptId);
+        IEnumerable<CourseListVM> GetCourseList(int selectedFacId);
         IEnumerable<AsmtFacDeptVM> GetAsmtFacDept();
         AsmtUpload FileUpload(AsmtUpload asmtUpload);
     }

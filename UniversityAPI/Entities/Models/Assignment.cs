@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
-
 namespace Entities.Models
 {
     public class Assignment
@@ -24,7 +23,7 @@ namespace Entities.Models
         [Required]
         public DateTime AsmtLastDate { get; set; }
 
-
+        
         [Required]
         [ForeignKey(nameof(Faculty))]
         public int FacultyId { get; set; }
@@ -33,6 +32,14 @@ namespace Entities.Models
         // This can either be due to a cycle or if the object depth is larger than the maximum allowed depth of 32.
         [JsonIgnore]
         public Faculty Faculty { get; set; }
+
+
+        public int CourseId { get; set; }
+       
+        [JsonIgnore]
+        public Course Course { get; set; }
+
+
         public int AsmtUploadId { get; set; }
     }
 }

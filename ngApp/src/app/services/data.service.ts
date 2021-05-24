@@ -8,6 +8,7 @@ import  Assignment  from '../models/assignment';
 import FacultyList from '../models/facultyList';
 import AsmtFacDept from '../models/asmtFacDept';
 import CourseListVM from '../models/courseView';
+import CourseList from '../models/courseList';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,10 @@ export class DataService {
   // list faculties for select list in assignment create form
   listOfFaculties(selectedDeptId: number): Observable<Array<FacultyList>> {
     return this.http.get<Array<FacultyList>>(this.ASSIGNMENT_API + '/listOfFaculties/'+selectedDeptId);
+  }
+  // list courses for select list in assignment create form
+  listOfCourses(selectedFacId: number): Observable<Array<CourseList>> {
+    return this.http.get<Array<CourseList>>(this.ASSIGNMENT_API + '/listOfCourses/' + selectedFacId);
   }
   // add assignment
   addAsmt(assignmentModel): Observable<any> {

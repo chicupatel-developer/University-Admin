@@ -26,6 +26,7 @@ namespace Entities.Models
 
         [JsonIgnore]
         public Department Department { get; set; }
+        public ICollection<Assignment> Assignments { get; set; }
 
     }
 }

@@ -70,6 +70,15 @@ namespace UniversityAPI.Controllers
         }
 
         // ok
+        [HttpGet]
+        [Route("listOfCourses/{selectedFacId}")]
+        public IActionResult ListOfCourses(int selectedFacId)
+        {
+            var listOfCrs = _asmtRepo.GetCourseList(selectedFacId);
+            return Ok(listOfCrs);
+        }
+
+        // ok
         [HttpPost]
         [Route("addAssignment")]
         public IActionResult AddAssignment(Assignment assignment)

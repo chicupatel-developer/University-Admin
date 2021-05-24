@@ -55,6 +55,9 @@ namespace DataAccess.EFCore.Migrations
                     b.Property<int>("AsmtUploadId")
                         .HasColumnType("int");
 
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Details")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -67,6 +70,8 @@ namespace DataAccess.EFCore.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("AssignmentId");
+
+                    b.HasIndex("CourseId");
 
                     b.HasIndex("FacultyId");
 
@@ -150,6 +155,12 @@ namespace DataAccess.EFCore.Migrations
 
             modelBuilder.Entity("Entities.Models.Assignment", b =>
                 {
+                    b.HasOne("Entities.Models.Course", "Course")
+                        .WithMany("Assignments")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
                     b.HasOne("Entities.Models.Faculty", "Faculty")
                         .WithMany("Assignments")
                         .HasForeignKey("FacultyId")

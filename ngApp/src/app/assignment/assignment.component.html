@@ -171,9 +171,9 @@
                                         <div class="form-group">
                                             <label>Faculty : </label>
                                             <select class="form-control" 
-                                                formControlName="FacultyId">     
-                                                <option disabled>Choose Faculty</option>
-                                                <option value="">Choose Faculty</option>                                                
+                                                (change)="changeFaculty($event)"
+                                                formControlName="FacultyId"> 
+                                                <option value="">Choose Faculty</option>
                                                 <option value={{f.facultyId}} 
                                                     *ngFor="let f of faculties">
                                                     {{f.facultyName}}
@@ -184,6 +184,23 @@
                                                 Please choose Faculty
                                             </div>
                                         </div>
+
+                                        <!-- course list -->
+                                        <div class="form-group">
+                                            <label>Course : </label>
+                                            <select class="form-control" 
+                                                formControlName="CourseId">
+                                                <option value="">Choose Course</option>
+                                                <option value={{c.courseId}} 
+                                                *ngFor="let c of courses">
+                                                    {{c.courseName}}
+                                                </option>
+                                            </select>
+                                            <div *ngIf="submitted && asmtFormControl.CourseId.errors?.required" class="alert alert-danger mt-2">
+                                                Please choose Course
+                                            </div>
+                                        </div>
+
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-6">
@@ -224,7 +241,7 @@
                                             Faculty : {{a.facultyName}}
                                         </h5>
                                     </div>
-                                    <div class="col-6">                                  
+                                    <div *ngIf="a.asmtFileName" class="col-6">                                  
                                         {{a.asmtFileName}}
                                         <p></p>
                                         <button type="button" 
@@ -262,7 +279,7 @@
                                             Faculty : {{a.facultyName}}
                                         </h5>
                                     </div>
-                                    <div class="col-6">                                  
+                                    <div *ngIf="a.asmtFileName" class="col-6">                                  
                                             {{a.asmtFileName}}
                                             <p></p>
                                             <button type="button" 
