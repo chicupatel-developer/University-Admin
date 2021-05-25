@@ -21,7 +21,9 @@ export class FacultyComponent implements OnInit {
   submitted = false;
   facultyModel = new Faculty();
   newFacAddPanel = false;
+
   apiResponse = '';
+  responseColor = '';
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
@@ -34,7 +36,8 @@ export class FacultyComponent implements OnInit {
       LastName: ['', Validators.required],
       Email: ['', Validators.required],
       Gender: ['', Validators.required],
-      DepartmentId: ['', Validators.required]
+      DepartmentId: ['', Validators.required],
+      PhoneNumber: ['', [Validators.required, Validators.pattern("^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$")]]
     })
 
     this.loadDepts();
@@ -105,6 +108,7 @@ export class FacultyComponent implements OnInit {
   onSubmit(): void {   
     this.submitted = true;
     if (this.facForm.valid) {
+      this.facultyModel.phoneNumber = this.facForm.value["PhoneNumber"];
       this.facultyModel.firstName = this.facForm.value["FirstName"];
       this.facultyModel.lastName = this.facForm.value["LastName"];
       this.facultyModel.email = this.facForm.value["Email"];
@@ -116,19 +120,27 @@ export class FacultyComponent implements OnInit {
           res => {
             if (res.responseCode == 0) {
               // success
-              // reload faculties[]
-              this.loadFacs();
+              this.apiResponse = res.responseMessage;
+              this.responseColor = 'green';
+              this.facForm.reset();
+              this.submitted = false;
+              setTimeout(() => {
+                this.newFacAddPanel = false;
+                this.apiResponse = '';
+              }, 3000);
 
-              this.resetFac();
+              this.loadFacs();
             }
             else {
               // fail
               // display error message
               this.apiResponse = res.responseCode + ' : ' + res.responseMessage;
+              this.responseColor = 'red';
             }
           },
           error => {
-            console.log(error);
+            this.apiResponse = error;
+            this.responseColor = 'red';
           }
         );
     }
@@ -140,5 +152,25 @@ export class FacultyComponent implements OnInit {
     this.apiResponse = '';
     this.facForm.reset();
     this.submitted = false;
+  }
+
+  // ok
+  editFac(editFaculty) {
+    console.log(editFaculty);
+    // redirect to faculty-edit component
+    // this.router.navigate(['/faculty-edit/' + editFaculty.facultyId]);
+  }
+
+  // ok
+  removeFac(removeFaculty) {
+    this.dataService.initializeRemoveFaculty(Number(removeFaculty.facultyId))
+      .subscribe(
+        data => {
+          this.localDataService.setFacRemoveVM(data);
+          this.router.navigate(['/faculty-remove']);
+        },
+        error => {
+          console.log(error);
+        });
   }
 }

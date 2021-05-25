@@ -11,6 +11,7 @@ export class LocalDataService {
   private AsmtUploadId;
 
   private DeptRemoveVM;
+  private FacRemoveVM;
 
 
   constructor() { }
@@ -23,6 +24,13 @@ export class LocalDataService {
     return this.DeptRemoveVM;
   }
 
+  // faculty-remove
+  setFacRemoveVM(val) {
+    this.FacRemoveVM = val;
+  }
+  getFacRemoveVM() {
+    return this.FacRemoveVM;
+  }
 
   // login
   setUserName(val) {

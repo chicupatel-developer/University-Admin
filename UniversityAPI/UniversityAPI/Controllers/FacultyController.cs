@@ -7,6 +7,7 @@ using Entities.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UniversityAPI.ViewModels;
+using Entities.DTO;
 
 namespace UniversityAPI.Controllers
 {
@@ -54,5 +55,50 @@ namespace UniversityAPI.Controllers
             }
             return Ok(_response);
         }
+
+        // ok
+        // remove faculty
+        [HttpGet]
+        [Route("initializeRemoveFaculty/{selectedFacId}")]
+        public IActionResult InitializeRemoveFaculty(int selectedFacId)
+        {
+            var fac = _facRepo.InitializeRemoveFaculty(selectedFacId);
+            return Ok(fac);
+        }
+
+        // ok
+        [HttpPost]
+        [Route("removeFaculty")]
+        public IActionResult RemoveFaculty(FacRemoveVM faculty)
+        {
+            _response = new APIResponse();
+            try
+            {
+                // throw new Exception();
+                bool result = _facRepo.RemoveFaculty(faculty);
+                if (result)
+                {
+                    // success
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "Faculty Removed Successfully!";
+                    _response.ResponseError = null;
+                }
+                else
+                {
+                    // fail
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Server Error while removing Faculty!";
+                    _response.ResponseError = "Server Error while removing Faculty!";
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.ResponseCode = -1;
+                _response.ResponseMessage = "Server Error while removing Faculty!";
+                _response.ResponseError = "Server Error while removing Faculty!";
+            }
+            return Ok(_response);
+        }
+
     }
 }

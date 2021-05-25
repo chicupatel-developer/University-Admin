@@ -4,9 +4,27 @@ using System.Text;
 
 namespace Entities.DTO
 {
+
+    // this file contains all necessary types to remove 
+    // department, faculty, course, assignment 
+
+
     // faculty depends on department
     // course depends on faculty
-    // while removing department, check for faculty and course dependancy
+    // while removing department, check for faculty, assignment and course dependancy
+    // while removing faculty, check for assignment and course dependancy
+
+
+    // main type for faculty remove
+    public class FacRemoveVM
+    {
+        public FacultyRemoveVM FacultyRemove { get; set; }
+        public List<CourseRemoveVM> DependingCourses { get; set; }
+        public int ErrorCode { get; set; }
+        public string ErrorMessage { get; set; }
+    }
+
+    // main type for department remove
     public class DeptRemoveVM
     {
         public int DepartmentId { get; set; }
@@ -28,7 +46,6 @@ namespace Entities.DTO
         public int CourseId { get; set; }
         public string Name { get; set; }
     }
-
     public class AssignmentRemoveVM
     {
         public int AssignmentId { get; set; }

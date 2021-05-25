@@ -29,50 +29,50 @@
                                         <!-- this will remove all filter conditions and default load all assignments -->
                                         <button type="button" 
                                             (click)="clearAllFilter()" 
-                                            class="btn btn-success">
+                                            class="btn btn-success float-right">
                                                 Clear All Filter
                                         </button>
                                     </h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-6">
+                                        <div class="col-12">
                                             <form class="form-search" 
                                                 [formGroup]="searchForm">
-                                                <!-- department list -->
-                                                <div class="form-group">
-                                                    <label>Department : </label>
-                                                    <select class="form-control" 
-                                                        formControlName="SDepartmentId">
-                                                        <option disabled>Select Department</option>
-                                                        <option value="">Choose Department</option>
-                                                        <option value={{d.departmentId}} 
-                                                            *ngFor="let d of departments">
-                                                            {{d.departmentName}}
-                                                        </option>
-                                                    </select>
-                                                </div>
-                                                <!-- faculty list -->
-                                                <div class="form-group">
-                                                    <label>Faculty : </label>
-                                                    <select class="form-control" 
-                                                        formControlName="SFacultyId">
-                                                        <option disabled>Choose Faculty</option>
-                                                        <option value="">Choose Faculty</option>
-                                                        <option value={{f.facultyId}} 
-                                                            *ngFor="let f of facs">
-                                                            {{f.facultyName}}
-                                                        </option>
-                                                    </select>                                                
-                                                </div>
-                                                <div class="form-group">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <!-- department list -->
+                                                        <div class="form-group">
+                                                            <label>Department : </label>
+                                                            <select class="form-control" formControlName="SDepartmentId">
+                                                                <option disabled>Select Department</option>
+                                                                <option value="">Choose Department</option>
+                                                                <option value={{d.departmentId}} *ngFor="let d of departments">
+                                                                    {{d.departmentName}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <!-- faculty list -->
+                                                        <div class="form-group">
+                                                            <label>Faculty : </label>
+                                                            <select class="form-control" formControlName="SFacultyId">
+                                                                <option disabled>Choose Faculty</option>
+                                                                <option value="">Choose Faculty</option>
+                                                                <option value={{f.facultyId}} *ngFor="let f of facs">
+                                                                    {{f.facultyName}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="form-group">
                                                             <button type="button" 
-                                                                (click)="searchBy()" 
-                                                                class="btn btn-success">
+                                                                (click)="searchBy()"
+                                                                class="btn btn-success float-right">
                                                                 Search
-                                                            </button>
+                                                            </button>                                                           
                                                         </div>
                                                     </div>
                                                 </div>
@@ -228,15 +228,15 @@
 
 
                 <!-- if search is enabled -->
-                <div *ngIf="searchEnabled" class="col-md-10 mx-auto">
+                <div *ngIf="searchEnabled" class="col-md-12 mx-auto">
                     <div *ngFor="let a of filteredAssignments">
                         <div class="card">
                             <div class="card-header" 
-                                style="background-color: lightcoral;">
+                                style="background-color: lightskyblue;">
                                 <div class="row">
                                     <div class="col-6">
                                         <h5>
-                                            Department : {{a.departmentId}} # {{a.departmentName}}
+                                            {{a.departmentName}} / {{a.courseName}}
                                             <p></p>
                                             Faculty : {{a.facultyName}}
                                         </h5>
@@ -266,17 +266,17 @@
                 </div>
                     
                 <!-- if search is not enabled -->
-                <div *ngIf="!searchEnabled" class="col-md-10 mx-auto">
+                <div *ngIf="!searchEnabled" class="col-md-12 mx-auto">
                     <div *ngFor="let a of assignments">
                         <div class="card">
                             <div class="card-header" 
-                                style="background-color: lightcoral;">
+                                style="background-color: lightskyblue;">
                                 <div class="row">
                                     <div class="col-6">
                                         <h5>
-                                            Department : {{a.departmentId}} # {{a.departmentName}}
+                                            {{a.departmentName}} / {{a.courseName}}
                                             <p></p>
-                                            Faculty : {{a.facultyName}}
+                                            Faculty : {{a.facultyName}}                                        
                                         </h5>
                                     </div>
                                     <div *ngIf="a.asmtFileName" class="col-6">                                  

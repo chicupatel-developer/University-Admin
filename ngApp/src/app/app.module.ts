@@ -19,6 +19,9 @@ import { AssignmentComponent } from './assignment/assignment.component';
 import { CourseComponent } from './course/course.component';
 import { DepartmentEditComponent } from './department-edit/department-edit.component';
 import { DepartmentRemoveComponent } from './department-remove/department-remove.component';
+import { FacultyEditComponent } from './faculty-edit/faculty-edit.component';
+import { FacultyRemoveComponent } from './faculty-remove/faculty-remove.component';
+
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -55,7 +58,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AssignmentComponent,
     CourseComponent,
     DepartmentEditComponent,
-    DepartmentRemoveComponent
+    DepartmentRemoveComponent,
+    FacultyEditComponent,
+    FacultyRemoveComponent
   ],
   imports: [
     BrowserModule,

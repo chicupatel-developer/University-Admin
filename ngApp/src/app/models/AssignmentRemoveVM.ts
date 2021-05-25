@@ -1,4 +1,4 @@
-export default class CourseRemoveVM {
+export default class AssignmentRemoveVM {
     assignmentId: number;
     asmtUploadId: number;
     title: string;

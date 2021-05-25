@@ -3,6 +3,7 @@ export default class Faculty {
     lastName: string;
     email: string;
     gender: number;
+    phoneNumber: string;
     departmentId: number;
     departmentName: string;
 }

@@ -83,7 +83,7 @@ namespace DataAccess.EFCore.Repositories
 
             if (appDbContext.Assignments.Count() >= 1)
             {
-                foreach(var asmt in appDbContext.Assignments.Include(x=>x.Faculty).Include(y=>y.Faculty.Department))
+                foreach(var asmt in appDbContext.Assignments.Include(x=>x.Faculty).Include(y=>y.Faculty.Department).Include(xx=>xx.Course))
                 {
                     AsmtFacDeptVM data = new AsmtFacDeptVM()
                     {
@@ -96,7 +96,9 @@ namespace DataAccess.EFCore.Repositories
                         DepartmentName = asmt.Faculty.Department.DepartmentName,
                         AsmtCreateDate = asmt.AsmtCreateDate,
                         AsmtLastDate = asmt.AsmtLastDate,
-                        AsmtUploadId = asmt.AsmtUploadId
+                        AsmtUploadId = asmt.AsmtUploadId,
+                        CourseId = asmt.CourseId,
+                        CourseName = asmt.Course.CouseName
                     };
                     datas.Add(data);
                 }

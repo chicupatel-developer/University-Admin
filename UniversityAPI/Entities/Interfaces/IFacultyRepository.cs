@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using Entities.DTO;
+using Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,8 @@ namespace Entities.Interfaces
     {
         IEnumerable<Faculty> GetFaculties();
         Faculty AddFaculty(Faculty faculty);
+        Faculty EditFaculty(Faculty faculty);
+        FacRemoveVM InitializeRemoveFaculty(int facId);
+        bool RemoveFaculty(FacRemoveVM faculty);
     }
 }

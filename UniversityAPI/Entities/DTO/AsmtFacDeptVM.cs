@@ -14,6 +14,8 @@ namespace Entities.DTO
         public string FacultyName { get; set; }
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
+        public int CourseId { get; set; }
+        public string CourseName { get; set; }
 
         public DateTime AsmtCreateDate { get; set; }
 

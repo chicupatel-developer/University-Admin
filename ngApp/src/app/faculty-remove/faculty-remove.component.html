@@ -1,0 +1,113 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        <div>
+                            Faculty-Remove
+                        </div>
+                        <hr />
+                        <h4 *ngIf="apiResponse">
+                            <span [style.color]="responseColor">
+                                {{apiResponse}}
+                            </span>
+                            <hr />
+                        </h4>
+                    </h3>
+                </div>
+                <div *ngIf="facRemoveVM" 
+                    class="card-body" 
+                    [style.color]="responseColor">
+                    <div class="container">
+                        <div class="col-md-10 mx-auto">
+                            <h6>
+                                Faculty # : {{facRemoveVM.facultyRemove.facultyId}}
+                            </h6>
+                            <h6>
+                                Faculty Name : {{facRemoveVM.facultyRemove.name}}
+                            </h6>
+                            <h6>
+                                Error Code : {{facRemoveVM.errorCode}}
+                            </h6>
+                            <div>
+                                <h6>
+                                    Error Message : {{facRemoveVM.errorMessage}}
+                                    <p></p>
+                                    <div *ngIf="facRemoveVM.errorCode<0">
+                                        <button type="button" 
+                                            (click)="removeFac(facRemoveVM)" 
+                                            class="btn btn-danger">
+                                            Force Remove Faculty
+                                        </button>
+                                    </div>
+                                    <div *ngIf="facRemoveVM.errorCode==0">
+                                        <button type="button" 
+                                            (click)="removeFac(facRemoveVM)"
+                                            class="btn btn-primary">
+                                            Remove Faculty
+                                        </button>
+                                    </div>
+                                </h6>
+                            </div>
+                            <hr />
+
+                            <h5>
+                                <u>Depending Assignments...</u>
+                            </h5>
+                            <h6 *ngIf="facRemoveVM.facultyRemove.dependingAssignments.length>=1">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Assignment #</th>
+                                            <th>File Upload #</th>
+                                            <th>Title</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let a of facRemoveVM.facultyRemove.dependingAssignments">
+                                            <td>{{a.assignmentId}}</td>
+                                            <td>{{a.asmtUploadId}}</td>
+                                            <td>{{a.title}}</td>                                           
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </h6>
+                            <h6 *ngIf="facRemoveVM.facultyRemove.dependingAssignments.length==0">
+                                <div>
+                                    N/A
+                                </div>
+                            </h6>
+
+
+                            <h5>
+                                <u>Depending Courses...</u>
+                            </h5>
+                            <h6 *ngIf="facRemoveVM.dependingCourses.length>=1">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Course Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let c of facRemoveVM.dependingCourses">
+                                            <td>{{c.courseId}}</td>
+                                            <td>{{c.name}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </h6>
+                            <h6 *ngIf="facRemoveVM.dependingCourses.length==0">
+                                <div>
+                                    N/A
+                                </div>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

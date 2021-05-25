@@ -102,7 +102,9 @@ export class AssignmentComponent implements OnInit {
             details: item.details,
             assignmentId: item.assignmentId,
             asmtFileName: item.asmtFileName,
-            asmtLastDate: item.asmtLastDate
+            asmtLastDate: item.asmtLastDate,
+            courseId: item.courseId,
+            courseName: item.courseName
           });
         }
       }
