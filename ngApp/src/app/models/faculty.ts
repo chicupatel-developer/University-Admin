@@ -6,4 +6,5 @@ export default class Faculty {
     phoneNumber: string;
     departmentId: number;
     departmentName: string;
+    facultyId: number;
 }

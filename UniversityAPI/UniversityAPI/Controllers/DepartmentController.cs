@@ -112,7 +112,6 @@ namespace UniversityAPI.Controllers
             return Ok(dept);
         }
 
-
         // ok
         [HttpPost]
         [Route("removeDepartment")]

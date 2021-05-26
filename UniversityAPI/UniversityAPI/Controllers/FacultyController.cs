@@ -57,6 +57,50 @@ namespace UniversityAPI.Controllers
         }
 
         // ok
+        // edit faculty
+        [HttpGet]
+        [Route("getFaculty/{selectedFacId}")]
+        public IActionResult GetFaculty(int selectedFacId)
+        {
+            var fac = _facRepo.GetFaculty(selectedFacId);
+            return Ok(fac);
+        }
+        // ok
+        [HttpPost]
+        [Route("editFaculty")]
+        public IActionResult EditFaculty(Faculty faculty)
+        {
+            _response = new APIResponse();
+            try
+            {
+                // throw new Exception();
+                Faculty editedFaculty = _facRepo.EditFaculty(faculty);
+                if (editedFaculty == null)
+                {
+                    // faculty not found
+                    // data mis-match either at client or server side
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Faculty Not Found @ Server Side!";
+                    _response.ResponseError = "Faculty Not Found @ Server Side!";
+                }
+                else
+                {
+                    // success
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "Faculty Edited Successfully!";
+                    _response.ResponseError = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.ResponseCode = -1;
+                _response.ResponseMessage = "Server Error!";
+                _response.ResponseError = ex.Message.ToString();
+            }
+            return Ok(_response);
+        }
+
+        // ok
         // remove faculty
         [HttpGet]
         [Route("initializeRemoveFaculty/{selectedFacId}")]
@@ -65,8 +109,7 @@ namespace UniversityAPI.Controllers
             var fac = _facRepo.InitializeRemoveFaculty(selectedFacId);
             return Ok(fac);
         }
-
-        // ok
+        
         [HttpPost]
         [Route("removeFaculty")]
         public IActionResult RemoveFaculty(FacRemoveVM faculty)

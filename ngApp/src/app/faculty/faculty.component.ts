@@ -158,7 +158,7 @@ export class FacultyComponent implements OnInit {
   editFac(editFaculty) {
     console.log(editFaculty);
     // redirect to faculty-edit component
-    // this.router.navigate(['/faculty-edit/' + editFaculty.facultyId]);
+    this.router.navigate(['/faculty-edit/' + editFaculty.facultyId]);
   }
 
   // ok

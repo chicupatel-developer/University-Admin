@@ -30,6 +30,11 @@ namespace DataAccess.EFCore.Repositories
             return result.Entity;
         }
 
+        public Faculty GetFaculty(int facId)
+        {
+            var fac = appDbContext.Faculties.Where(x => x.FacultyId == facId).FirstOrDefault();
+            return fac;
+        }
         public Faculty EditFaculty(Faculty faculty)
         {
             var result = appDbContext.Faculties.Where(x => x.FacultyId == faculty.FacultyId).FirstOrDefault();
@@ -39,7 +44,22 @@ namespace DataAccess.EFCore.Repositories
                 result.LastName = faculty.LastName;
                 result.Gender = faculty.Gender;
                 result.PhoneNumber = faculty.PhoneNumber;
-                result.Email = faculty.Email;                
+                result.Email = faculty.Email;
+                result.DepartmentId = faculty.DepartmentId;
+
+                var crsResult = appDbContext.Courses.Where(y => y.FacultyId == faculty.FacultyId);
+                if (crsResult != null)
+                {
+                    foreach(var cr in crsResult)
+                    {
+                        cr.DepartmentId = faculty.DepartmentId;
+                    }
+                }
+                else
+                {
+
+                }
+
                 appDbContext.SaveChanges();
                 return faculty;
                 // return null;
@@ -50,6 +70,7 @@ namespace DataAccess.EFCore.Repositories
             }
         }
 
+        // ok
         public FacRemoveVM InitializeRemoveFaculty(int facId)
         {
             FacRemoveVM facRemoveVM = new FacRemoveVM();
@@ -110,7 +131,7 @@ namespace DataAccess.EFCore.Repositories
             else
             {
                 facRemoveVM.ErrorCode = 0;
-                facRemoveVM.ErrorMessage = "Ready To Remove Department?";
+                facRemoveVM.ErrorMessage = "Ready To Remove Faculty?";
                 facRemoveVM.FacultyRemove.FacultyId = facId;
                 facRemoveVM.FacultyRemove.Name = appDbContext.Faculties.Where(x => x.FacultyId == facId).FirstOrDefault().FirstName;
             }

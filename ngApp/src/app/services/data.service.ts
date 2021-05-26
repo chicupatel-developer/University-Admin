@@ -68,6 +68,14 @@ export class DataService {
   removeFaculty(data): Observable<any> {
     return this.http.post(this.FACULTY_API + '/removeFaculty', data);
   }
+  // edit faculty
+  getFaculty(selectedFacId: number): Observable<Faculty> {
+    return this.http.get<Faculty>(this.FACULTY_API + '/getFaculty/' + selectedFacId);
+  }
+  // edit faculty in action
+  editFac(data): Observable<any> {
+    return this.http.post(this.FACULTY_API + '/editFaculty', data);
+  }
 
   //////////// assignment
   // list assignment
