@@ -12,7 +12,8 @@ export class LocalDataService {
 
   private DeptRemoveVM;
   private FacRemoveVM;
-
+  private CrsRemoveVM;
+  
 
   constructor() { }
 
@@ -30,6 +31,15 @@ export class LocalDataService {
   }
   getFacRemoveVM() {
     return this.FacRemoveVM;
+  }
+
+
+  // course-remove
+  setCrsRemoveVM(val) {
+    this.CrsRemoveVM = val;
+  }
+  getCrsRemoveVM() {
+    return this.CrsRemoveVM;
   }
 
   // login

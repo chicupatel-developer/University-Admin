@@ -14,7 +14,7 @@ import Faculty from '../models/faculty';
 })
 export class FacultyEditComponent implements OnInit {
 
-  // ui can change departmentId for a particular facultyId
+  // ui can change departmentId for a particular facultyId @Faculty db table
   // so run code @Course db table to change departmentId column value for
   // a respective facultyId
   // set DepartmentId = new value

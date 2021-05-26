@@ -35,6 +35,15 @@ namespace DataAccess.EFCore.Repositories
             var fac = appDbContext.Faculties.Where(x => x.FacultyId == facId).FirstOrDefault();
             return fac;
         }
+
+        // ok
+        /* 
+        ui can change departmentId for a particular facultyId @Faculty db table
+        so run code @Course db table to change departmentId column value for
+        a respective facultyId
+        set DepartmentId = new value
+        where FacultyId = facultyId of currently changed faculty's facultyId
+        */
         public Faculty EditFaculty(Faculty faculty)
         {
             var result = appDbContext.Faculties.Where(x => x.FacultyId == faculty.FacultyId).FirstOrDefault();
@@ -139,8 +148,20 @@ namespace DataAccess.EFCore.Repositories
         }
 
         public bool RemoveFaculty(FacRemoveVM faculty)
-        {           
-            return true;
+        {
+            // removing depending course if any
+            appDbContext.Courses.RemoveRange(appDbContext.Courses.Where(x => x.FacultyId == faculty.FacultyRemove.FacultyId).ToList());
+
+            // removing depending assignment if any 
+            appDbContext.Assignments.RemoveRange(appDbContext.Assignments.Where(y => y.FacultyId == faculty.FacultyRemove.FacultyId).ToList());
+
+            // throw new Exception();
+
+            // faculty remove
+            appDbContext.Faculties.RemoveRange(appDbContext.Faculties.Where(yy => yy.FacultyId == faculty.FacultyRemove.FacultyId).ToList());
+                        
+            appDbContext.SaveChanges();
+            return true;         
         }
     }
 }

@@ -66,5 +66,4 @@ export class FacultyRemoveComponent implements OnInit {
         }
       );
   }
-
 }

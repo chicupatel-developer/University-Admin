@@ -138,4 +138,24 @@ export class CourseComponent implements OnInit {
     this.courseForm.reset();
     this.submitted = false;
   }
+  
+  // ok
+  editCrs(editCourse) {
+    console.log(editCourse);
+    // redirect to course-edit component
+    this.router.navigate(['/course-edit/' + editCourse.courseId]);
+  }
+
+  // ok
+  removeCrs(removeCourse) {
+    this.dataService.initializeRemoveCourse(Number(removeCourse.courseId))
+      .subscribe(
+        data => {
+          this.localDataService.setCrsRemoveVM(data);
+          this.router.navigate(['/course-remove']);
+        },
+        error => {
+          console.log(error);
+        });
+  }
 }

@@ -21,6 +21,8 @@ import { DepartmentEditComponent } from './department-edit/department-edit.compo
 import { DepartmentRemoveComponent } from './department-remove/department-remove.component';
 import { FacultyEditComponent } from './faculty-edit/faculty-edit.component';
 import { FacultyRemoveComponent } from './faculty-remove/faculty-remove.component';
+import { CourseRemoveComponent } from './course-remove/course-remove.component';
+import { CourseEditComponent } from './course-edit/course-edit.component';
 
 
 ////////auth guard
@@ -41,10 +43,6 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 ///////date-picker ngbDatepicker
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +58,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     DepartmentEditComponent,
     DepartmentRemoveComponent,
     FacultyEditComponent,
-    FacultyRemoveComponent
+    FacultyRemoveComponent,
+    CourseRemoveComponent,
+    CourseEditComponent
   ],
   imports: [
     BrowserModule,

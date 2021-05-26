@@ -104,6 +104,7 @@
                                 <th>Course</th>
                                 <th>Faculty</th>
                                 <th>Department</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -112,6 +113,27 @@
                                 <td>{{c.courseName}}</td>
                                 <td>{{c.facultyName}}</td>
                                 <td>{{c.departmentName}}</td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-1"></div>
+                                        <div class="col-1">
+                                            <button type="button" 
+                                                (click)="editCrs(c)" 
+                                                class="btn btn-primary">
+                                                <i class="bi bi-pencil-square"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-1"></div>
+                                        <div class="col-1">
+                                            <button type="button" 
+                                                (click)="removeCrs(c)" 
+                                                class="btn btn-danger">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
+                                        <div class="col-8"></div>
+                                    </div>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

@@ -13,7 +13,17 @@ namespace Entities.DTO
     // course depends on faculty
     // while removing department, check for faculty, assignment and course dependancy
     // while removing faculty, check for assignment and course dependancy
+    // while removing course, check for assignment dependancy
 
+
+    // main type for course remove
+    public class CrsRemoveVM
+    {
+        public int ErrorCode { get; set; } //1        
+        public string ErrorMessage { get; set; } //1        
+        public CourseRemoveVM CourseRemove { get; set; } //1        
+        public List<AssignmentRemoveVM> DependingAssignments { get; set; } //*
+    }
 
     // main type for faculty remove
     public class FacRemoveVM
