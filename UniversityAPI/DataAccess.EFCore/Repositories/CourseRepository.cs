@@ -61,23 +61,70 @@ namespace DataAccess.EFCore.Repositories
             return result.Entity;
         }
 
-        // ok
-        public Course GetCourse(int crsId)
+        // ok      
+        public CourseEditVM GetCourse(int crsId)
         {
-            var crs = appDbContext.Courses.Where(x => x.CouseId == crsId).FirstOrDefault();
-            return crs;
+            CourseEditVM course = new CourseEditVM();
+            List<FacultyListVM> facultyList = new List<FacultyListVM>();
+            course.FacultyList = facultyList;
+
+            var crs = appDbContext.Courses.Where(x => x.CouseId == crsId).Include(x=>x.Department).FirstOrDefault();
+            course.CourseId = crs.CouseId;
+            course.CourseName = crs.CouseName;
+            course.CurrentFacultyId = crs.FacultyId;
+            course.DepartmentId = crs.DepartmentId;
+            course.DepartmentName = crs.Department.DepartmentName;
+
+            var facs = appDbContext.Faculties.Where(y => y.DepartmentId == crs.DepartmentId);
+            if (facs != null)
+            {
+                foreach(var fac in facs)
+                {
+                    facultyList.Add(new FacultyListVM
+                    {
+                        FacultyId = fac.FacultyId,
+                        FacultyName = fac.FirstName + ", " + fac.LastName
+                    });
+                }
+            }
+            else
+            {
+
+            }
+            return course;
         }
 
-        // ok      
+        // ok            
+        /*
+            ui can change facultyId for a particular courseId @Course db table
+            so run code @Assignment db table to change facultyId column value for
+            a respective courseId
+            set FacultyId = new value
+            where CourseId = courseId of currently changed course's courseId
+            ui can change faculty value only belong to same department where 
+            currently course is having department value
+        */
         public Course EditCourse(Course course)
         {
             var result = appDbContext.Courses.Where(x => x.CouseId == course.CouseId).FirstOrDefault();
             if (result != null)
             {
                 result.CouseName = course.CouseName;
+                result.FacultyId = course.FacultyId;
+
+                var asmts = appDbContext.Assignments.Where(y => y.CourseId == course.CouseId);
+                if (asmts != null)
+                {
+                    foreach(var asmt in asmts)
+                    {
+                        asmt.FacultyId = result.FacultyId;
+                    }
+                }
+                else
+                {
+                }
                 appDbContext.SaveChanges();
                 return course;
-                // return null;
             }
             else
             {

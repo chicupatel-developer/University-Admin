@@ -24,7 +24,9 @@ export class CourseComponent implements OnInit {
   submitted = false;
   courseModel = new CourseCreate();
   newCourseAddPanel = false;
+  
   apiResponse = '';
+  responseColor = '';
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
@@ -110,22 +112,30 @@ export class CourseComponent implements OnInit {
         .subscribe(
           res => {
             if (res.responseCode == 0) {
-              // success
-              this.loadCourses();
+              // success    
+              this.apiResponse = res.responseMessage;
 
-              this.resetCourse();
+              this.responseColor = 'green';
+              this.courseForm.reset();              
+
+              setTimeout(() => {
+                this.newCourseAddPanel = false;
+                this.apiResponse = '';
+              }, 3000);
+
+              this.submitted = false;
+              this.loadCourses();         
             }
             else {
               // fail
               // display error message
               this.apiResponse = res.responseCode + ' : ' + res.responseMessage;
-
-              this.courseForm.reset();
-              this.submitted = false;
+              this.responseColor = 'red';
             }
           },
           error => {
-            console.log(error);
+            this.apiResponse = error;
+            this.responseColor = 'red';
           }
         );
     }

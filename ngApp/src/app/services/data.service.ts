@@ -10,6 +10,7 @@ import AsmtFacDept from '../models/asmtFacDept';
 import CourseListVM from '../models/courseView';
 import CourseList from '../models/courseList';
 import Course from '../models/course';
+import CourseEditVM from '../models/courseEditVM';
 
 @Injectable({
   providedIn: 'root'
@@ -118,8 +119,13 @@ export class DataService {
     return this.http.post(this.COURSE_API + '/addCourse', courseModel)
   }
   // edit course
+  /*
   getCourse(selectedCrsId: number): Observable<Course> {
     return this.http.get<Course>(this.COURSE_API + '/getCourse/' + selectedCrsId);
+  }
+  */
+  getCourse(selectedCrsId: number): Observable<CourseEditVM> {
+    return this.http.get<CourseEditVM>(this.COURSE_API + '/getCourse/' + selectedCrsId);
   }
   // edit course in action
   editCrs(data): Observable<any> {

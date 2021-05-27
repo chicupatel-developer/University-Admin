@@ -59,7 +59,7 @@ namespace UniversityAPI.Controllers
             }
             return Ok(_response);
         }
-
+              
         // ok
         // edit course
         [HttpGet]
@@ -68,7 +68,7 @@ namespace UniversityAPI.Controllers
         {
             var crs = _crsRepo.GetCourse(selectedCrsId);
             return Ok(crs);
-        }      
+        } 
         // ok
         [HttpPost]
         [Route("editCourse")]

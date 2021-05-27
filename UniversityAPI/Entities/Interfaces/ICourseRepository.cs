@@ -10,7 +10,7 @@ namespace Entities.Interfaces
     {
         IEnumerable<CourseListVM> GetCourses();
         Course AddCourse(Course course);
-        Course GetCourse(int crsId);
+        CourseEditVM GetCourse(int crsId);
         Course EditCourse(Course course);
         CrsRemoveVM InitializeRemoveCourse(int crsId);
         bool RemoveCourse(CrsRemoveVM course);

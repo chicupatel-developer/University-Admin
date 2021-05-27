@@ -30,6 +30,22 @@
                             Course Name is required
                         </span>
                     </div>
+                    <!-- faculty list -->
+                    <div class="form-group">
+                        <label>Faculty : </label>
+                        <select class="form-control" 
+                            formControlName="FacultyId">
+                            <option value="">Choose Faculty</option>
+                            <option value={{f.facultyId}}
+                                 *ngFor="let f of faculties">
+                                {{f.facultyName}}
+                            </option>
+                        </select>
+                        <div *ngIf="submitted && crsFormControl.FacultyId.errors?.required" 
+                            class="alert alert-danger mt-2">
+                            Please choose Faculty
+                        </div>
+                    </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-sm-3">

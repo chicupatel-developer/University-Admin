@@ -10,22 +10,32 @@
                         <hr />
                         <div>
                             <button *ngIf="!newCourseAddPanel" 
-                                type="button" (click)="addCourse()"
-                                class="btn btn-success">Add Course</button>
+                                type="button" 
+                                (click)="addCourse()"
+                                class="btn btn-success">
+                                    Add Course
+                            </button>
                         </div>
                     </h3>
                 </div>
                 <div class="card-body">
-                    <div class="container" *ngIf="newCourseAddPanel">
+                    <div class="container" 
+                        *ngIf="newCourseAddPanel">
                         <div class="col-md-7 mx-auto">
                             <div class="card">
                                 <div class="card-header">
-                                    <h3>New Course</h3>
-                                    <h6 *ngIf="apiResponse">
-                                        <span style="color: red;">
-                                            {{apiResponse}}
-                                        </span>
-                                    </h6>
+                                    <h3>
+                                        <div>
+                                            Course - Add
+                                        </div>
+                                        <hr />
+                                        <h4 *ngIf="apiResponse">
+                                            <span [style.color]="responseColor">
+                                                {{apiResponse}}
+                                            </span>
+                                            <hr />
+                                        </h4>
+                                    </h3>
                                 </div>
                                 <div class="card-body">
                                     <form class="form-course" 

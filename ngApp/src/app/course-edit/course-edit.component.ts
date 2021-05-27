@@ -7,6 +7,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalDataService } from '../services/local-data.service';
 import Faculty from '../models/faculty';
 import Course from '../models/course';
+import FacultyList from '../models/facultyList';
 
 @Component({
   selector: 'app-course-edit',
@@ -15,11 +16,24 @@ import Course from '../models/course';
 })
 export class CourseEditComponent implements OnInit {
 
+  // ui can change facultyId for a particular courseId @Course db table
+  // so run code @Assignment db table to change facultyId column value for
+  // a respective courseId
+  // set FacultyId = new value
+  // where CourseId = courseId of currently changed course's courseId
+  // ui can change faculty value only belong to same department where 
+  // currently course is having department value
+
   // can't change
   couseId: string;
-  facultyId: number;
   departmentId: number;
+  departmentName: string;
  
+  // can change
+  facultyId: number;
+  departments: Array<Department>;
+  faculties: Array<FacultyList>;
+
   crsForm: FormGroup;
   submitted = false;
   courseModel = new Course();
@@ -32,37 +46,41 @@ export class CourseEditComponent implements OnInit {
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.crsForm = this.fb.group({
-      CourseName: ['', Validators.required]
-    });
+   this.crsForm = this.fb.group({
+     CourseName: ['', Validators.required],
+     FacultyId: ['', Validators.required]
+   });
 
-    this.couseId = this.route.snapshot.paramMap.get('id');
-    if (this.couseId == '') {
-      return;
-    }
-    else {
-      // do api call to retrieve latest course information 
-      this.dataService.getCourse(Number(this.couseId))
-        .subscribe(
-          data => {
-            if (data == null) {
+   this.couseId = this.route.snapshot.paramMap.get('id');
+   if (this.couseId == '') {
+     return;
+   }
+   else {
+     // do api call to retrieve latest course information
+     this.dataService.getCourse(Number(this.couseId))
+       .subscribe(
+         data => {
+           if (data == null) {
               console.log('course not found!');
-            }
-            else {
+           }
+           else {
               // console.log(data);
               // popup form data with incoming api data call  
               this.crsForm.setValue({
-                CourseName: data.couseName
+                CourseName: data.courseName,
+                FacultyId: data.currentFacultyId
               });
-              this.facultyId = data.facultyId;
+              this.faculties = data.facultyList;
               this.departmentId = data.departmentId;
-            }
-          },
-          error => {
-            console.log(error);
-          });
-    }
-  }
+              this.departmentName = data.departmentName;
+           }
+         },
+         error => {
+           console.log(error);
+         });
+   }
+ }
+  
   // ok  
   get crsFormControl() {
     return this.crsForm.controls;
@@ -73,7 +91,7 @@ export class CourseEditComponent implements OnInit {
     if (this.crsForm.valid) {
       this.courseModel.couseName = this.crsForm.value["CourseName"];
       this.courseModel.departmentId = this.departmentId;
-      this.courseModel.facultyId = this.facultyId;
+      this.courseModel.facultyId = Number(this.crsForm.value["FacultyId"]);
       this.courseModel.couseId = Number(this.couseId);
 
       this.dataService.editCrs(this.courseModel)
