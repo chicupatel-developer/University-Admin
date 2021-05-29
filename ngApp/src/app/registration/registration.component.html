@@ -67,6 +67,21 @@
                                 Passwords doesnot match
                             </span>
                         </div>
+                        <!-- role -->
+                        <div class="form-group">
+                            <label>Role : </label>
+                            <select class="form-control" 
+                                formControlName="MyRole">
+                                <option disabled>Select Role</option>
+                                <option value="">Choose Role</option>                              
+                                <option value="Admin">Admin</option>
+                                <option value="User">User</option>
+                            </select>
+                            <span class="text-danger"
+                                *ngIf="(registerFormControl.MyRole.touched || submitted) && handleError('MyRole', 'required')">
+                                Role is required
+                            </span>
+                        </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-6">

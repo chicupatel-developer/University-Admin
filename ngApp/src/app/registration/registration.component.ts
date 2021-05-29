@@ -20,7 +20,7 @@ export class RegistrationComponent implements OnInit {
     UserName: '',
     FullName: '',
     Email: '',
-    Password: ''
+    Password: '',
   };
 
   constructor(
@@ -39,6 +39,9 @@ export class RegistrationComponent implements OnInit {
       username: ['', [Validators.required], this.customValidator.userNameValidator.bind(this.customValidator)],
       password: ['', Validators.compose([Validators.required, this.customValidator.patternValidator()])],
       confirmPassword: ['', [Validators.required]],
+
+      //// role
+      MyRole: ['', [Validators.required]]
     },
       {
         validator: this.customValidator.MatchPassword('password', 'confirmPassword'),
@@ -74,7 +77,11 @@ export class RegistrationComponent implements OnInit {
       this.registerModel.Email = this.registerForm.value["email"];
       this.registerModel.Password = this.registerForm.value["password"];
 
-      this.userService.register(this.registerModel).subscribe(
+      //// role
+      var MyRole = this.registerForm.value["MyRole"];
+      this.userService.register_admin(this.registerModel, MyRole).subscribe(
+
+      // this.userService.register(this.registerModel).subscribe(
         res => {
           console.log(res);
           if (res.responseCode == 0) {
@@ -107,6 +114,11 @@ export class RegistrationComponent implements OnInit {
   resetRegistration() {
     this.registerForm.reset();
     this.submitted = false;
+  }
+
+  //// role
+  public handleError = (controlName: string, errorName: string) => {
+    return this.registerForm.controls[controlName].hasError(errorName);
   }
 }
 

@@ -66,7 +66,10 @@ export class SigninComponent implements OnInit {
         Token: '',
         LoginTime: '',
         ResponseCode: 0,
-        ResponseMessage: ''
+        ResponseMessage: '',
+        
+        //// role
+        MyRole: ''
       }
       
       this.signinModel.UserName = this.signinForm.value["UserName"];
@@ -76,15 +79,36 @@ export class SigninComponent implements OnInit {
         (res: any) => { 
           // Success     
           if (res.response.status == '200') {
+
+            //// get role info
+            console.log('my role : '+res.myRole);
+            let jwtData = res.token.split('.')[1];
+            let decodedJwtJsonData = window.atob(jwtData);
+            let decodedJwtData = JSON.parse(decodedJwtJsonData);
+            console.log('jwtData: ' + jwtData);
+            console.log('decodedJwtJsonData: ' + decodedJwtJsonData);
+            console.log('decodedJwtData: ' + decodedJwtData);
+            //// get role info // end
+
             userTokenData.Token = res.token;
             userTokenData.ResponseMessage = res.response.message;
             userTokenData.UserName = res.userName;
+            
+            //// add role info
+            userTokenData.MyRole = res.myRole;
 
             localStorage.setItem('token', userTokenData.Token);
             localStorage.setItem('userName', userTokenData.UserName);
+            
+            //// store role info
+            localStorage.setItem('myRole', userTokenData.MyRole);
 
             this.localDataService.setUserName(userTokenData.UserName);
             this.localDataService.setLoginError(res.response.message);
+            
+            //// store role info
+            this.localDataService.setMyRole(userTokenData.MyRole);
+
 
             // redirect to home page
             setTimeout(() => {
@@ -94,6 +118,11 @@ export class SigninComponent implements OnInit {
           else {
             this.localDataService.setLoginError(res.response.message);
             this.localDataService.setUserName('');
+            
+            //// reset role
+            //// remove role
+            this.localDataService.setMyRole('');
+
           }
         },
         msg => {

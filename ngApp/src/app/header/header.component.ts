@@ -35,12 +35,16 @@ export class HeaderComponent implements OnInit {
     })
     //////////// google rework end //////////////
 
-    this.localDataService.setUserName(localStorage.getItem('userName'));    
+    this.localDataService.setUserName(localStorage.getItem('userName')); 
+    
+    //// role
+    this.localDataService.setMyRole(localStorage.getItem('myRole'));
   }
 
   // ok
   logout() {
     this._authService.doLogout();
+    
     ///////////// google rework
     if (this.isExternalAuth)
       this._authService.signOutExternal();    

@@ -10,9 +10,11 @@ using UniversityAPI.ViewModels;
 using System.IO;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UniversityAPI.Controllers
 {
+    [Authorize("Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AssignmentController : ControllerBase

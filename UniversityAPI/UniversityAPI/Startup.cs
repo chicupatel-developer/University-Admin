@@ -85,6 +85,22 @@ namespace UniversityAPI
                 };
             });
 
+            //// role
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("Admin",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireRole("Admin");
+                    });
+                options.AddPolicy("User",
+                    authBuilder =>
+                    {
+                        authBuilder.RequireRole("User");
+                    });
+
+            });
+
             /////////////////// token configuration end //////////////////
             #endregion
 

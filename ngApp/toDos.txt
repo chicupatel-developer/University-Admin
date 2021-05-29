@@ -1,1 +1,14 @@
-check token expiry which - api return 401 after token expiry to ng
+role based authentication:
+- either User or Admin role is created during registration
+- after successful login, respective role is returned in token / response
+- angular stores role info with token
+- header menu component displays related menu options as per role info
+- when user bypasses header menu options and directly types url then, on server side
+api's controller code checks with [Authorize("Admin")] and if un-authorised then,
+returns 403 (Forbidden)
+- on angular side auth.interceptor.ts file catches 403 and, redirects to home page
+else if (err.status == 403){
+                            // not authorise
+                            // redirect to home page
+                            this.router.navigateByUrl('/home');
+                        }

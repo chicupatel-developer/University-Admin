@@ -86,7 +86,8 @@ namespace UniversityAPI.Controllers
                         response = response,
                         token = new JwtSecurityTokenHandler().WriteToken(token),
                         expiration = token.ValidTo,
-                        userName = model.Username
+                        userName = model.Username,
+                        myRole = authClaims[2].Value
                     });
                 }
                 else
@@ -219,7 +220,8 @@ namespace UniversityAPI.Controllers
             return Ok(_response);
         }
 
-        // need to check
+        /*
+        // ok
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
@@ -256,6 +258,49 @@ namespace UniversityAPI.Controllers
                 _response.ResponseError = null;
             }
             catch(Exception ex)
+            {
+                _response.ResponseCode = -1;
+                _response.ResponseMessage = "Server Error!";
+                _response.ResponseError = ex.Message.ToString();
+            }
+            return Ok(_response);
+        }
+        */
+
+        // ok
+        [HttpPost]
+        [Route("register-admin/{myRole}")]
+        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model, string myRole)
+        {
+            _response = new APIResponse();
+            try
+            {
+                var userExists = await userManager.FindByNameAsync(model.Username);
+                if (userExists != null)
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+
+                ApplicationUser user = new ApplicationUser()
+                {
+                    Email = model.Email,
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    UserName = model.Username
+                };
+                var result = await userManager.CreateAsync(user, model.Password);
+                if (!result.Succeeded)
+                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+
+                if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+                if (!await roleManager.RoleExistsAsync(UserRoles.User))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+
+                await userManager.AddToRoleAsync(user, myRole);
+
+                _response.ResponseCode = 0;
+                _response.ResponseMessage = "User created successfully!";
+                _response.ResponseError = null;
+            }
+            catch (Exception ex)
             {
                 _response.ResponseCode = -1;
                 _response.ResponseMessage = "Server Error!";

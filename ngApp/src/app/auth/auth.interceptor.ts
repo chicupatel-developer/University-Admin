@@ -46,6 +46,12 @@ export class AuthInterceptor implements HttpInterceptor {
                             this.userService.doLogout();                            
                             this.router.navigateByUrl('/signin');
                         }
+                        //// role
+                        else if (err.status == 403){
+                            // not authorise
+                            // redirect to home page
+                            this.router.navigateByUrl('/home');
+                        }
                     }
                 )
             )

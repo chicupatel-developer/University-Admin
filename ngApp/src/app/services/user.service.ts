@@ -47,10 +47,21 @@ export class UserService {
     return localStorage.getItem('token');
   }
 
+  //// token
+  getMyRole() {
+    return localStorage.getItem('myRole');
+  }
+
   // ok
   get isLoggedIn(): boolean {   
     let authToken = localStorage.getItem('token');
     return (authToken !== null) ? true : false;
+  }
+
+  //// token
+  get isAdmin(): boolean {
+    let myRole = localStorage.getItem('myRole');
+    return (myRole == 'Admin') ? true : false;
   }
 
   // ok
@@ -59,8 +70,14 @@ export class UserService {
     let removeUserName = localStorage.removeItem('userName');
     let removeLoginError = localStorage.removeItem('loginError');
 
+    //// role
+    let removeMyRole = localStorage.removeItem('myRole');
+
     this.localDataService.setLoginError('');
     this.localDataService.setUserName('');
+
+    //// role
+    this.localDataService.setMyRole('');
 
     if (removeToken == null) {
       this.router.navigate(['/home']);
@@ -70,7 +87,13 @@ export class UserService {
   // ok
   // register
   register(registerModel): Observable<any> {
-    return this.http.post(this.AUTHENTICATE_API + '/register', registerModel)
+    return this.http.post(this.AUTHENTICATE_API + '/register', registerModel)    
+  }
+
+  // ok
+  // register-admin
+  register_admin(registerModel, MyRole): Observable<any> {
+    return this.http.post(this.AUTHENTICATE_API + '/register-admin/'+MyRole, registerModel)
   }
 
   // ok

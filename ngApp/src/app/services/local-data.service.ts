@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class LocalDataService {
 
+  // role
+  private MyRole;
   private UserName;
   private LoginError;
   private RegisterMessage;
@@ -16,6 +18,14 @@ export class LocalDataService {
   
 
   constructor() { }
+
+  // role
+  setMyRole(val) {
+    this.MyRole = val;
+  }
+  getMyRole() {
+    return this.MyRole;
+  }
 
   // department-remove
   setDeptRemoveVM(val) {
