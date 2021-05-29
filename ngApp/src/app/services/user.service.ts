@@ -47,7 +47,7 @@ export class UserService {
     return localStorage.getItem('token');
   }
 
-  //// token
+  //// role
   getMyRole() {
     return localStorage.getItem('myRole');
   }
@@ -58,7 +58,7 @@ export class UserService {
     return (authToken !== null) ? true : false;
   }
 
-  //// token
+  //// role
   get isAdmin(): boolean {
     let myRole = localStorage.getItem('myRole');
     return (myRole == 'Admin') ? true : false;
