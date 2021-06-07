@@ -46,7 +46,6 @@ export class SigninComponent implements OnInit {
     else {
       // not logged in yet
     }
-
     this.localDataService.setLoginError('');
   }
  
@@ -66,9 +65,7 @@ export class SigninComponent implements OnInit {
         Token: '',
         LoginTime: '',
         ResponseCode: 0,
-        ResponseMessage: '',
-        
-        //// role
+        ResponseMessage: '',       
         MyRole: ''
       }
       
@@ -109,7 +106,6 @@ export class SigninComponent implements OnInit {
             //// store role info
             this.localDataService.setMyRole(userTokenData.MyRole);
 
-
             // redirect to home page
             setTimeout(() => {
               this.router.navigate(['/home']);
@@ -122,16 +118,13 @@ export class SigninComponent implements OnInit {
             //// reset role
             //// remove role
             this.localDataService.setMyRole('');
-
           }
         },
-        msg => {
-          
+        msg => {          
         }
       );      
     }
   }
-
 
   //////////// google rework
   // ok
@@ -157,8 +150,13 @@ export class SigninComponent implements OnInit {
           localStorage.setItem("token", res.token);
           localStorage.setItem("userName", res.userName);
           this.localDataService.setUserName(res.userName);
-
           this.localDataService.setLoginError(res.errorMessage);
+          //// get role info
+          console.log('my role : ' + res.myRole);  
+          //// store role info
+          localStorage.setItem('myRole', res.myRole);
+          //// store role info
+          this.localDataService.setMyRole(res.myRole);
 
           // redirect to home page
           setTimeout(() => {
@@ -169,15 +167,15 @@ export class SigninComponent implements OnInit {
           // error
           this.localDataService.setLoginError(res.errorMessage);
           this.localDataService.setUserName('');
-        }
-    
+
+          //// reset role
+          //// remove role
+          this.localDataService.setMyRole('');
+        }    
       },
         error => {
           this.userService.signOutExternal();
         });
   }
   /////////////// google rework end ///////////////
-
-
 }
-

@@ -36,8 +36,6 @@ export class HeaderComponent implements OnInit {
     //////////// google rework end //////////////
 
     this.localDataService.setUserName(localStorage.getItem('userName')); 
-    
-    //// role
     this.localDataService.setMyRole(localStorage.getItem('myRole'));
   }
 

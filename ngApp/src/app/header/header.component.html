@@ -41,21 +41,19 @@
                 </a>
             </li>
 
-            <span *ngIf="this._authService.isLoggedIn" style="font-size: xx-large; color: red;">
+            <span *ngIf="this._authService.isLoggedIn" style="font-size:medium; color: red;">
                 Welcome...
             </span>
-            <!-- both needed -->
-            <span *ngIf="this._authService.isLoggedIn" style="font-size: xx-large; color: red;">
-                {{this.localDataService.getUserName()}} ( {{this.localDataService.getMyRole()}} )
+            <span *ngIf="this._authService.isLoggedIn" style="font-size:medium; color: red;">
+                {{this.localDataService.getUserName()}} [{{this.localDataService.getMyRole()}}]
             </span>  
             <span *ngIf="this._authService.isLoggedIn"
-                style="font-size: xx-large; color: red; margin-right: 100px;">
+                style="font-size: medium; color: red; margin-right: 100px;">
                 !
             </span>
             <button (click)="logout()" *ngIf="this._authService.isLoggedIn" 
                 type="button" class="btn btn-danger">Logout
             </button>
-
         </ul>
     </div>
 </nav>

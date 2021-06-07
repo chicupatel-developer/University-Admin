@@ -40,6 +40,11 @@ export class AssignmentComponent implements OnInit {
   filteredAssignments_: Array<AsmtFacDept> = [];
   searchEnabled = false;
   facs: Array<FacultyList> = [];
+
+  // check if file exists or not
+  downloadStatus: string;
+  downloadClass: string;
+  downloadFile: string;
   
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
@@ -132,10 +137,6 @@ export class AssignmentComponent implements OnInit {
     this.searchEnabled = false;
     this.searchForm.reset();
   }
-
-
-
-
 
   // ok
   // format fac. / dept. column
@@ -382,14 +383,39 @@ export class AssignmentComponent implements OnInit {
     console.log(assignment.asmtFileName);
     this.dataService.download(assignment.asmtFileName)
       .subscribe(blob => {
+
+        // file exists and downloading
+        this.setFileDownload('Downloading!', 'green', assignment.asmtFileName);
+       
         console.log(blob);
 
         // const myFile = new Blob([blob], { type: 'text/csv' });
         const myFile = new Blob([blob], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(myFile);
         window.open(url);
+
+        setTimeout(() => {
+          this.resetAfterFileDownload();
+        }, 5000);
       }, error => {
-        console.log("Error while downloading assignment file!");
+        if (error.status == 400){
+          this.setFileDownload('File Not Found!', 'red', assignment.asmtFileName);
+     
+          console.log('File Not Found on Server!');
+
+          setTimeout(() => {
+            this.resetAfterFileDownload();
+          }, 2000);
+        }
+        else{
+          this.setFileDownload('Error!', 'red', assignment.asmtFileName );
+
+          console.log("Error while downloading assignment file!");
+
+          setTimeout(() => {
+            this.resetAfterFileDownload();
+          }, 2000);
+        }        
       });
   }
 
@@ -398,4 +424,18 @@ export class AssignmentComponent implements OnInit {
     this.newAsmtAddPanel = false;
     this.asmtDetailsPanel = false;
   }  
+
+  // ok
+  resetAfterFileDownload(){
+    this.downloadStatus = '';
+    this.downloadClass = '';
+    this.downloadFile = '';
+  }
+
+  // ok
+  setFileDownload(downloadStatus, downloadClass, downloadFile){
+    this.downloadStatus = downloadStatus;
+    this.downloadClass = downloadClass;
+    this.downloadFile = downloadFile;
+  }
 }

@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
 import { CustomValidationService } from '../services/custom-validation.service';
 import { UserService } from '../services/user.service';
 import { Router } from '@angular/router';
-
 import { LocalDataService } from '../services/local-data.service';
 
 @Component({
@@ -39,8 +37,6 @@ export class RegistrationComponent implements OnInit {
       username: ['', [Validators.required], this.customValidator.userNameValidator.bind(this.customValidator)],
       password: ['', Validators.compose([Validators.required, this.customValidator.patternValidator()])],
       confirmPassword: ['', [Validators.required]],
-
-      //// role
       MyRole: ['', [Validators.required]]
     },
       {
@@ -56,8 +52,6 @@ export class RegistrationComponent implements OnInit {
     else {
       // not logged in yet
     }
-
-
     this.localDataService.setRegisterMessage('');
   }
 
@@ -76,12 +70,9 @@ export class RegistrationComponent implements OnInit {
       this.registerModel.UserName = this.registerForm.value["username"];
       this.registerModel.Email = this.registerForm.value["email"];
       this.registerModel.Password = this.registerForm.value["password"];
-
-      //// role
       var MyRole = this.registerForm.value["MyRole"];
-      this.userService.register_admin(this.registerModel, MyRole).subscribe(
-
-      // this.userService.register(this.registerModel).subscribe(
+      
+      this.userService.register(this.registerModel, MyRole).subscribe(
         res => {
           console.log(res);
           if (res.responseCode == 0) {
@@ -116,7 +107,7 @@ export class RegistrationComponent implements OnInit {
     this.submitted = false;
   }
 
-  //// role
+  // ok
   public handleError = (controlName: string, errorName: string) => {
     return this.registerForm.controls[controlName].hasError(errorName);
   }

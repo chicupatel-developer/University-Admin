@@ -146,8 +146,7 @@
                                                 class="alert alert-danger mt-2">
                                                 Assignment Last Submission Date Required
                                             </div>
-                                        </div>
-                                  
+                                        </div>                                  
 
                                         <!-- department list -->
                                         <div class="form-group">
@@ -248,7 +247,12 @@
                                             (click)="downloadAsmt(a)" 
                                             class="btn btn-primary">
                                             Download Assignment File
-                                        </button>
+                                        </button>                                               
+                                        <span *ngIf="downloadStatus && downloadFile==a.asmtFileName" [style.color]="downloadClass">
+                                            <p>
+                                                {{downloadStatus}}
+                                            </p>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -287,6 +291,12 @@
                                                 class="btn btn-primary">
                                                 Download Assignment File
                                             </button>
+                                            <span *ngIf="downloadStatus && downloadFile==a.asmtFileName" 
+                                                [style.color]="downloadClass">
+                                                <p>
+                                                    {{downloadStatus}}
+                                                </p>
+                                            </span>
                                     </div>
                                 </div>
                             </div>

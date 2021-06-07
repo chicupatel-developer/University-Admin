@@ -164,14 +164,22 @@ namespace UniversityAPI.Controllers
                 currentDirectory = currentDirectory + "\\StaticFiles\\Assignments";
                 var file = Path.Combine(currentDirectory, fileName);
 
-                var memory = new MemoryStream();
-                using (var stream = new FileStream(file, FileMode.Open))
+                // check if file exists or not
+                if (System.IO.File.Exists(file))
                 {
-                    await stream.CopyToAsync(memory);
-                }
+                    var memory = new MemoryStream();
+                    using (var stream = new FileStream(file, FileMode.Open))
+                    {
+                        await stream.CopyToAsync(memory);
+                    }
 
-                memory.Position = 0;
-                return File(memory, GetMimeType(file), fileName);
+                    memory.Position = 0;
+                    return File(memory, GetMimeType(file), fileName);
+                }
+                else
+                {
+                    return BadRequest(); 
+                }                
             }
             catch (Exception e)
             {

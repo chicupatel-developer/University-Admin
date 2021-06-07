@@ -112,6 +112,7 @@ namespace UniversityAPI.Controllers
          
         }
 
+        // external user has User role only
         // ok
         // google
         // select * from AspNetUserLogins
@@ -141,10 +142,17 @@ namespace UniversityAPI.Controllers
                         // error--- VIEWER role not exist
                         // db update exception
                         // await userManager.AddToRoleAsync(user, "Viewer");
+                         
+                        // external user has User role only
+                        await userManager.AddToRoleAsync(user, "User");
+
                         await userManager.AddLoginAsync(user, info);
                     }
                     else
                     {
+                        // external user has User role only
+                        await userManager.AddToRoleAsync(user, "User");
+
                         await userManager.AddLoginAsync(user, info);
                     }
                 }
@@ -173,7 +181,15 @@ namespace UniversityAPI.Controllers
                                   signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
                                );
                 var token = new JwtSecurityTokenHandler().WriteToken(tokenObj);
-                return Ok(new AuthResponseDto { ErrorMessage = "Login Success!", Token = token, IsAuthSuccessful = true, UserName = user.UserName });
+                return Ok(new 
+                    AuthResponseDto { 
+                        ErrorMessage = "External Login Success!", 
+                        Token = token, 
+                        IsAuthSuccessful = true, 
+                        UserName = user.UserName,
+                        myRole = authClaims[2].Value
+                }
+                );
             }
             catch(Exception ex)
             {
@@ -182,6 +198,7 @@ namespace UniversityAPI.Controllers
         }
 
         // ok
+        /*
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
@@ -219,9 +236,11 @@ namespace UniversityAPI.Controllers
             }
             return Ok(_response);
         }
+        */
 
-        /*
+        
         // ok
+        /*
         [HttpPost]
         [Route("register-admin")]
         public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model)
@@ -268,9 +287,10 @@ namespace UniversityAPI.Controllers
         */
 
         // ok
+        // registration with role
         [HttpPost]
-        [Route("register-admin/{myRole}")]
-        public async Task<IActionResult> RegisterAdmin([FromBody] RegisterModel model, string myRole)
+        [Route("register/{myRole}")]
+        public async Task<IActionResult> Register([FromBody] RegisterModel model, string myRole)
         {
             _response = new APIResponse();
             try

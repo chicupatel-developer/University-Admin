@@ -1,19 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-
 import { LocalDataService } from './local-data.service';
-
 import { SocialAuthService } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
 import { ExternalAuthDto } from '../models/ExternalAuthDto';
 import { AuthResponseDto } from '../models/AuthResponseDto';
-
-
 
 import { Subject } from 'rxjs';
 
@@ -47,7 +42,7 @@ export class UserService {
     return localStorage.getItem('token');
   }
 
-  //// role
+  // ok
   getMyRole() {
     return localStorage.getItem('myRole');
   }
@@ -58,7 +53,7 @@ export class UserService {
     return (authToken !== null) ? true : false;
   }
 
-  //// role
+  // ok
   get isAdmin(): boolean {
     let myRole = localStorage.getItem('myRole');
     return (myRole == 'Admin') ? true : false;
@@ -69,14 +64,10 @@ export class UserService {
     let removeToken = localStorage.removeItem('token');
     let removeUserName = localStorage.removeItem('userName');
     let removeLoginError = localStorage.removeItem('loginError');
-
-    //// role
     let removeMyRole = localStorage.removeItem('myRole');
 
     this.localDataService.setLoginError('');
     this.localDataService.setUserName('');
-
-    //// role
     this.localDataService.setMyRole('');
 
     if (removeToken == null) {
@@ -86,14 +77,8 @@ export class UserService {
 
   // ok
   // register
-  register(registerModel): Observable<any> {
-    return this.http.post(this.AUTHENTICATE_API + '/register', registerModel)    
-  }
-
-  // ok
-  // register-admin
-  register_admin(registerModel, MyRole): Observable<any> {
-    return this.http.post(this.AUTHENTICATE_API + '/register-admin/'+MyRole, registerModel)
+  register(registerModel, MyRole): Observable<any> {
+    return this.http.post(this.AUTHENTICATE_API + '/register/'+MyRole, registerModel)
   }
 
   // ok

@@ -13,5 +13,6 @@ namespace AuthenticationAPI.DTO
         public bool Is2StepVerificationRequired { get; set; }
         public string Provider { get; set; }
         public string UserName { get; set; }
+        public string myRole { get; set; }
     }
 }

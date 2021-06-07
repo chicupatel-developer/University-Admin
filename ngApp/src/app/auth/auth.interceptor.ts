@@ -50,6 +50,7 @@ export class AuthInterceptor implements HttpInterceptor {
                         else if (err.status == 403){
                             // not authorise
                             // redirect to home page
+                            console.log('Auth Guard monitors...403-Un-Authorized...');
                             this.router.navigateByUrl('/home');
                         }
                     }

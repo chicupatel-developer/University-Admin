@@ -5,4 +5,5 @@ export interface AuthResponseDto {
     is2StepVerificationRequired: boolean;
     provider: string;
     userName: string;
+    myRole: string;
 }
