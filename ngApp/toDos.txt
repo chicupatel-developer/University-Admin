@@ -1,4 +1,10 @@
-/////////////// role based authentication:
+/////////////// system info
+** exceptions handling: 
+- model validations are handled on client side - angular - controller 
+- all server side exceptions are handled on api - controller
+- all file upload/download related exceptions are handled on api/controller and angular/controller
+
+//// role based authentication
 - JWT authentication
 - sign-in using google authentication and custom jwt authentication
 - either User or Admin role is created during registration
@@ -14,13 +20,6 @@ else if (err.status == 403){
                             // redirect to home page
                             this.router.navigateByUrl('/home');
                         }
-
-
-/////////////// system info
-** exceptions handling: 
-- model validations are handled on client side - angular - controller 
-- all server side exceptions are handled on api - controller
-- all file upload/download related exceptions are handled on api/controller and angular/controller
 
 //// sign-in
 - user can sign-in
