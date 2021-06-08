@@ -72,5 +72,8 @@ on client side and menu options are displayed as per user's role
 ** exceptions handling
 
 //// student - course - assignment
+- (student)1------->0-*(course)
+- StdToCourse 
+- (course)1------->0-*(student)
 
 //// assignment - edit

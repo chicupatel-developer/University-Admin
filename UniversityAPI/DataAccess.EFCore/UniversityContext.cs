@@ -48,5 +48,12 @@ namespace DataAccess.EFCore
         public DbSet<Assignment> Assignments { get; set; }
         public DbSet<AsmtUpload> AsmtUploads { get; set; }
         public DbSet<Course> Courses { get; set; }
+
+        //// student - course - assignment
+        // - (student)1------->0-*(course)
+        // - StdToCourse 
+        // - (course)1------->0-*(student)
+        public DbSet<Student> Students { get; set; }
+        public DbSet<StdToCourse> StdsToCourses { get; set; }
     }
 }

@@ -153,6 +153,48 @@ namespace DataAccess.EFCore.Migrations
                     b.ToTable("Faculties");
                 });
 
+            modelBuilder.Entity("Entities.Models.StdToCourse", b =>
+                {
+                    b.Property<int>("StdToCourseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("StdToCourseId");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("StdsToCourses");
+                });
+
+            modelBuilder.Entity("Entities.Models.Student", b =>
+                {
+                    b.Property<int>("StudentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StudentId");
+
+                    b.ToTable("Students");
+                });
+
             modelBuilder.Entity("Entities.Models.Assignment", b =>
                 {
                     b.HasOne("Entities.Models.Course", "Course")
@@ -182,6 +224,21 @@ namespace DataAccess.EFCore.Migrations
                     b.HasOne("Entities.Models.Department", "Department")
                         .WithMany("Faculties")
                         .HasForeignKey("DepartmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.Models.StdToCourse", b =>
+                {
+                    b.HasOne("Entities.Models.Course", "Course")
+                        .WithMany("StdsToCourses")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Models.Student", "Student")
+                        .WithMany("StdsToCourses")
+                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

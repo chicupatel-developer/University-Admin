@@ -42,6 +42,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 ////////bootstrap
 ///////date-picker ngbDatepicker
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { StudentComponent } from './student/student.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     FacultyEditComponent,
     FacultyRemoveComponent,
     CourseRemoveComponent,
-    CourseEditComponent
+    CourseEditComponent,
+    StudentComponent
   ],
   imports: [
     BrowserModule,
