@@ -51,6 +51,7 @@ namespace UniversityAPI
             services.AddTransient<IFacultyRepository, FacultyRepository>();
             services.AddTransient<IAssignmentRepository, AssignmentRepository>();
             services.AddTransient<ICourseRepository, CourseRepository>();
+            services.AddTransient<IStudentRepository, StudentRepository>();
             #endregion
 
             #region token configuration

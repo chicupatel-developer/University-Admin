@@ -11,6 +11,7 @@ import CourseListVM from '../models/courseView';
 import CourseList from '../models/courseList';
 import Course from '../models/course';
 import CourseEditVM from '../models/courseEditVM';
+import Student from '../models/student';
 
 @Injectable({
   providedIn: 'root'
@@ -22,11 +23,27 @@ export class DataService {
   public FACULTY_API = `${this.API}/api/faculty`;
   public ASSIGNMENT_API = `${this.API}/api/assignment`;
   public COURSE_API = `${this.API}/api/course`;
+  public STUDENT_API = `${this.API}/api/student`;
 
   constructor(private http: HttpClient, public localDataService: LocalDataService) { }
 
   ///////////////// university api
   // ok
+  //////////// student
+  // list student
+  getStudents(): Observable<Array<Student>> {
+    return this.http.get<Array<Student>>(this.STUDENT_API + '/allStudents');
+  }
+  // add student
+  addStd(studentModel): Observable<any> {
+    return this.http.post(this.STUDENT_API + '/addStudent', studentModel)
+  }
+  // get student by id
+  getStudent(selectedStdId: number): Observable<Student> {
+    return this.http.get<Student>(this.STUDENT_API + '/getStudent/' + selectedStdId);
+  }
+ 
+
   //////////// department
   // list department
   getDepartments(): Observable<Array<Department>> {
@@ -53,6 +70,7 @@ export class DataService {
     return this.http.post(this.DEPARTMENT_API + '/removeDepartment', data);
   }
 
+
   //////////// faculty
   // list faculty
   getFaculties(): Observable<Array<Faculty>> {
@@ -78,6 +96,7 @@ export class DataService {
   editFac(data): Observable<any> {
     return this.http.post(this.FACULTY_API + '/editFaculty', data);
   }
+
 
   //////////// assignment
   // list assignment
@@ -109,6 +128,7 @@ export class DataService {
       { responseType: 'blob' as 'json' });      
   }
 
+
   //////////// course
   // list course
   getCourses(): Observable<Array<CourseListVM>> {
@@ -118,12 +138,7 @@ export class DataService {
   addCourse(courseModel): Observable<any> {
     return this.http.post(this.COURSE_API + '/addCourse', courseModel)
   }
-  // edit course
-  /*
-  getCourse(selectedCrsId: number): Observable<Course> {
-    return this.http.get<Course>(this.COURSE_API + '/getCourse/' + selectedCrsId);
-  }
-  */
+  // edit course  
   getCourse(selectedCrsId: number): Observable<CourseEditVM> {
     return this.http.get<CourseEditVM>(this.COURSE_API + '/getCourse/' + selectedCrsId);
   }
