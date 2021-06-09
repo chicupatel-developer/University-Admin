@@ -65,7 +65,11 @@ namespace DataAccess.EFCore.Repositories
                     CourseListVM course = new CourseListVM
                     {
                         CourseId = cr.CourseId,
-                        CourseName = cr.Course.CouseName
+                        CourseName = cr.Course.CouseName,
+
+                        // changed
+                        Checked = true
+                        
                     };
                     courses.Add(course);
                 }

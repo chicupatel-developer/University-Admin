@@ -82,6 +82,10 @@ export class AddCoursesToStudentComponent implements OnInit {
         .subscribe(
           res => {
             console.log(res);
+
+            setTimeout(() => {
+              this.router.navigate(['/student']);
+            }, 2000);
           },
           error => {
             console.log(error);
@@ -120,11 +124,10 @@ export class AddCoursesToStudentComponent implements OnInit {
               this.courseList.push({
                 courseId: item.courseId,
                 courseName: item.courseName,
-                checked: false
+                checked: item.checked
               });
           }
 
-          // load courses only assigned for this student
           this.loadCoursesForStudent(this.studentModel.studentId);
         },
         error => {
@@ -138,20 +141,17 @@ export class AddCoursesToStudentComponent implements OnInit {
     this.dataService.loadCoursesForStudent(stdId)
       .subscribe(
         data => {
-          console.log(data);
+          /*
+          for (const stdCrs of data) {
+            let index = this.courseListVM.findIndex((obj => obj.courseId == stdCrs.courseId));
+            this.courseListVM[index].checked = stdCrs.checked;            
+          }
+          */
 
           for (const stdCrs of data) {
-            for (const crs of this.courseList ) {
-              if(stdCrs.courseId==crs.courseId){
-                crs.checked=true;
-              }
-              else{
-                crs.checked=false;
-              }
-            }
+            let index = this.courseList.findIndex((obj => obj.courseId == stdCrs.courseId));
+            this.courseList[index].checked = stdCrs.checked;
           }
-
-          console.log(this.courseList);
         },
         error => {
           console.log(error);

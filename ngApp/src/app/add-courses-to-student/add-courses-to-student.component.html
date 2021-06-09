@@ -46,7 +46,7 @@
                                                 <div *ngFor="let data of courseList; let i=index">
                                                     <label>
                                                         <input type="checkbox" 
-                                                            [attr.checked]="data.checked"
+                                                            [checked]="data.checked"                                                            
                                                             [value]="data.courseId" 
                                                             (change)="onCheckboxChange($event)" />
                                                         {{data.courseId}} - {{data.courseName}}

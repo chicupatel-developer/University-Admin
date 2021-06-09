@@ -5,4 +5,5 @@ export default class CourseListVM {
     facultyName: string;
     departmentId: number;
     departmentName: string;
+    checked: boolean;
 }

@@ -13,5 +13,8 @@ namespace Entities.DTO
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
 
+        // change
+        public bool Checked { get; set; }
+
     }
 }

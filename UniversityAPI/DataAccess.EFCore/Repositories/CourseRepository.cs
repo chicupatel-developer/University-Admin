@@ -32,12 +32,16 @@ namespace DataAccess.EFCore.Repositories
                     {
                         CourseListVM course = new CourseListVM()
                         {
-                             FacultyId = fs.FacultyId,
-                             FacultyName = fs.FirstName+", "+fs.LastName,
-                             CourseId = c.CouseId,
-                             CourseName = c.CouseName,
-                             DepartmentId = c.Department.DepartmentId,
-                             DepartmentName = c.Department.DepartmentName
+                            FacultyId = fs.FacultyId,
+                            FacultyName = fs.FirstName + ", " + fs.LastName,
+                            CourseId = c.CouseId,
+                            CourseName = c.CouseName,
+                            DepartmentId = c.Department.DepartmentId,
+                            DepartmentName = c.Department.DepartmentName,
+
+                            // change
+                            Checked = false
+
                         };
                         courses.Add(course);
                     }
