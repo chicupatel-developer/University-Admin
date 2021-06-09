@@ -38,11 +38,7 @@ export class DataService {
   addStd(studentModel): Observable<any> {
     return this.http.post(this.STUDENT_API + '/addStudent', studentModel)
   }
-  // get student by id
-  getStudent(selectedStdId: number): Observable<Student> {
-    return this.http.get<Student>(this.STUDENT_API + '/getStudent/' + selectedStdId);
-  }
- 
+   
 
   //////////// department
   // list department

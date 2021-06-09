@@ -1,1 +1,64 @@
 {{errorMessage}}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        <div>
+                            Student To Courses Map
+                        </div>
+                        <hr />
+                        <div *ngIf="errorMessage">
+                           {{errorMessage}}
+                        </div>
+                    </h3>
+                </div>
+                <div *ngIf="!errorMessage" class="card-body">
+                    <div class="container">
+                        <div class="col-md-12 mx-auto">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="container" style=" font-size: larger; color:brown;">
+                                        <p></p>
+                                        # {{studentModel.studentId}} ) {{studentModel.firstName}}, {{studentModel.lastName}}
+                                    </div>    
+                                    <p></p>
+                                    <hr />
+                                    <p></p>
+                                    
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>
+                                                Courses
+                                            </h4>                                            
+                                        </div>
+                                        <div class="card-body">
+                                            <form [formGroup]="form" 
+                                                (ngSubmit)="submitForm()" 
+                                                novalidate>
+                                            
+                                                <div *ngFor="let data of courseList; let i=index">
+                                                    <label>
+                                                        <input type="checkbox" 
+                                                            [value]="data.courseId" 
+                                                            (change)="onCheckboxChange($event)" />
+                                                        {{data.courseId}} - {{data.courseName}}
+                                                    </label>
+                                                </div>
+                                            
+                                                <input type="submit" value="Submit">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>                        
+                            </div>
+                        </div>
+                    </div>             
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
