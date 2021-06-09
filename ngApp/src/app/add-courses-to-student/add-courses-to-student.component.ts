@@ -4,7 +4,8 @@ import {
   FormGroup,
   FormArray,
   FormControl,
-  ValidatorFn
+  ValidatorFn,
+  Validators
 } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { throwError } from 'rxjs';
@@ -22,18 +23,25 @@ import { LocalDataService } from '../services/local-data.service';
 })
 export class AddCoursesToStudentComponent implements OnInit {
 
-  stdToCourseModel = new StdToCourse();
+  // add record(s) to db table stdstocourses
+  stdsToCourses: Array<StdToCourse> = [];
+  
+  // view student's details
   studentModel = new Student();
+
   errorMessage = '';
 
+  // display collection of course list coming from api
   courseListVM: Array<CourseListVM> = [];
   courseList: Array<CourseList> = [];
+
   form: FormGroup;
+  submitted = false;
   
   constructor(private route: ActivatedRoute, public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, public router: Router) 
   {
     this.form = this.fb.group({
-      checkArray: this.fb.array([])
+      checkArray: this.fb.array([], [Validators.required])
     })
   }
    
@@ -55,9 +63,34 @@ export class AddCoursesToStudentComponent implements OnInit {
     }
   }
 
-  // wip
+  // ok
   submitForm() {
-    console.log(this.form.value);
+    // console.log(this.form.value);
+
+    this.submitted = true;
+    if (this.form.valid) {
+      for (var val of this.form.value.checkArray) {
+        console.log('selected course id: ' + val);
+        this.stdsToCourses.push({
+          courseId: Number(val),
+          studentId: this.studentModel.studentId
+        });
+      }
+
+      // api call
+      this.dataService.addCourseToStd(this.stdsToCourses)
+        .subscribe(
+          res => {
+            console.log(res);
+          },
+          error => {
+            console.log(error);
+          }
+        );
+    }
+    else{
+      return;
+    }   
   }  
 
   // ok
@@ -77,6 +110,7 @@ export class AddCoursesToStudentComponent implements OnInit {
   }
 
   // ok
+  // this will load all courses from db
   loadCourses() {
     this.dataService.getCourses()
       .subscribe(
@@ -85,13 +119,43 @@ export class AddCoursesToStudentComponent implements OnInit {
           for (const item of this.courseListVM) {
               this.courseList.push({
                 courseId: item.courseId,
-                courseName: item.courseName
+                courseName: item.courseName,
+                checked: false
               });
           }
+
+          // load courses only assigned for this student
+          this.loadCoursesForStudent(this.studentModel.studentId);
         },
         error => {
           console.log(error);
         });
   }
+  
+  // wip
+  // this will load courses only assigned to respective student
+  loadCoursesForStudent(stdId){
+    this.dataService.loadCoursesForStudent(stdId)
+      .subscribe(
+        data => {
+          console.log(data);
 
+          for (const stdCrs of data) {
+            for (const crs of this.courseList ) {
+              if(stdCrs.courseId==crs.courseId){
+                crs.checked=true;
+              }
+              else{
+                crs.checked=false;
+              }
+            }
+          }
+
+          console.log(this.courseList);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
 }

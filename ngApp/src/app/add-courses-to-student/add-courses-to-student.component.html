@@ -39,14 +39,19 @@
                                                 (ngSubmit)="submitForm()" 
                                                 novalidate>
                                             
+                                                <div *ngIf="submitted && this.form.controls['checkArray'].errors?.required" class="alert alert-danger mt-2">
+                                                    Please select atleast one Course!
+                                                </div>
+                                                <p></p>
                                                 <div *ngFor="let data of courseList; let i=index">
                                                     <label>
                                                         <input type="checkbox" 
+                                                            [attr.checked]="data.checked"
                                                             [value]="data.courseId" 
                                                             (change)="onCheckboxChange($event)" />
                                                         {{data.courseId}} - {{data.courseName}}
                                                     </label>
-                                                </div>
+                                                </div>                                                                                          
                                             
                                                 <input type="submit" value="Submit">
                                             </form>

@@ -11,6 +11,7 @@ namespace Entities.Interfaces
         IEnumerable<Student> GetAllStudents();
         Student AddStudent(Student student);
         bool AddCoursesToStudent(List<StdToCourse> stdToCourses);
+        IEnumerable<CourseListVM> GetCoursesForStudent(int stdId);
     }
   
 }

@@ -67,7 +67,7 @@ namespace UniversityAPI.Controllers
             if (_stdRepo.AddCoursesToStudent(stdToCourses))
             {
                 _response.ResponseCode = 0;
-                _response.ResponseMessage = "Course Added To Student Successfully!";
+                _response.ResponseMessage = "Course(s) Added To Student Successfully!";
                 _response.ResponseError = null;
             }
             else
@@ -78,5 +78,16 @@ namespace UniversityAPI.Controllers
             }      
             return Ok(_response);
         }
+
+        // ok
+        // this will load courses only assigned to respective student
+        [HttpGet]
+        [Route("loadCoursesForStudent/{stdId}")]
+        public IActionResult LoadCoursesForStudent(int stdId)
+        {
+            var listOfCrs = _stdRepo.GetCoursesForStudent(stdId);
+            return Ok(listOfCrs);
+        }
+
     }
 }

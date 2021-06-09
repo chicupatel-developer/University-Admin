@@ -53,5 +53,29 @@ namespace DataAccess.EFCore.Repositories
             }                  
         }
 
+        public IEnumerable<CourseListVM> GetCoursesForStudent(int stdId)
+        {
+            List<CourseListVM> courses = new List<CourseListVM>();
+            var crs = appDbContext.StdsToCourses.Include(y=>y.Course).Where(x => x.StudentId == stdId);
+
+            if (crs != null)
+            {
+                foreach (var cr in crs)
+                {
+                    CourseListVM course = new CourseListVM
+                    {
+                        CourseId = cr.CourseId,
+                        CourseName = cr.Course.CouseName
+                    };
+                    courses.Add(course);
+                }
+            }
+            else
+            {
+
+            }
+            return courses;
+        }
+
     }
 }
