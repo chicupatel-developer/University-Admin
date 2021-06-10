@@ -12,8 +12,6 @@ namespace Entities.DTO
         public string FacultyName { get; set; }
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
-
-        // change
         public bool Checked { get; set; }
 
     }

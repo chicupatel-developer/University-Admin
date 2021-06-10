@@ -23,7 +23,7 @@ import { LocalDataService } from '../services/local-data.service';
 })
 export class AddCoursesToStudentComponent implements OnInit {
 
-  // add record(s) to db table stdstocourses
+  // add-remove/edit record(s) to db table stdstocourses
   stdsToCourses: Array<StdToCourse> = [];
   
   // view student's details
@@ -34,6 +34,9 @@ export class AddCoursesToStudentComponent implements OnInit {
   // display collection of course list coming from api
   courseListVM: Array<CourseListVM> = [];
   courseList: Array<CourseList> = [];
+
+  // this collection manages runtime check-uncheck actions of courselist checkboxes
+  runtimeChkUnChkCrs: Array<CourseList> = [];
 
   form: FormGroup;
   submitted = false;
@@ -46,55 +49,86 @@ export class AddCoursesToStudentComponent implements OnInit {
   }
    
   // ok
-  onCheckboxChange(e) {
+  onCheckboxChange(e, data) {
     const checkArray: FormArray = this.form.get('checkArray') as FormArray;
 
+    // if item is checked
     if (e.target.checked) {
-      checkArray.push(new FormControl(e.target.value));
-    } else {
-      let i: number = 0;
-      checkArray.controls.forEach((item: FormControl) => {
-        if (item.value == e.target.value) {
-          checkArray.removeAt(i);
-          return;
-        }
-        i++;
-      });
+      console.log('selected...'+data.courseId);
+      if (this.runtimeChkUnChkCrs.findIndex((obj => obj.courseId == data.courseId))>-1){
+        // don't add
+      }
+      else{
+        // add
+        this.runtimeChkUnChkCrs.push({
+          courseId: data.courseId,
+          courseName: data.courseName,
+          checked: e.target.checked
+        });
+      }    
+    } 
+    // if item is un-checked
+    else {
+      console.log('un - selected...' + data.courseId);
+      if (this.runtimeChkUnChkCrs.findIndex((obj => obj.courseId == data.courseId)) > -1) {
+        // remove
+        this.runtimeChkUnChkCrs.forEach((value, index) => {
+          if (value.courseId == data.courseId) this.runtimeChkUnChkCrs.splice(index, 1);
+        });
+      }
+      else {      
+      }      
     }
+    // console.log(this.runtimeChkUnChkCrs);
   }
 
   // ok
   submitForm() {
-    // console.log(this.form.value);
 
     this.submitted = true;
-    if (this.form.valid) {
-      for (var val of this.form.value.checkArray) {
-        console.log('selected course id: ' + val);
+    const checkArray: FormArray = this.form.get('checkArray') as FormArray;
+    if (this.runtimeChkUnChkCrs.length>=1)
+    {
+      // if atleast 1 course is selected then later it will make 
+      // form validation to true
+      // form validation is based on form control this.form.controls['checkArray']
+      // that's why, you have to push all selected courses back to this
+      // form control this.form.controls['checkArray']
+      for (var val of this.runtimeChkUnChkCrs) {
+        checkArray.push(new FormControl(val.courseId));
+      }
+
+      // popup stdsToCourses[] 
+      for (var _val of this.form.value.checkArray) {
         this.stdsToCourses.push({
-          courseId: Number(val),
+          courseId: Number(_val),
           studentId: this.studentModel.studentId
         });
       }
-
-      // api call
-      this.dataService.addCourseToStd(this.stdsToCourses)
-        .subscribe(
-          res => {
-            console.log(res);
-
-            setTimeout(() => {
-              this.router.navigate(['/student']);
-            }, 2000);
-          },
-          error => {
-            console.log(error);
-          }
-        );
+      
+      // if 0 course is selected then display validation error
+      // if 1 or more courses selected then it will pass form validation 
+      if (this.form.valid) {
+        this.dataService.editCourseToStd(this.stdsToCourses)
+          .subscribe(
+            res => {
+              console.log(res);
+              setTimeout(() => {
+                this.router.navigate(['/student']);
+              }, 2000);
+            },
+            error => {
+              console.log(error);
+            }
+          );
+      }
+      else{
+        return;
+      }
     }
     else{
       return;
-    }   
+    }  
   }  
 
   // ok
@@ -103,7 +137,6 @@ export class AddCoursesToStudentComponent implements OnInit {
       params => {
         try {
           this.studentModel = JSON.parse(params['student']);
-
           this.loadCourses();
         }
         catch (error) {
@@ -127,7 +160,6 @@ export class AddCoursesToStudentComponent implements OnInit {
                 checked: item.checked
               });
           }
-
           this.loadCoursesForStudent(this.studentModel.studentId);
         },
         error => {
@@ -135,22 +167,24 @@ export class AddCoursesToStudentComponent implements OnInit {
         });
   }
   
-  // wip
+  // ok
   // this will load courses only assigned to respective student
   loadCoursesForStudent(stdId){
     this.dataService.loadCoursesForStudent(stdId)
       .subscribe(
         data => {
-          /*
           for (const stdCrs of data) {
-            let index = this.courseListVM.findIndex((obj => obj.courseId == stdCrs.courseId));
-            this.courseListVM[index].checked = stdCrs.checked;            
-          }
-          */
-
-          for (const stdCrs of data) {
+            // this will update courseList[] as per api's data
             let index = this.courseList.findIndex((obj => obj.courseId == stdCrs.courseId));
             this.courseList[index].checked = stdCrs.checked;
+
+            // this will popup runtimeChkUnChkCrs[] as per api's data
+            // to keep track of already added courses to db for a respective studentid
+            this.runtimeChkUnChkCrs.push({
+              courseId: stdCrs.courseId,
+              courseName: stdCrs.courseName,
+              checked: stdCrs.checked
+            });
           }
         },
         error => {

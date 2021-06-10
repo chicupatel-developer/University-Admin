@@ -39,8 +39,8 @@ export class DataService {
     return this.http.post(this.STUDENT_API + '/addStudent', studentModel)
   }
   // add courses to student
-  addCourseToStd(stdsToCourses): Observable<any> {
-    return this.http.post(this.STUDENT_API + '/addCourseToStd', stdsToCourses)
+  editCourseToStd(stdsToCourses): Observable<any> {
+    return this.http.post(this.STUDENT_API + '/editCourseToStd', stdsToCourses)
   }
   // this will load courses only assigned to respective student
   loadCoursesForStudent(stdId: number): Observable<Array<CourseListVM>> {

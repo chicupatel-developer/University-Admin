@@ -38,22 +38,17 @@ namespace DataAccess.EFCore.Repositories
                             CourseName = c.CouseName,
                             DepartmentId = c.Department.DepartmentId,
                             DepartmentName = c.Department.DepartmentName,
-
-                            // change
                             Checked = false
-
                         };
                         courses.Add(course);
                     }
                     else
                     {
-
                     }
                 }
             }
             else
             {
-
             }            
             return courses;
         }
@@ -93,7 +88,6 @@ namespace DataAccess.EFCore.Repositories
             }
             else
             {
-
             }
             return course;
         }

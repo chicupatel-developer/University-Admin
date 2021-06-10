@@ -30,12 +30,17 @@ namespace DataAccess.EFCore.Repositories
             return result.Entity;
         }  
         
-        public bool AddCoursesToStudent(List<StdToCourse> stdToCourses)
+        public bool EditCoursesToStudent(List<StdToCourse> stdToCourses)
         {
             try
             {
                 if (stdToCourses.Count() >= 1)
                 {
+                    // first remove
+                    var stdsToCrsRemove = appDbContext.StdsToCourses.Where(x => x.StudentId == stdToCourses.FirstOrDefault().StudentId);
+                    appDbContext.StdsToCourses.RemoveRange(stdsToCrsRemove);
+                    appDbContext.SaveChanges();
+                    // then add
                     foreach (var stdToCourse in stdToCourses)
                     {
                         appDbContext.StdsToCourses.Add(stdToCourse);
@@ -66,17 +71,13 @@ namespace DataAccess.EFCore.Repositories
                     {
                         CourseId = cr.CourseId,
                         CourseName = cr.Course.CouseName,
-
-                        // changed
-                        Checked = true
-                        
+                        Checked = true                        
                     };
                     courses.Add(course);
                 }
             }
             else
             {
-
             }
             return courses;
         }

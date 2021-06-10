@@ -43,7 +43,7 @@ namespace UniversityAPI.Controllers
             _response = new APIResponse();            
             try
             {
-                throw new Exception();
+                // throw new Exception();
                 _stdRepo.AddStudent(student);
                 _response.ResponseCode = 0;
                 _response.ResponseMessage = "Student Added Successfully!";
@@ -60,14 +60,14 @@ namespace UniversityAPI.Controllers
 
         // ok
         [HttpPost]
-        [Route("addCourseToStd")]
-        public IActionResult AddCourseToStd(List<StdToCourse> stdToCourses)
+        [Route("editCourseToStd")]
+        public IActionResult EditCourseToStd(List<StdToCourse> stdToCourses)
         {
             _response = new APIResponse();
-            if (_stdRepo.AddCoursesToStudent(stdToCourses))
+            if (_stdRepo.EditCoursesToStudent(stdToCourses))
             {
                 _response.ResponseCode = 0;
-                _response.ResponseMessage = "Course(s) Added To Student Successfully!";
+                _response.ResponseMessage = "Course(s) Edited To Student Successfully!";
                 _response.ResponseError = null;
             }
             else
