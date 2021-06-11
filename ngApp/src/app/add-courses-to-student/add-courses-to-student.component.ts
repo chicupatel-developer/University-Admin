@@ -30,6 +30,8 @@ export class AddCoursesToStudentComponent implements OnInit {
   studentModel = new Student();
 
   errorMessage = '';
+  apiResponse = '';
+  responseColor = '';
 
   // display collection of course list coming from api
   courseListVM: Array<CourseListVM> = [];
@@ -112,13 +114,28 @@ export class AddCoursesToStudentComponent implements OnInit {
         this.dataService.editCourseToStd(this.stdsToCourses)
           .subscribe(
             res => {
-              console.log(res);
-              setTimeout(() => {
-                this.router.navigate(['/student']);
-              }, 2000);
+              if (res.responseCode == 0) {
+                // success
+                this.apiResponse = res.responseMessage;
+                this.responseColor = 'green';
+                this.submitted = false;
+
+                // clear success message after 3 seconds
+                setTimeout(() => {
+                  this.apiResponse = '';
+                  this.router.navigate(['/student']);
+                }, 3000);
+              }
+              else{
+                // fail
+                // display error message
+                this.apiResponse = res.responseCode + ' : ' + res.responseMessage;
+                this.responseColor = 'red';
+              }
             },
             error => {
-              console.log(error);
+              this.apiResponse = error;
+              this.responseColor = 'red';
             }
           );
       }

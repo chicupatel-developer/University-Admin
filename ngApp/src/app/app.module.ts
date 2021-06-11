@@ -78,7 +78,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-    },
+  },
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -92,8 +92,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
           }
         ]
       } as SocialAuthServiceConfig,
-    }   
+    }
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

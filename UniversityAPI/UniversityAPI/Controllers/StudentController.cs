@@ -63,7 +63,7 @@ namespace UniversityAPI.Controllers
         [Route("editCourseToStd")]
         public IActionResult EditCourseToStd(List<StdToCourse> stdToCourses)
         {
-            _response = new APIResponse();
+            _response = new APIResponse();            
             if (_stdRepo.EditCoursesToStudent(stdToCourses))
             {
                 _response.ResponseCode = 0;

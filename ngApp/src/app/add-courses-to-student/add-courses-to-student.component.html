@@ -10,6 +10,11 @@
                             Student To Courses Map
                         </div>
                         <hr />
+                        <h4 *ngIf="apiResponse">
+                            <span [style.color]="responseColor">
+                                {{apiResponse}}
+                            </span>
+                        </h4>
                         <div *ngIf="errorMessage">
                            {{errorMessage}}
                         </div>
@@ -20,11 +25,18 @@
                         <div class="col-md-12 mx-auto">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="container" style=" font-size: larger; color:brown;">
-                                        <p></p>
-                                        # {{studentModel.studentId}} ) {{studentModel.firstName}}, {{studentModel.lastName}}
-                                    </div>    
-                                    <p></p>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>
+                                                Student
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5>
+                                                # {{studentModel.studentId}} ) {{studentModel.firstName}}, {{studentModel.lastName}}
+                                            </h5>                                            
+                                        </div>
+                                    </div>                                 
                                     <hr />
                                     <p></p>
                                     
@@ -32,7 +44,24 @@
                                         <div class="card-header">
                                             <h4>
                                                 Courses
-                                            </h4>                                            
+                                            </h4>       
+                                            <div>
+                                                <label>
+                                                    <input type="checkbox" 
+                                                        disabled 
+                                                        [checked]="true" 
+                                                        [value]="1" />
+                                                    Already Assigned Course
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <label>
+                                                    <input type="checkbox" 
+                                                        disabled [checked]="false" 
+                                                        [value]="0" />
+                                                    Not Assigned Course
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="card-body">
                                             <form [formGroup]="form" 
@@ -42,7 +71,7 @@
                                                 <div *ngIf="submitted && this.form.controls['checkArray'].errors?.required" class="alert alert-danger mt-2">
                                                     Please select atleast one Course!
                                                 </div>
-                                                <p></p>
+                                                <p></p>                                              
                                                 <div *ngFor="let data of courseList; let i=index">
                                                     <label>
                                                         <input type="checkbox" 

@@ -1,11 +1,80 @@
-<nav class="navbar navbar-expand-md " 
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" 
     style="background-color: lightblue;">
-    
+    <a class="navbar-brand" href="#">University Admin</a>
+    <button 
+        class="navbar-toggler btn btn-outline-primary" 
+        type="button" 
+        data-toggle="collapse"
+        data-target="#navbarTogglerDemo02" 
+        aria-expanded="false" 
+        aria-label="Toggle navigation"
+        (click)="isCollapsed = !isCollapsed" 
+        [attr.aria-expanded]="!isCollapsed" 
+        aria-controls="navbarTogglerDemo02">
+            <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" 
+        id="navbarTogglerDemo02" 
+        [ngbCollapse]="isCollapsed">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <!-- left side menus -->
+            <li class="nav-item active">
+                <a class='nav-link' routerLinkActive='active' [routerLink]="['/home']">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/department']">Department</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/faculty']">Faculty</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/course']">Course</a>
+            </li>
+            <li class="nav-item" *ngIf="this._authService.isAdmin">
+                <a class="nav-link" [routerLink]="['/assignment']">Assignment</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['/student']">Student</a>
+            </li>          
+        </ul>      
+    </div>
+
+    <div class="collapse navbar-collapse w-100 order-3" 
+        id="navbarTogglerDemo02" 
+        [ngbCollapse]="isCollapsed">
+        <ul class="navbar-nav ml-auto">
+            <!-- right side menus -->
+            <li class="nav-item">
+                <a class='nav-link' *ngIf="!this._authService.isLoggedIn" [routerLink]="['/signin']">Login
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class='nav-link' *ngIf="!this._authService.isLoggedIn" [routerLink]="['/registration']">Register
+                </a>
+            </li>    
+            <label *ngIf="this._authService.isLoggedIn" 
+                style="font-size:medium; color: red;  margin-right: 100px;">
+                Welcome...{{this.localDataService.getUserName()}} [{{this.localDataService.getMyRole()}}] !
+            </label>    
+            <button (click)="logout()" *ngIf="this._authService.isLoggedIn" 
+                type="button" 
+                class="btn btn-danger">
+                Logout
+            </button>
+        </ul>
+    </div>
+</nav>
+<div></div>
+
+<!-- 
+    // collapse not working
+<nav class="navbar navbar-expand-md " style="background-color: lightblue;">
+
     <div class="mx-auto order-0">
         <a class="navbar-brand" href="#">University Admin</a>
-        <button class="navbar-toggler" type="button" 
-            data-toggle="collapse" 
-            data-target=".dual-collapse2">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
             <span class="navbar-toggler-icon"></span>
         </button>
     </div>
@@ -14,13 +83,13 @@
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
                 <a class='nav-link' routerLinkActive='active' [routerLink]="['/home']">Home</a>
-            </li>        
+            </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/department']">Department</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/faculty']">Faculty</a>
-            </li>   
+            </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/course']">Course</a>
             </li>
@@ -32,9 +101,9 @@
             </li>
         </ul>
     </div>
-    
+
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-        <ul class="navbar-nav ml-auto">        
+        <ul class="navbar-nav ml-auto">
             <li class="nav-item">
                 <a class='nav-link' *ngIf="!this._authService.isLoggedIn" [routerLink]="['/signin']">Login
                 </a>
@@ -43,20 +112,19 @@
                 <a class='nav-link' *ngIf="!this._authService.isLoggedIn" [routerLink]="['/registration']">Register
                 </a>
             </li>
-
             <span *ngIf="this._authService.isLoggedIn" style="font-size:medium; color: red;">
                 Welcome...
             </span>
             <span *ngIf="this._authService.isLoggedIn" style="font-size:medium; color: red;">
                 {{this.localDataService.getUserName()}} [{{this.localDataService.getMyRole()}}]
-            </span>  
-            <span *ngIf="this._authService.isLoggedIn"
-                style="font-size: medium; color: red; margin-right: 100px;">
+            </span>
+            <span *ngIf="this._authService.isLoggedIn" style="font-size: medium; color: red; margin-right: 100px;">
                 !
             </span>
-            <button (click)="logout()" *ngIf="this._authService.isLoggedIn" 
-                type="button" class="btn btn-danger">Logout
+            <button (click)="logout()" *ngIf="this._authService.isLoggedIn" type="button" class="btn btn-danger">Logout
             </button>
         </ul>
     </div>
 </nav>
+-->
+

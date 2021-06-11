@@ -5,6 +5,9 @@ import { LocalDataService } from '../services/local-data.service';
 import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { Router } from '@angular/router';
 
+// menu collapse 
+// import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 @Component({
   selector: 'header',
   templateUrl: './header.component.html',
@@ -15,6 +18,9 @@ export class HeaderComponent implements OnInit {
   public isExternalAuth: boolean;
   public isUserAuthenticated: boolean;
  
+  // menu collapse 
+  isCollapsed = false;
+
   constructor(public localDataService: LocalDataService, public _authService: UserService, private _router: Router,
     private _socialAuthService: SocialAuthService) {
     this._authService.authChanged

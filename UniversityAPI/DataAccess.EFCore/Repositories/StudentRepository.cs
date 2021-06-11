@@ -39,12 +39,15 @@ namespace DataAccess.EFCore.Repositories
                     // first remove
                     var stdsToCrsRemove = appDbContext.StdsToCourses.Where(x => x.StudentId == stdToCourses.FirstOrDefault().StudentId);
                     appDbContext.StdsToCourses.RemoveRange(stdsToCrsRemove);
-                    appDbContext.SaveChanges();
+                    
                     // then add
                     foreach (var stdToCourse in stdToCourses)
                     {
                         appDbContext.StdsToCourses.Add(stdToCourse);
                     }
+
+                    // throw new Exception();
+
                     appDbContext.SaveChanges();
                 }
                 else
