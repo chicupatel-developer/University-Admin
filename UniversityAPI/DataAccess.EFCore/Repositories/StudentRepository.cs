@@ -61,6 +61,7 @@ namespace DataAccess.EFCore.Repositories
             }                  
         }
 
+        // returns already assigned courses to student
         public IEnumerable<CourseListVM> GetCoursesForStudent(int stdId)
         {
             List<CourseListVM> courses = new List<CourseListVM>();
@@ -83,6 +84,62 @@ namespace DataAccess.EFCore.Repositories
             {
             }
             return courses;
+        }
+
+        // returns all possible assignments belong to courses assigned to student
+        public IEnumerable<AsmtFacDeptVM> GetAsmtsForStudent(int stdId)
+        {
+            List<AsmtFacDeptVM> asmts = new List<AsmtFacDeptVM>();
+
+            var stdToCrs = appDbContext.StdsToCourses.Where(a => a.StudentId == stdId);
+            if (stdToCrs != null)
+            {
+                // all courses currently assigned to student
+                foreach(var cr in stdToCrs)
+                {
+                    // retrieve all assignments belong to these courses
+                    var stdToAsmts = appDbContext.Assignments.Where(b => b.CourseId == cr.CourseId)
+                            .Include(x => x.Faculty).Include(y => y.Faculty.Department).Include(xx => xx.Course);
+                    if (stdToAsmts != null)
+                    {
+                        foreach(var stdToAsmt in stdToAsmts)
+                        {
+                            AsmtFacDeptVM asmt = new AsmtFacDeptVM()
+                            {
+                                AssignmentId = stdToAsmt.AssignmentId,
+                                Title = stdToAsmt.Title,
+                                Details = stdToAsmt.Details,
+                                FacultyId = stdToAsmt.FacultyId,
+                                FacultyName = stdToAsmt.Faculty.FirstName + ", " + stdToAsmt.Faculty.LastName,
+                                DepartmentId = stdToAsmt.Faculty.DepartmentId,
+                                DepartmentName = stdToAsmt.Faculty.Department.DepartmentName,
+                                AsmtCreateDate = stdToAsmt.AsmtCreateDate,
+                                AsmtLastDate = stdToAsmt.AsmtLastDate,
+                                AsmtUploadId = stdToAsmt.AsmtUploadId,
+                                CourseId = stdToAsmt.CourseId,
+                                CourseName = stdToAsmt.Course.CouseName
+                            };
+                            asmts.Add(asmt);
+                        }                        
+                    }
+                    else { }
+                }
+
+                // load asmt. file name
+                foreach (var asmt in asmts)
+                {
+                    var asmtFileName = appDbContext.AsmtUploads.Where(x => x.AsmtUploadId == asmt.AsmtUploadId).FirstOrDefault();
+                    if (asmtFileName != null)
+                    {
+                        asmt.AsmtFileName = asmtFileName.FileName;
+                    }
+                }
+            }
+            else
+            {
+                // do nothing
+            }          
+            return asmts;
         }
 
     }

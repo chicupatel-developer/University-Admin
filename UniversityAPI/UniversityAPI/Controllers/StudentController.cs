@@ -89,5 +89,14 @@ namespace UniversityAPI.Controllers
             return Ok(listOfCrs);
         }
 
+        // ok
+        // this will load assignmets only assigned to courses to respective student 
+        [HttpGet]
+        [Route("loadAsmtsForStudent/{stdId}")]
+        public IActionResult LoadAsmtsForStudent(int stdId)
+        {
+            var listOfAsmts = _stdRepo.GetAsmtsForStudent(stdId);
+            return Ok(listOfAsmts);
+        }
     }
 }

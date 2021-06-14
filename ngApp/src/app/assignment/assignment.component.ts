@@ -235,7 +235,6 @@ export class AssignmentComponent implements OnInit {
         data => {
           this.assignments = data;
 
-
           this.displayFacs();
         },
         error => {

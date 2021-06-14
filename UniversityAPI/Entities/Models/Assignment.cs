@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -22,7 +23,6 @@ namespace Entities.Models
 
         [Required]
         public DateTime AsmtLastDate { get; set; }
-
         
         [Required]
         [ForeignKey(nameof(Faculty))]
@@ -33,13 +33,13 @@ namespace Entities.Models
         [JsonIgnore]
         public Faculty Faculty { get; set; }
 
-
         public int CourseId { get; set; }
        
         [JsonIgnore]
         public Course Course { get; set; }
 
-
         public int AsmtUploadId { get; set; }
+
+        public ICollection<StdToAsmt> StdsToAsmts { get; set; }
     }
 }

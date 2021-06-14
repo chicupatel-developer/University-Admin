@@ -18,6 +18,7 @@ namespace DataAccess.EFCore.Repositories
             this.appDbContext = appDbContext;
         }
 
+        // returns all courses from db table courses with other informations on department and faculty
         public IEnumerable<CourseListVM> GetCourses()
         {
             List<CourseListVM> courses = new List<CourseListVM>();

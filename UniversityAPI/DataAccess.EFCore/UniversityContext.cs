@@ -50,9 +50,17 @@ namespace DataAccess.EFCore
         public DbSet<Course> Courses { get; set; }
 
         //// student - course - assignment
+        // student-course
         // - (student)1------->0-*(course)
         // - StdToCourse 
         // - (course)1------->0-*(student)
+
+        // student-asmt
+        // - (student)1------->0-*(asmt)
+        // student can have assignments only belong to the assigned courses to the student.
+        // means... assignments depend on course and courses are assigned to student.
+        // - StdToAsmt
+        // - (asmt)1------->0-*(student)
         public DbSet<Student> Students { get; set; }
         public DbSet<StdToCourse> StdsToCourses { get; set; }
     }

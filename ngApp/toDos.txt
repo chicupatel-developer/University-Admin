@@ -1,4 +1,17 @@
 /////////////// system info
+
+//// between department-faculty-course
+// course can not exist without department and faculty
+// one course can connect with one department and one faculty
+// department has multiple courses and faculties
+// faculty can have multiple or zero course(s)
+// faculty can not exist without department
+// department - faculty - course
+// sequence...
+// first create department
+// second create faculty... faculty needs only department
+// third create course... course needs both department and faculty
+
 ** exceptions handling: 
 - model validations are handled on client side - angular - controller 
 - all server side exceptions are handled on api - controller
@@ -72,8 +85,17 @@ on client side and menu options are displayed as per user's role
 ** exceptions handling
 
 //// student - course - assignment
+// student-course
 - (student)1------->0-*(course)
 - StdToCourse 
 - (course)1------->0-*(student)
+
+// student-asmt
+- (student)1------->0-*(asmt)
+student can have assignments only belong to the assigned courses to the student.
+means... assignments depend on course and courses are assigned to student.
+- StdToAsmt
+- (asmt)1------->0-*(student)
+
 
 //// assignment - edit

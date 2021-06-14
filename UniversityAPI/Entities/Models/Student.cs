@@ -17,5 +17,6 @@ namespace Entities.Models
         [Required]
         public string LastName { get; set; }
         public ICollection<StdToCourse> StdsToCourses { get; set; }
+        public ICollection<StdToAsmt> StdsToAsmts { get; set; }
     }
 }

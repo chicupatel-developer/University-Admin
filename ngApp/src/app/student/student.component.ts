@@ -104,9 +104,14 @@ export class StudentComponent implements OnInit {
     this.submitted = false;
   }
 
-  // wip
+  // ok
   addCrs(student){
     this.router.navigate(['/add-courses-to-student/'], { queryParams: { student: JSON.stringify(student) } });
+  }
+
+  // wip
+  myAsmts(student){
+    this.router.navigate(['/add-asmts-to-student/'], { queryParams: { student: JSON.stringify(student) } });
   }
 
 }

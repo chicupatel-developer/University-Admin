@@ -12,6 +12,9 @@ namespace Entities.Interfaces
         Student AddStudent(Student student);
         bool EditCoursesToStudent(List<StdToCourse> stdToCourses);
         IEnumerable<CourseListVM> GetCoursesForStudent(int stdId);
+
+        // returns all possible assignments belong to courses assigned to student
+        IEnumerable<AsmtFacDeptVM> GetAsmtsForStudent(int stdId);
     }
   
 }
