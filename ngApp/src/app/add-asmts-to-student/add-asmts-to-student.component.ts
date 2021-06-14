@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import AsmtFacDept from '../models/asmtFacDept';
+import StdToAsmtDownload from '../models/stdToAsmtDownload';
 import Student from '../models/student';
 import { DataService } from '../services/data.service';
 import { LocalDataService } from '../services/local-data.service';
@@ -14,6 +15,9 @@ export class AddAsmtsToStudentComponent implements OnInit {
 
   // view / download assignments of student 
   stdToAsmts: Array<AsmtFacDept> = [];
+
+  // download assignment
+  stdToAsmtDownload = new StdToAsmtDownload();
 
   // view student's details
   studentModel = new Student();
@@ -63,7 +67,12 @@ export class AddAsmtsToStudentComponent implements OnInit {
   // ok
   public downloadAsmt(assignment) {
     console.log(assignment.asmtFileName);
-    this.dataService.download(assignment.asmtFileName)
+
+    this.stdToAsmtDownload.studentId = this.studentModel.studentId;
+    this.stdToAsmtDownload.assignmentId = assignment.assignmentId;
+    this.stdToAsmtDownload.asmtFileName = assignment.asmtFileName;
+
+    this.dataService.downloadAsmt(this.stdToAsmtDownload)
       .subscribe(blob => {
 
         // file exists and downloading

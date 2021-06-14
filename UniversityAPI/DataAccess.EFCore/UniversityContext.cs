@@ -63,5 +63,6 @@ namespace DataAccess.EFCore
         // - (asmt)1------->0-*(student)
         public DbSet<Student> Students { get; set; }
         public DbSet<StdToCourse> StdsToCourses { get; set; }
+        public DbSet<StdToAsmt> StdToAsmt { get; set; }
     }
 }

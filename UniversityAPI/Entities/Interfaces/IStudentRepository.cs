@@ -15,6 +15,9 @@ namespace Entities.Interfaces
 
         // returns all possible assignments belong to courses assigned to student
         IEnumerable<AsmtFacDeptVM> GetAsmtsForStudent(int stdId);
+        
+        // during asmt(course-student) download process
+        bool EditAsmtsToStudent(StdToAsmtDownload stdToAsmtDownload);
     }
   
 }

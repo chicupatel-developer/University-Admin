@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using UniversityAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Entities.DTO;
+using System.IO;
 
 namespace UniversityAPI.Controllers
 {
@@ -97,6 +98,65 @@ namespace UniversityAPI.Controllers
         {
             var listOfAsmts = _stdRepo.GetAsmtsForStudent(stdId);
             return Ok(listOfAsmts);
+        }
+
+        // ok
+        // assignment file download
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("downloadAsmt")]
+        public async Task<IActionResult> Download(StdToAsmtDownload stdToAsmtDownload)
+        {
+            try
+            {
+                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+                currentDirectory = currentDirectory + "\\StaticFiles\\Assignments";
+                var file = Path.Combine(currentDirectory, stdToAsmtDownload.AsmtFileName);
+
+                // check if file exists or not
+                if (System.IO.File.Exists(file))
+                {
+                    var memory = new MemoryStream();
+                    using (var stream = new FileStream(file, FileMode.Open))
+                    {
+                        await stream.CopyToAsync(memory);
+                    }
+
+                    memory.Position = 0;
+
+                    // update db table StdToAsmt
+                    _stdRepo.EditAsmtsToStudent(stdToAsmtDownload);
+
+
+                    // return file for download
+                    return File(memory, GetMimeType(file), stdToAsmtDownload.AsmtFileName);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+        private string GetMimeType(string file)
+        {
+            string extension = Path.GetExtension(file).ToLowerInvariant();
+            switch (extension)
+            {
+                case ".txt": return "text/plain";
+                case ".pdf": return "application/pdf";
+                case ".doc": return "application/vnd.ms-word";
+                case ".docx": return "application/vnd.ms-word";
+                case ".xls": return "application/vnd.ms-excel";
+                case ".png": return "image/png";
+                case ".jpg": return "image/jpeg";
+                case ".jpeg": return "image/jpeg";
+                case ".gif": return "image/gif";
+                case ".csv": return "text/csv";
+                default: return "";
+            }
         }
     }
 }

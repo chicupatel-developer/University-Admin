@@ -142,5 +142,38 @@ namespace DataAccess.EFCore.Repositories
             return asmts;
         }
 
+        // during asmt(course-student) download process
+        public bool EditAsmtsToStudent(StdToAsmtDownload stdToAsmtDownload)
+        {
+            try
+            {
+                if (stdToAsmtDownload != null)
+                {
+                    if(appDbContext.StdToAsmt.Where(x=>x.StudentId==stdToAsmtDownload.StudentId && x.AssignmentId==stdToAsmtDownload.AssignmentId).FirstOrDefault()!=null)
+                    {
+                        // do nothing
+                    }
+                    else
+                    {
+                        // add
+                        StdToAsmt stdToAsmt = new StdToAsmt();
+                        stdToAsmt.AssignmentId = stdToAsmtDownload.AssignmentId;
+                        stdToAsmt.StudentId = stdToAsmtDownload.StudentId;
+                        stdToAsmt.AsmtLinkStatus = AsmtLinkStatus.AsmtLinked;
+                        appDbContext.StdToAsmt.Add(stdToAsmt);
+                        appDbContext.SaveChanges();
+                    }             
+                }
+                else
+                {
+                    // do nothing
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
