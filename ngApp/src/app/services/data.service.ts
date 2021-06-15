@@ -13,6 +13,7 @@ import Course from '../models/course';
 import CourseEditVM from '../models/courseEditVM';
 import Student from '../models/student';
 import StdToAsmtDownload from '../models/stdToAsmtDownload';
+import AsmtCrsStd from '../models/asmtCrsStd';
 
 @Injectable({
   providedIn: 'root'
@@ -48,8 +49,8 @@ export class DataService {
     return this.http.get<Array<CourseListVM>>(this.STUDENT_API + '/loadCoursesForStudent/' + stdId);
   }
   // this will load assignmets only assigned to courses to respective student 
-  loadAsmtsForStudent(stdId: number): Observable<Array<AsmtFacDept>> {
-    return this.http.get<Array<AsmtFacDept>>(this.STUDENT_API + '/loadAsmtsForStudent/' + stdId);
+  loadAsmtsForStudent(stdId: number): Observable<Array<AsmtCrsStd>> {
+    return this.http.get<Array<AsmtCrsStd>>(this.STUDENT_API + '/loadAsmtsForStudent/' + stdId);
   }
   // download - assignment (course - student)    
   public downloadAsmt(stdToAsmtDownload: StdToAsmtDownload): Observable<Blob> {

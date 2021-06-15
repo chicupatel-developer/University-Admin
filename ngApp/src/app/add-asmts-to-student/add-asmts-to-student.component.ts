@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import AsmtCrsStd from '../models/asmtCrsStd';
 import AsmtFacDept from '../models/asmtFacDept';
 import StdToAsmtDownload from '../models/stdToAsmtDownload';
 import Student from '../models/student';
@@ -14,7 +15,7 @@ import { LocalDataService } from '../services/local-data.service';
 export class AddAsmtsToStudentComponent implements OnInit {
 
   // view / download assignments of student 
-  stdToAsmts: Array<AsmtFacDept> = [];
+  stdToAsmts: Array<AsmtCrsStd> = [];
 
   // download assignment
   stdToAsmtDownload = new StdToAsmtDownload();
@@ -62,7 +63,15 @@ export class AddAsmtsToStudentComponent implements OnInit {
         }
       );
   }
-
+  // ok
+  convertAsmtStatus(statusCode) {
+    if (statusCode == 0)
+      return 'Assignment Linked';
+    else if (statusCode == 1)
+      return 'Assignment Not Linked';
+    else
+      return 'Assignment Dis-Connected';
+  }
 
   // ok
   public downloadAsmt(assignment) {
@@ -87,6 +96,9 @@ export class AddAsmtsToStudentComponent implements OnInit {
 
         setTimeout(() => {
           this.resetAfterFileDownload();
+
+          // refresh assignments belong to courses of student
+          this.loadAsmtsForStudent(this.studentModel.studentId);
         }, 5000);
       }, error => {
         if (error.status == 400) {

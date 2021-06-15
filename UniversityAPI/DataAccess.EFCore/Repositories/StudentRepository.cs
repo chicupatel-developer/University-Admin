@@ -87,9 +87,9 @@ namespace DataAccess.EFCore.Repositories
         }
 
         // returns all possible assignments belong to courses assigned to student
-        public IEnumerable<AsmtFacDeptVM> GetAsmtsForStudent(int stdId)
+        public IEnumerable<AsmtCrsStdVM> GetAsmtsForStudent(int stdId)
         {
-            List<AsmtFacDeptVM> asmts = new List<AsmtFacDeptVM>();
+            List<AsmtCrsStdVM> asmts = new List<AsmtCrsStdVM>();
 
             var stdToCrs = appDbContext.StdsToCourses.Where(a => a.StudentId == stdId);
             if (stdToCrs != null)
@@ -104,15 +104,11 @@ namespace DataAccess.EFCore.Repositories
                     {
                         foreach(var stdToAsmt in stdToAsmts)
                         {
-                            AsmtFacDeptVM asmt = new AsmtFacDeptVM()
+                            AsmtCrsStdVM asmt = new AsmtCrsStdVM()
                             {
                                 AssignmentId = stdToAsmt.AssignmentId,
                                 Title = stdToAsmt.Title,
                                 Details = stdToAsmt.Details,
-                                FacultyId = stdToAsmt.FacultyId,
-                                FacultyName = stdToAsmt.Faculty.FirstName + ", " + stdToAsmt.Faculty.LastName,
-                                DepartmentId = stdToAsmt.Faculty.DepartmentId,
-                                DepartmentName = stdToAsmt.Faculty.Department.DepartmentName,
                                 AsmtCreateDate = stdToAsmt.AsmtCreateDate,
                                 AsmtLastDate = stdToAsmt.AsmtLastDate,
                                 AsmtUploadId = stdToAsmt.AsmtUploadId,
@@ -132,6 +128,21 @@ namespace DataAccess.EFCore.Repositories
                     if (asmtFileName != null)
                     {
                         asmt.AsmtFileName = asmtFileName.FileName;
+                    }
+                }
+
+                // load AsmtLinkStatus
+                foreach (var asmt in asmts)
+                {
+                    var asmtsStatus = appDbContext.StdToAsmt.Where(x => x.AssignmentId == asmt.AssignmentId && x.StudentId==stdId).FirstOrDefault();
+                    if (asmtsStatus != null)
+                    {
+                        asmt.AsmtLinkStatus = asmtsStatus.AsmtLinkStatus;                       
+                    }
+                    else
+                    {
+                        // course is assigned to student, but course's this assignment is not linked to student
+                        asmt.AsmtLinkStatus = AsmtLinkStatus.AsmtNotLinked;
                     }
                 }
             }

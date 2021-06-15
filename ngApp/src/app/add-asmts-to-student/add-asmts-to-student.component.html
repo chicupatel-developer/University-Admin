@@ -64,9 +64,16 @@
                                                         <div class="row">
                                                             <div class="col-6">
                                                                 <h5>
-                                                                    {{a.departmentName}} / {{a.courseName}}
-                                                                    <p></p>
-                                                                    Faculty : {{a.facultyName}}
+                                                                    {{a.courseName}}
+                                                                    <div *ngIf="a.asmtLinkStatus==0" style="color:green;">
+                                                                        {{convertAsmtStatus(a.asmtLinkStatus)}}
+                                                                    </div>
+                                                                    <div *ngIf="a.asmtLinkStatus==1" style="color:red;">
+                                                                        {{convertAsmtStatus(a.asmtLinkStatus)}}
+                                                                    </div>
+                                                                    <div *ngIf="a.asmtLinkStatus==2" style="color:blue;">
+                                                                        {{convertAsmtStatus(a.asmtLinkStatus)}}
+                                                                    </div>
                                                                 </h5>
                                                             </div>
                                                             <div *ngIf="a.asmtFileName" class="col-6">
