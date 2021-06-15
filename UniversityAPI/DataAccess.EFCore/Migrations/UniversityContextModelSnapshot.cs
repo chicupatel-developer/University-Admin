@@ -163,6 +163,15 @@ namespace DataAccess.EFCore.Migrations
                     b.Property<int>("AsmtLinkStatus")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("AsmtSubmitDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("AsmtSubmitFileName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("AsmtSubmitFilePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("AssignmentId")
                         .HasColumnType("int");
 

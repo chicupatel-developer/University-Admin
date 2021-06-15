@@ -26,6 +26,7 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
 import { StudentComponent } from './student/student.component';
 import { AddCoursesToStudentComponent } from './add-courses-to-student/add-courses-to-student.component';
 import { AddAsmtsToStudentComponent } from './add-asmts-to-student/add-asmts-to-student.component';
+import { SubmitAsmtComponent } from './submit-asmt/submit-asmt.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -65,7 +66,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CourseEditComponent,
     StudentComponent,
     AddCoursesToStudentComponent,
-    AddAsmtsToStudentComponent
+    AddAsmtsToStudentComponent,
+    SubmitAsmtComponent
   ],
   imports: [
     BrowserModule,

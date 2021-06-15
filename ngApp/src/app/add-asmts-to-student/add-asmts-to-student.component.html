@@ -52,7 +52,7 @@
                                             <h4>
                                                 Assignments 
                                                 <span style=" color: red; font-size: medium; margin-left: 100px;">
-                                                    You can only download following Assignments...
+                                                    Download Assignments (OR) Submit Assignments
                                                 </span>    
                                             </h4>                                         
                                         </div>
@@ -62,7 +62,7 @@
                                                     <div class="card-header" 
                                                         style="background-color: lightskyblue;">
                                                         <div class="row">
-                                                            <div class="col-6">
+                                                            <div class="col-5">
                                                                 <h5>
                                                                     {{a.courseName}}
                                                                     <div *ngIf="a.asmtLinkStatus==0" style="color:green;">
@@ -76,14 +76,21 @@
                                                                     </div>
                                                                 </h5>
                                                             </div>
-                                                            <div *ngIf="a.asmtFileName" class="col-6">
+                                                            <div *ngIf="a.asmtFileName" class="col-7">
                                                                 {{a.asmtFileName}}
                                                                 <p></p>
-                                                                <button type="button" 
-                                                                    (click)="downloadAsmt(a)" 
-                                                                    class="btn btn-primary">
-                                                                    Download Assignment File
-                                                                </button>
+                                                                <div class="row">
+                                                                    <div class="col-6">
+                                                                        <button type="button" (click)="downloadAsmt(a)" class="btn btn-primary">
+                                                                            Download Assignment
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="col-6">                                                                  
+                                                                        <!-- asmt submit control -->
+                                                                        <app-submit-asmt (onUploadFinished)="uploadFinished($event)">
+                                                                        </app-submit-asmt>
+                                                                    </div>
+                                                                </div>
                                                                 <span *ngIf="downloadStatus && downloadFile==a.asmtFileName" 
                                                                     [style.color]="downloadClass">
                                                                     <p>

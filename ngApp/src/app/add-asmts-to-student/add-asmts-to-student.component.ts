@@ -70,7 +70,7 @@ export class AddAsmtsToStudentComponent implements OnInit {
     else if (statusCode == 1)
       return 'Assignment Not Linked';
     else
-      return 'Assignment Dis-Connected';
+      return 'Assignment Submitted';
   }
 
   // ok
@@ -134,4 +134,10 @@ export class AddAsmtsToStudentComponent implements OnInit {
     this.downloadFile = '';
   }
 
+  // ok
+  public uploadFinished = (event) => {
+    console.log('upload done...');
+    console.log(event);
+    // console.log(event.stdToAsmt);
+  }
 }

@@ -57,6 +57,14 @@ export class DataService {
     return this.http.post<Blob>(this.STUDENT_API + '/downloadAsmt', stdToAsmtDownload,
       { responseType: 'blob' as 'json' });
   }
+  // user / student area
+  // assignment submit
+  public asmtSubmit(formData) {
+    return this.http.post<any>(this.STUDENT_API + '/asmtSubmit', formData, {      
+      reportProgress: true,
+      observe: 'events'
+    });
+  }
 
 
   //////////// department

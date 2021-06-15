@@ -10,6 +10,8 @@ using UniversityAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Entities.DTO;
 using System.IO;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http.Headers;
 
 namespace UniversityAPI.Controllers
 {
@@ -18,13 +20,17 @@ namespace UniversityAPI.Controllers
     [ApiController]
     public class StudentController : ControllerBase
     {
+        private readonly IConfiguration _configuration;
+
         private readonly IStudentRepository _stdRepo;
         private APIResponse _response;
         
         // ok
-        public StudentController(IStudentRepository stdRepo)
+        public StudentController(IConfiguration configuration, IStudentRepository stdRepo)
         {
             _stdRepo = stdRepo;
+
+            _configuration = configuration;
         }
 
         // ok        
@@ -158,5 +164,64 @@ namespace UniversityAPI.Controllers
                 default: return "";
             }
         }
+
+        // user/student area
+        // ok
+        // assignment submit
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("asmtSubmit")]
+        public IActionResult AsmtSubmit()
+        {
+            try
+            {
+
+                var stdToAsmtRequest = Request.Form["stdToAsmt"];
+
+                string asmtStoragePath =_configuration.GetSection("AsmtSubmitLocation").GetSection("Path").Value;
+
+                // unique random number to edit file name
+                var guid = Guid.NewGuid();
+                var bytes = guid.ToByteArray();
+                var rawValue = BitConverter.ToInt64(bytes, 0);
+                var inRangeValue = Math.Abs(rawValue) % DateTime.MaxValue.Ticks;
+
+
+                var file = Request.Form.Files[0];
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), asmtStoragePath);
+
+                if (file.Length > 0)
+                {
+                    var fileName = inRangeValue + "_" + ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+                    var fullPath = Path.Combine(pathToSave, fileName);
+
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    AsmtSubmitVM asmtSubmitVM = new AsmtSubmitVM();
+                    asmtSubmitVM.AsmtSubmitFilePath = asmtStoragePath;
+                    asmtSubmitVM.AsmtSubmitFileName = fileName;
+                    asmtSubmitVM.AsmtSubmitDate = DateTime.Now;
+                    asmtSubmitVM.AsmtLinkStatus = AsmtLinkStatus.AsmtSubmitted;
+                    asmtSubmitVM.AssignmentId = Convert.ToInt32(Request.Form["stdToAsmt.assignmentId"]);
+                    asmtSubmitVM.StudentId = Convert.ToInt32(Request.Form["stdToAsmt.studentId"]);                    
+
+                    asmtSubmitVM = _stdRepo.AsmtSubmit(asmtSubmitVM);
+                    return Ok(new { asmtSubmitVM });
+
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex}");
+            }
+        }
+
+
     }
 }

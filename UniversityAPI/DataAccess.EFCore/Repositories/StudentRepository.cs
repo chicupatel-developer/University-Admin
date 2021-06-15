@@ -45,7 +45,7 @@ namespace DataAccess.EFCore.Repositories
                     {
                         appDbContext.StdsToCourses.Add(stdToCourse);
                     }
-
+                    
                     // throw new Exception();
 
                     appDbContext.SaveChanges();
@@ -140,8 +140,9 @@ namespace DataAccess.EFCore.Repositories
                         asmt.AsmtLinkStatus = asmtsStatus.AsmtLinkStatus;                       
                     }
                     else
-                    {
+                    {                        
                         // course is assigned to student, but course's this assignment is not linked to student
+                        // means student has yet not downloaded this assignment of this course
                         asmt.AsmtLinkStatus = AsmtLinkStatus.AsmtNotLinked;
                     }
                 }
@@ -185,6 +186,19 @@ namespace DataAccess.EFCore.Repositories
             {
                 return false;
             }
+        }
+
+        public AsmtSubmitVM AsmtSubmit(AsmtSubmitVM asmtSubmitVM)
+        {
+            var stdAsmtSubmit = appDbContext.StdToAsmt
+                                    .Where(x => x.StudentId == asmtSubmitVM.StudentId && x.AssignmentId == asmtSubmitVM.AssignmentId).FirstOrDefault();
+            stdAsmtSubmit.AsmtSubmitDate = asmtSubmitVM.AsmtSubmitDate;
+            stdAsmtSubmit.AsmtLinkStatus = asmtSubmitVM.AsmtLinkStatus;
+            stdAsmtSubmit.AsmtSubmitFileName = asmtSubmitVM.AsmtSubmitFileName;
+            stdAsmtSubmit.AsmtSubmitFilePath = asmtSubmitVM.AsmtSubmitFilePath;
+            appDbContext.SaveChanges();
+
+            return asmtSubmitVM;
         }
     }
 }

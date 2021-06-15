@@ -91,11 +91,17 @@ on client side and menu options are displayed as per user's role
 - (course)1------->0-*(student)
 
 // student-asmt
+    //0 - AsmtLinked, // when course and it's asmt is linked to student
+    //1 -  AsmtNotLinked, // when course is linked but it's asmt is not linked to student     
+    //2 -  AsmtSubmitted // when course and asmt are linked and asmt is submitted by student
+    // in db table StdToAsmt, status is either 0 or 2
 - (student)1------->0-*(asmt)
 student can have assignments only belong to the assigned courses to the student.
 means... assignments depend on course and courses are assigned to student.
 - StdToAsmt
+this table maintains records only for (downloaded assignments(AsmtLinkStatus=0)) and 
+(downloaded assignments but later course is dropped by this student(AsmtLinkStatus=0)) and
+(downloaded assignments and assignments are submitted by this student (AsmtLinkStatus=2))
 - (asmt)1------->0-*(student)
-
 
 //// assignment - edit

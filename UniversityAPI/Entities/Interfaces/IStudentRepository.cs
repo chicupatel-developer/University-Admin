@@ -18,6 +18,9 @@ namespace Entities.Interfaces
         
         // during asmt(course-student) download process
         bool EditAsmtsToStudent(StdToAsmtDownload stdToAsmtDownload);
+
+        // assignment submit
+        AsmtSubmitVM AsmtSubmit(AsmtSubmitVM asmtSubmitVM);
     }
   
 }
