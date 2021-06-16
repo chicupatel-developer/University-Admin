@@ -1,9 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { DataService } from '../services/data.service';
-import StdToAsmt from '../models/stdToAsmt';
-import AsmtSubmitVM from '../models/asmtSubmitVM';
-
 
 @Component({
   selector: 'app-submit-asmt',
@@ -13,9 +10,8 @@ import AsmtSubmitVM from '../models/asmtSubmitVM';
 export class SubmitAsmtComponent implements OnInit {
   public progress: number;
   public message: string;
-
-  // stdToAsmt : StdToAsmt;
-  asmtSubmitVM : AsmtSubmitVM;
+  public messageColor: string;
+  public progressFlag = false;
 
   @Output() public onUploadFinished = new EventEmitter();
 
@@ -26,7 +22,7 @@ export class SubmitAsmtComponent implements OnInit {
   ngOnInit() {
   }
 
-  // wip
+  // ok
   public uploadFile = (files) => {
     if (files.length === 0) {
       return;
@@ -34,7 +30,6 @@ export class SubmitAsmtComponent implements OnInit {
 
     let fileToUpload = <File>files[0];
     const formData = new FormData();
-    // formData.append('file', fileToUpload, fileToUpload.name);
 
     const stdToAsmt = JSON.stringify({
       studentId: this.studentId,
@@ -45,23 +40,29 @@ export class SubmitAsmtComponent implements OnInit {
     formData.set('file', fileToUpload, fileToUpload.name);
 
     this.dataService.asmtSubmit(formData).subscribe(event => {
+
+      this.progressFlag = true;
+
       if (event.type === HttpEventType.UploadProgress)
         this.progress = Math.round(100 * event.loaded / event.total);
       else if (event.type === HttpEventType.Response) {        
-        this.message = 'Upload success.';
-        this.onUploadFinished.emit(event.body);
+        this.message = 'Assignment Submit OK!';
+        this.messageColor = 'green';
+        setTimeout(() => {
+          this.message = '';
+          this.onUploadFinished.emit(event.body);
+        }, 5000);
       }
     },
       (error) => {
-        if(error.statusCode==400){
-          // wip
-          // catch 400
-          console.log(error.statusCode);
-        }
-        else{
-          // 500 internal server error
-          console.log(error.error + '.....' + error.statusCode);
-        }        
+        this.message = error.error.message;
+        this.messageColor = 'red';
+
+        this.progressFlag = false;
+
+        setTimeout(() => {
+          this.message = '';
+        }, 3000);
       }
     );
   }

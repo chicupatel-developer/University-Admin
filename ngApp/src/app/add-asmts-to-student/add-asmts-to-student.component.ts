@@ -136,6 +136,21 @@ export class AddAsmtsToStudentComponent implements OnInit {
 
   // ok
   public uploadFinished = (event) => {
-    console.log('upload done...');
+    console.log('Assignment Submit OK!');
+
+    // refresh assignments belong to courses of student
+    this.loadAsmtsForStudent(this.studentModel.studentId);
+  }
+
+  // ok
+  // true means download and submit options are enabled
+  // false means already donloaded and submitted, so download and submit options are disabled
+  checkAsmtLinkStatus(assignment){
+    if (assignment.asmtLinkStatus==2){
+      return false;
+    }
+    else{
+      return true;
+    }
   }
 }

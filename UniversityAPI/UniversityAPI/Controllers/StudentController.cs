@@ -208,20 +208,19 @@ namespace UniversityAPI.Controllers
                     asmtSubmitVM.AsmtSubmitFilePath = asmtStoragePath;
                     asmtSubmitVM.AsmtSubmitFileName = fileName;
                     asmtSubmitVM.AsmtSubmitDate = DateTime.Now;
-                    asmtSubmitVM.AsmtLinkStatus = AsmtLinkStatus.AsmtSubmitted;                 
+                    asmtSubmitVM.AsmtLinkStatus = AsmtLinkStatus.AsmtSubmitted;
 
                     asmtSubmitVM = _stdRepo.AsmtSubmit(asmtSubmitVM);
-                    // return Ok(new { asmtSubmitVM });
-                    return BadRequest();
+                    return Ok(new { asmtSubmitVM });
                 }
                 else
                 {
-                    return BadRequest();
+                    return StatusCode(400, new { Message = "Bad Request!" });
                 }
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex}");
+                return StatusCode(500, new { Message = "Server Error!" });
             }
         }
 

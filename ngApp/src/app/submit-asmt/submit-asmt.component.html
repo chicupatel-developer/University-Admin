@@ -11,10 +11,12 @@
             (click)="file.click()">Submit Assignment</button>
     </div>
     <div class="col-md-9">
-        <span class="upload" *ngIf="progress > 0">
+        <span class="upload" *ngIf="progress > 0 && progressFlag">
             {{progress}}%
         </span>
-        <span class="upload" *ngIf="message">
+        <span class="upload" 
+            *ngIf="message" 
+            [style.color]="messageColor">
             {{message}}
         </span>
     </div>
