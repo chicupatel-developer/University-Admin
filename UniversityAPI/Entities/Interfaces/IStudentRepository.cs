@@ -21,6 +21,11 @@ namespace Entities.Interfaces
 
         // assignment submit
         AsmtSubmitVM AsmtSubmit(AsmtSubmitVM asmtSubmitVM);
+
+        // Student : user
+        StdCrsFacVM GetMyCourses(int stdId);
+        
+
     }
   
 }

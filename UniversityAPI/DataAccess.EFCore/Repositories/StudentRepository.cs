@@ -203,5 +203,37 @@ namespace DataAccess.EFCore.Repositories
 
             return asmtSubmitVM;
         }
+
+        // Student : user
+        public StdCrsFacVM GetMyCourses(int stdId)
+        {
+            StdCrsFacVM myCourses = new StdCrsFacVM();
+            List<StdCrsVM> courses = new List<StdCrsVM>();
+            myCourses.MyCourses = courses;
+            myCourses.StudentId = stdId;
+
+            var crs = appDbContext.StdsToCourses.Include(y=>y.Course)
+                            .Where(x => x.StudentId == stdId);
+            if (crs != null)
+            {
+                foreach(var cr in crs)
+                {
+                    var fac = appDbContext.Faculties
+                                .Where(q => q.FacultyId == cr.Course.FacultyId).FirstOrDefault();
+                    courses.Add(new StdCrsVM()
+                    {
+                         CourseId = cr.CourseId,
+                         CourseName = cr.Course.CouseName,
+                         FacultyId = cr.Course.FacultyId,
+                         FacultyName = fac.FirstName + ", "+ fac.LastName
+                    });
+                }
+            }
+            else
+            {
+                // do nothing
+            }
+            return myCourses;
+        }
     }
 }

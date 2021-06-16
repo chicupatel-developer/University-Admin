@@ -9,10 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using UniversityAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Entities.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UniversityAPI.Controllers
 {
-    [Authorize]
+    [Authorize("Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class DepartmentController : ControllerBase

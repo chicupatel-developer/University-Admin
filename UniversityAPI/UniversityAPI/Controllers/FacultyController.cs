@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using UniversityAPI.ViewModels;
 using Entities.DTO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace UniversityAPI.Controllers
 {
+    [Authorize("Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class FacultyController : ControllerBase

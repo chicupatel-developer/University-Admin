@@ -16,7 +16,7 @@ using Newtonsoft.Json.Linq;
 
 namespace UniversityAPI.Controllers
 {
-    [Authorize]
+    // [Authorize("Admin, Student")]
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
@@ -35,6 +35,7 @@ namespace UniversityAPI.Controllers
         }
 
         // ok        
+        // [Authorize("Admin")]
         [HttpGet]
         [Route("allStudents")]
         public IActionResult GetAllStudents()
@@ -44,6 +45,7 @@ namespace UniversityAPI.Controllers
         }
 
         // ok
+        // [Authorize("Admin")]
         [HttpPost]
         [Route("addStudent")]
         public IActionResult AddStudent(Student student)
@@ -67,6 +69,7 @@ namespace UniversityAPI.Controllers
         }
 
         // ok
+        // [Authorize("Admin")]
         [HttpPost]
         [Route("editCourseToStd")]
         public IActionResult EditCourseToStd(List<StdToCourse> stdToCourses)
@@ -89,6 +92,7 @@ namespace UniversityAPI.Controllers
 
         // ok
         // this will load courses only assigned to respective student
+        // [Authorize("Admin")]
         [HttpGet]
         [Route("loadCoursesForStudent/{stdId}")]
         public IActionResult LoadCoursesForStudent(int stdId)
@@ -99,6 +103,7 @@ namespace UniversityAPI.Controllers
 
         // ok
         // this will load assignmets only assigned to courses to respective student 
+        // [Authorize("Admin")]
         [HttpGet]
         [Route("loadAsmtsForStudent/{stdId}")]
         public IActionResult LoadAsmtsForStudent(int stdId)
@@ -109,6 +114,7 @@ namespace UniversityAPI.Controllers
 
         // ok
         // assignment file download
+        // [Authorize("Admin")]
         [HttpPost, DisableRequestSizeLimit]
         [Route("downloadAsmt")]
         public async Task<IActionResult> Download(StdToAsmtDownload stdToAsmtDownload)
@@ -166,9 +172,9 @@ namespace UniversityAPI.Controllers
             }
         }
 
-        // user/student area
         // ok
         // assignment submit
+        // [Authorize("Admin")]
         [HttpPost, DisableRequestSizeLimit]
         [Route("asmtSubmit")]
         public IActionResult AsmtSubmit()
@@ -224,6 +230,15 @@ namespace UniversityAPI.Controllers
             }
         }
 
+        // Student : user
+        // [Authorize("Student")]
+        [HttpGet]
+        [Route("getMyCourses/{stdId}")]
+        public IActionResult GetMyCourses(int stdId)
+        {
+            var listOfCrs = _stdRepo.GetMyCourses(stdId);
+            return Ok(listOfCrs);
+        }
 
     }
 }

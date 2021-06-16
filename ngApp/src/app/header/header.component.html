@@ -23,13 +23,13 @@
             <li class="nav-item active">
                 <a class='nav-link' routerLinkActive='active' [routerLink]="['/home']">Home</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="this._authService.isAdmin">
                 <a class="nav-link" [routerLink]="['/department']">Department</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="this._authService.isAdmin">
                 <a class="nav-link" [routerLink]="['/faculty']">Faculty</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" *ngIf="this._authService.isAdmin">
                 <a class="nav-link" [routerLink]="['/course']">Course</a>
             </li>
             <li class="nav-item" *ngIf="this._authService.isAdmin">
@@ -37,11 +37,16 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/student']">Student</a>
-            </li>          
+            </li>              
+            <li class="nav-item">
+                <a class="nav-link" 
+                    [routerLink]="['/student-mycourses']">MyCourses
+                </a>
+            </li>        
         </ul>      
     </div>
 
-    <div class="collapse navbar-collapse w-100 order-3" 
+    <div class="collapse navbar-collapse w-100 order-9" 
         id="navbarTogglerDemo02" 
         [ngbCollapse]="isCollapsed">
         <ul class="navbar-nav ml-auto">

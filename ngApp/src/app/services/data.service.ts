@@ -14,6 +14,7 @@ import CourseEditVM from '../models/courseEditVM';
 import Student from '../models/student';
 import StdToAsmtDownload from '../models/stdToAsmtDownload';
 import AsmtCrsStd from '../models/asmtCrsStd';
+import StdCrsFacVM from '../models/stdCrsFacVM';
 
 @Injectable({
   providedIn: 'root'
@@ -52,20 +53,23 @@ export class DataService {
   loadAsmtsForStudent(stdId: number): Observable<Array<AsmtCrsStd>> {
     return this.http.get<Array<AsmtCrsStd>>(this.STUDENT_API + '/loadAsmtsForStudent/' + stdId);
   }
-  // download - assignment (course - student)    
+  // download - assignment (student - assignment)    
   public downloadAsmt(stdToAsmtDownload: StdToAsmtDownload): Observable<Blob> {
     return this.http.post<Blob>(this.STUDENT_API + '/downloadAsmt', stdToAsmtDownload,
       { responseType: 'blob' as 'json' });
   }
-  // user / student area
-  // assignment submit
   public asmtSubmit(formData) {
     return this.http.post<any>(this.STUDENT_API + '/asmtSubmit', formData, {      
       reportProgress: true,
       observe: 'events'
     });
   }
-
+  // wip
+  // Student : user
+  // this will load courses and faculty info only assigned to respective student
+  getMyCourses(stdId: number): Observable<StdCrsFacVM> {
+    return this.http.get <StdCrsFacVM> (this.STUDENT_API + '/getMyCourses/' + stdId);
+  }
 
   //////////// department
   // list department

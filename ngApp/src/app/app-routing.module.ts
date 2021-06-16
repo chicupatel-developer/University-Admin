@@ -20,6 +20,7 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
 import { StudentComponent } from './student/student.component';
 import { AddCoursesToStudentComponent } from './add-courses-to-student/add-courses-to-student.component';
 import { AddAsmtsToStudentComponent } from './add-asmts-to-student/add-asmts-to-student.component';
+import { StudentCrsFacInfoComponent } from './student-crs-fac-info/student-crs-fac-info.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'add-asmts-to-student', component: AddAsmtsToStudentComponent, canActivate: [AuthGuard] },
   { path: 'course-remove', component: CourseRemoveComponent, canActivate: [AuthGuard] },
   { path: 'student', component: StudentComponent, canActivate: [AuthGuard] },
+  { path: 'student-mycourses', component: StudentCrsFacInfoComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

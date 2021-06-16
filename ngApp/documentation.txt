@@ -1,0 +1,423 @@
+/////////////// system info
+
+- user can be either Admin or Student
+
+//// between department-faculty-course
+// course can not exist without department and faculty
+// one course can connect with one department and one faculty
+// department has multiple courses and faculties
+// faculty can have multiple or zero course(s)
+// faculty can not exist without department
+// department - faculty - course
+// sequence...
+// first create department
+// second create faculty... faculty needs only department
+// third create course... course needs both department and faculty
+
+** exceptions handling: 
+- model validations are handled on client side - angular - controller 
+- all server side exceptions are handled on api - controller
+- all file upload/download related exceptions are handled on api/controller and angular/controller
+
+//// role based authentication
+- JWT authentication
+- sign-in using google authentication and custom jwt authentication
+- either User or Admin role is created during registration
+- after successful sign-in, respective role is returned in token / response
+- angular stores role info with token
+- header menu component displays related menu options as per role info
+- when user bypasses header menu options and directly types url then, on server side
+api's controller code checks with [Authorize("Admin")] and if un-authorised then,
+returns 403 (Forbidden)
+- on angular side auth.interceptor.ts file catches 403 and, redirects to home page
+else if (err.status == 403){
+                            // not authorise
+                            // redirect to home page
+                            this.router.navigateByUrl('/home');
+                        }
+
+//// sign-in
+- user can sign-in
+- after successful sign-in, token, role and other user's information is stored
+on client side and menu options are displayed as per user's role
+- after un-successful sign-in, error message is displayed
+** exceptions handling
+
+//// registration
+- new user can register either as Admin or Student role
+- after un-successful registration, error message is displayed
+** exceptions handling
+
+//// department (role - Admin)
+- user can add / edit / view department
+- user can remove department
+    - faculty, course and assignment are depending on department
+    - before user can remove department, system displays all possible dependencies
+    - when user execute remove department action, system safely remove first
+        all possible dependencies and finally remove department itself
+** exceptions handling
+
+//// faculty (role - Admin)
+- user can add / edit / view faculty
+- user can remove faculty
+    - course and assignment are depending on faculty
+    - before user can remove faculty, system displays all possible dependencies
+    - when user execute remove faculty action, system safely remove first
+        all possible dependencies and finally remove faculty itself
+** exceptions handling
+
+//// course (role - Admin)
+- user can add / view course
+- user can edit course
+    - user can edit course's faculty 
+        (faculty options belong to course's current department's faculties)
+- user can remove course
+    - assignment is depending on course
+    - before user can remove course, system displays all possible dependencies
+    - when user execute remove course action, system safely remove first
+        all possible dependencies and finally remove course itself
+** exceptions handling
+
+//// assignment (role - Admin)
+- user can add assignment
+    - user can upload assignment file along with other necessary details
+- user can view assignment
+    - user can search / filter assignment by department and/or faculty
+    - user can download assignment file
+** exceptions handling
+
+//// student - course - assignment
+// student-course
+- StdToCourse 
+- (student)1------->0-*(course)
+- (course)1------->0-*(student)
+
+// student-assignment
+    //0 - AsmtLinked, // when course and it's asmt is linked to student
+    //1 -  AsmtNotLinked, // when course is linked but it's asmt is not linked to student     
+    //2 -  AsmtSubmitted // when course and asmt are linked and asmt is submitted by student
+    // in db table StdToAsmt, status is either 0 or 2
+- (student)1------->0-*(asmt)
+- (asmt)1------->0-*(student)
+student can have assignments only belong to the assigned courses to the student.
+means... assignments depend on course and courses are assigned to student.
+- StdToAsmt
+this table maintains records only for (downloaded assignments(AsmtLinkStatus=0)) and 
+(downloaded assignments but later course is dropped by this student(AsmtLinkStatus=0)) and
+(downloaded assignments and assignments are submitted by this student (AsmtLinkStatus=2))
+
+// wip
+//// student (role - Admin)
+- user can add / edit / view student
+- user can remove student
+    - student-course and student-assignment are depending on student
+    - before user can remove student, system displays all possible dependencies
+    - when user execute remove student action, system safely remove first
+        all possible dependencies and finally remove student itself
+** exceptions handling
+
+//// student-course(StdsToCourses) (role - Admin)
+- user can view / add / remove course(s) assigned to selected student
+
+//// student-assignment(StdToAsmt) (role - Admin)
+(this module is only required when Student(user) can not able to download or
+submit assignment. Student(user) can request to Admin(user) just by providing 
+StudentId, AssignmentId and or assignment file for submission)
+- user can view assignments only for assigned courses of selected student
+- user can download assignment and submit assignment
+- user can not submit assignment before download it first
+- after downloaded and submitted assignments, user can not re-submit assignment
+
+// wip
+//// student-course-assignment(StdsToCourses-StdToAsmt) (role - Student)
+- user can view assigned course(s) information like course and faculty info
+- user can view assignments only for assigned courses
+- user can download assignment and submit assignment
+- user can not submit assignment before download it first
+- after downloaded and submitted assignments, user can not re-submit assignment
+
+
+
+
+ //////////////
+  // wip
+  getMyCourses(){
+    this.dataService.getMyCourses(3)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+       
+                        <!-- testing -->
+                        <div>
+                            <button type="button" 
+                                (click)="getMyCourses()" 
+                                class="btn btn-success">
+                                My Courses
+                            </button>
+                        </div>
+
+
+
+<script src='https://kit.fontawesome.com/a076d05399.js' 
+    crossorigin='anonymous'>
+</script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        <div>
+                            Students
+                        </div>
+                        <hr />
+                        <div>
+                            <button *ngIf="!newStdAddPanel" 
+                                type="button" 
+                                (click)="addStd()"
+                                class="btn btn-success">
+                                    Add Student
+                            </button>
+                        </div>
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="container" *ngIf="newStdAddPanel">
+                        <div class="col-md-7 mx-auto">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3>
+                                        <div>
+                                            Student - Add
+                                        </div>
+                                        <hr />
+                                        <h4 *ngIf="apiResponse">
+                                            <span [style.color]="responseColor">
+                                                {{apiResponse}}
+                                            </span>
+                                            <hr />
+                                        </h4>
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <form class="form-std" 
+                                        [formGroup]="stdForm" 
+                                        (ngSubmit)="onSubmit()">
+                                        <div class="form-group">
+                                            <label>First Name</label>
+                                            <input type="text" 
+                                                class="form-control" 
+                                                formControlName="FirstName">
+                                            <span class="text-danger"
+                                                *ngIf="(stdFormControl.FirstName.touched || submitted) && stdFormControl.FirstName.errors?.required">
+                                                First Name is required
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Last Name</label>
+                                            <input type="text" 
+                                                class="form-control" 
+                                                formControlName="LastName">
+                                            <span class="text-danger"
+                                                *ngIf="(stdFormControl.LastName.touched || submitted) && stdFormControl.LastName.errors?.required">
+                                                Last Name is required
+                                            </span>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <button type="submit" 
+                                                        class="btn btn-success">
+                                                        New Student
+                                                    </button>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <button type="button" 
+                                                        (click)="resetStd()" 
+                                                        class="btn btn-primary">
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <p></p>
+                    </div>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let s of students">
+                                <td>{{s.studentId}}</td>
+                                <td>
+                                    {{s.firstName}}
+                                </td>
+                                <td>
+                                    {{s.lastName}}
+                                </td>
+                                <td>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <button type="button" 
+                                                (click)="addCrs(s)" 
+                                                class="btn btn-primary">
+                                                <i class="bi bi-pencil-square"></i>
+                                                Edit Courses
+                                            </button>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="button" 
+                                                (click)="myAsmts(s)" 
+                                                class="btn btn-primary">
+                                                <i class="bi bi-pencil-square"></i>
+                                                My Assignments
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+import { Component, OnInit } from '@angular/core';
+import { DataService } from '../services/data.service';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LocalDataService } from '../services/local-data.service';
+import Student from '../models/student';
+
+@Component({
+  selector: 'app-student',
+  templateUrl: './student.component.html',
+  styleUrls: ['./student.component.css']
+})
+export class StudentComponent implements OnInit {
+
+  students: Array<Student>;
+
+  stdForm: FormGroup;
+  submitted = false;
+  studentModel = new Student();
+  newStdAddPanel = false;
+
+  apiResponse = '';
+  responseColor = '';
+
+  //////////
+
+
+  constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router)
+  { }
+
+  // ok
+  ngOnInit() {
+    this.stdForm = this.fb.group({
+      FirstName: ['', Validators.required],
+      LastName: ['', Validators.required]
+    })
+    this.loadStds();
+  }
+
+  // ok
+  loadStds() {
+    this.dataService.getStudents()
+      .subscribe(
+        data => {
+          this.students = data;
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  // ok
+  addStd() {
+    this.newStdAddPanel = true;
+  }
+
+  // ok
+  get stdFormControl() {
+    return this.stdForm.controls;
+  }
+
+  // ok
+  onSubmit(): void {
+    this.submitted = true;
+    if (this.stdForm.valid) {
+      this.studentModel.firstName = this.stdForm.value["FirstName"];
+      this.studentModel.lastName = this.stdForm.value["LastName"];
+      this.dataService.addStd(this.studentModel)
+        .subscribe(
+          response => {
+            if (response.responseCode == 0) {
+              // success    
+              this.apiResponse = response.responseMessage;
+
+              this.responseColor = 'green';
+              this.stdForm.reset();
+              this.submitted = false;
+
+              setTimeout(() => {
+                this.newStdAddPanel = false;
+                this.apiResponse = '';
+              }, 3000);
+
+              this.loadStds();
+            }
+            else {
+              // fail
+              // display error message
+              this.apiResponse = response.responseCode + ' : ' + response.responseMessage;
+              this.responseColor = 'red';
+            }
+          },
+          error => {
+            this.apiResponse = error;
+            this.responseColor = 'red';
+          }
+        );
+    }
+  }
+
+  // ok
+  resetStd() {
+    this.newStdAddPanel = false;
+    this.apiResponse = '';
+    this.stdForm.reset();
+    this.submitted = false;
+  }
+
+  // ok
+  addCrs(student){
+    this.router.navigate(['/add-courses-to-student/'], { queryParams: { student: JSON.stringify(student) } });
+  }
+
+  // ok
+  myAsmts(student){
+    this.router.navigate(['/add-asmts-to-student/'], { queryParams: { student: JSON.stringify(student) } });
+  }
+}
