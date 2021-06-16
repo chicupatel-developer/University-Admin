@@ -196,6 +196,9 @@ namespace DataAccess.EFCore.Repositories
             stdAsmtSubmit.AsmtLinkStatus = asmtSubmitVM.AsmtLinkStatus;
             stdAsmtSubmit.AsmtSubmitFileName = asmtSubmitVM.AsmtSubmitFileName;
             stdAsmtSubmit.AsmtSubmitFilePath = asmtSubmitVM.AsmtSubmitFilePath;
+
+            // throw new Exception();
+
             appDbContext.SaveChanges();
 
             return asmtSubmitVM;

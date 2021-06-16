@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import AsmtSubmitVM from '../models/asmtSubmitVM';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +8,7 @@ export class LocalDataService {
 
   // role
   private MyRole;
+  
   private UserName;
   private LoginError;
   private RegisterMessage;
@@ -15,7 +17,6 @@ export class LocalDataService {
   private DeptRemoveVM;
   private FacRemoveVM;
   private CrsRemoveVM;
-  
 
   constructor() { }
 

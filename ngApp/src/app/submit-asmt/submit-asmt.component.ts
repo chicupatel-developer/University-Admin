@@ -1,7 +1,8 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { DataService } from '../services/data.service';
 import StdToAsmt from '../models/stdToAsmt';
+import AsmtSubmitVM from '../models/asmtSubmitVM';
 
 
 @Component({
@@ -13,15 +14,19 @@ export class SubmitAsmtComponent implements OnInit {
   public progress: number;
   public message: string;
 
-  stdToAsmt : StdToAsmt;
+  // stdToAsmt : StdToAsmt;
+  asmtSubmitVM : AsmtSubmitVM;
 
   @Output() public onUploadFinished = new EventEmitter();
+
+  @Input() studentId = 0;
+  @Input() assignmentId = 0;
 
   constructor(private http: HttpClient, public dataService: DataService) { }
   ngOnInit() {
   }
 
-  // ok
+  // wip
   public uploadFile = (files) => {
     if (files.length === 0) {
       return;
@@ -32,21 +37,33 @@ export class SubmitAsmtComponent implements OnInit {
     // formData.append('file', fileToUpload, fileToUpload.name);
 
     const stdToAsmt = JSON.stringify({
-      studentId: 1,
-      assignmentId: 10
+      studentId: this.studentId,
+      assignmentId: this.assignmentId
     });
+
     formData.set('stdToAsmt', stdToAsmt);
     formData.set('file', fileToUpload, fileToUpload.name);
-
 
     this.dataService.asmtSubmit(formData).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress)
         this.progress = Math.round(100 * event.loaded / event.total);
-      else if (event.type === HttpEventType.Response) {
+      else if (event.type === HttpEventType.Response) {        
         this.message = 'Upload success.';
         this.onUploadFinished.emit(event.body);
       }
-    });
+    },
+      (error) => {
+        if(error.statusCode==400){
+          // wip
+          // catch 400
+          console.log(error.statusCode);
+        }
+        else{
+          // 500 internal server error
+          console.log(error.error + '.....' + error.statusCode);
+        }        
+      }
+    );
   }
 
 }

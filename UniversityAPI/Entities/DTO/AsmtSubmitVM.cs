@@ -9,7 +9,6 @@ namespace Entities.DTO
     {
         public int StudentId { get; set; }
         public int AssignmentId { get; set; }
-
         public string AsmtSubmitFilePath { get; set; }
         public string AsmtSubmitFileName { get; set; }
         public DateTime AsmtSubmitDate { get; set; }

@@ -137,7 +137,5 @@ export class AddAsmtsToStudentComponent implements OnInit {
   // ok
   public uploadFinished = (event) => {
     console.log('upload done...');
-    console.log(event);
-    // console.log(event.stdToAsmt);
   }
 }

@@ -87,7 +87,10 @@
                                                                     </div>
                                                                     <div class="col-6">                                                                  
                                                                         <!-- asmt submit control -->
-                                                                        <app-submit-asmt (onUploadFinished)="uploadFinished($event)">
+                                                                        <app-submit-asmt 
+                                                                            [assignmentId]="a.assignmentId"
+                                                                            [studentId]="studentModel.studentId"
+                                                                            (onUploadFinished)="uploadFinished($event)">
                                                                         </app-submit-asmt>
                                                                     </div>
                                                                 </div>

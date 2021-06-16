@@ -12,6 +12,7 @@ using Entities.DTO;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
+using Newtonsoft.Json.Linq;
 
 namespace UniversityAPI.Controllers
 {
@@ -174,8 +175,13 @@ namespace UniversityAPI.Controllers
         {
             try
             {
-
                 var stdToAsmtRequest = Request.Form["stdToAsmt"];
+
+                JObject jStdToAsmtRequest = JObject.Parse(stdToAsmtRequest);
+
+                AsmtSubmitVM asmtSubmitVM = new AsmtSubmitVM();
+                asmtSubmitVM.AssignmentId = (int)jStdToAsmtRequest["assignmentId"];
+                asmtSubmitVM.StudentId = (int)jStdToAsmtRequest["studentId"];
 
                 string asmtStoragePath =_configuration.GetSection("AsmtSubmitLocation").GetSection("Path").Value;
 
@@ -198,18 +204,15 @@ namespace UniversityAPI.Controllers
                     {
                         file.CopyTo(stream);
                     }
-
-                    AsmtSubmitVM asmtSubmitVM = new AsmtSubmitVM();
+                    
                     asmtSubmitVM.AsmtSubmitFilePath = asmtStoragePath;
                     asmtSubmitVM.AsmtSubmitFileName = fileName;
                     asmtSubmitVM.AsmtSubmitDate = DateTime.Now;
-                    asmtSubmitVM.AsmtLinkStatus = AsmtLinkStatus.AsmtSubmitted;
-                    asmtSubmitVM.AssignmentId = Convert.ToInt32(Request.Form["stdToAsmt.assignmentId"]);
-                    asmtSubmitVM.StudentId = Convert.ToInt32(Request.Form["stdToAsmt.studentId"]);                    
+                    asmtSubmitVM.AsmtLinkStatus = AsmtLinkStatus.AsmtSubmitted;                 
 
                     asmtSubmitVM = _stdRepo.AsmtSubmit(asmtSubmitVM);
-                    return Ok(new { asmtSubmitVM });
-
+                    // return Ok(new { asmtSubmitVM });
+                    return BadRequest();
                 }
                 else
                 {
