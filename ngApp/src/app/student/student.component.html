@@ -20,6 +20,19 @@
                                     Add Student
                             </button>
                         </div>
+
+                        
+
+                            <!-- testing -->
+                            <div>
+                                <button type="button" (click)="getMyCourses()" class="btn btn-success">
+                                    My Courses
+                                </button>
+                            </div>
+                            <hr />
+
+
+
                     </h3>
                 </div>
                 <div class="card-body">
@@ -31,7 +44,7 @@
                                         <div>
                                             Student - Add
                                         </div>
-                                        <hr />
+                                        <hr />                                  
                                         <h4 *ngIf="apiResponse">
                                             <span [style.color]="responseColor">
                                                 {{apiResponse}}

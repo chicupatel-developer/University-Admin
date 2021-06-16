@@ -231,7 +231,7 @@ namespace UniversityAPI.Controllers
         }
 
         // Student : user
-        // [Authorize("Student")]
+        [Authorize("Student")]
         [HttpGet]
         [Route("getMyCourses/{stdId}")]
         public IActionResult GetMyCourses(int stdId)

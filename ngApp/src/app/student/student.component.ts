@@ -116,4 +116,17 @@ export class StudentComponent implements OnInit {
   myAsmts(student){
     this.router.navigate(['/add-asmts-to-student/'], { queryParams: { student: JSON.stringify(student) } });
   }
+
+  //////////////
+  // wip
+  getMyCourses() {
+    this.dataService.getMyCourses(3)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        });
+  }
 }

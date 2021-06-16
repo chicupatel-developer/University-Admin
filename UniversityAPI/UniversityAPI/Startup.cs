@@ -99,6 +99,11 @@ namespace UniversityAPI
                     {
                         authBuilder.RequireRole("User");
                     });
+                options.AddPolicy("Student",
+                   authBuilder =>
+                   {
+                       authBuilder.RequireRole("Student");
+                   });
 
             });
 

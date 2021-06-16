@@ -313,6 +313,8 @@ namespace UniversityAPI.Controllers
                     await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
                 if (!await roleManager.RoleExistsAsync(UserRoles.User))
                     await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+                if (!await roleManager.RoleExistsAsync(UserRoles.Student))
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Student));
 
                 await userManager.AddToRoleAsync(user, myRole);
 
