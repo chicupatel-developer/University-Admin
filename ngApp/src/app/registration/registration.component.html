@@ -10,6 +10,44 @@
                 </div>
                 <div class="card-body">
                     <form class="form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                       
+                        <!-- role -->
+                        <div class="form-group">
+                            <label>Role : </label>
+                            <select class="form-control" 
+                                (change)="changeRole($event)" 
+                                formControlName="MyRole">
+                                <option disabled>Select Role</option>
+                                <option value="">Choose Role</option>
+                                <option value="Admin">Admin</option>
+                                <option value="User">User</option>
+                                <option value="Student">Student</option>
+                            </select>
+                            <span class="text-danger"
+                                *ngIf="(registerFormControl.MyRole.touched || submitted) && handleError('MyRole', 'required')">
+                                Role is required
+                            </span>
+                        </div>
+                        <!-- student select list -->
+                        <div *ngIf="showStudentList" class="form-group">
+                            <label>Student : </label>
+                            <select class="form-control" 
+                                formControlName="studentId">
+                                <option disabled>Choose Student</option>
+                                <option value="">Choose Student</option>
+                                <option 
+                                    value={{s.studentId}} 
+                                    *ngFor="let s of students">
+                                        {{s.firstName}}, {{s.lastName}}
+                                </option>
+                            </select>
+                            <span class="text-danger"
+                                *ngIf="(registerFormControl.studentId.touched || submitted) && handleError('studentId', 'required')">
+                                Student is required
+                            </span>                          
+                        </div>
+
+
                         <div class="form-group">
                             <label>Name</label>
                             <input type="text" class="form-control" formControlName="name">
@@ -67,22 +105,7 @@
                                 Passwords doesnot match
                             </span>
                         </div>
-                        <!-- role -->
-                        <div class="form-group">
-                            <label>Role : </label>
-                            <select class="form-control" 
-                                formControlName="MyRole">
-                                <option disabled>Select Role</option>
-                                <option value="">Choose Role</option>                              
-                                <option value="Admin">Admin</option>
-                                <option value="User">User</option>
-                                <option value="Student">Student</option>
-                            </select>
-                            <span class="text-danger"
-                                *ngIf="(registerFormControl.MyRole.touched || submitted) && handleError('MyRole', 'required')">
-                                Role is required
-                            </span>
-                        </div>
+                    
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-6">

@@ -33,6 +33,11 @@ export class DataService {
   ///////////////// university api
   // ok
   //////////// student
+  // returns students those are yet not linked to ApplicationUser
+  // means students with StudentUserId is null
+  getStudentsNotLinkedToApplicationUser(): Observable<Array<Student>> {
+    return this.http.get<Array<Student>>(this.STUDENT_API + '/allStudentsNotLinkedToApplicationUser');
+  }
   // list student
   getStudents(): Observable<Array<Student>> {
     return this.http.get<Array<Student>>(this.STUDENT_API + '/allStudents');

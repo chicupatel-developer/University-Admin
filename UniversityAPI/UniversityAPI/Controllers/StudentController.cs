@@ -240,5 +240,16 @@ namespace UniversityAPI.Controllers
             return Ok(listOfCrs);
         }
 
+        // returns students those are yet not linked to ApplicationUser
+        // means students with StudentUserId is null
+        // ok           
+        [HttpGet]
+        [Route("allStudentsNotLinkedToApplicationUser")]
+        public IActionResult AllStudentsNotLinkedToApplicationUser()
+        {
+            var allStudents = _stdRepo.GetStudentsNotLinkedToApplicationUser();
+            return Ok(allStudents);
+        }
+
     }
 }

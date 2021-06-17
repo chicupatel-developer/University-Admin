@@ -18,6 +18,13 @@ namespace DataAccess.EFCore.Repositories
             this.appDbContext = appDbContext;
         }
 
+        // returns students those are yet not linked to ApplicationUser
+        // means students with StudentUserId is null
+        public IEnumerable<Student> GetStudentsNotLinkedToApplicationUser()
+        {
+            return appDbContext.Students.Where(x=>x.StudentUserId==null).OrderBy(d => d.FirstName).ToList();
+        }
+
         public IEnumerable<Student> GetAllStudents()
         {
             return appDbContext.Students.Include(x => x.StdsToCourses).OrderBy(d => d.FirstName).ToList();
@@ -234,6 +241,18 @@ namespace DataAccess.EFCore.Repositories
                 // do nothing
             }
             return myCourses;
+        }
+
+        // updating StudentUserId column value by Id column value of ApplicationUser
+        public void ConnectApplicationUserToStudent(string Id, int stdId)
+        {
+            var std = appDbContext.Students
+                        .Where(x => x.StudentId == stdId).FirstOrDefault();
+            if (std != null)
+            {
+                std.StudentUserId = Id;
+                appDbContext.SaveChanges();
+            }
         }
     }
 }

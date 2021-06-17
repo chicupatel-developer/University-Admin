@@ -19,5 +19,8 @@ namespace AuthenticationAPI.Authentication
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
 
+        // updating StudentUserId column value by Id column value of ApplicationUser
+        public int StudentId { get; set; }
+
     }
 }

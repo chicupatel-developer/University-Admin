@@ -1,7 +1,5 @@
 /////////////// system info
 
-- user can be either Admin or Student
-
 //// between department-faculty-course
 // course can not exist without department and faculty
 // one course can connect with one department and one faculty
@@ -44,7 +42,11 @@ on client side and menu options are displayed as per user's role
 ** exceptions handling
 
 //// registration
-- new user can register either as Admin or Student role
+- user can be either Admin, User or Student
+- @ Registration process, Admin or User - role profiles are created.
+- for Student - role, first need to create student @ Student db table__
+- and then after @ Registration process, select Student - role and __
+- map already created student with Student - role profile.
 - after un-successful registration, error message is displayed
 ** exceptions handling
 

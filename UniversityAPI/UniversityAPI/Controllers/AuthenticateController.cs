@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 using AuthenticationAPI.DTO;
 using AuthenticationAPI.Handler;
 using UniversityAPI.ViewModels;
+using Entities.Interfaces;
 
 namespace UniversityAPI.Controllers
 {
@@ -22,6 +23,9 @@ namespace UniversityAPI.Controllers
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
+        // updating StudentUserId column value by Id column value of ApplicationUser
+        private readonly IStudentRepository _stdRepo;
+
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly IConfiguration _configuration;
@@ -32,12 +36,13 @@ namespace UniversityAPI.Controllers
         private APIResponse _response;
 
         // ok
-        public AuthenticateController(ExternalAuthHandler jwtHandler, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public AuthenticateController(IStudentRepository stdRepo, ExternalAuthHandler jwtHandler, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
             _configuration = configuration;
             _jwtHandler = jwtHandler;
+            this._stdRepo = stdRepo;
         }
 
         // ok
@@ -305,6 +310,7 @@ namespace UniversityAPI.Controllers
                     SecurityStamp = Guid.NewGuid().ToString(),
                     UserName = model.Username
                 };
+                
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (!result.Succeeded)
                     return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
@@ -317,6 +323,19 @@ namespace UniversityAPI.Controllers
                     await roleManager.CreateAsync(new IdentityRole(UserRoles.Student));
 
                 await userManager.AddToRoleAsync(user, myRole);
+
+                // check if myRole==Student && studentId>0 then get recentyle created user's Id 
+                // and update Student db table where StudentId == studentId
+                // means, storing Id value of ApplicationUser to Student db table's StudentUserId column
+                if (myRole == "Student")
+                {
+                    _stdRepo.ConnectApplicationUserToStudent(user.Id, model.StudentId);
+                }
+                else
+                {
+                    // do nothing
+                    // user is either Admin or User role
+                }
 
                 _response.ResponseCode = 0;
                 _response.ResponseMessage = "User created successfully!";

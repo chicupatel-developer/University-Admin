@@ -24,7 +24,13 @@ namespace Entities.Interfaces
 
         // Student : user
         StdCrsFacVM GetMyCourses(int stdId);
-        
+
+        // updating StudentUserId column value by Id column value of ApplicationUser
+        void ConnectApplicationUserToStudent(string Id, int stdId);
+
+        // returns students those are yet not linked to ApplicationUser
+        // means students with StudentUserId is null
+        IEnumerable<Student> GetStudentsNotLinkedToApplicationUser();
 
     }
   
