@@ -31,7 +31,7 @@ namespace Entities.Interfaces
         // returns students those are yet not linked to ApplicationUser
         // means students with StudentUserId is null
         IEnumerable<Student> GetStudentsNotLinkedToApplicationUser();
-
+        Student GetStudentLoginProcess(string id);
     }
   
 }

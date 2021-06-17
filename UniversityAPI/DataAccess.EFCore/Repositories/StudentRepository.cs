@@ -254,5 +254,11 @@ namespace DataAccess.EFCore.Repositories
                 appDbContext.SaveChanges();
             }
         }
+
+        public Student GetStudentLoginProcess(string id)
+        {
+            var std = appDbContext.Students.Where(x => x.StudentUserId == id).FirstOrDefault();
+            return std;
+        }
     }
 }

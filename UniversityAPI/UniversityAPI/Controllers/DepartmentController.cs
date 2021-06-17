@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using UniversityAPI.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Entities.DTO;
-using Microsoft.AspNetCore.Authorization;
 
 namespace UniversityAPI.Controllers
 {

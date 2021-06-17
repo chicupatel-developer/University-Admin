@@ -43,7 +43,7 @@ export class RegistrationComponent implements OnInit {
     this.registerForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      username: ['', [Validators.required], this.customValidator.userNameValidator.bind(this.customValidator)],
+      username: ['', [Validators.required]], // this.customValidator.userNameValidator.bind(this.customValidator)],
       password: ['', Validators.compose([Validators.required, this.customValidator.patternValidator()])],
       confirmPassword: ['', [Validators.required]],
       MyRole: ['', [Validators.required]],
@@ -75,6 +75,7 @@ export class RegistrationComponent implements OnInit {
   onSubmit(): void {
 
     // to ignore validation for studentId select list
+    // when Admin - role is selected
     if(this.showStudentList==false){      
       this.registerForm.patchValue({
         studentId: 0
@@ -140,7 +141,6 @@ export class RegistrationComponent implements OnInit {
     // else return
     if(e.target.value=='Student'){
       // loading student select list
-      console.log('loading student list...');
       this.showStudentList = true;
       this.loadStds();
     }
@@ -154,7 +154,6 @@ export class RegistrationComponent implements OnInit {
     this.dataService.getStudentsNotLinkedToApplicationUser()
       .subscribe(
         data => {
-          // console.log(data);
           this.students = data;
         },
         error => {

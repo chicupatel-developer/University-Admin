@@ -38,7 +38,7 @@ export class CustomValidationService {
       }
     }
   }
-
+  /*
   userNameValidator(userControl: AbstractControl) {
     return new Promise(resolve => {
       setTimeout(() => {
@@ -55,4 +55,5 @@ export class CustomValidationService {
     const UserList = ['ankit', 'admin', 'user', 'superuser'];
     return (UserList.indexOf(userName) > -1);
   }
+  */
 }

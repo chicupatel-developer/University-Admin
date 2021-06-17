@@ -13,11 +13,38 @@ import StdCrsFacVM from '../models/stdCrsFacVM';
 })
 export class StudentCrsFacInfoComponent implements OnInit {
 
-  myCourses: StdCrsFacVM;
-  
-  constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
+  myCourses = new StdCrsFacVM();
 
+  firstName : string;
+  lastName : string;
+  
+  constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) 
+  { }
+
+  // ok
   ngOnInit(): void {
+    if (localStorage.getItem('studentId')==null){
+      this.router.navigate(['/home']);
+    }
+    else{
+      this.myCourses.studentId = Number(localStorage.getItem('studentId'));
+      this.firstName = localStorage.getItem('firstName');
+      this.lastName = localStorage.getItem('lastName');
+      this.getMyCourses();
+    } 
+  }
+
+  // ok
+  getMyCourses() {
+    this.dataService.getMyCourses(this.myCourses.studentId)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.myCourses = data;
+        },
+        error => {
+          console.log(error);
+        });
   }
 
 }

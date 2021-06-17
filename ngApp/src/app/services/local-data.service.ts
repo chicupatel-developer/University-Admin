@@ -8,7 +8,7 @@ export class LocalDataService {
 
   // role
   private MyRole;
-  
+
   private UserName;
   private LoginError;
   private RegisterMessage;

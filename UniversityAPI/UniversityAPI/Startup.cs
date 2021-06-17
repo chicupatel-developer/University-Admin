@@ -93,12 +93,7 @@ namespace UniversityAPI
                     authBuilder =>
                     {
                         authBuilder.RequireRole("Admin");
-                    });
-                options.AddPolicy("User",
-                    authBuilder =>
-                    {
-                        authBuilder.RequireRole("User");
-                    });
+                    });              
                 options.AddPolicy("Student",
                    authBuilder =>
                    {

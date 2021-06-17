@@ -74,6 +74,7 @@ export class SigninComponent implements OnInit {
 
       this.userService.signin(this.signinModel).subscribe(
         (res: any) => { 
+          console.log(res);
           // Success     
           if (res.response.status == '200') {
 
@@ -98,13 +99,24 @@ export class SigninComponent implements OnInit {
             localStorage.setItem('userName', userTokenData.UserName);
             
             //// store role info
-            localStorage.setItem('myRole', userTokenData.MyRole);
+            localStorage.setItem('myRole', userTokenData.MyRole);           
 
             this.localDataService.setUserName(userTokenData.UserName);
             this.localDataService.setLoginError(res.response.message);
             
             //// store role info
             this.localDataService.setMyRole(userTokenData.MyRole);
+            
+            //// store Student - role login info
+            if (userTokenData.MyRole == 'Student') {
+              localStorage.setItem('studentId', res.studentId);
+              localStorage.setItem('firstName', res.firstName);
+              localStorage.setItem('lastName', res.lastName);
+            }
+            else {
+              // do nothing
+              // role - Admin
+            }
 
             // redirect to home page
             setTimeout(() => {

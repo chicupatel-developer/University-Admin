@@ -86,14 +86,48 @@ namespace UniversityAPI.Controllers
 
                     response.Status = "200";
                     response.Message = "Login Success!";
-                    return Ok(new
+
+                    // Student
+                    if (authClaims[2].Value == "Student")
                     {
-                        response = response,
-                        token = new JwtSecurityTokenHandler().WriteToken(token),
-                        expiration = token.ValidTo,
-                        userName = model.Username,
-                        myRole = authClaims[2].Value
-                    });
+                        // get student's info using Id and StudentUserId 
+                        var std = _stdRepo.GetStudentLoginProcess(user.Id);
+                        if (std != null)
+                        {
+                            return Ok(new
+                            {
+                                response = response,
+                                token = new JwtSecurityTokenHandler().WriteToken(token),
+                                expiration = token.ValidTo,
+                                userName = model.Username,
+                                myRole = authClaims[2].Value,
+                                StudentId = std.StudentId,
+                                FirstName = std.FirstName,
+                                LastName = std.LastName
+                            });
+                        }
+                        else
+                        {
+                            response.Status = "401";
+                            response.Message = "Student Not Linked To App's User Account!";
+                            return Ok(new
+                            {
+                                response = response,
+                            });
+                        }                    
+                    }
+                    else
+                    {
+                        // Admin
+                        return Ok(new
+                        {
+                            response = response,
+                            token = new JwtSecurityTokenHandler().WriteToken(token),
+                            expiration = token.ValidTo,
+                            userName = model.Username,
+                            myRole = authClaims[2].Value
+                        });
+                    }
                 }
                 else
                 {
@@ -117,7 +151,7 @@ namespace UniversityAPI.Controllers
          
         }
 
-        // external user has User role only
+        // external user has Admin role
         // ok
         // google
         // select * from AspNetUserLogins
@@ -148,8 +182,8 @@ namespace UniversityAPI.Controllers
                         // db update exception
                         // await userManager.AddToRoleAsync(user, "Viewer");
                          
-                        // external user has User role only
-                        await userManager.AddToRoleAsync(user, "User");
+                        // external user has Admin role
+                        await userManager.AddToRoleAsync(user, "Admin");
 
                         await userManager.AddLoginAsync(user, info);
                     }
@@ -316,9 +350,7 @@ namespace UniversityAPI.Controllers
                     return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
                 if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
-                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
-                if (!await roleManager.RoleExistsAsync(UserRoles.User))
-                    await roleManager.CreateAsync(new IdentityRole(UserRoles.User));
+                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));             
                 if (!await roleManager.RoleExistsAsync(UserRoles.Student))
                     await roleManager.CreateAsync(new IdentityRole(UserRoles.Student));
 
@@ -334,7 +366,7 @@ namespace UniversityAPI.Controllers
                 else
                 {
                     // do nothing
-                    // user is either Admin or User role
+                    // user is Admin role
                 }
 
                 _response.ResponseCode = 0;

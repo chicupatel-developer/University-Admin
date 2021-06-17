@@ -15,8 +15,7 @@ using System.Net.Http.Headers;
 using Newtonsoft.Json.Linq;
 
 namespace UniversityAPI.Controllers
-{
-    // [Authorize("Admin, Student")]
+{    
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
@@ -35,7 +34,7 @@ namespace UniversityAPI.Controllers
         }
 
         // ok        
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         [HttpGet]
         [Route("allStudents")]
         public IActionResult GetAllStudents()
@@ -45,7 +44,7 @@ namespace UniversityAPI.Controllers
         }
 
         // ok
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         [HttpPost]
         [Route("addStudent")]
         public IActionResult AddStudent(Student student)
@@ -69,7 +68,7 @@ namespace UniversityAPI.Controllers
         }
 
         // ok
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         [HttpPost]
         [Route("editCourseToStd")]
         public IActionResult EditCourseToStd(List<StdToCourse> stdToCourses)
@@ -92,7 +91,7 @@ namespace UniversityAPI.Controllers
 
         // ok
         // this will load courses only assigned to respective student
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         [HttpGet]
         [Route("loadCoursesForStudent/{stdId}")]
         public IActionResult LoadCoursesForStudent(int stdId)
@@ -103,7 +102,7 @@ namespace UniversityAPI.Controllers
 
         // ok
         // this will load assignmets only assigned to courses to respective student 
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         [HttpGet]
         [Route("loadAsmtsForStudent/{stdId}")]
         public IActionResult LoadAsmtsForStudent(int stdId)
@@ -114,7 +113,7 @@ namespace UniversityAPI.Controllers
 
         // ok
         // assignment file download
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         [HttpPost, DisableRequestSizeLimit]
         [Route("downloadAsmt")]
         public async Task<IActionResult> Download(StdToAsmtDownload stdToAsmtDownload)
@@ -174,7 +173,7 @@ namespace UniversityAPI.Controllers
 
         // ok
         // assignment submit
-        // [Authorize("Admin")]
+        [Authorize("Admin")]
         [HttpPost, DisableRequestSizeLimit]
         [Route("asmtSubmit")]
         public IActionResult AsmtSubmit()
@@ -229,8 +228,7 @@ namespace UniversityAPI.Controllers
                 return StatusCode(500, new { Message = "Server Error!" });
             }
         }
-
-        // Student : user
+                
         [Authorize("Student")]
         [HttpGet]
         [Route("getMyCourses/{stdId}")]
@@ -240,6 +238,7 @@ namespace UniversityAPI.Controllers
             return Ok(listOfCrs);
         }
 
+        // registration process
         // returns students those are yet not linked to ApplicationUser
         // means students with StudentUserId is null
         // ok           

@@ -23,9 +23,6 @@ export class StudentComponent implements OnInit {
   apiResponse = '';
   responseColor = '';
 
-  //////////
-
-
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router)
   { }
 
@@ -115,18 +112,5 @@ export class StudentComponent implements OnInit {
   // ok
   myAsmts(student){
     this.router.navigate(['/add-asmts-to-student/'], { queryParams: { student: JSON.stringify(student) } });
-  }
-
-  //////////////
-  // wip
-  getMyCourses() {
-    this.dataService.getMyCourses(3)
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
-  }
+  }  
 }

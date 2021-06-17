@@ -66,6 +66,10 @@ export class UserService {
     let removeLoginError = localStorage.removeItem('loginError');
     let removeMyRole = localStorage.removeItem('myRole');
 
+    let removeStudentId = localStorage.removeItem('studentId');
+    let removeFirstName = localStorage.removeItem('firstName');
+    let removeLastName = localStorage.removeItem('lastName');
+
     this.localDataService.setLoginError('');
     this.localDataService.setUserName('');
     this.localDataService.setMyRole('');

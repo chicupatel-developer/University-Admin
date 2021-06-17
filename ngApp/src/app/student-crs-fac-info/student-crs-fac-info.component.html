@@ -1,1 +1,40 @@
-<p>student-crs-fac-info works!</p>
+<script src='https://kit.fontawesome.com/a076d05399.js' 
+    crossorigin='anonymous'>
+</script>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3>
+                        <div>
+                            # {{myCourses.studentId}} ) {{firstName}}, {{lastName}}
+                        </div>
+                        <hr />    
+                    </h3>
+                </div>
+                <div class="card-body">             
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>                           
+                                <th>Course Name</th>                      
+                                <th>Faculty Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let cr of myCourses.myCourses">
+                                <td>
+                                    {{cr.courseName}}
+                                </td>
+                                <td>
+                                    {{cr.facultyName}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
