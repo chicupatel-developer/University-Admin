@@ -108,29 +108,22 @@ this table maintains records only for (downloaded assignments(AsmtLinkStatus=0))
 (downloaded assignments but later course is dropped by this student(AsmtLinkStatus=0)) and
 (downloaded assignments and assignments are submitted by this student (AsmtLinkStatus=2))
 
+
 // wip
 //// student (role - Admin)
 - user can add / edit / view student
 - user can remove student
-    - student-course and student-assignment are depending on student
+    - aspnetusers[AuthenticationDB], student-course and student-assignment are depending on student
     - before user can remove student, system displays all possible dependencies
     - when user execute remove student action, system safely remove first
         all possible dependencies and finally remove student itself
 ** exceptions handling
 
+
 //// student-course(StdsToCourses) (role - Admin)
 - user can view / add / remove course(s) assigned to selected student
 
-//// student-assignment(StdToAsmt) (role - Admin)
-(this module is only required when Student(user) can not able to download or
-submit assignment. Student(user) can request to Admin(user) just by providing 
-StudentId, AssignmentId and or assignment file for submission)
-- user can view assignments only for assigned courses of selected student
-- user can download assignment and submit assignment
-- user can not submit assignment before download it first
-- after downloaded and submitted assignments, user can not re-submit assignment
 
-// wip
 //// student-course-assignment(StdsToCourses-StdToAsmt) (role - Student)
 - user can view assigned course(s) information like course and faculty info
 - user can view assignments only for assigned courses
