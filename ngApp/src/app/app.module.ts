@@ -28,6 +28,7 @@ import { AddCoursesToStudentComponent } from './add-courses-to-student/add-cours
 import { SubmitAsmtComponent } from './submit-asmt/submit-asmt.component';
 import { StudentCrsFacInfoComponent } from './student-crs-fac-info/student-crs-fac-info.component';
 import { StudentMyAssignmentsComponent } from './student-my-assignments/student-my-assignments.component';
+import { StudentViewComponent } from './student-view/student-view.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -46,6 +47,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 ////////bootstrap
 ///////date-picker ngbDatepicker
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -70,7 +72,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AddCoursesToStudentComponent,
     SubmitAsmtComponent,
     StudentCrsFacInfoComponent,
-    StudentMyAssignmentsComponent
+    StudentMyAssignmentsComponent,
+    StudentViewComponent
   ],
   imports: [
     BrowserModule,

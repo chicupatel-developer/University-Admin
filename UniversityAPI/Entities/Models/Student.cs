@@ -16,6 +16,12 @@ namespace Entities.Models
         public string FirstName { get; set; }
         [Required]
         public string LastName { get; set; }
+        
+        [Required]
+        public string Email { get; set; }
+        public Gender Gender { get; set; }
+        public string PhoneNumber { get; set; }
+        
         public ICollection<StdToCourse> StdsToCourses { get; set; }
         public ICollection<StdToAsmt> StdsToAsmts { get; set; }
 
