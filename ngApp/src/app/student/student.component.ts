@@ -108,9 +108,4 @@ export class StudentComponent implements OnInit {
   addCrs(student){
     this.router.navigate(['/add-courses-to-student/'], { queryParams: { student: JSON.stringify(student) } });
   }
-
-  // ok
-  myAsmts(student){
-    this.router.navigate(['/add-asmts-to-student/'], { queryParams: { student: JSON.stringify(student) } });
-  }  
 }

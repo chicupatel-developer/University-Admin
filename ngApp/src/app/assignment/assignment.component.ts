@@ -120,7 +120,8 @@ export class AssignmentComponent implements OnInit {
   // displays faculties belong to all assignments in db
   // no api call
   // displays unique list of faculties from current list of assignments
-  displayFacs() {
+  refreshFacs() {
+    this.facs = [];
     const map = new Map();
     for (const item of this.assignments) {
       if (!map.has(item.facultyId)) {
@@ -235,7 +236,7 @@ export class AssignmentComponent implements OnInit {
         data => {
           this.assignments = data;
 
-          this.displayFacs();
+          this.refreshFacs();
         },
         error => {
           console.log(error);
@@ -275,7 +276,6 @@ export class AssignmentComponent implements OnInit {
           console.log(error);
         });
   }
-
 
   // ok
   addAsmt() {
@@ -327,6 +327,8 @@ export class AssignmentComponent implements OnInit {
               }, 3000);
 
               this.loadAsmtFacDept();
+
+              this.refreshFacs();
             }
             else {
               // fail

@@ -19,8 +19,8 @@ import { CourseRemoveComponent } from './course-remove/course-remove.component';
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { StudentComponent } from './student/student.component';
 import { AddCoursesToStudentComponent } from './add-courses-to-student/add-courses-to-student.component';
-import { AddAsmtsToStudentComponent } from './add-asmts-to-student/add-asmts-to-student.component';
 import { StudentCrsFacInfoComponent } from './student-crs-fac-info/student-crs-fac-info.component';
+import { StudentMyAssignmentsComponent } from './student-my-assignments/student-my-assignments.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -35,11 +35,11 @@ const routes: Routes = [
   { path: 'faculty-remove', component: FacultyRemoveComponent, canActivate: [AuthGuard] },
   { path: 'faculty-edit/:id', component: FacultyEditComponent, canActivate: [AuthGuard] },
   { path: 'course-edit/:id', component: CourseEditComponent, canActivate: [AuthGuard] },
-  { path: 'add-courses-to-student', component: AddCoursesToStudentComponent, canActivate: [AuthGuard] },
-  { path: 'add-asmts-to-student', component: AddAsmtsToStudentComponent, canActivate: [AuthGuard] },
+  { path: 'add-courses-to-student', component: AddCoursesToStudentComponent, canActivate: [AuthGuard] },  
   { path: 'course-remove', component: CourseRemoveComponent, canActivate: [AuthGuard] },
   { path: 'student', component: StudentComponent, canActivate: [AuthGuard] },
   { path: 'student-mycourses', component: StudentCrsFacInfoComponent, canActivate: [AuthGuard] },
+  { path: 'student-my-assignments', component: StudentMyAssignmentsComponent, canActivate: [AuthGuard] },
   { path: 'home', component: HomeComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];

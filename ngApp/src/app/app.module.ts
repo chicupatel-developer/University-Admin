@@ -25,9 +25,9 @@ import { CourseRemoveComponent } from './course-remove/course-remove.component';
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { StudentComponent } from './student/student.component';
 import { AddCoursesToStudentComponent } from './add-courses-to-student/add-courses-to-student.component';
-import { AddAsmtsToStudentComponent } from './add-asmts-to-student/add-asmts-to-student.component';
 import { SubmitAsmtComponent } from './submit-asmt/submit-asmt.component';
 import { StudentCrsFacInfoComponent } from './student-crs-fac-info/student-crs-fac-info.component';
+import { StudentMyAssignmentsComponent } from './student-my-assignments/student-my-assignments.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -46,6 +46,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 ////////bootstrap
 ///////date-picker ngbDatepicker
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -67,9 +68,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CourseEditComponent,
     StudentComponent,
     AddCoursesToStudentComponent,
-    AddAsmtsToStudentComponent,
     SubmitAsmtComponent,
-    StudentCrsFacInfoComponent
+    StudentCrsFacInfoComponent,
+    StudentMyAssignmentsComponent
   ],
   imports: [
     BrowserModule,

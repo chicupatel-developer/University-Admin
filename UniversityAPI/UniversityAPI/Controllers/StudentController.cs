@@ -101,19 +101,19 @@ namespace UniversityAPI.Controllers
         }
 
         // ok
-        // this will load assignmets only assigned to courses to respective student 
-        [Authorize("Admin")]
-        [HttpGet]
-        [Route("loadAsmtsForStudent/{stdId}")]
-        public IActionResult LoadAsmtsForStudent(int stdId)
+        // this will load assignments of selected course to respective student 
+        [Authorize("Student")]
+        [HttpPost]
+        [Route("loadAsmtsForStudentCourse")]
+        public IActionResult LoadAsmtsForStudentCourse(AsmtStdCrsVM asmtStdCrsVM)
         {
-            var listOfAsmts = _stdRepo.GetAsmtsForStudent(stdId);
+            var listOfAsmts = _stdRepo.GetAsmtsForStudentCourse(asmtStdCrsVM);
             return Ok(listOfAsmts);
         }
 
         // ok
         // assignment file download
-        [Authorize("Admin")]
+        [Authorize("Student")]
         [HttpPost, DisableRequestSizeLimit]
         [Route("downloadAsmt")]
         public async Task<IActionResult> Download(StdToAsmtDownload stdToAsmtDownload)
@@ -173,7 +173,7 @@ namespace UniversityAPI.Controllers
 
         // ok
         // assignment submit
-        [Authorize("Admin")]
+        [Authorize("Student")]
         [HttpPost, DisableRequestSizeLimit]
         [Route("asmtSubmit")]
         public IActionResult AsmtSubmit()

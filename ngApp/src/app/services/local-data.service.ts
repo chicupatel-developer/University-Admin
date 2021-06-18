@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import AsmtSubmitVM from '../models/asmtSubmitVM';
+import Student from '../models/student';
 
 @Injectable({
   providedIn: 'root'

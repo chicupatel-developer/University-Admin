@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LocalDataService } from '../services/local-data.service';
 import StdCrsFacVM from '../models/stdCrsFacVM';
+import Student from '../models/student';
 
 @Component({
   selector: 'app-student-crs-fac-info',
@@ -12,6 +13,9 @@ import StdCrsFacVM from '../models/stdCrsFacVM';
   styleUrls: ['./student-crs-fac-info.component.css']
 })
 export class StudentCrsFacInfoComponent implements OnInit {
+
+  // Student
+  student = new Student();
 
   myCourses = new StdCrsFacVM();
 
@@ -45,6 +49,17 @@ export class StudentCrsFacInfoComponent implements OnInit {
         error => {
           console.log(error);
         });
+  }
+
+
+  // ok
+  myAsmts(course) {      
+    this.student.studentId = Number(localStorage.getItem('studentId'));
+    this.student.firstName = localStorage.getItem('firstName');
+    this.student.lastName = localStorage.getItem('lastName');
+    this.student.courseId = course.courseId;
+
+    this.router.navigate(['/student-my-assignments/'], { queryParams: { student: JSON.stringify(this.student) } });
   }
 
 }

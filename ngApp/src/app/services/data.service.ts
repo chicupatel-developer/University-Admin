@@ -54,9 +54,13 @@ export class DataService {
   loadCoursesForStudent(stdId: number): Observable<Array<CourseListVM>> {
     return this.http.get<Array<CourseListVM>>(this.STUDENT_API + '/loadCoursesForStudent/' + stdId);
   }
-  // this will load assignmets only assigned to courses to respective student 
-  loadAsmtsForStudent(stdId: number): Observable<Array<AsmtCrsStd>> {
-    return this.http.get<Array<AsmtCrsStd>>(this.STUDENT_API + '/loadAsmtsForStudent/' + stdId);
+  // this will load assignments of selected course to respective student 
+  loadAsmtsForStudentCourse(stdId: number, crsId: number): Observable<Array<AsmtCrsStd>> {
+    var asmtStdCrsVM = {
+      StudentId: stdId,
+      CourseId: crsId
+    };
+    return this.http.post<Array<AsmtCrsStd>>(this.STUDENT_API + '/loadAsmtsForStudentCourse', asmtStdCrsVM);
   }
   // download - assignment (student - assignment)    
   public downloadAsmt(stdToAsmtDownload: StdToAsmtDownload): Observable<Blob> {

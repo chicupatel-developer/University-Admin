@@ -13,8 +13,8 @@ namespace Entities.Interfaces
         bool EditCoursesToStudent(List<StdToCourse> stdToCourses);
         IEnumerable<CourseListVM> GetCoursesForStudent(int stdId);
 
-        // returns all possible assignments belong to courses assigned to student
-        IEnumerable<AsmtCrsStdVM> GetAsmtsForStudent(int stdId);
+        // this will load assignments of selected course to respective student 
+        IEnumerable<AsmtCrsStdVM> GetAsmtsForStudentCourse(AsmtStdCrsVM asmtStdCrsVM);
         
         // during asmt(course-student) download process
         bool EditAsmtsToStudent(StdToAsmtDownload stdToAsmtDownload);

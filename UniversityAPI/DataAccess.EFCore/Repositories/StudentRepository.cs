@@ -93,12 +93,12 @@ namespace DataAccess.EFCore.Repositories
             return courses;
         }
 
-        // returns all possible assignments belong to courses assigned to student
-        public IEnumerable<AsmtCrsStdVM> GetAsmtsForStudent(int stdId)
+        // this will load assignments of selected course to respective student 
+        public IEnumerable<AsmtCrsStdVM> GetAsmtsForStudentCourse(AsmtStdCrsVM asmtStdCrsVM)
         {
             List<AsmtCrsStdVM> asmts = new List<AsmtCrsStdVM>();
 
-            var stdToCrs = appDbContext.StdsToCourses.Where(a => a.StudentId == stdId);
+            var stdToCrs = appDbContext.StdsToCourses.Where(a => a.StudentId == asmtStdCrsVM.StudentId && a.CourseId== asmtStdCrsVM.CourseId);
             if (stdToCrs != null)
             {
                 // all courses currently assigned to student
@@ -141,7 +141,7 @@ namespace DataAccess.EFCore.Repositories
                 // load AsmtLinkStatus
                 foreach (var asmt in asmts)
                 {
-                    var asmtsStatus = appDbContext.StdToAsmt.Where(x => x.AssignmentId == asmt.AssignmentId && x.StudentId==stdId).FirstOrDefault();
+                    var asmtsStatus = appDbContext.StdToAsmt.Where(x => x.AssignmentId == asmt.AssignmentId && x.StudentId== asmtStdCrsVM.StudentId).FirstOrDefault();
                     if (asmtsStatus != null)
                     {
                         asmt.AsmtLinkStatus = asmtsStatus.AsmtLinkStatus;                       
