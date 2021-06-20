@@ -62,9 +62,17 @@ export class CourseEditComponent implements OnInit {
          data => {
            if (data == null) {
               console.log('course not found!');
+              this.editCrsPanel = false;
+              // fail
+              // display error message
+              this.apiResponse = 'Course Not Found!';
+              this.responseColor = 'red';
            }
            else {
-              // console.log(data);
+             this.apiResponse = '';
+             this.responseColor = 'green';
+             this.editCrsPanel = true;
+
               // popup form data with incoming api data call  
               this.crsForm.setValue({
                 CourseName: data.courseName,
@@ -76,7 +84,12 @@ export class CourseEditComponent implements OnInit {
            }
          },
          error => {
-           console.log(error);
+           console.log('course not found!');
+           this.editCrsPanel = false;
+           // fail
+           // display error message
+           this.apiResponse = 'Course Not Found!';
+           this.responseColor = 'red';
          });
    }
  }

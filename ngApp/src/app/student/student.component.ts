@@ -11,7 +11,10 @@ import Student from '../models/student';
   templateUrl: './student.component.html',
   styleUrls: ['./student.component.css']
 })
-export class StudentComponent implements OnInit {
+export class StudentComponent implements OnInit {  
+
+  // controls visibility of mail address/mail postal code
+  showMailAddress = true;
 
   students: Array<Student>;
 
@@ -34,7 +37,12 @@ export class StudentComponent implements OnInit {
       LastName: ['', Validators.required],
       Email: ['', Validators.required],
       Gender: ['', Validators.required],
-      PhoneNumber: ['', [Validators.required, Validators.pattern("^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$")]]
+      PhoneNumber: ['', [Validators.required, Validators.pattern("^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$")]],
+      HomeAddress: [''],
+      MailAddress: [''],
+      HomePostalCode: [''],
+      MailPostalCode: [''],
+      SameAddress: [false]
     })
     this.loadStds();
   }
@@ -77,7 +85,37 @@ export class StudentComponent implements OnInit {
   }
 
   // ok
+  // if SameAddress is checked
+  // then hide mail address/mail postal code fields
+  // and copy - paste from home to mail
+  sameAddress(event){
+    // console.log(event.target.checked);
+    if (event.target.checked){
+      // copy - paste
+      this.showMailAddress = false;
+      
+      this.stdForm.patchValue({
+        MailAddress: this.stdForm.value["HomeAddress"],
+        MailPostalCode: this.stdForm.value["HomePostalCode"]
+      });
+    }
+    else{
+      this.showMailAddress = true;
+      this.stdForm.patchValue({
+        MailAddress: '',
+        MailPostalCode: ' '
+      });
+    }
+  }
+
+
+  // ok
   onSubmit(): void {
+    this.showMailAddress = true;
+    this.stdForm.patchValue({
+      SameAddress: false
+    });
+    
     this.submitted = true;
     if (this.stdForm.valid) {
       this.studentModel.firstName = this.stdForm.value["FirstName"];
@@ -85,7 +123,13 @@ export class StudentComponent implements OnInit {
       this.studentModel.phoneNumber = this.stdForm.value["PhoneNumber"];
       this.studentModel.email = this.stdForm.value["Email"];      
       this.studentModel.gender = this.convertGender(this.stdForm.value["Gender"]);
+      this.studentModel.homeAddress = this.stdForm.value["HomeAddress"];
+      this.studentModel.homePostalCode = this.stdForm.value["HomePostalCode"];
+      this.studentModel.mailAddress = this.stdForm.value["MailAddress"];
+      this.studentModel.mailPostalCode = this.stdForm.value["MailPostalCode"];
+      // console.log(this.studentModel);
 
+      
       this.dataService.addStd(this.studentModel)
         .subscribe(
           response => {
@@ -116,6 +160,8 @@ export class StudentComponent implements OnInit {
             this.responseColor = 'red';
           }
         );
+
+      
     }
   }
 
@@ -123,7 +169,7 @@ export class StudentComponent implements OnInit {
   resetStd() {
     this.newStdAddPanel = false;
     this.apiResponse = '';
-    this.stdForm.reset();
+    this.stdForm.reset();  
     this.submitted = false;
   }
 

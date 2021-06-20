@@ -6,4 +6,8 @@ export default class Student {
     gender: number;
     phoneNumber: string;
     courseId: number;
+    homeAddress: string;
+    mailAddress: string;
+    homePostalCode: string;
+    mailPostalCode: string;
 }

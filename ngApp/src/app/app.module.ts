@@ -29,6 +29,8 @@ import { SubmitAsmtComponent } from './submit-asmt/submit-asmt.component';
 import { StudentCrsFacInfoComponent } from './student-crs-fac-info/student-crs-fac-info.component';
 import { StudentMyAssignmentsComponent } from './student-my-assignments/student-my-assignments.component';
 import { StudentViewComponent } from './student-view/student-view.component';
+import { StudentEditComponent } from './student-edit/student-edit.component';
+import { StudentRemoveComponent } from './student-remove/student-remove.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -73,7 +75,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SubmitAsmtComponent,
     StudentCrsFacInfoComponent,
     StudentMyAssignmentsComponent,
-    StudentViewComponent
+    StudentViewComponent,
+    StudentEditComponent,
+    StudentRemoveComponent
   ],
   imports: [
     BrowserModule,

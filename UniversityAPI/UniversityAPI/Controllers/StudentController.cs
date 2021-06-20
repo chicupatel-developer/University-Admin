@@ -68,6 +68,41 @@ namespace UniversityAPI.Controllers
         }
 
         // ok
+        // edit student
+        [Authorize("Admin")]
+        [HttpGet]
+        [Route("getStudent/{selectedStdId}")]
+        public IActionResult GetStudent(int selectedStdId)
+        {
+            var std = _stdRepo.GetStudent(selectedStdId);
+            return Ok(std);
+        }
+
+        // ok
+        [Authorize("Admin")]
+        [HttpPost]
+        [Route("editStudent")]
+        public IActionResult EditStudent(Student student)
+        {
+            _response = new APIResponse();
+            try
+            {
+                // throw new Exception();
+                _stdRepo.EditStudent(student);
+                _response.ResponseCode = 0;
+                _response.ResponseMessage = "Student Edited Successfully!";
+                _response.ResponseError = null;
+            }
+            catch (Exception ex)
+            {
+                _response.ResponseCode = -1;
+                _response.ResponseMessage = "Server Error!";
+                _response.ResponseError = ex.Message.ToString();
+            }
+            return Ok(_response);
+        }
+
+        // ok
         [Authorize("Admin")]
         [HttpPost]
         [Route("editCourseToStd")]

@@ -59,8 +59,17 @@ export class FacultyEditComponent implements OnInit {
           data => {
             if (data == null) {
               console.log('faculty not found!');
+              this.editFacPanel = false;
+              // fail
+              // display error message
+              this.apiResponse = 'Faculty Not Found!';
+              this.responseColor = 'red';
             }
             else {
+              this.apiResponse = '';
+              this.responseColor = 'green';
+              this.editFacPanel = true;
+
               // console.log(data);
               // popup form data with incoming api data call  
               this.facForm.setValue({
@@ -145,7 +154,7 @@ export class FacultyEditComponent implements OnInit {
       return 2;
   }   
 
-  // this will convert gender selectlist value to gender db column
+  // this will convert gender db column to gender selectlist value
   convertGenderToFormControl(gender) {
     if (gender == 0)
       return 'Male';

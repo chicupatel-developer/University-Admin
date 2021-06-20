@@ -35,8 +35,30 @@ namespace DataAccess.EFCore.Repositories
             var result = appDbContext.Students.Add(student);
             appDbContext.SaveChanges();
             return result.Entity;
-        }  
-        
+        }
+
+        public Student GetStudent(int stdId)
+        {
+            var std = appDbContext.Students.Where(x => x.StudentId == stdId).FirstOrDefault();
+            return std;
+        }
+
+        public Student EditStudent(Student student)
+        {
+            var result = appDbContext.Students.Where(x => x.StudentId == student.StudentId).FirstOrDefault();
+            result.Email = student.Email;
+            result.FirstName = student.FirstName;
+            result.HomeAddress = student.HomeAddress;
+            result.HomePostalCode = student.HomePostalCode;
+            result.LastName = student.LastName;
+            result.MailAddress = student.MailAddress;
+            result.MailPostalCode = student.MailPostalCode;
+            result.PhoneNumber = student.PhoneNumber;             
+
+            appDbContext.SaveChanges();
+            return result;
+        }
+
         public bool EditCoursesToStudent(List<StdToCourse> stdToCourses)
         {
             try

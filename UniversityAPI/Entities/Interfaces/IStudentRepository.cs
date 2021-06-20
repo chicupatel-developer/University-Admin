@@ -10,6 +10,8 @@ namespace Entities.Interfaces
     {
         IEnumerable<Student> GetAllStudents();
         Student AddStudent(Student student);
+        Student GetStudent(int stdId);
+        Student EditStudent(Student student);
         bool EditCoursesToStudent(List<StdToCourse> stdToCourses);
         IEnumerable<CourseListVM> GetCoursesForStudent(int stdId);
 

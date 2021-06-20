@@ -24,7 +24,7 @@
                 </div>
                 <div class="card-body">
                     <div class="container" *ngIf="newStdAddPanel">
-                        <div class="col-md-5 mx-auto">
+                        <div class="col-md-6 mx-auto">
                             <div class="card">
                                 <div class="card-header">
                                     <h3>
@@ -100,7 +100,50 @@
                                                 *ngIf="(stdFormControl.Gender.touched || submitted) && handleError('Gender', 'required')">
                                                 Gender is required
                                             </span>
-                                        </div>                                         
+                                        </div>    
+                                        
+                                        <!-- home address -->
+                                        <div class="form-group">
+                                            <label>Home Address</label>
+                                            <input type="text" 
+                                                class="form-control" 
+                                                formControlName="HomeAddress">                                       
+                                        </div>
+                                        <!-- home postal code -->
+                                        <div class="form-group">
+                                            <label>Home Postal Code</label>
+                                            <input type="text" 
+                                                class="form-control" 
+                                                formControlName="HomePostalCode">                                       
+                                        </div>
+
+                                        <!-- check box -->
+                                        <div class="form-group form-check" >
+                                            <input type="checkbox" 
+                                                (change)="sameAddress($event)"
+                                                formControlName="SameAddress" 
+                                                class="form-check-input" />
+                                            <label>
+                                                    Same Home-Address and Mail-Address!
+                                            </label>                                        
+                                        </div>                                 
+
+
+                                        <!-- mail address -->
+                                        <div *ngIf="showMailAddress" class="form-group">
+                                            <label>Mail Address</label>
+                                            <input type="text" 
+                                                class="form-control" 
+                                                formControlName="MailAddress">                                       
+                                        </div>
+                                        <!-- mail postal code -->
+                                        <div *ngIf="showMailAddress" class="form-group">
+                                            <label>Mail Postal Code</label>
+                                            <input type="text" 
+                                                class="form-control" 
+                                                formControlName="MailPostalCode">                                     
+                                        </div>
+
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-sm-6">

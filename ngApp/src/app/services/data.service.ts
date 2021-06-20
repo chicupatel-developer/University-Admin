@@ -46,6 +46,14 @@ export class DataService {
   addStd(studentModel): Observable<any> {
     return this.http.post(this.STUDENT_API + '/addStudent', studentModel)
   }
+  // get student data before edit-post
+  getStd(selectedStdId: number): Observable<Student> {
+    return this.http.get<Student>(this.STUDENT_API + '/getStudent/' + selectedStdId);
+  }
+  // edit student
+  editStd(studentModel): Observable<any> {
+    return this.http.post(this.STUDENT_API + '/editStudent', studentModel)
+  }
   // add courses to student
   editCourseToStd(stdsToCourses): Observable<any> {
     return this.http.post(this.STUDENT_API + '/editCourseToStd', stdsToCourses)
@@ -72,8 +80,7 @@ export class DataService {
       reportProgress: true,
       observe: 'events'
     });
-  }
-  // wip
+  }  
   // Student : user
   // this will load courses and faculty info only assigned to respective student
   getMyCourses(stdId: number): Observable<StdCrsFacVM> {

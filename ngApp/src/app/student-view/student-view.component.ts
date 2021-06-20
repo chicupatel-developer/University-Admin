@@ -6,6 +6,7 @@ import StdToAsmtDownload from '../models/stdToAsmtDownload';
 import Student from '../models/student';
 import { DataService } from '../services/data.service';
 import { LocalDataService } from '../services/local-data.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-student-view',
@@ -19,11 +20,17 @@ export class StudentViewComponent implements OnInit {
 
   errorMessage = '';
 
-  constructor(private route: ActivatedRoute, public localDataService: LocalDataService, public dataService: DataService, public router: Router) {
+  constructor(public _authService: UserService, private route: ActivatedRoute, public localDataService: LocalDataService, public dataService: DataService, public router: Router) {
   }
 
   // ok
   ngOnInit(): void {
+
+    // to stop working book mark if user is not Admin
+    if(!this._authService.isAdmin){
+      this.router.navigate(['/home']);
+    }
+
     this.route.queryParams.subscribe(
       params => {
         try {
@@ -54,5 +61,16 @@ export class StudentViewComponent implements OnInit {
       return 'Female';
     else
       return 'Others';
+  }
+
+  // ok
+  editStudent(editStudent) {
+    // redirect to department-edit component
+    this.router.navigate(['/student-edit/' + editStudent.studentId]);
+  }
+
+  // ok
+  removeStudent(student){
+    console.log(student);
   }
 }

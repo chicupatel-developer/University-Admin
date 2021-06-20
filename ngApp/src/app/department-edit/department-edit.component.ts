@@ -50,8 +50,17 @@ export class DepartmentEditComponent implements OnInit {
           data => {
             if(data==null){
               console.log('department not found!');
+              this.editDeptPanel = false;
+              // fail
+              // display error message
+              this.apiResponse = 'Department Not Found!';
+              this.responseColor = 'red';
             }
             else{
+              this.apiResponse = '';
+              this.responseColor = 'green';
+              this.editDeptPanel = true;
+
               console.log(data);
               // popup form data with incoming api data call          
               this.deptForm.setValue({

@@ -21,6 +21,11 @@ namespace Entities.Models
         public string Email { get; set; }
         public Gender Gender { get; set; }
         public string PhoneNumber { get; set; }
+
+        public string HomeAddress { get; set; }
+        public string MailAddress { get; set; }
+        public string HomePostalCode { get; set; }
+        public string MailPostalCode { get; set; }
         
         public ICollection<StdToCourse> StdsToCourses { get; set; }
         public ICollection<StdToAsmt> StdsToAsmts { get; set; }
