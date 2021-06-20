@@ -6,5 +6,5 @@ Server side technology: .net core web api, ef core- code first, sql server, repo
 client side technology: angular, react, html, css, javascript, bootstrap
 
 
-db tables: departments, faculties, assignments, asmtUploads (assignment upload)
+db tables: departments, faculties, courses, assignments, asmtUploads (assignment upload), students, stdstocourses, stdtoasmt
 
