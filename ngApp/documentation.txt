@@ -108,10 +108,9 @@ this table maintains records only for (downloaded assignments(AsmtLinkStatus=0))
 (downloaded assignments but later course is dropped by this student(AsmtLinkStatus=0)) and
 (downloaded assignments and assignments are submitted by this student (AsmtLinkStatus=2))
 
-
-// wip
 //// student (role - Admin)
 - user can add / edit / view student
+// wip
 - user can remove student
     - aspnetusers[AuthenticationDB], student-course and student-assignment are depending on student
     - before user can remove student, system displays all possible dependencies
@@ -119,10 +118,8 @@ this table maintains records only for (downloaded assignments(AsmtLinkStatus=0))
         all possible dependencies and finally remove student itself
 ** exceptions handling
 
-
 //// student-course(StdsToCourses) (role - Admin)
 - user can view / add / remove course(s) assigned to selected student
-
 
 //// student-course-assignment(StdsToCourses-StdToAsmt) (role - Student)
 - user can view assigned course(s) information like course and faculty info
