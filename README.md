@@ -62,9 +62,8 @@ db context: ApplicationDbContext.cs
 ---> [Signin]
 	- User can sign-in
 	- after successful sign-in, Token, Role and other User's information is stored
-		on Client side and menu options are displayed as per User's Role
-	- after un-successful sign-in, error message is displayed
-    - after successful sign-in, success message is displayed and redirects to Home page
+		on Client side and menu options are displayed as per User's Role and redirects to Home page
+	- after un-successful sign-in, error message is displayed    
 	** exceptions handling
 
 ---> [Registration]
