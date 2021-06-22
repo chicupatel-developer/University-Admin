@@ -86,6 +86,14 @@ export class DataService {
   getMyCourses(stdId: number): Observable<StdCrsFacVM> {
     return this.http.get <StdCrsFacVM> (this.STUDENT_API + '/getMyCourses/' + stdId);
   }
+  // initialise remove student
+  initializeRemoveStudent(selectedStdId: number): Observable<any> {
+    return this.http.get<any>(this.STUDENT_API + '/initializeRemoveStudent/' + selectedStdId);
+  }
+  // remove student in action
+  removeStudent(data): Observable<any> {
+    return this.http.post(this.STUDENT_API + '/removeStudent', data);
+  }
 
   //////////// department
   // list department

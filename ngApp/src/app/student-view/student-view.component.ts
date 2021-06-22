@@ -65,12 +65,20 @@ export class StudentViewComponent implements OnInit {
 
   // ok
   editStudent(editStudent) {
-    // redirect to department-edit component
+    // redirect to student-edit component
     this.router.navigate(['/student-edit/' + editStudent.studentId]);
   }
 
   // ok
-  removeStudent(student){
-    console.log(student);
+  removeStudent(removeStudent){
+    this.dataService.initializeRemoveStudent(Number(removeStudent.studentId))
+      .subscribe(
+        data => {
+          this.localDataService.setStdRemoveVM(data);
+          this.router.navigate(['/student-remove']);
+        },
+        error => {
+          console.log(error);
+        });
   }
 }

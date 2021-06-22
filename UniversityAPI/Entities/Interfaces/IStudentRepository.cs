@@ -34,6 +34,8 @@ namespace Entities.Interfaces
         // means students with StudentUserId is null
         IEnumerable<Student> GetStudentsNotLinkedToApplicationUser();
         Student GetStudentLoginProcess(string id);
+        StdRemoveVM InitializeRemoveStudent(int stdId);
+        bool RemoveStudent(StdRemoveVM student);
     }
   
 }

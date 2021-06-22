@@ -108,14 +108,13 @@ export class StudentComponent implements OnInit {
     }
   }
 
-
   // ok
   onSubmit(): void {
     this.showMailAddress = true;
     this.stdForm.patchValue({
       SameAddress: false
     });
-    
+
     this.submitted = true;
     if (this.stdForm.valid) {
       this.studentModel.firstName = this.stdForm.value["FirstName"];

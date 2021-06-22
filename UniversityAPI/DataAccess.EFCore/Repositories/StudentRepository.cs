@@ -53,7 +53,8 @@ namespace DataAccess.EFCore.Repositories
             result.LastName = student.LastName;
             result.MailAddress = student.MailAddress;
             result.MailPostalCode = student.MailPostalCode;
-            result.PhoneNumber = student.PhoneNumber;             
+            result.PhoneNumber = student.PhoneNumber;
+            result.Gender = student.Gender;
 
             appDbContext.SaveChanges();
             return result;
@@ -282,5 +283,98 @@ namespace DataAccess.EFCore.Repositories
             var std = appDbContext.Students.Where(x => x.StudentUserId == id).FirstOrDefault();
             return std;
         }
+
+
+        public StdRemoveVM InitializeRemoveStudent(int stdId)
+        {
+            StdRemoveVM stdRemoveVM = new StdRemoveVM();
+            List<StdCrsRemoveVM> courses = new List<StdCrsRemoveVM>();
+            List<StdAsmtRemoveVM> assignments = new List<StdAsmtRemoveVM>();
+
+            stdRemoveVM.Courses = courses;
+            stdRemoveVM.Assignments = assignments;
+
+            // check for course dependancy
+            var crs = appDbContext.StdsToCourses.Include(y=>y.Course).Where(x => x.StudentId == stdId);
+            if (crs != null)
+            {
+                // course found
+                // send warning to user @ student remove action
+                foreach (var cr in crs)
+                {
+                    courses.Add(new StdCrsRemoveVM
+                    {
+                        CourseId = cr.CourseId,
+                        CourseName = cr.Course.CouseName
+                    });
+                }
+            }
+            else
+            {
+                // do nothing
+            }
+
+            if (stdRemoveVM.Courses.Count() >= 1)
+            {
+                // check for assignment dependancy
+                var asmts = appDbContext.StdToAsmt.Include(y => y.Assignment).Where(x => x.StudentId == stdId);
+                if (asmts != null)
+                {
+                    // assignment found
+                    // send warning to user @ student remove action
+                    foreach (var asmt in asmts)
+                    {
+                        assignments.Add(new StdAsmtRemoveVM
+                        {
+                            AssignmentId = asmt.AssignmentId,
+                            AsmtTitle = asmt.Assignment.Title,
+                            AsmtDetails = asmt.Assignment.Details
+                        });
+                    }
+                }
+                else
+                {
+                    // do nothing
+                }
+            }
+            else
+            {
+                // do nothing
+            }
+
+            var std = appDbContext.Students.Where(x => x.StudentId == stdId).FirstOrDefault();
+            if ((stdRemoveVM.Courses.Count() >= 1) || (stdRemoveVM.Assignments.Count() >= 1))
+            {
+                stdRemoveVM.ErrorCode = -1;
+                stdRemoveVM.ErrorMessage = "Database Dependancy Found. Force Remove Action?";
+                stdRemoveVM.StudentId = stdId;                
+                stdRemoveVM.StudentName = std.FirstName + ", " + std.LastName;
+            }
+            else
+            {
+                stdRemoveVM.ErrorCode = 0;
+                stdRemoveVM.ErrorMessage = "Ready To Remove student?";
+                stdRemoveVM.StudentId = stdId;
+                stdRemoveVM.StudentName = std.FirstName + ", " + std.LastName;
+            }
+            return stdRemoveVM;
+        }
+        public bool RemoveStudent(StdRemoveVM student)
+        {
+            // removing depending student-course if any
+            appDbContext.StdsToCourses.RemoveRange(appDbContext.StdsToCourses.Where(x => x.StudentId == student.StudentId).ToList());
+
+            // removing depending student-assignment if any
+            appDbContext.StdToAsmt.RemoveRange(appDbContext.StdToAsmt.Where(x => x.StudentId == student.StudentId).ToList());
+          
+            // removing student
+            appDbContext.Students.Remove(appDbContext.Students.Where(b => b.StudentId == student.StudentId).FirstOrDefault());
+
+            // throw new Exception();
+
+            appDbContext.SaveChanges();
+            return true;
+        }
+
     }
 }

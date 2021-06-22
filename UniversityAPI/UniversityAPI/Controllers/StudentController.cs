@@ -285,5 +285,48 @@ namespace UniversityAPI.Controllers
             return Ok(allStudents);
         }
 
+
+        // ok
+        // remove student
+        [HttpGet]
+        [Route("initializeRemoveStudent/{selectedStdId}")]
+        public IActionResult InitializeRemoveStudent(int selectedStdId)
+        {
+            var std = _stdRepo.InitializeRemoveStudent(selectedStdId);
+            return Ok(std);
+        }
+        // ok
+        [HttpPost]
+        [Route("removeStudent")]
+        public IActionResult RemoveStudent(StdRemoveVM student)
+        {
+            _response = new APIResponse();
+            try
+            {
+                // throw new Exception();
+                bool result = _stdRepo.RemoveStudent(student);
+                if (result)
+                {
+                    // success
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "Student Removed Successfully!";
+                    _response.ResponseError = null;
+                }
+                else
+                {
+                    // fail
+                    _response.ResponseCode = -1;
+                    _response.ResponseMessage = "Server Error while removing Student!";
+                    _response.ResponseError = "Server Error while removing Student!";
+                }
+            }
+            catch (Exception ex)
+            {
+                _response.ResponseCode = -1;
+                _response.ResponseMessage = "Server Error while removing Student!";
+                _response.ResponseError = "Server Error while removing Student!";
+            }
+            return Ok(_response);
+        }
     }
 }

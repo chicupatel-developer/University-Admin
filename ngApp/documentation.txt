@@ -110,9 +110,8 @@ this table maintains records only for (downloaded assignments(AsmtLinkStatus=0))
 
 //// student (role - Admin)
 - user can add / edit / view student
-// wip
 - user can remove student
-    - aspnetusers[AuthenticationDB], student-course and student-assignment are depending on student
+    - student-course and student-assignment are depending on student
     - before user can remove student, system displays all possible dependencies
     - when user execute remove student action, system safely remove first
         all possible dependencies and finally remove student itself
