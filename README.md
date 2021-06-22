@@ -73,7 +73,7 @@ db context: ApplicationDbContext.cs
 	- and then after @ Registration process, select Student - Role and __
 	- map already created Student with Student - Role profile.
 	- after un-successful Registration, error message is displayed
-    - after successful Registration, redirects to Signin page
+    	- after successful Registration, redirects to Signin page
 	** exceptions handling
 
 ---> [Department]-[Faculty]-[Course] Relationship
