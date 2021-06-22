@@ -1,15 +1,37 @@
 # DotNet Core + Angular + React
 
-Server side technology: .net core web api, ef core- code first, sql server, repository pattern, custom jwt authentication, google oauth2 authentication
+Server side technology: 
+    .net core web api
+    ef core- code first
+    sql server
+    repository pattern
+    custom jwt authentication
+    google oauth2 authentication
+
+Client side technology:
+    angular
+    react
+    html
+    css
+    javascript
+    bootstrap
 
 
-client side technology: angular, react, html, css, javascript, bootstrap
-
-
-db tables: [departments], [faculties], [courses], [assignments], [asmtUploads] (assignment upload), [students], [stdstocourses] (students to courses), [stdtoasmt] (students to assignments)
+db tables: 
+    [departments]
+    [faculties]
+    [courses]
+    [assignments]
+    [asmtUploads] (assignment upload)
+    [students]
+    [stdstocourses] (students to courses)
+    [stdtoasmt] (students to assignments)    
 db context: UniversityContext.cs
 
-db tables: [AspNetUsers] (all Users (Admin/Student)), [AspNetRoles] (Admin/Student - Roles), [AspNetUserLogins] (external(google) - signin)
+db tables: 
+    [AspNetUsers] (all Users (Admin/Student))
+    [AspNetRoles] (Admin/Student - Roles)
+    [AspNetUserLogins] (external(google) - signin)
 db context: ApplicationDbContext.cs
 
 
@@ -106,7 +128,7 @@ db context: ApplicationDbContext.cs
     * after un-successful operation, error message is displayed
     * after successful operation, redirects to it's main respective Component page
 	- User can add Assignment
-    		- User can Upload Assignment File along with other necessary details
+    	- User can Upload Assignment File along with other necessary details
 	- User can view Assignment
     	- User can Search / Filter Assignment by Department and/or Faculty
     	- User can Download Assignment File
@@ -138,10 +160,10 @@ db context: ApplicationDbContext.cs
     * after successful operation, redirects to it's main respective Component page
 	- User can add / edit / view Student
 	- User can remove Student
-    		- Student-Course and Student-Assignment are depending on Student
-    		- before User can remove Student, system displays all possible dependencies
-    		- when user execute remove Student action, system safely remove first
-        		all possible dependencies and finally remove Student itself
+    	- Student-Course and Student-Assignment are depending on Student
+    	- before User can remove Student, system displays all possible dependencies
+    	- when user execute remove Student action, system safely remove first
+        	all possible dependencies and finally remove Student itself
 	** exceptions handling
 
 ---> [Student]-[Course] = [StdsToCourses] (Role - Admin)
