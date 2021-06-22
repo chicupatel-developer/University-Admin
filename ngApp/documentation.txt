@@ -42,6 +42,7 @@ db context: ApplicationDbContext.cs
 	- after successful sign-in, Token, Role and other User's information is stored
 		on Client side and menu options are displayed as per User's Role
 	- after un-successful sign-in, error message is displayed
+    - after successful sign-in, success message is displayed and redirects to Home page
 	** exceptions handling
 
 ---> [Registration]
@@ -51,6 +52,7 @@ db context: ApplicationDbContext.cs
 	- and then after @ Registration process, select Student - Role and __
 	- map already created Student with Student - Role profile.
 	- after un-successful Registration, error message is displayed
+    - after successful Registration, redirects to Signin page
 	** exceptions handling
 
 ---> [Department]-[Faculty]-[Course] Relationship
@@ -65,6 +67,8 @@ db context: ApplicationDbContext.cs
 		- third create Course... Course needs both Department and Faculty
 
 ---> [Department] (Role - Admin)
+    * after un-successful operation, error message is displayed
+    * after successful operation, redirects to it's main respective Component page
 	- User can add / edit / view Department
 	- User can remove Department
     	- Faculty, Course and Assignment are depending on Department
@@ -74,6 +78,8 @@ db context: ApplicationDbContext.cs
 	** exceptions handling
 
 ---> [Faculty] (Role - Admin)
+    * after un-successful operation, error message is displayed
+    * after successful operation, redirects to it's main respective Component page
 	- User can add / edit / view Faculty
 	- User can remove Faculty
     	- Course and Assignment are depending on Faculty
@@ -83,6 +89,8 @@ db context: ApplicationDbContext.cs
 	** exceptions handling
 
 ---> [Course] (Role - Admin)
+    * after un-successful operation, error message is displayed
+    * after successful operation, redirects to it's main respective Component page
 	- User can add / view Course
 	- User can edit Course
     	- User can edit Course's Faculty 
@@ -95,6 +103,8 @@ db context: ApplicationDbContext.cs
 	** exceptions handling
 
 ---> [Assignment] (Role - Admin)
+    * after un-successful operation, error message is displayed
+    * after successful operation, redirects to it's main respective Component page
 	- User can add Assignment
     		- User can Upload Assignment File along with other necessary details
 	- User can view Assignment
@@ -124,6 +134,8 @@ db context: ApplicationDbContext.cs
 			(Downloaded Assignments and Assignments are submitted by this Student (AsmtLinkStatus=2))
 
 ---> [Student] (Role - Admin)
+    * after un-successful operation, error message is displayed
+    * after successful operation, redirects to it's main respective Component page
 	- User can add / edit / view Student
 	- User can remove Student
     		- Student-Course and Student-Assignment are depending on Student
@@ -133,6 +145,8 @@ db context: ApplicationDbContext.cs
 	** exceptions handling
 
 ---> [Student]-[Course] = [StdsToCourses] (Role - Admin)
+    * after un-successful operation, error message is displayed
+    * after successful operation, redirects to it's main respective Component page
 	- User can view / add / remove Course(s) assigned to selected Student
 	** exceptions handling
 
