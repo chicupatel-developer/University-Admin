@@ -6,139 +6,140 @@ Server side technology: .net core web api, ef core- code first, sql server, repo
 client side technology: angular, react, html, css, javascript, bootstrap
 
 
-db tables: departments, faculties, courses, assignments, asmtUploads (assignment upload), students, stdstocourses, stdtoasmt
+db tables: [departments], [faculties], [courses], [assignments], [asmtUploads] (assignment upload), [students], [stdstocourses] (students to courses), [stdtoasmt] (students to assignments)
+db context: UniversityContext.cs
+
+db tables: [AspNetUsers] (all Users (Admin/Student)), [AspNetRoles] (Admin/Student - Roles), [AspNetUserLogins] (external(google) - signin)
+db context: ApplicationDbContext.cs
 
 
-/////////////// system info
-
-//// between department-faculty-course
-// course can not exist without department and faculty
-// one course can connect with one department and one faculty
-// department has multiple courses and faculties
-// faculty can have multiple or zero course(s)
-// faculty can not exist without department
-// department - faculty - course
-// sequence...
-// first create department
-// second create faculty... faculty needs only department
-// third create course... course needs both department and faculty
+/////////////// system info ///////////////
 
 ** exceptions handling: 
-- model validations are handled on client side - angular - controller 
-- all server side exceptions are handled on api - controller
-- all file upload/download related exceptions are handled on api/controller and angular/controller
+- Model validations are handled on Client side - Angular - Component
+- all Server side exceptions are handled on Api - Controller / C# Service
+- all File Upload/Download related exceptions are handled on Api/Controller and Angular/Component
 
-//// role based authentication
-- JWT authentication
-- sign-in using google authentication and custom jwt authentication
-- either Student or Admin role is created during registration
-- after successful sign-in, respective role is returned in token / response
-- angular stores role info with token
-- header menu component displays related menu options as per role info
-- when user bypasses header menu options and directly types url then, on server side
-api's controller code checks with [Authorize("Admin")] and if un-authorised then,
+//// Role based Authentication Process
+- JWT Authentication
+- sign-in using Google Authentication and Custom JWT Authentication
+- either [Student] or [Admin] Role is created during Registration
+- after successful Sign-in, respective Role is returned in Token / Response
+- Angular stores Role info with Token
+- Header menu component displays related menu options as per Role info
+- when User bypasses Header menu options and directly types url then, on Server side
+Api's Controller code checks with [Authorize("Admin")] and if un-authorised then,
 returns 403 (Forbidden)
-- on angular side auth.interceptor.ts file catches 403 and, redirects to home page
+- on Angular side auth.interceptor.ts file catches 403 and, redirects to Home page
 else if (err.status == 403){
                             // not authorise
                             // redirect to home page
                             this.router.navigateByUrl('/home');
                         }
 
-//// sign-in
-- user can sign-in
-- after successful sign-in, token, role and other user's information is stored
-on client side and menu options are displayed as per user's role
+---> [Signin]
+- User can sign-in
+- after successful sign-in, Token, Role and other User's information is stored
+on Client side and menu options are displayed as per User's Role
 - after un-successful sign-in, error message is displayed
 ** exceptions handling
 
-//// registration
-- user can be either Admin or Student
+---> [Registration]
+- User can be either Admin or Student
 - @ Registration process, Admin - role profile is created.
-- for Student - role, first need to create student @ Student db table__
-- and then after @ Registration process, select Student - role and __
-- map already created student with Student - role profile.
-- after un-successful registration, error message is displayed
+- for Student - Role, first need to create Student @ Student db table__
+- and then after @ Registration process, select Student - Role and __
+- map already created Student with Student - Role profile.
+- after un-successful Registration, error message is displayed
 ** exceptions handling
 
-//// department (role - Admin)
-- user can add / edit / view department
-- user can remove department
-    - faculty, course and assignment are depending on department
-    - before user can remove department, system displays all possible dependencies
-    - when user execute remove department action, system safely remove first
-        all possible dependencies and finally remove department itself
+---> [Department]-[Faculty]-[Course] Relationship
+// Course can not exist without Department and Faculty
+// one Course can connect with one Department and one Faculty
+// Department has multiple Courses and Caculties
+// Faculty can have multiple or zero Course(s)
+// Faculty can not exist without Department
+// Department - Faculty - Course entities initialization sequence...
+- first create Department
+- second create Faculty... Faculty needs only Department
+- third create Course... Course needs both Department and Faculty
+
+---> [Department] (Role - Admin)
+- User can add / edit / view Department
+- User can remove Department
+    - Faculty, Course and Assignment are depending on Department
+    - before User can remove Department, system displays all possible dependencies
+    - when User execute remove Department action, system safely remove first
+        all possible dependencies and finally remove Department itself
 ** exceptions handling
 
-//// faculty (role - Admin)
-- user can add / edit / view faculty
-- user can remove faculty
-    - course and assignment are depending on faculty
-    - before user can remove faculty, system displays all possible dependencies
-    - when user execute remove faculty action, system safely remove first
-        all possible dependencies and finally remove faculty itself
+---> [Faculty] (Role - Admin)
+- User can add / edit / view Faculty
+- User can remove Faculty
+    - Course and Assignment are depending on Faculty
+    - before User can remove Faculty, system displays all possible dependencies
+    - when User execute remove Faculty action, system safely remove first
+        all possible dependencies and finally remove Faculty itself
 ** exceptions handling
 
-//// course (role - Admin)
-- user can add / view course
-- user can edit course
-    - user can edit course's faculty 
-        (faculty options belong to course's current department's faculties)
-- user can remove course
-    - assignment is depending on course
-    - before user can remove course, system displays all possible dependencies
-    - when user execute remove course action, system safely remove first
-        all possible dependencies and finally remove course itself
+---> [Course] (Role - Admin)
+- User can add / view Course
+- User can edit Course
+    - User can edit Course's Faculty 
+        (Faculty options belong to Course's current Department's Faculties)
+- User can remove Course
+    - Assignment is depending on Course
+    - before User can remove Course, system displays all possible dependencies
+    - when User execute remove Course action, system safely remove first
+        all possible dependencies and finally remove Course itself
 ** exceptions handling
 
-//// assignment (role - Admin)
-- user can add assignment
-    - user can upload assignment file along with other necessary details
-- user can view assignment
-    - user can search / filter assignment by department and/or faculty
-    - user can download assignment file
+---> [Assignment] (Role - Admin)
+- User can add Assignment
+    - User can Upload Assignment File along with other necessary details
+- User can view Assignment
+    - User can Search / Filter Assignment by Department and/or Faculty
+    - User can Download Assignment File
 ** exceptions handling
 
-//// student - course - assignment
-// student-course
-- StdToCourse 
-- (student)1------->0-*(course)
-- (course)1------->0-*(student)
+---> [Student]-[Course]-[Assignment] Relationship
+	---> [Student]-[Course]
+		- [StdToCourse]
+		- (Student)1------->0-*(Course)
+		- (Course)1------->0-*(Student)
 
-// student-assignment
-    //0 - AsmtLinked, // when course and it's asmt is linked to student
-    //1 -  AsmtNotLinked, // when course is linked but it's asmt is not linked to student     
-    //2 -  AsmtSubmitted // when course and asmt are linked and asmt is submitted by student
-    // in db table StdToAsmt, status is either 0 or 2
-- (student)1------->0-*(asmt)
-- (asmt)1------->0-*(student)
-student can have assignments only belong to the assigned courses to the student.
-means... assignments depend on course and courses are assigned to student.
-- StdToAsmt
-this table maintains records only for (downloaded assignments(AsmtLinkStatus=0)) and 
-(downloaded assignments but later course is dropped by this student(AsmtLinkStatus=0)) and
-(downloaded assignments and assignments are submitted by this student (AsmtLinkStatus=2))
+	---> [Student]-[Assignment]
+		- [StdToAsmt]
+		- (Student)1------->0-*(Assignment)
+		- (Assignment)1------->0-*(Student)
+    		//0 - AsmtLinked, // when Course and it's Assignment is linked to Student
+    		//1 -  AsmtNotLinked, // when Course is linked but it's Assignment is not linked to Student     
+    		//2 -  AsmtSubmitted // when Course and Assignment are linked and Assignment is submitted by Student
+    		// in db table [StdToAsmt], (AsmtLinkStatus) is either 0 or 2
 
-//// student (role - Admin)
-- user can add / edit / view student
-// wip
-- user can remove student
-    - aspnetusers[AuthenticationDB], student-course and student-assignment are depending on student
-    - before user can remove student, system displays all possible dependencies
-    - when user execute remove student action, system safely remove first
-        all possible dependencies and finally remove student itself
+		- Student can have Assignment(s) only belong to the assigned Courses to the Student
+			means... Assignments depend on Course and Courses are assigned to Student
+		- [StdToAsmt] table maintains records for (Downloaded Assignments(AsmtLinkStatus=0)) and 
+			(Downloaded Assignments but later Course is dropped by this Student(AsmtLinkStatus=0)) and
+			(Downloaded Assignments and Assignments are submitted by this Student (AsmtLinkStatus=2))
+
+---> [Student] (Role - Admin)
+- User can add / edit / view Student
+- User can remove Student
+    - Student-Course and Student-Assignment are depending on Student
+    - before User can remove Student, system displays all possible dependencies
+    - when user execute remove Student action, system safely remove first
+        all possible dependencies and finally remove Student itself
 ** exceptions handling
 
-//// student-course(StdsToCourses) (role - Admin)
-- user can view / add / remove course(s) assigned to selected student
+---> [Student]-[Course] = [StdsToCourses] (Role - Admin)
+- User can view / add / remove Course(s) assigned to selected Student
+** exceptions handling
 
-//// student-course-assignment(StdsToCourses-StdToAsmt) (role - Student)
-- user can view assigned course(s) information like course and faculty info
-- user can view assignments only for assigned courses
-- user can download assignment and submit assignment
-- user can not submit assignment before download it first
-- after downloaded and submitted assignments, user can not re-submit assignment
-
-
-
-
+---> [Student]-[Course]-[Assignment] = [StdsToCourses]-[StdToAsmt] (Role - Student)
+- User can view assigned Course(s) information like Course and Faculty info
+- User can view Assignments only for assigned Courses
+- User can Download Assignment and Submit Assignment
+- User can not Submit Assignment before Download it first
+- after Downloaded and Submitted Assignments, user can not Re-Submit Assignment
+** exceptions handling
