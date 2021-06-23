@@ -99,3 +99,4 @@ C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\Authentica
 C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\AuthenticationAPI.dll
 C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\AuthenticationAPI.pdb
 C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\AuthenticationAPI.genruntimeconfig.cache
+C:\University\UniversityAPI\AuthenticationAPI\obj\Debug\netcoreapp3.1\AuthenticationAPI.csprojAssemblyReference.cache
