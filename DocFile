@@ -34,15 +34,43 @@ db tables:
     [AspNetUserLogins] (external(google) - signin)
 db context: ApplicationDbContext.cs
 
+---> [Department]-[Faculty]-[Course] Relationship
+	---> [Department]-[Faculty]
+		- (Department)1------->0-*(Faculty)
+		- (Faculty)1------->1(Department)
+	---> [Department]-[Course]
+		- (Department)1------->0-*(Course)
+		- (Course)1------->1(Department)
+	---> [Faculty]-[Course]
+		- (Faculty)1------->0-*(Course)
+		- (Course)1------->1(Faculty)	
 
-/////////////// system info ///////////////
+---> [Assignment]-[Faculty]-[Course] Relationship
+	---> [Assignment]-[Faculty]
+		- (Assignment)1------->1(Faculty)
+		- (Faculty)1------->0-*(Assignment)
+	---> [Assignment]-[Course]
+		- (Assignment)1------->1(Course)
+		- (Course)1------->0-*(Assignment)
 
-** exceptions handling: 
+---> [Student]-[Course]-[Assignment] Relationship
+	- Student can have Assignment(s) only belong to the assigned Courses to the Student
+			means... Assignments depend on Course and Courses are assigned to Student		
+	---> [Student]-[Course]
+		- [StdsToCourses]
+		- (Student)1------->0-*(Course)
+		- (Course)1------->0-*(Student)
+	---> [Student]-[Assignment]
+		- [StdToAsmt]
+		- (Student)1------->0-*(Assignment)
+		- (Assignment)1------->0-*(Student)
+
+** exceptions handling
 	- Model validations are handled on Client side - Angular - Component
 	- all Server side exceptions are handled on Api - Controller / C# Service
 	- all File Upload/Download related exceptions are handled on Api/Controller and Angular/Component
 
-//// Role based Authentication Process
+---> Role based Authentication Process
 	- JWT Authentication
 	- sign-in using Google Authentication and Custom JWT Authentication
 	- either [Student] or [Admin] Role is created during Registration
@@ -53,12 +81,7 @@ db context: ApplicationDbContext.cs
 		Api's Controller code checks with [Authorize("Admin")] and if un-authorised then,
 		returns 403 (Forbidden)
 	- on Angular side auth.interceptor.ts file catches 403 and, redirects to Home page
-		else if (err.status == 403){
-                            // not authorise
-                            // redirect to home page
-                            this.router.navigateByUrl('/home');
-                        }
-
+		
 ---> [Signin]
 	- User can sign-in
 	- after successful sign-in, Token, Role and other User's information is stored
@@ -75,17 +98,6 @@ db context: ApplicationDbContext.cs
 	- after un-successful Registration, error message is displayed
   - after successful Registration, redirects to Signin page
 	** exceptions handling
-
----> [Department]-[Faculty]-[Course] Relationship
-	// Course can not exist without Department and Faculty
-	// one Course can connect with one Department and one Faculty
-	// Department has multiple Courses and Caculties
-	// Faculty can have multiple or zero Course(s)
-	// Faculty can not exist without Department
-	// Department - Faculty - Course entities initialization sequence...
-		- first create Department
-		- second create Faculty... Faculty needs only Department
-		- third create Course... Course needs both Department and Faculty
 
 ---> [Department] (Role - Admin)
   * after un-successful operation, error message is displayed
@@ -132,28 +144,7 @@ db context: ApplicationDbContext.cs
     	- User can Search / Filter Assignment by Department and/or Faculty
     	- User can Download Assignment File
 	** exceptions handling
-
----> [Student]-[Course]-[Assignment] Relationship
-	---> [Student]-[Course]
-		- [StdToCourse]
-		- (Student)1------->0-*(Course)
-		- (Course)1------->0-*(Student)
-
-	---> [Student]-[Assignment]
-		- [StdToAsmt]
-		- (Student)1------->0-*(Assignment)
-		- (Assignment)1------->0-*(Student)
-    		//0 - AsmtLinked, // when Course and it's Assignment is linked to Student
-    		//1 -  AsmtNotLinked, // when Course is linked but it's Assignment is not linked to Student     
-    		//2 -  AsmtSubmitted // when Course and Assignment are linked and Assignment is submitted by Student
-    		// in db table [StdToAsmt], (AsmtLinkStatus) is either 0 or 2
-
-		- Student can have Assignment(s) only belong to the assigned Courses to the Student
-			means... Assignments depend on Course and Courses are assigned to Student
-		- [StdToAsmt] table maintains records for (Downloaded Assignments(AsmtLinkStatus=0)) and 
-			(Downloaded Assignments but later Course is dropped by this Student(AsmtLinkStatus=0)) and
-			(Downloaded Assignments and Assignments are submitted by this Student (AsmtLinkStatus=2))
-
+    		
 ---> [Student] (Role - Admin)
   * after un-successful operation, error message is displayed
   * after successful operation, redirects to it's main respective Component page
