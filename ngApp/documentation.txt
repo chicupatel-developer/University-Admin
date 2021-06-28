@@ -194,3 +194,9 @@ db context: ApplicationDbContext.cs
 	- User can not Submit Assignment before Download it first
 	- after Downloaded and Submitted Assignments, user can not Re-Submit Assignment
 	** exceptions handling
+
+to dos ----------------------------------------------------
+2 column form layout
+number only
+email only
+phone number format

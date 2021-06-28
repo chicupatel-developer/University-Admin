@@ -1,147 +1,152 @@
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" />
+<!-- 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet" />
+-->
+
+
 <div class="container">
     <div class="row">
-        <div class="col-md-12 mx-auto">
-            <div class="card" [style.color]="getMyDisplayColor(studentModel)">
-                <div class="card-header">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-header" 
+                    style="background-color: lightyellow;">
                     <h3>
+                        <div>
+                            Student Information
+                        </div>
+                        <hr />                      
                         <div *ngIf="errorMessage" 
-                            style="color:red;">
-                            <h5>
-                                {{errorMessage}}
-                            </h5>
-                        </div>                        
-                        <div *ngIf="!errorMessage">                           
+                            style="color:red;">                        
+                            {{errorMessage}}                            
+                        </div>
+                        <div *ngIf="!errorMessage" >
                             <div class="row">
-                                <div class="col-sm-6">
-                                    Student Information
+                                <div class="col-md-2 mx-auto">
+                                    <button type="button" (click)="editStudent(studentModel)" class="btn btn-primary">
+                                        Edit Student
+                                    </button>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <button type="button" 
-                                                (click)="editStudent(studentModel)" 
-                                                class="btn btn-primary">
-                                                Edit Student
-                                            </button>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <button type="button" 
-                                                (click)="removeStudent(studentModel)" 
-                                                class="btn btn-danger">
-                                                Remove Student
-                                            </button>
-                                        </div>                      
-                                    </div>
-                                </div>                               
+                                <div class="col-md-3 mx-auto">
+                                    <button type="button" (click)="removeStudent(studentModel)" class="btn btn-danger">
+                                        Remove Student
+                                    </button>
+                                </div>
+                                <div class="col-md-7 mx-auto">
+                                </div>
                             </div>
-                            <p></p>
-                            <hr />
-                            <p></p>
-                            Student # {{studentModel.studentId}} ) 
                         </div>
-                        <hr />
                     </h3>
-                </div>
-                <div *ngIf="!errorMessage" class="card-body">
-                    <div class="row">                        
-                        <div class="col-sm-3">
-                            <h5>First Name :</h5>
+                </div>             
+                <div class="card-body" 
+                    *ngIf="!errorMessage" 
+                    [style.color]="getMyDisplayColor(studentModel)">
+                    <div class="container">                       
+                        <div class="row">
+                            <div class="col-md-3 mx-auto">
+                                <h5>Student # :</h5>
+                            </div>
+                            <div class="col-md-6 mx-auto">
+                                <h5>{{studentModel.studentId}}</h5>
+                            </div>
                         </div>
-                        <div class="col-sm-6">
-                            <h5>{{studentModel.firstName}}</h5>
+                        <p></p>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3 mx-auto">
+                                <h5>First Name :</h5>
+                            </div>
+                            <div class="col-md-6 mx-auto">
+                                <h5>{{studentModel.firstName}}</h5>
+                            </div>
                         </div>
-                    </div>   
-                    <p></p>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h5>Last Name :</h5>
+                        <p></p>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3 mx-auto">
+                                <h5>Last Name :</h5>
+                            </div>
+                            <div class="col-md-6 mx-auto">
+                                <h5>{{studentModel.lastName}}</h5>
+                            </div>
                         </div>
-                        <div class="col-sm-6">
-                            <h5>{{studentModel.lastName}}</h5>
+                        <p></p>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3 mx-auto">
+                                <h5>Email :</h5>
+                            </div>
+                            <div class="col-md-6 mx-auto">
+                                <h5 *ngIf="studentModel.email">{{studentModel.email}}</h5>
+                                <h5 *ngIf="!studentModel.email">N/A</h5>
+                            </div>
                         </div>
+                        <p></p>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3 mx-auto">
+                                <h5>Phone :</h5>
+                            </div>
+                            <div class="col-md-6 mx-auto">
+                                <h5 *ngIf="studentModel.phoneNumber">{{studentModel.phoneNumber}}</h5>
+                                <h5 *ngIf="!studentModel.phoneNumber">N/A</h5>
+                            </div>
+                        </div>
+                        <p></p>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3 mx-auto">
+                                <h5>Gender :</h5>
+                            </div>
+                            <div class="col-md-6 mx-auto">
+                                <h5>{{convertGender(studentModel.gender)}}</h5>
+                            </div>
+                        </div>
+                        <p></p>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3 mx-auto">
+                                <h5>Home Address :</h5>
+                            </div>
+                            <div class="col-md-6 mx-auto">
+                                <h5 *ngIf="studentModel.homeAddress">{{studentModel.homeAddress}}</h5>
+                                <h5 *ngIf="!studentModel.homeAddress">N/A</h5>
+                            </div>
+                        </div>
+                        <p></p>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3 mx-auto">
+                                <h5>Home Postal Code :</h5>
+                            </div>
+                            <div class="col-md-6 mx-auto">
+                                <h5 *ngIf="studentModel.homePostalCode">{{studentModel.homePostalCode}}</h5>
+                                <h5 *ngIf="!studentModel.homePostalCode">N/A</h5>
+                            </div>
+                        </div>
+                        <p></p>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3 mx-auto">
+                                <h5>Mail Address :</h5>
+                            </div>
+                            <div class="col-md-6 mx-auto">
+                                <h5 *ngIf="studentModel.mailAddress">{{studentModel.mailAddress}}</h5>
+                                <h5 *ngIf="!studentModel.mailAddress">N/A</h5>
+                            </div>
+                        </div>
+                        <p></p>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-3 mx-auto">
+                                <h5>Mail Postal Code :</h5>
+                            </div>
+                            <div class="col-md-6 mx-auto">
+                                <h5 *ngIf="studentModel.mailPostalCode">{{studentModel.mailPostalCode}}</h5>
+                                <h5 *ngIf="!studentModel.mailPostalCode">N/A</h5>
+                            </div>
+                        </div>
+                        <p></p>
+                        <hr />                  
                     </div>
-                    <p></p>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h5>Email :</h5>
-                        </div>
-                        <div class="col-sm-6">
-                            <h5 *ngIf="studentModel.email">{{studentModel.email}}</h5>
-                            <h5 *ngIf="!studentModel.email">N/A</h5>
-                        </div>
-                    </div>
-                    <p></p>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h5>Phone :</h5>
-                        </div>
-                        <div class="col-sm-6">
-                            <h5 *ngIf="studentModel.phoneNumber">{{studentModel.phoneNumber}}</h5>
-                            <h5 *ngIf="!studentModel.phoneNumber">N/A</h5>
-                        </div>
-                    </div>
-                    <p></p>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h5>Gender :</h5>
-                        </div>
-                        <div class="col-sm-6">
-                            <h5>{{convertGender(studentModel.gender)}}</h5>
-                        </div>
-                    </div>
-                    <p></p>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h5>Home Address :</h5>
-                        </div>
-                        <div class="col-sm-6">
-                            <h5 *ngIf="studentModel.homeAddress">{{studentModel.homeAddress}}</h5>
-                            <h5 *ngIf="!studentModel.homeAddress">N/A</h5>
-                        </div>
-                    </div>
-                    <p></p>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h5>Home Postal Code :</h5>
-                        </div>
-                        <div class="col-sm-6">
-                            <h5 *ngIf="studentModel.homePostalCode">{{studentModel.homePostalCode}}</h5>
-                            <h5 *ngIf="!studentModel.homePostalCode">N/A</h5>
-                        </div>
-                    </div>
-                    <p></p>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h5>Mail Address :</h5>
-                        </div>
-                        <div class="col-sm-6">
-                            <h5 *ngIf="studentModel.mailAddress">{{studentModel.mailAddress}}</h5>
-                            <h5 *ngIf="!studentModel.mailAddress">N/A</h5>
-                        </div>
-                    </div>
-                    <p></p>
-                    <hr />
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <h5>Mail Postal Code :</h5>
-                        </div>
-                        <div class="col-sm-6">
-                            <h5 *ngIf="studentModel.mailPostalCode">{{studentModel.mailPostalCode}}</h5>
-                            <h5 *ngIf="!studentModel.mailPostalCode">N/A</h5>
-                        </div>
-                    </div>
-                    <p></p>
-                    <hr />
                 </div>
             </div>
         </div>

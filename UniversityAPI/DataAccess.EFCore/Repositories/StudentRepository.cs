@@ -227,6 +227,7 @@ namespace DataAccess.EFCore.Repositories
             stdAsmtSubmit.AsmtSubmitFileName = asmtSubmitVM.AsmtSubmitFileName;
             stdAsmtSubmit.AsmtSubmitFilePath = asmtSubmitVM.AsmtSubmitFilePath;
 
+            // to check @last minute exception
             // throw new Exception();
 
             appDbContext.SaveChanges();

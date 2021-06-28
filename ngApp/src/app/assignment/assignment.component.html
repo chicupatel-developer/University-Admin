@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12 mx-auto">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header" style="background-color: lightyellow;">
                     <h3>
                         <div>
                             Assignments
@@ -15,17 +15,18 @@
                         </h4>  
                     </h3> 
                     <div class="row" *ngIf="!newAsmtAddPanel">
-                        <div class="col-4">
+                        <div class="col-md-3 mx-auto">
                             <button type="button" 
                                 (click)="addAsmt()" 
                                 class="btn btn-success">Add Assignment
                             </button>
                         </div>
-                        <div class="col-8">
-                            <div class="card">
+                        <div class="col-md-8 mx-auto">
+                            <div class="card" 
+                                style="background-color:lightgray;">
                                 <div class="card-header">
                                     <h4>
-                                        Serach Panel
+                                        Search Panel
                                         <!-- this will remove all filter conditions and default load all assignments -->
                                         <button type="button" 
                                             (click)="clearAllFilter()" 
@@ -43,7 +44,7 @@
                                                     <div class="col-4">
                                                         <!-- department list -->
                                                         <div class="form-group">
-                                                            <label>Department : </label>
+                                                            <label>Department </label>
                                                             <select class="form-control" formControlName="SDepartmentId">
                                                                 <option disabled>Select Department</option>
                                                                 <option value="">Choose Department</option>
@@ -56,7 +57,7 @@
                                                     <div class="col-4">
                                                         <!-- faculty list -->
                                                         <div class="form-group">
-                                                            <label>Faculty : </label>
+                                                            <label>Faculty </label>
                                                             <select class="form-control" formControlName="SFacultyId">
                                                                 <option disabled>Choose Faculty</option>
                                                                 <option value="">Choose Faculty</option>
@@ -86,22 +87,24 @@
                 </div>
                 <div class="card-body">
                     <div class="container" *ngIf="newAsmtAddPanel">
-                        <div class="col-md-7 mx-auto">
-                            <div class="card">
+                        <div class="col-md-10 mx-auto">
+                            <div class="card" 
+                                style="background-color: lightblue;">
                                 <div class="card-header">
                                     <div class="row">
-                                        <div class="col-8">
+                                        <div class="col-11">
                                             <!-- file upload control -->
                                             <app-upload 
                                                 (onUploadFinished)="uploadFinished($event)">
                                             </app-upload>
                                         </div>
-                                        <div class="col-4">
+                                        <div class="col-1">
                                             <button type="button" 
+                                                style="font-size: 50px; margin-top: -20px; margin-right: -10px;"
                                                 (click)="cancel()" 
-                                                class="btn btn-primary">
-                                                Cancel
-                                            </button>
+                                                class="close" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>                                         
                                         </div>
                                     </div>                               
                                 </div>
@@ -110,111 +113,98 @@
                                         class="form-asmt" 
                                         [formGroup]="asmtForm" 
                                         (ngSubmit)="onSubmit()">
-                                        <div class="form-group">
-                                            <label>Title</label>
-                                            <input type="text" class="form-control" formControlName="Title">
-                                            <div *ngIf="submitted && asmtFormControl.Title.errors?.required" 
-                                                class="alert alert-danger mt-2">
-                                                Title Required
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Details</label>
-                                            <input type="text" class="form-control" 
-                                                formControlName="Details">                                          
-                                            <div *ngIf="submitted && asmtFormControl.Details.errors?.required" 
-                                                class="alert alert-danger mt-2">
-                                                Details Required
-                                            </div>
-                                        </div>
 
-                                        <!-- date complexity -->
-                                        <div class="form-group">
-                                            <label>Asmt. Last Submission Date</label>
-                                            <div class="input-group">
-                                                <input class="form-control" 
-                                                    placeholder="yyyy-mm-dd" 
-                                                    name="dp" formControlName="AsmtLastDate" 
-                                                    ngbDatepicker
-                                                    #d="ngbDatepicker">
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-outline-secondary calendar" 
-                                                    (click)="d.toggle()" type="button"></button>
+                                        <div class="row">
+                                            <div class="col-md-6 mx-auto">
+                                                <div class="form-group">
+                                                    <label>Title</label>
+                                                    <input type="text" class="form-control" formControlName="Title">
+                                                    <div *ngIf="submitted && asmtFormControl.Title.errors?.required" class="alert alert-danger mt-2">
+                                                        Title is required
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Details</label>
+                                                    <input type="text" class="form-control" formControlName="Details">
+                                                    <div *ngIf="submitted && asmtFormControl.Details.errors?.required" class="alert alert-danger mt-2">
+                                                        Detail is required
+                                                    </div>
+                                                </div>                                                
+                                                <!-- date complexity -->
+                                                <div class="form-group">
+                                                    <label>Asmt. Last Submission Date</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" formControlName="AsmtLastDate" ngbDatepicker
+                                                            #d="ngbDatepicker">
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+                                                        </div>
+                                                    </div>
+                                                    <div *ngIf="submitted && asmtFormControl.AsmtLastDate.errors?.required" class="alert alert-danger mt-2">
+                                                        Assignment Last Submission Date is required
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div *ngIf="submitted && asmtFormControl.AsmtLastDate.errors?.required" 
-                                                class="alert alert-danger mt-2">
-                                                Assignment Last Submission Date Required
-                                            </div>
-                                        </div>                                  
-
-                                        <!-- department list -->
-                                        <div class="form-group">
-                                            <label>Department : </label>
-                                            <select class="form-control" 
-                                                (change)="changeDepartment($event)"
-                                                formControlName="DepartmentId">
-                                                <option value="">Choose Department</option>
-                                                <option value={{d.departmentId}} 
-                                                    *ngFor="let d of departments">
-                                                    {{d.departmentName}}
-                                                </option>
-                                            </select>                                         
-                                            <div *ngIf="submitted && asmtFormControl.DepartmentId.errors?.required" 
-                                                class="alert alert-danger mt-2">
-                                                Please choose Department
-                                            </div>
-                                        </div>
-
-                                        <!-- faculty list -->
-                                        <div class="form-group">
-                                            <label>Faculty : </label>
-                                            <select class="form-control" 
-                                                (change)="changeFaculty($event)"
-                                                formControlName="FacultyId"> 
-                                                <option value="">Choose Faculty</option>
-                                                <option value={{f.facultyId}} 
-                                                    *ngFor="let f of faculties">
-                                                    {{f.facultyName}}
-                                                </option>
-                                            </select>                                          
-                                            <div *ngIf="submitted && asmtFormControl.FacultyId.errors?.required" 
-                                                class="alert alert-danger mt-2">
-                                                Please choose Faculty
-                                            </div>
-                                        </div>
-
-                                        <!-- course list -->
-                                        <div class="form-group">
-                                            <label>Course : </label>
-                                            <select class="form-control" 
-                                                formControlName="CourseId">
-                                                <option value="">Choose Course</option>
-                                                <option value={{c.courseId}} 
-                                                *ngFor="let c of courses">
-                                                    {{c.courseName}}
-                                                </option>
-                                            </select>
-                                            <div *ngIf="submitted && asmtFormControl.CourseId.errors?.required" class="alert alert-danger mt-2">
-                                                Please choose Course
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <button type="submit" class="btn btn-success">
-                                                        New Assignment
-                                                    </button>
+                                            <div class="col-md-6 mx-auto">
+                                                <!-- department list -->
+                                                <div class="form-group">
+                                                    <label>Department </label>
+                                                    <select class="form-control" (change)="changeDepartment($event)" formControlName="DepartmentId">
+                                                        <option value="">Choose Department</option>
+                                                        <option value={{d.departmentId}} *ngFor="let d of departments">
+                                                            {{d.departmentName}}
+                                                        </option>
+                                                    </select>
+                                                    <div *ngIf="submitted && asmtFormControl.DepartmentId.errors?.required" class="alert alert-danger mt-2">
+                                                        Department is required
+                                                    </div>
+                                                </div>                                                
+                                                <!-- faculty list -->
+                                                <div class="form-group">
+                                                    <label>Faculty </label>
+                                                    <select class="form-control" (change)="changeFaculty($event)" formControlName="FacultyId">
+                                                        <option value="">Choose Faculty</option>
+                                                        <option value={{f.facultyId}} *ngFor="let f of faculties">
+                                                            {{f.facultyName}}
+                                                        </option>
+                                                    </select>
+                                                    <div *ngIf="submitted && asmtFormControl.FacultyId.errors?.required" class="alert alert-danger mt-2">
+                                                        Faculty is required
+                                                    </div>
+                                                </div>                                                
+                                                <!-- course list -->
+                                                <div class="form-group">
+                                                    <label>Course </label>
+                                                    <select class="form-control" formControlName="CourseId">
+                                                        <option value="">Choose Course</option>
+                                                        <option value={{c.courseId}} *ngFor="let c of courses">
+                                                            {{c.courseName}}
+                                                        </option>
+                                                    </select>
+                                                    <div *ngIf="submitted && asmtFormControl.CourseId.errors?.required" class="alert alert-danger mt-2">
+                                                        Course is required
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-6">
-                                                    <button type="button" 
-                                                        data-toggle="tooltip" 
-                                                        title="If you Cancel, then you will loose any uploaded document!"
-                                                        (click)="resetAsmt()"
-                                                        class="btn btn-primary">
-                                                        Cancel
-                                                    </button>
+                                            </div>
+                                        </div>                                                          
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-md-12 mx-auto">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <button type="submit" class="btn btn-success">
+                                                                New Assignment
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button type="button" data-toggle="tooltip"
+                                                                title="If you Cancel, then you will loose any uploaded document!" (click)="resetAsmt()"
+                                                                class="btn btn-primary">
+                                                                Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -225,92 +215,107 @@
                         <p></p>
                     </div>
 
-
-                <!-- if search is enabled -->
-                <div *ngIf="searchEnabled" class="col-md-12 mx-auto">
-                    <div *ngFor="let a of filteredAssignments">
-                        <div class="card">
-                            <div class="card-header" 
-                                style="background-color: lightskyblue;">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h5>
-                                            {{a.departmentName}} / {{a.courseName}}
-                                            <p></p>
-                                            Faculty : {{a.facultyName}}
-                                        </h5>
-                                    </div>
-                                    <div *ngIf="a.asmtFileName" class="col-6">                                  
-                                        {{a.asmtFileName}}
-                                        <p></p>
-                                        <button type="button" 
-                                            (click)="downloadAsmt(a)" 
-                                            class="btn btn-primary">
-                                            Download Assignment
-                                        </button>                                               
-                                        <span *ngIf="downloadStatus && downloadFile==a.asmtFileName" [style.color]="downloadClass">
-                                            <p>
-                                                {{downloadStatus}}
-                                            </p>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            Assignment : {{a.assignmentId}} # {{a.title}}
-                            <p></p>
-                            Details : {{a.details}}
-                            <p></p>
-                            Submission Date : {{a.asmtLastDate | date : "dd-MMM-y"}}
-                        </div>
-                        <div class="card-footer">
-                        </div>
-                    </div>
-                </div>
-                    
-                <!-- if search is not enabled -->
-                <div *ngIf="!searchEnabled" class="col-md-12 mx-auto">
-                    <div *ngFor="let a of assignments">
-                        <div class="card">
-                            <div class="card-header" 
-                                style="background-color: lightskyblue;">
-                                <div class="row">
-                                    <div class="col-6">
-                                        <h5>
-                                            {{a.departmentName}} / {{a.courseName}}
-                                            <p></p>
-                                            Faculty : {{a.facultyName}}                                        
-                                        </h5>
-                                    </div>
-                                    <div *ngIf="a.asmtFileName" class="col-6">                                  
+                    <!-- if search is enabled -->
+                    <div *ngIf="searchEnabled && filteredAssignments.length>=1 " class="col-md-12 mx-auto">
+                        <div *ngFor="let a of filteredAssignments">
+                            <div class="card">
+                                <div class="card-header" 
+                                    style="background-color: lightgray;">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5>
+                                                {{a.departmentName}} / {{a.courseName}}
+                                                <p></p>
+                                                Faculty : {{a.facultyName}}
+                                            </h5>
+                                        </div>
+                                        <div *ngIf="a.asmtFileName" class="col-6">                                  
                                             {{a.asmtFileName}}
                                             <p></p>
                                             <button type="button" 
                                                 (click)="downloadAsmt(a)" 
                                                 class="btn btn-primary">
                                                 Download Assignment
-                                            </button>
-                                            <span *ngIf="downloadStatus && downloadFile==a.asmtFileName" 
-                                                [style.color]="downloadClass">
+                                            </button>                                               
+                                            <span *ngIf="downloadStatus && downloadFile==a.asmtFileName" [style.color]="downloadClass">
                                                 <p>
                                                     {{downloadStatus}}
                                                 </p>
                                             </span>
+                                        </div>
                                     </div>
+                                </div>                        
+                                <div class="card-body">
+                                    Assignment : {{a.assignmentId}} # {{a.title}}
+                                    <p></p>
+                                    Details : {{a.details}}
+                                    <p></p>
+                                    Submission Date : {{a.asmtLastDate | date : "dd-MMM-y"}}
+                                </div>
+                                <div class="card-footer">
                                 </div>
                             </div>
-                            <div class="card-body">
-                                Assignment : {{a.assignmentId}} # {{a.title}}
-                                <p></p>
-                                Details : {{a.details}} 
-                                <p></p>
-                                Submission Date : {{a.asmtLastDate | date : "dd-MMM-y"}}
-                            </div>
-                            <div class="card-footer">
+                        </div>
+                    </div>
+                    <div *ngIf="searchEnabled && filteredAssignments.length<1" class="col-md-12 mx-auto">
+                        <div class="card">
+                            <div class="card-header" 
+                                style="background-color: lightgray;">
+                                Assignment Not Found!
                             </div>
                         </div>
-                    </div>                 
+                    </div>
+                        
+                    <!-- if search is not enabled -->
+                    <div *ngIf="!searchEnabled && assignments.length>=1" class="col-md-12 mx-auto">
+                        <div *ngFor="let a of assignments">
+                            <div class="card">
+                                <div class="card-header" 
+                                    style="background-color: lightgoldenrodyellow;">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5>
+                                                {{a.departmentName}} / {{a.courseName}}
+                                                <p></p>
+                                                Faculty : {{a.facultyName}}                                        
+                                            </h5>
+                                        </div>
+                                        <div *ngIf="a.asmtFileName" class="col-6">                                  
+                                                {{a.asmtFileName}}
+                                                <p></p>
+                                                <button type="button" 
+                                                    (click)="downloadAsmt(a)" 
+                                                    class="btn btn-primary">
+                                                    Download Assignment
+                                                </button>
+                                                <span *ngIf="downloadStatus && downloadFile==a.asmtFileName" 
+                                                    [style.color]="downloadClass">
+                                                    <p>
+                                                        {{downloadStatus}}
+                                                    </p>
+                                                </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    Assignment : {{a.assignmentId}} # {{a.title}}
+                                    <p></p>
+                                    Details : {{a.details}} 
+                                    <p></p>
+                                    Submission Date : {{a.asmtLastDate | date : "dd-MMM-y"}}
+                                </div>
+                                <div class="card-footer">
+                                </div>
+                            </div>
+                        </div>                 
+                    </div>
+                    <div *ngIf="!searchEnabled && assignments.length<1" class="col-md-12 mx-auto">
+                        <div class="card">
+                            <div class="card-header" style="background-color: lightgoldenrodyellow;">
+                                Assignment Not Found!
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

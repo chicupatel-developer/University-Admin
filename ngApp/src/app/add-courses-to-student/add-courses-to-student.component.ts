@@ -155,9 +155,11 @@ export class AddCoursesToStudentComponent implements OnInit {
         try {
           this.studentModel = JSON.parse(params['student']);
           this.loadCourses();
+          this.responseColor = 'green';
         }
         catch (error) {
           this.errorMessage = 'Error in Parsing in-coming student data!';
+          this.responseColor = 'red';
         }
       }
     )
