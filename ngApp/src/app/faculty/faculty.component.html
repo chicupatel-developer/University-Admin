@@ -123,62 +123,60 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </form>
                                 </div>
                             </div>
                         </div>
                         <p></p>
                     </div>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Phone#</th>
-                                <th>Email</th>
-                                <th>Gender</th>
-                                <th>Department</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let f of faculties">
-                                <td>{{f.facultyId}}</td>
-                                <td>{{f.firstName}}</td>
-                                <td>{{f.lastName}}</td>
-                                <td *ngIf="f.phoneNumber">{{f.phoneNumber}}</td>
-                                <td *ngIf="!f.phoneNumber">N/A</td>
-                                <td>{{f.email}}</td>
-                                <td *ngIf="f.gender==0" style="color: blue;">Male</td>
-                                <td *ngIf="f.gender==1" style="color:red;">Female</td>
-                                <td *ngIf="f.gender==2">Other</td>
-                                <td>{{f.departmentName}}</td>
-                                <td>
-                                    <div class="row">
-                                        <div class="col-1"></div>
-                                        <div class="col-1">
-                                            <button type="button" 
-                                                (click)="editFac(f)" 
-                                                class="btn btn-primary">
-                                                <i class="bi bi-pencil-square"></i>
-                                            </button>
+
+                    <!-- faculty list -->
+                    <div class="container-fluid">
+                        <table id="productSizes" class="table">
+                            <thead>
+                                <tr class="d-flex">
+                                    <th class="col-1">#</th>
+                                    <th class="col-2">First Name</th>
+                                    <th class="col-2">Last Name</th>
+                                    <th class="col-1">Phone</th>
+                                    <th class="col-2">Email</th>
+                                    <th class="col-1">Gender</th>
+                                    <th class="col-2">Department</th>
+                                    <th class="col-1"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let f of faculties" class="d-flex">
+                                    <td class="col-1">{{f.facultyId}}</td>
+                                    <td class="col-2">{{displayColumnValue(f.firstName,2)}}</td>
+                                    <td class="col-2">{{displayColumnValue(f.lastName,2)}}</td>
+                                    <td class="col-1" *ngIf="f.phoneNumber">{{displayColumnValue(f.phoneNumber,1)}}</td>
+                                    <td class="col-1" *ngIf="!f.phoneNumber">N/A</td>
+                                    <td class="col-2">{{displayColumnValue(f.email,2)}}</td>
+                                    <td class="col-1" *ngIf="f.gender==0" style="color: blue;">Male</td>
+                                    <td class="col-1" *ngIf="f.gender==1" style="color:red;">Female</td>
+                                    <td class="col-1" *ngIf="f.gender==2">Other</td>
+                                    <td class="col-2">{{displayColumnValue(f.departmentName,2)}}</td>
+                                    <td class="col-1" style="margin-right:20px;">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <button type="button" (click)="editFac(f)" class="btn btn-primary">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-1"></div>
+                                            <div class="col-1">
+                                                <button type="button" (click)="removeFac(f)" class="btn btn-danger">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-8"></div>
                                         </div>
-                                        <div class="col-1"></div>
-                                        <div class="col-1">
-                                            <button type="button" 
-                                                (click)="removeFac(f)" 
-                                                class="btn btn-danger">
-                                                <i class="bi bi-trash"></i>
-                                            </button>
-                                        </div>
-                                        <div class="col-8"></div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    </td>
+                                </tr>                             
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

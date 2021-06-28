@@ -42,12 +42,13 @@ export class StudentEditComponent implements OnInit {
       MailPostalCode: ['']
     });
 
-
     this.studentId = this.route.snapshot.paramMap.get('id');
-    if (this.studentId == '') {
-      return;
+
+    if (isNaN(+this.studentId)){
+      console.log('Not a Number!');
+      this.router.navigate(['/student']);
     }
-    else {
+    else{
       // do api call to retrieve latest student information 
       this.dataService.getStd(Number(this.studentId))
         .subscribe(

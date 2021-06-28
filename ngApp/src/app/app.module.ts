@@ -26,7 +26,7 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
 import { StudentComponent } from './student/student.component';
 import { AddCoursesToStudentComponent } from './add-courses-to-student/add-courses-to-student.component';
 import { SubmitAsmtComponent } from './submit-asmt/submit-asmt.component';
-import { StudentCrsFacInfoComponent } from './student-crs-fac-info/student-crs-fac-info.component';
+import { StudentMyCrsMyAsmtsComponent } from './student-my-crs-my-asmts/student-my-crs-my-asmts.component';
 import { StudentMyAssignmentsComponent } from './student-my-assignments/student-my-assignments.component';
 import { StudentViewComponent } from './student-view/student-view.component';
 import { StudentEditComponent } from './student-edit/student-edit.component';
@@ -51,7 +51,6 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,11 +72,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     StudentComponent,
     AddCoursesToStudentComponent,
     SubmitAsmtComponent,
-    StudentCrsFacInfoComponent,
     StudentMyAssignmentsComponent,
     StudentViewComponent,
     StudentEditComponent,
-    StudentRemoveComponent
+    StudentRemoveComponent,
+    StudentMyCrsMyAsmtsComponent
   ],
   imports: [
     BrowserModule,

@@ -49,8 +49,9 @@ export class FacultyEditComponent implements OnInit {
     this.loadDepts();
 
     this.facultyId = this.route.snapshot.paramMap.get('id');
-    if (this.facultyId == '') {
-      return;
+    if (isNaN(+this.facultyId)) {
+      console.log('Not a Number!');
+      this.router.navigate(['/faculty']);
     }
     else {
       // do api call to retrieve latest faculty information 

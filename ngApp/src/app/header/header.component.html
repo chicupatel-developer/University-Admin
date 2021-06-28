@@ -62,8 +62,10 @@
                 </a>
             </li>    
             <label *ngIf="this._authService.isLoggedIn" 
-                style="font-size:medium; color: red;  margin-right: 100px;">
-                Welcome...{{this.localDataService.getUserName()}} [{{this.localDataService.getMyRole()}}] !
+                style="font-size:large; color: red;  margin-right: 50px;">
+                <b>
+                    Welcome...{{this.localDataService.getUserName()}} [{{this.localDataService.getMyRole()}}] !
+                </b>
             </label>    
             <button (click)="logout()" *ngIf="this._authService.isLoggedIn" 
                 type="button" 

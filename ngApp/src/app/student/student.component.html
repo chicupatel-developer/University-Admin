@@ -149,55 +149,58 @@
                         </div>
                         <p></p>
                     </div>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Phone#</th>
-                                <th>Email</th>
-                                <th>Gender</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let s of students">
-                                <td>
-                                    <button type="button" 
-                                        (click)="viewStudent(s)" 
-                                        class="btn btn-primary">
-                                            # {{s.studentId}}
-                                    </button>
-                                </td>
-                                <td>
-                                    {{displayColumnValue(s.firstName)}}
-                                </td>
-                                <td>
-                                    {{displayColumnValue(s.lastName)}}
-                                </td>
-                                <td *ngIf="s.phoneNumber">{{s.phoneNumber}}</td>
-                                <td *ngIf="!s.phoneNumber">N/A</td>
-                                <td *ngIf="s.email">{{displayColumnValue(s.email)}}</td>
-                                <td *ngIf="!s.email">N/A</td>
-                                <td *ngIf="s.gender==0" style="color: blue;">Male</td>
-                                <td *ngIf="s.gender==1" style="color:red;">Female</td>
-                                <td *ngIf="s.gender==2">Other</td>                                 
-                                <td>
-                                    <div class="row">
-                                        <div class="col-10">
-                                            <button type="button" 
-                                                (click)="addCrs(s)" 
-                                                class="btn btn-primary">
-                                                <i class="bi bi-pencil-square"></i>
-                                                Courses
-                                            </button>
-                                        </div>                                    
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+
+                    <!-- student list -->
+                    <div class="container-fluid">
+                        <table id="productSizes" class="table">
+                            <thead>
+                                <tr class="d-flex">
+                                    <th class="col-1">#</th>
+                                    <th class="col-2">First Name</th>
+                                    <th class="col-2">Last Name</th>
+                                    <th class="col-1">Phone</th>
+                                    <th class="col-2">Email</th>
+                                    <th class="col-1">Gender</th>
+                                    <th class="col-3"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let s of students" class="d-flex">
+                                    <td class="col-1">
+                                        <button type="button" 
+                                            (click)="viewStudent(s)" 
+                                            class="btn btn-primary">
+                                                # {{s.studentId}}
+                                        </button>
+                                    </td>
+                                    <td class="col-2">{{displayColumnValue(s.firstName,2)}}</td>
+                                    <td class="col-2">{{displayColumnValue(s.lastName,2)}}</td>
+                                    <td class="col-1" *ngIf="s.phoneNumber">{{displayColumnValue(s.phoneNumber,1)}}</td>
+                                    <td class="col-1" *ngIf="!s.phoneNumber">N/A</td>
+                                    <td class="col-2" *ngIf="s.email">{{displayColumnValue(s.email,2)}}</td>
+                                    <td class="col-2" *ngIf="!s.email">N/A</td>
+                                    <td class="col-1" *ngIf="s.gender==0" style="color: blue;">Male</td>
+                                    <td class="col-1" *ngIf="s.gender==1" style="color:red;">Female</td>
+                                    <td class="col-1" *ngIf="s.gender==2">Other</td>
+                                    <td class="col-3">
+                                        <div class="row">
+                                            <div class="col-1">                                                
+                                            </div>
+                                            <div class="col-8">
+                                                <button type="button" 
+                                                    (click)="addCrs(s)" 
+                                                    class="btn btn-primary">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                    Courses
+                                                </button>
+                                            </div>                                         
+                                            <div class="col-3"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

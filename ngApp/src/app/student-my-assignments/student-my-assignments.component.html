@@ -1,13 +1,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12 mx-auto">
-            <div class="card">
-                <div class="card-header">
+            <div class="card" >
+                <div class="card-header" 
+                    style="background-color: lightyellow;">
                     <h3>
                         <div *ngIf="errorMessage" style="color:red;">
-                            <h5>
-                                {{errorMessage}}
-                            </h5>
+                            {{errorMessage}}
                         </div>                        
                         <div *ngIf="!errorMessage">
                             # {{studentModel.studentId}} ) {{studentModel.firstName}},
@@ -21,7 +20,7 @@
                     <div class="container">
                         <div class="col-md-12 mx-auto">
                             <div class="card">
-                                <div class="card-header">
+                                <div class="card-header" style="background-color:whitesmoke;">
                                     <h4>
                                         Assignments
                                         <span style=" color: red; font-size: medium; margin-left: 100px;">
@@ -29,7 +28,7 @@
                                         </span>
                                     </h4>
                                 </div>
-                                <div class="card-body">
+                                <div class="card-body" style="background-color:white;">
                                     <div *ngFor="let a of stdToAsmts">
                                         <div class="card">
                                             <div class="card-header" style="background-color: lightskyblue;">

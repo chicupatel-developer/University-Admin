@@ -39,11 +39,11 @@ export class DepartmentEditComponent implements OnInit {
 
     
     this.departmentId = this.route.snapshot.paramMap.get('id');
-    if(this.departmentId=='')
-    {
-      return;
+    if (isNaN(+this.departmentId)) {
+      console.log('Not a Number!');
+      this.router.navigate(['/department']);
     }
-    else{
+    else {
       // do api call to retrieve latest department information 
       this.dataService.getDepartment(Number(this.departmentId))
         .subscribe(

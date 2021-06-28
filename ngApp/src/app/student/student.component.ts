@@ -179,12 +179,23 @@ export class StudentComponent implements OnInit {
   }
 
   // ok
-  displayColumnValue(colValue){
-    if(colValue.length>13){
-      return (colValue.substring(0, 13)+'...');
+  displayColumnValue(colValue, colWidth) {
+    // if(colValue.includes("@")){
+    if (colWidth == 2) {
+      if (colValue.length > 13) {
+        return (colValue.substring(0, 13) + '...');
+      }
+      else {
+        return colValue;
+      }
     }
-    else{
-      return colValue;
+    else {
+      if (colValue.length > 6) {
+        return (colValue.substring(0, 6) + '...');
+      }
+      else {
+        return colValue;
+      }
     }
   }
 

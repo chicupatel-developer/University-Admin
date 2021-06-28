@@ -52,10 +52,11 @@ export class CourseEditComponent implements OnInit {
    });
 
    this.couseId = this.route.snapshot.paramMap.get('id');
-   if (this.couseId == '') {
-     return;
-   }
-   else {
+    if (isNaN(+this.couseId)) {
+      console.log('Not a Number!');
+      this.router.navigate(['/course']);
+    }
+    else {
      // do api call to retrieve latest course information
      this.dataService.getCourse(Number(this.couseId))
        .subscribe(
