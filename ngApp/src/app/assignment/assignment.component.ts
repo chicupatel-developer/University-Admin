@@ -51,6 +51,8 @@ export class AssignmentComponent implements OnInit {
   // ok
   ngOnInit() {
 
+    this.assignments = [];
+
     this.asmtForm = this.fb.group({
       Title: ['', Validators.required],
       Details: ['', Validators.required],

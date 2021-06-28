@@ -43,10 +43,10 @@
                                         <div class="form-group">
                                             <label>Department Name</label>
                                             <input type="text" class="form-control" formControlName="DepartmentName">
-                                            <span class="text-danger"
+                                            <div class="alert alert-danger mt-2"
                                                 *ngIf="(deptFormControl.DepartmentName.touched || submitted) && deptFormControl.DepartmentName.errors?.required">
                                                 Department Name is required
-                                            </span>
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="row">

@@ -1,6 +1,6 @@
 <div class="container">
     <div class="col-md-6 mx-auto">
-        <div class="card">
+        <div class="card" style="background-color: lightgoldenrodyellow;">
             <div class="card-header">
                 <h3>
                     <div>
@@ -25,10 +25,10 @@
                         <input type="text" 
                             class="form-control" 
                             formControlName="CourseName">
-                        <span class="text-danger"
+                        <div class="alert alert-danger mt-2"
                             *ngIf="(crsFormControl.CourseName.touched || submitted) && crsFormControl.CourseName.errors?.required">
                             Course Name is required
-                        </span>
+                        </div>
                     </div>
                     <!-- faculty list -->
                     <div class="form-group">
@@ -43,18 +43,19 @@
                         </select>
                         <div *ngIf="submitted && crsFormControl.FacultyId.errors?.required" 
                             class="alert alert-danger mt-2">
-                            Please choose Faculty
+                            Faculty is required
                         </div>
                     </div>
+                    <hr />
                     <div class="form-group">
                         <div class="row">
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <button type="submit" 
                                     class="btn btn-success">
-                                    Edit
+                                    Edit Course
                                 </button>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-2">
                                 <button type="button" 
                                     (click)="resetCrs()" 
                                     class="btn btn-primary">

@@ -62,6 +62,7 @@ export class StudentComponent implements OnInit {
   // ok
   addStd() {
     this.newStdAddPanel = true;
+    this.showMailAddress = true;
   }
 
   // ok
