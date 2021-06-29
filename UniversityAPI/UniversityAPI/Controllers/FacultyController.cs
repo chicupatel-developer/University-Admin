@@ -68,6 +68,7 @@ namespace UniversityAPI.Controllers
             return Ok(fac);
         }
         // ok
+        // edit in action
         [HttpPost]
         [Route("editFaculty")]
         public IActionResult EditFaculty(Faculty faculty)
@@ -112,6 +113,8 @@ namespace UniversityAPI.Controllers
             return Ok(fac);
         }
         
+        // ok
+        // remove in action
         [HttpPost]
         [Route("removeFaculty")]
         public IActionResult RemoveFaculty(FacRemoveVM faculty)

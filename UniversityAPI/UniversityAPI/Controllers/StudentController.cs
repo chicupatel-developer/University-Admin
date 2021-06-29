@@ -77,8 +77,8 @@ namespace UniversityAPI.Controllers
             var std = _stdRepo.GetStudent(selectedStdId);
             return Ok(std);
         }
-
         // ok
+        // edit in action
         [Authorize("Admin")]
         [HttpPost]
         [Route("editStudent")]
@@ -273,7 +273,7 @@ namespace UniversityAPI.Controllers
             return Ok(listOfCrs);
         }
 
-        // registration process
+        // @registration process
         // returns students those are yet not linked to ApplicationUser
         // means students with StudentUserId is null
         // ok           
@@ -285,7 +285,6 @@ namespace UniversityAPI.Controllers
             return Ok(allStudents);
         }
 
-
         // ok
         // remove student
         [HttpGet]
@@ -296,6 +295,7 @@ namespace UniversityAPI.Controllers
             return Ok(std);
         }
         // ok
+        // remove in action
         [HttpPost]
         [Route("removeStudent")]
         public IActionResult RemoveStudent(StdRemoveVM student)

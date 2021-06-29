@@ -13,21 +13,25 @@ namespace DataAccess.EFCore.Repositories
     {
         private readonly UniversityContext appDbContext;
 
+        // ok
         public DepartmentRepository(UniversityContext appDbContext)
         {
             this.appDbContext = appDbContext;
         }
 
+        // ok
         public IEnumerable<Department> GetAllDepartments()
         {
             return appDbContext.Departments.Include(x => x.Faculties).OrderByDescending(d => d.DepartmentName).ToList();
         }
 
+        // ok
         public IEnumerable<Department> GetDepartments()
         {
             return appDbContext.Departments.ToList();
         }
 
+        // ok
         public Department AddDepartment(Department department)
         {
             var result = appDbContext.Departments.Add(department);
@@ -35,12 +39,14 @@ namespace DataAccess.EFCore.Repositories
             return result.Entity;
         }      
         
+        // ok
         public Department GetDepartment(int deptId)
         {
             var dept = appDbContext.Departments.Where(x => x.DepartmentId == deptId).FirstOrDefault();
             return dept;
         }
 
+        // ok
         public Department EditDepartment(Department department)
         {
             var result = appDbContext.Departments.Where(x => x.DepartmentId == department.DepartmentId).FirstOrDefault();
@@ -56,6 +62,7 @@ namespace DataAccess.EFCore.Repositories
             }            
         }
 
+        // ok
         public DeptRemoveVM InitializeRemoveDepartment(int deptId)
         {
             DeptRemoveVM deptRemoveVM = new DeptRemoveVM();
@@ -146,6 +153,7 @@ namespace DataAccess.EFCore.Repositories
             return deptRemoveVM;
         }
 
+        // ok
         public bool RemoveDepartment(DeptRemoveVM department)
         {
             // removing depending course if any

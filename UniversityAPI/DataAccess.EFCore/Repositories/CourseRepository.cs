@@ -13,12 +13,15 @@ namespace DataAccess.EFCore.Repositories
     {
         private readonly UniversityContext appDbContext;
 
+        // ok
         public CourseRepository(UniversityContext appDbContext)
         {
             this.appDbContext = appDbContext;
         }
 
-        // returns all courses from db table courses with other informations on department and faculty
+        // ok
+        // returns all courses from db table courses with other informations...
+        // on department and faculty
         public IEnumerable<CourseListVM> GetCourses()
         {
             List<CourseListVM> courses = new List<CourseListVM>();
@@ -54,6 +57,7 @@ namespace DataAccess.EFCore.Repositories
             return courses;
         }
 
+        // ok
         public Course AddCourse(Course course)
         {
             var result = appDbContext.Courses.Add(course);

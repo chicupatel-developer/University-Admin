@@ -13,16 +13,19 @@ namespace DataAccess.EFCore.Repositories
     {
         private readonly UniversityContext appDbContext;
 
+        // ok
         public AssignmentRepository(UniversityContext appDbContext)
         {
             this.appDbContext = appDbContext;
         }
 
+        // ok
         public IEnumerable<Assignment> GetAssignments()
         {
             return appDbContext.Assignments.ToList();
         }
 
+        // ok
         public Assignment AddAssignment(Assignment assignment)
         {
             var result = appDbContext.Assignments.Add(assignment);
@@ -30,6 +33,7 @@ namespace DataAccess.EFCore.Repositories
             return result.Entity;
         }
 
+        // ok
         public IEnumerable<FacultyListVM> GetFacultyList(int selectedDeptId)
         {
             List<FacultyListVM> faculties = new List<FacultyListVM>();
@@ -54,6 +58,7 @@ namespace DataAccess.EFCore.Repositories
             return faculties;
         }
 
+        // ok
         public IEnumerable<CourseListVM> GetCourseList(int selectedFacId)
         {
             List<CourseListVM> courses = new List<CourseListVM>();
@@ -77,6 +82,8 @@ namespace DataAccess.EFCore.Repositories
             }
             return courses;
         }
+       
+        // ok
         public IEnumerable<AsmtFacDeptVM> GetAsmtFacDept()
         {
             List<AsmtFacDeptVM> datas = new List<AsmtFacDeptVM>();
@@ -121,6 +128,8 @@ namespace DataAccess.EFCore.Repositories
             return datas;
         }
 
+        // ok
+        // Admin - Assignment upload
         public AsmtUpload FileUpload(AsmtUpload asmtUpload)
         {
             var result = appDbContext.AsmtUploads.Add(asmtUpload);

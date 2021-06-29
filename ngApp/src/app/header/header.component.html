@@ -1,8 +1,34 @@
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light" 
-    style="background-color: lightblue;">
-    <a class="navbar-brand" href="#">University Admin</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+    <a 
+        *ngIf="this._authService.isLoggedIn && !this._authService.isAdmin"
+        class="navbar-brand" 
+        href="#">
+        <b>
+            University
+            <label style="font-size:large; color: blue; margin-right: 50px;">
+                [{{this.localDataService.getMyRole()}}]
+            </label>
+        </b>
+    </a>
+    <a 
+        *ngIf="this._authService.isLoggedIn && this._authService.isAdmin" 
+        class="navbar-brand" 
+        href="#">
+        <b>
+            University
+            <label style="font-size:large; color: red; margin-right: 50px;">
+                [{{this.localDataService.getMyRole()}}]
+            </label>
+        </b>
+    </a>
+    <a 
+        *ngIf="!this._authService.isLoggedIn" 
+        class="navbar-brand" 
+        href="#"><b>University</b>
+    </a>
     <button 
+    
         class="navbar-toggler btn btn-outline-primary" 
         type="button" 
         data-toggle="collapse"
@@ -61,12 +87,18 @@
                 <a class='nav-link' *ngIf="!this._authService.isLoggedIn" [routerLink]="['/registration']">Register
                 </a>
             </li>    
-            <label *ngIf="this._authService.isLoggedIn" 
+            <label *ngIf="this._authService.isLoggedIn && this._authService.isAdmin" 
                 style="font-size:large; color: red;  margin-right: 50px;">
                 <b>
-                    Welcome...{{this.localDataService.getUserName()}} [{{this.localDataService.getMyRole()}}] !
+                    Welcome...{{this.localDataService.getUserName()}} !
                 </b>
             </label>    
+            <label *ngIf="this._authService.isLoggedIn && !this._authService.isAdmin" 
+                style="font-size:large; color: blue;  margin-right: 50px;">
+                <b>
+                    Welcome...{{this.localDataService.getUserName()}} !
+                </b>
+            </label>
             <button (click)="logout()" *ngIf="this._authService.isLoggedIn" 
                 type="button" 
                 class="btn btn-danger">

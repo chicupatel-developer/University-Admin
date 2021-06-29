@@ -196,9 +196,3 @@ db context: ApplicationDbContext.cs
 	** exceptions handling
 
 
---- to dos ---
-2 column form layout // ok
-number only // ok
-email only // ok
-phone number format // ok
-postal code // ok

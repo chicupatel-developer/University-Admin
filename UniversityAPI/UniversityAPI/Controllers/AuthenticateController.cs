@@ -23,7 +23,7 @@ namespace UniversityAPI.Controllers
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
-        // updating StudentUserId column value by Id column value of ApplicationUser
+        // updating StudentUserId column value of Student by Id column value of ApplicationUser
         private readonly IStudentRepository _stdRepo;
 
         private readonly UserManager<ApplicationUser> userManager;
@@ -151,9 +151,8 @@ namespace UniversityAPI.Controllers
          
         }
 
-        // external user has Admin role
         // ok
-        // google
+        // external user(google) has Admin role
         // select * from AspNetUserLogins
         [HttpPost("ExternalLogin")]
         public async Task<IActionResult> ExternalLogin([FromBody] ExternalAuthDto externalAuth)
@@ -356,7 +355,7 @@ namespace UniversityAPI.Controllers
 
                 await userManager.AddToRoleAsync(user, myRole);
 
-                // check if myRole==Student && studentId>0 then get recentyle created user's Id 
+                // check if myRole==Student && studentId>0 then get recently created user's Id 
                 // and update Student db table where StudentId == studentId
                 // means, storing Id value of ApplicationUser to Student db table's StudentUserId column
                 if (myRole == "Student")

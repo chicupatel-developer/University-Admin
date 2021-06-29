@@ -13,16 +13,19 @@ namespace DataAccess.EFCore.Repositories
     {
         private readonly UniversityContext appDbContext;
 
+        // ok
         public FacultyRepository(UniversityContext appDbContext)
         {
             this.appDbContext = appDbContext;
         }
 
+        // ok
         public IEnumerable<Faculty> GetFaculties()
         {
             return appDbContext.Faculties.ToList();
         }
 
+        // ok
         public Faculty AddFaculty(Faculty faculty)
         {
             var result = appDbContext.Faculties.Add(faculty);
@@ -30,6 +33,7 @@ namespace DataAccess.EFCore.Repositories
             return result.Entity;
         }
 
+        // ok
         public Faculty GetFaculty(int facId)
         {
             var fac = appDbContext.Faculties.Where(x => x.FacultyId == facId).FirstOrDefault();
@@ -147,6 +151,7 @@ namespace DataAccess.EFCore.Repositories
             return facRemoveVM;
         }
 
+        // ok
         public bool RemoveFaculty(FacRemoveVM faculty)
         {
             // removing depending course if any

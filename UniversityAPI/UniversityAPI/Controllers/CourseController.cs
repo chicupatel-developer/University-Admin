@@ -72,6 +72,7 @@ namespace UniversityAPI.Controllers
             return Ok(crs);
         } 
         // ok
+        // edit in action
         [HttpPost]
         [Route("editCourse")]
         public IActionResult EditCourse(Course course)
@@ -115,7 +116,8 @@ namespace UniversityAPI.Controllers
             var crs = _crsRepo.InitializeRemoveCourse(selectedCrsId);
             return Ok(crs);
         }
-
+        // ok
+        // remove in action
         [HttpPost]
         [Route("removeCourse")]
         public IActionResult RemoveCourse(CrsRemoveVM course)

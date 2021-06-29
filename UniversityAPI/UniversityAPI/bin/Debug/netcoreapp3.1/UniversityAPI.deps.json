@@ -1476,6 +1476,7 @@
           "Microsoft.AspNetCore.Identity": "2.1.1",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "3.1.0",
           "Microsoft.EntityFrameworkCore.SqlServer": "3.1.0",
+          "Microsoft.Extensions.Identity.Core": "3.1.0",
           "Microsoft.IdentityModel.Tokens": "6.9.0",
           "System.IdentityModel.Tokens.Jwt": "6.9.0"
         },

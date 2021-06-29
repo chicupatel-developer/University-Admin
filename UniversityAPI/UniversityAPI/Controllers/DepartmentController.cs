@@ -68,6 +68,7 @@ namespace UniversityAPI.Controllers
             return Ok(dept);
         }
         // ok
+        // edit in action
         [HttpPost]
         [Route("editDepartment")]
         public IActionResult EditDepartment(Department department)
@@ -113,6 +114,7 @@ namespace UniversityAPI.Controllers
         }
 
         // ok
+        // remove in action
         [HttpPost]
         [Route("removeDepartment")]
         public IActionResult RemoveDepartment(DeptRemoveVM department)

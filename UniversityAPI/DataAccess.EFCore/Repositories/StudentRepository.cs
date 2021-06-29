@@ -13,11 +13,13 @@ namespace DataAccess.EFCore.Repositories
     {
         private readonly UniversityContext appDbContext;
 
+        // ok
         public StudentRepository(UniversityContext appDbContext)
         {
             this.appDbContext = appDbContext;
         }
 
+        // ok
         // returns students those are yet not linked to ApplicationUser
         // means students with StudentUserId is null
         public IEnumerable<Student> GetStudentsNotLinkedToApplicationUser()
@@ -25,11 +27,13 @@ namespace DataAccess.EFCore.Repositories
             return appDbContext.Students.Where(x=>x.StudentUserId==null).OrderBy(d => d.FirstName).ToList();
         }
 
+        // ok
         public IEnumerable<Student> GetAllStudents()
         {
             return appDbContext.Students.Include(x => x.StdsToCourses).OrderBy(d => d.FirstName).ToList();
         }    
 
+        // ok
         public Student AddStudent(Student student)
         {
             var result = appDbContext.Students.Add(student);
@@ -37,12 +41,14 @@ namespace DataAccess.EFCore.Repositories
             return result.Entity;
         }
 
+        // ok
         public Student GetStudent(int stdId)
         {
             var std = appDbContext.Students.Where(x => x.StudentId == stdId).FirstOrDefault();
             return std;
         }
 
+        // ok
         public Student EditStudent(Student student)
         {
             var result = appDbContext.Students.Where(x => x.StudentId == student.StudentId).FirstOrDefault();
@@ -60,6 +66,7 @@ namespace DataAccess.EFCore.Repositories
             return result;
         }
 
+        // ok
         public bool EditCoursesToStudent(List<StdToCourse> stdToCourses)
         {
             try
@@ -91,6 +98,7 @@ namespace DataAccess.EFCore.Repositories
             }                  
         }
 
+        // ok
         // returns already assigned courses to student
         public IEnumerable<CourseListVM> GetCoursesForStudent(int stdId)
         {
@@ -116,6 +124,7 @@ namespace DataAccess.EFCore.Repositories
             return courses;
         }
 
+        // ok
         // this will load assignments of selected course to respective student 
         public IEnumerable<AsmtCrsStdVM> GetAsmtsForStudentCourse(AsmtStdCrsVM asmtStdCrsVM)
         {
@@ -184,6 +193,7 @@ namespace DataAccess.EFCore.Repositories
             return asmts;
         }
 
+        // ok
         // during asmt(course-student) download process
         public bool EditAsmtsToStudent(StdToAsmtDownload stdToAsmtDownload)
         {
@@ -218,6 +228,8 @@ namespace DataAccess.EFCore.Repositories
             }
         }
 
+        // ok
+        // Student - Assignment submit
         public AsmtSubmitVM AsmtSubmit(AsmtSubmitVM asmtSubmitVM)
         {
             var stdAsmtSubmit = appDbContext.StdToAsmt
@@ -235,6 +247,7 @@ namespace DataAccess.EFCore.Repositories
             return asmtSubmitVM;
         }
 
+        // ok
         // Student : user
         public StdCrsFacVM GetMyCourses(int stdId)
         {
@@ -267,6 +280,7 @@ namespace DataAccess.EFCore.Repositories
             return myCourses;
         }
 
+        // ok
         // updating StudentUserId column value by Id column value of ApplicationUser
         public void ConnectApplicationUserToStudent(string Id, int stdId)
         {
@@ -279,13 +293,14 @@ namespace DataAccess.EFCore.Repositories
             }
         }
 
+        // ok
         public Student GetStudentLoginProcess(string id)
         {
             var std = appDbContext.Students.Where(x => x.StudentUserId == id).FirstOrDefault();
             return std;
         }
 
-
+        // ok
         public StdRemoveVM InitializeRemoveStudent(int stdId)
         {
             StdRemoveVM stdRemoveVM = new StdRemoveVM();
@@ -360,6 +375,8 @@ namespace DataAccess.EFCore.Repositories
             }
             return stdRemoveVM;
         }
+        
+        // ok
         public bool RemoveStudent(StdRemoveVM student)
         {
             // removing depending student-course if any

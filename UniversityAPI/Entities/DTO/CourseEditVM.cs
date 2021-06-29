@@ -8,8 +8,10 @@ namespace Entities.DTO
     {
         public int CourseId { get; set; }
         public string CourseName { get; set; }
+
         public int DepartmentId { get; set; }
         public string DepartmentName { get; set; }
+
         public int CurrentFacultyId { get; set; }
         public List<FacultyListVM> FacultyList { get; set; }
     }
