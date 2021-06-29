@@ -34,7 +34,7 @@ export class FacultyComponent implements OnInit {
     this.facForm = this.fb.group({
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required],
-      Email: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.email]],
       Gender: ['', Validators.required],
       DepartmentId: ['', Validators.required],
       PhoneNumber: ['', [Validators.required, Validators.pattern("^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$")]]
@@ -195,5 +195,24 @@ export class FacultyComponent implements OnInit {
     }
     
    
+  }
+
+  // ok
+  onPhoneNumberChange(phoneNumber) {
+    if (phoneNumber.length == 3) {
+      this.facForm.patchValue({
+        PhoneNumber: phoneNumber + '-'
+      });
+    }
+    else if (phoneNumber.length == 7) {
+      this.facForm.patchValue({
+        PhoneNumber: phoneNumber + '-'
+      });
+    }
+    else {
+      this.facForm.patchValue({
+        PhoneNumber: phoneNumber
+      });
+    }
   }
 }

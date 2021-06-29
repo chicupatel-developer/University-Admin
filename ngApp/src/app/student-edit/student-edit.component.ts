@@ -33,7 +33,7 @@ export class StudentEditComponent implements OnInit {
     this.stdForm = this.fb.group({
       FirstName: ['', Validators.required],
       LastName: ['', Validators.required],
-      Email: ['', Validators.required],
+      Email: ['', [Validators.required, Validators.email]],
       Gender: ['', Validators.required],
       PhoneNumber: ['', [Validators.required, Validators.pattern("^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$")]],
       HomeAddress: [''],
@@ -173,5 +173,24 @@ export class StudentEditComponent implements OnInit {
     this.submitted = false;
 
     this.router.navigate(['/student']);
+  }
+
+  // ok
+  onPhoneNumberChange(phoneNumber) {
+    if (phoneNumber.length == 3) {
+      this.stdForm.patchValue({
+        PhoneNumber: phoneNumber + '-'
+      });
+    }
+    else if (phoneNumber.length == 7) {
+      this.stdForm.patchValue({
+        PhoneNumber: phoneNumber + '-'
+      });
+    }
+    else {
+      this.stdForm.patchValue({
+        PhoneNumber: phoneNumber
+      });
+    }
   }
 }
