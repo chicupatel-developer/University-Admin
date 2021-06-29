@@ -201,4 +201,4 @@ db context: ApplicationDbContext.cs
 number only // ok
 email only // ok
 phone number format // ok
-postal code // wip
+postal code // ok

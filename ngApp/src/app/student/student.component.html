@@ -110,6 +110,10 @@
                                                 <div class="form-group">
                                                     <label>Home Postal Code</label>
                                                     <input type="text" class="form-control" formControlName="HomePostalCode">
+                                                    <div *ngIf="(stdFormControl.HomePostalCode.touched || submitted) && stdFormControl.HomePostalCode.invalid"
+                                                        class="alert alert-danger mt-2">                                                        
+                                                        <span *ngIf="stdFormControl.HomePostalCode.errors.pattern">Invalid Home-PostalCode Format</span>
+                                                    </div>
                                                 </div>
                                                 
                                                 <!-- check box -->
@@ -129,6 +133,10 @@
                                                 <div *ngIf="showMailAddress" class="form-group">
                                                     <label>Mail Postal Code</label>
                                                     <input type="text" class="form-control" formControlName="MailPostalCode">
+                                                    <div *ngIf="(stdFormControl.MailPostalCode.touched || submitted) && stdFormControl.MailPostalCode.invalid"
+                                                        class="alert alert-danger mt-2">
+                                                        <span *ngIf="stdFormControl.MailPostalCode.errors.pattern">Invalid Mail-PostalCode Format</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>                                

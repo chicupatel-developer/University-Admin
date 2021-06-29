@@ -38,8 +38,8 @@ export class StudentEditComponent implements OnInit {
       PhoneNumber: ['', [Validators.required, Validators.pattern("^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$")]],
       HomeAddress: [''],
       MailAddress: [''],
-      HomePostalCode: [''],
-      MailPostalCode: ['']
+      HomePostalCode: ['', [Validators.pattern("[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]")]],
+      MailPostalCode: ['', [Validators.pattern("[A-Za-z][0-9][A-Za-z] [0-9][A-Za-z][0-9]")]]
     });
 
     this.studentId = this.route.snapshot.paramMap.get('id');
