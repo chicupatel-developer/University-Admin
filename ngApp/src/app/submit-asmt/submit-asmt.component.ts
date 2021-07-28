@@ -51,7 +51,7 @@ export class SubmitAsmtComponent implements OnInit {
         setTimeout(() => {
           this.message = '';
           this.onUploadFinished.emit(event.body);
-        }, 5000);
+        }, 20000);
       }
     },
       (error) => {

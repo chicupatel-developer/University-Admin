@@ -399,7 +399,7 @@ export class AssignmentComponent implements OnInit {
 
         setTimeout(() => {
           this.resetAfterFileDownload();
-        }, 5000);
+        }, 20000);
       }, error => {
         if (error.status == 400){
           this.setFileDownload('File Not Found!', 'red', assignment.asmtFileName);

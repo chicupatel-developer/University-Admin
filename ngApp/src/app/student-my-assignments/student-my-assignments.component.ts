@@ -97,7 +97,7 @@ export class StudentMyAssignmentsComponent implements OnInit {
 
           // refresh assignments belong to selected course of student
           this.loadAsmtsForStudentCourse(this.studentModel.studentId, this.studentModel.courseId);
-        }, 5000);
+        }, 20000);
       }, error => {
         if (error.status == 400) {
           this.setFileDownload('File Not Found!', 'red', assignment.asmtFileName);
