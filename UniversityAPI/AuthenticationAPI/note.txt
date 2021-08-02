@@ -1,3 +1,4 @@
-﻿Add-Migration adding-student-role -context AuthenticationAPI.Authentication.ApplicationDbContext -OutputDir AuthenticationMigrations
+﻿PM commands: 
+Add-Migration adding-student-role -context AuthenticationAPI.Authentication.ApplicationDbContext -OutputDir AuthenticationMigrations
 update-database -context AuthenticationAPI.Authentication.ApplicationDbContext
 
