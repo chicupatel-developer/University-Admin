@@ -110,87 +110,85 @@ DB Tables Relationship
 	- for Student - Role, first need to create Student @ Student db table__ and then after @ Registration process, 
      select Student - Role and __ map already created Student with Student - Role profile
 	- after un-successful Registration, error message is displayed___ after successful Registration, redirects to Signin page 
+	- exceptions handling
+
+
+---> [Department] ADMIN : Role
+
+	- User can add / edit / view Department
+	- User can remove Department
+	- Faculty, Course and Assignment are depending on Department
+	- before User can remove Department, system displays all possible dependencies
+	- when User execute remove Department action, system safely remove first
+        	all possible dependencies and finally remove Department itself 
+	- after un-successful operation, error message is displayed
+	- after successful operation, redirects to it's main respective Component page
+	- exceptions handling
+
+
+---> [Faculty] ADMIN : Role
+
+	- User can add / edit / view Faculty
+	- User can remove Faculty
+	- Course and Assignment are depending on Faculty
+	- before User can remove Faculty, system displays all possible dependencies
+	- when User execute remove Faculty action, system safely remove first
+        	all possible dependencies and finally remove Faculty itself
+	- after un-successful operation, error message is displayed
+	- after successful operation, redirects to it's main respective Component page
+	- exceptions handling
+
+
+---> [Course] ADMIN : Role
+
+	- User can add / view Course
+	- User can edit Course	
+	- User can edit Course's Faculty
+		(Faculty options belong to Course's current Department's Faculties)
+	- User can remove Course
+	- Assignment is depending on Course
+	- before User can remove Course, system displays all possible dependencies
+	- when User execute remove Course action, system safely remove first
+        	all possible dependencies and finally remove Course itself
+	- after un-successful operation, error message is displayed
+	- after successful operation, redirects to it's main respective Component page
+	- exceptions handling
+
+
+---> [Assignment] ADMIN : Role
+
+	- User can add Assignment
+	- User can Upload Assignment File along with other necessary details	
+	- User can view Assignment
+	- User can Search / Filter Assignment by Department and/or Faculty
+	- User can Download Assignment File
+	- after un-successful operation, error message is displayed
+	- after successful operation, redirects to it's main respective Component page
+	- exceptions handling
+
+
+---> [Student] ADMIN : Role
+
+	- User can add / edit / view Student
+	- User can remove Student	
+	- Student-Course and Student-Assignment are depending on Student
+	- before User can remove Student, system displays all possible dependencies
+	- when user execute remove Student action, system safely remove first
+		all possible dependencies and finally remove Student itself
+	- after un-successful operation, error message is displayed
+	- after successful operation, redirects to it's main respective Component page
 	- exceptions handling  
   
 
+---> [Student]-[Course] = [StdsToCourses] ADMIN : Role
 
----> [Department] 
-      (Role - Admin)
-  
-	- User can add / edit / view Department
-	- User can remove Department
-    	- Faculty, Course and Assignment are depending on Department
-    	- before User can remove Department, system displays all possible dependencies
-    	- when User execute remove Department action, system safely remove first
-        	all possible dependencies and finally remove Department itself 
-	- after un-successful operation, error message is displayed 
-  - after successful operation, redirects to it's main respective Component page 
-  - exceptions handling 
-  
-
----> [Faculty] (Role - Admin)
-
-  - after un-successful operation, error message is displayed
-  - after successful operation, redirects to it's main respective Component page
-	- User can add / edit / view Faculty
-	- User can remove Faculty
-    	- Course and Assignment are depending on Faculty
-    	- before User can remove Faculty, system displays all possible dependencies
-    	- when User execute remove Faculty action, system safely remove first
-        	all possible dependencies and finally remove Faculty itself
-	- exceptions handling
-
-
----> [Course] (Role - Admin)
-
-  - after un-successful operation, error message is displayed
-  - after successful operation, redirects to it's main respective Component page
-	- User can add / view Course
-	- User can edit Course
-    	- User can edit Course's Faculty 
-        	(Faculty options belong to Course's current Department's Faculties)
-	- User can remove Course
-    	- Assignment is depending on Course
-    	- before User can remove Course, system displays all possible dependencies
-    	- when User execute remove Course action, system safely remove first
-        	all possible dependencies and finally remove Course itself
-	- exceptions handling
-
-
----> [Assignment] (Role - Admin)
-
-  - after un-successful operation, error message is displayed
-  - after successful operation, redirects to it's main respective Component page
-	- User can add Assignment
-    	- User can Upload Assignment File along with other necessary details
-	- User can view Assignment
-    	- User can Search / Filter Assignment by Department and/or Faculty
-    	- User can Download Assignment File
-	- exceptions handling
-    		
-        
----> [Student] (Role - Admin)
-
-  - after un-successful operation, error message is displayed
-  - after successful operation, redirects to it's main respective Component page
-	- User can add / edit / view Student
-	- User can remove Student
-    	- Student-Course and Student-Assignment are depending on Student
-    	- before User can remove Student, system displays all possible dependencies
-    	- when user execute remove Student action, system safely remove first
-        	all possible dependencies and finally remove Student itself
-	- exceptions handling
-
-
----> [Student]-[Course] = [StdsToCourses] (Role - Admin)
-
-  - after un-successful operation, error message is displayed
-  - after successful operation, redirects to it's main respective Component page
 	- User can view / add / remove Course(s) assigned to selected Student
-	- exceptions handling
+	- after un-successful operation, error message is displayed
+	- after successful operation, redirects to it's main respective Component page
+	- exceptions handling  
   
   
----> [Student]-[Course]-[Assignment] = [StdsToCourses]-[StdToAsmt] (Role - Student)
+---> [Student]-[Course]-[Assignment] = [StdsToCourses]-[StdToAsmt] STUDENT : Role
 
 	- User can view assigned Course(s) information like Course and Faculty info
 	- User can view Assignments only for assigned Courses
