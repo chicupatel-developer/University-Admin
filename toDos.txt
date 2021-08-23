@@ -1,0 +1,8 @@
+direct db changes,,, @ sql server
+adjust @ ef migration for Assignments @ AsmtUploads tables
+
+ALTER TABLE Assignments
+ADD UNIQUE (AsmtUploadId);
+
+ALTER TABLE Assignments
+ADD FOREIGN KEY (AsmtUploadId) REFERENCES AsmtUploads(AsmtUploadId);
