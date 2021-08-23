@@ -1,5 +1,5 @@
 direct db changes,,, @ sql server
-adjust @ ef migration for Assignments @ AsmtUploads tables
+adjust @ ef migration for Assignments & AsmtUploads tables
 
 ALTER TABLE Assignments
 ADD UNIQUE (AsmtUploadId);
