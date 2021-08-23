@@ -335,3 +335,10 @@ Student-Course-Assignment  (STUDENT: ROLE)
 
 ![Student_MyAssignments_Submit_Submitted](https://user-images.githubusercontent.com/26190114/130489584-d27d5056-0186-4fa5-ae56-87c8efb567ee.PNG)
 
+
+
+DIAGRAM___S
+
+[All Dia.pdf](https://github.com/Ankithorizon/University-API-Angular/files/7033814/All.Dia.pdf)
+
+
