@@ -362,3 +362,8 @@ Student-Course-Assignment  (STUDENT: ROLE)
 
 ![0008](https://user-images.githubusercontent.com/26190114/130491502-6cb7c656-733a-4741-9171-f6623b483bf3.jpg)
 
+
+# DB Diagram
+
+![DB Dia](https://user-images.githubusercontent.com/26190114/130516485-d4a79eb3-8718-4ecc-8294-38d1d96677a4.PNG)
+
