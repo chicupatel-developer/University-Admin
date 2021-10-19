@@ -6,7 +6,7 @@ Technology
 ----------
 - .Net Core Web API
 
-- EF Core - code first - EF Transaction
+- EF Core - Code First - EF Transaction
 
 - Repository pattern
 
