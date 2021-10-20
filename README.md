@@ -18,68 +18,17 @@ Technology
 
 - Angular, Html, CSS, Javascript, Bootstrap
 
-DB Tables
----------
-    [departments]
-    [faculties]
-    [courses]
-    [assignments]
-    [asmtUploads] (assignment upload)
-    [students]
-    [stdstocourses] (students to courses)
-    [stdtoasmt] (students to assignments)    
-    - db context: UniversityContext.cs
+## Database
 
-DB Tables
---------- 
-    [AspNetUsers] (all Users (Admin/Student))
-    [AspNetRoles] (Admin/Student - Roles)
-    [AspNetUserLogins] (external(google) - signin)
-    - db context: ApplicationDbContext.cs
+![DB Dia1](https://user-images.githubusercontent.com/26190114/138126964-5b44a347-b119-4f98-9853-880d3273e963.PNG)
 
-DB Tables Relationship
-----------------------
----> [Department]-[Faculty]-[Course]
-          
-	- [Department]-[Faculty]
-		- (Department)1------->0-*(Faculty)
-		- (Faculty)1------->1(Department)
-	- [Department]-[Course]
-		- (Department)1------->0-*(Course)
-		- (Course)1------->1(Department)
-	- [Faculty]-[Course]
-		- (Faculty)1------->0-*(Course)
-		- (Course)1------->1(Faculty)	
+![DB Dia2](https://user-images.githubusercontent.com/26190114/138126986-1888a9b2-37f0-4148-a079-6be028c3a352.PNG)
 
-
----> [Assignment]-[Faculty]-[Course] 
-
-	- [Assignment]-[Faculty]
-		- (Assignment)1------->1(Faculty)
-		- (Faculty)1------->0-*(Assignment)
-	- [Assignment]-[Course]
-		- (Assignment)1------->1(Course)
-		- (Course)1------->0-*(Assignment)
-
----> [Student]-[Course]-[Assignment] 
-
-	- Student can have Assignment(s) only belong to the assigned Courses to the Student
-			means... Assignments depend on Course and Courses are assigned to Student		
-	- [Student]-[Course]
-		- [StdsToCourses]
-		- (Student)1------->0-*(Course)
-		- (Course)1------->0-*(Student)
-	- [Student]-[Assignment]
-		- [StdToAsmt]
-		- (Student)1------->0-*(Assignment)
-		- (Assignment)1------->0-*(Student)
 
 ---> exceptions handling
 
 	  - Model validations are handled on Client side - Angular - Component
 	  - all Server side exceptions are handled on Api - Controller / C# Service
-	  - all File Upload/Download related exceptions are handled on Api/Controller and Angular/Component
-
 
 ---> [Role based Authentication]
 
@@ -94,13 +43,13 @@ DB Tables Relationship
 		returns 403 (Forbidden)
 	- on Angular side auth.interceptor.ts file catches 403 and, redirects to Home page
 		
+		
 ---> [Signin]
 
 	- User can sign-in
 	- after successful sign-in, Token, Role and other User's information is stored
 		on Client side and menu options are displayed as per User's Role and redirects to Home page
 	- after un-successful sign-in, error message is displayed 
-	- exceptions handling
 
 
 ---> [Registration]
@@ -110,7 +59,6 @@ DB Tables Relationship
 	- for Student - Role, first need to create Student @ Student db table__ and then after @ Registration process, 
      select Student - Role and __ map already created Student with Student - Role profile
 	- after un-successful Registration, error message is displayed___ after successful Registration, redirects to Signin page 
-	- exceptions handling
 
 
 ---> [Department] ADMIN : Role
@@ -123,7 +71,6 @@ DB Tables Relationship
         	all possible dependencies and finally remove Department itself 
 	- after un-successful operation, error message is displayed
 	- after successful operation, redirects to it's main respective Component page
-	- exceptions handling
 
 
 ---> [Faculty] ADMIN : Role
@@ -136,7 +83,6 @@ DB Tables Relationship
         	all possible dependencies and finally remove Faculty itself
 	- after un-successful operation, error message is displayed
 	- after successful operation, redirects to it's main respective Component page
-	- exceptions handling
 
 
 ---> [Course] ADMIN : Role
@@ -152,7 +98,6 @@ DB Tables Relationship
         	all possible dependencies and finally remove Course itself
 	- after un-successful operation, error message is displayed
 	- after successful operation, redirects to it's main respective Component page
-	- exceptions handling
 
 
 ---> [Assignment] ADMIN : Role
@@ -164,7 +109,6 @@ DB Tables Relationship
 	- User can Download Assignment File
 	- after un-successful operation, error message is displayed
 	- after successful operation, redirects to it's main respective Component page
-	- exceptions handling
 
 
 ---> [Student] ADMIN : Role
@@ -177,7 +121,6 @@ DB Tables Relationship
 		all possible dependencies and finally remove Student itself
 	- after un-successful operation, error message is displayed
 	- after successful operation, redirects to it's main respective Component page
-	- exceptions handling  
   
 
 ---> [Student]-[Course] = [StdsToCourses] ADMIN : Role
@@ -185,7 +128,6 @@ DB Tables Relationship
 	- User can view / add / remove Course(s) assigned to selected Student
 	- after un-successful operation, error message is displayed
 	- after successful operation, redirects to it's main respective Component page
-	- exceptions handling  
   
   
 ---> [Student]-[Course]-[Assignment] = [StdsToCourses]-[StdToAsmt] STUDENT : Role
@@ -195,7 +137,6 @@ DB Tables Relationship
 	- User can Download Assignment and Submit Assignment
 	- User can not Submit Assignment before Download it first
 	- after Downloaded and Submitted Assignments, user can not Re-Submit Assignment
-	- exceptions handling
 
 
 
