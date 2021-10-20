@@ -1,6 +1,4 @@
-# University-API-Angular
-
-# DotNet Core + Angular
+# University-Admin (DotNet Core + Angular)
 
 Technology
 ----------
