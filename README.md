@@ -1,4 +1,6 @@
-# University-Admin (DotNet Core + Angular)
+# University-Admin 
+
+# DotNet Core + Angular
 
 Technology
 ----------
@@ -138,9 +140,9 @@ Technology
 
 
 
-# SCREEN___S
+# Screens
 
-Home
+## Home->
 
 ![Home1](https://user-images.githubusercontent.com/26190114/130487955-3b907fc2-4657-4dd8-981a-64c1d2169c6a.PNG)
 
@@ -148,7 +150,7 @@ Home
 ![Home2](https://user-images.githubusercontent.com/26190114/130488070-2230b481-c628-4ae5-9f83-ba88ab7cc939.PNG)
 
 
-Login
+## Login->
 
 ![Login](https://user-images.githubusercontent.com/26190114/130488116-deeb9157-eddb-498e-b2f8-5c31d5145392.PNG)
 
@@ -159,7 +161,7 @@ Login
 ![Google Login Success](https://user-images.githubusercontent.com/26190114/130488160-fdfcdcaa-ba54-42ed-86f0-2df513987da8.PNG)
 
 
-Registration
+## Registration->
 
 ![Registration_Admin_Role](https://user-images.githubusercontent.com/26190114/130489128-e4f9bc2d-c4f2-435f-90a6-67ee687316a7.PNG)
 
@@ -167,7 +169,7 @@ Registration
 ![Registration_Student_Role](https://user-images.githubusercontent.com/26190114/130489131-a8022af3-ea94-4c9a-8ae8-ea9e1ab95088.PNG)
 
 
-Department (ADMIN: ROLE)
+## Department (ADMIN: ROLE)->
 
 ![Department](https://user-images.githubusercontent.com/26190114/130488215-14339bb9-594f-402b-8730-77aea32f43a5.PNG)
 
@@ -184,7 +186,7 @@ Department (ADMIN: ROLE)
 ![Department_Remove_Force](https://user-images.githubusercontent.com/26190114/130488484-3b82f066-125d-44bb-a163-8a0eb73738bc.PNG)
 
 
-Faculty  (ADMIN: ROLE)
+## Faculty  (ADMIN: ROLE)->
 
 ![Faculty](https://user-images.githubusercontent.com/26190114/130488527-61193b2f-b584-49ac-872a-da8f384c923e.PNG)
 
@@ -201,7 +203,7 @@ Faculty  (ADMIN: ROLE)
 ![Faculty_Remove_Force](https://user-images.githubusercontent.com/26190114/130488631-0e42761f-4444-429b-b514-cf3e932e6939.PNG)
 
 
-Course  (ADMIN: ROLE)
+## Course  (ADMIN: ROLE)->
 
 ![Course](https://user-images.githubusercontent.com/26190114/130488685-3f34cd08-26a6-4604-a296-aedf7b339958.PNG)
 
@@ -218,7 +220,7 @@ Course  (ADMIN: ROLE)
 ![Course_Remove_Force](https://user-images.githubusercontent.com/26190114/130488753-3f9742c0-05b4-449f-8dde-fd23be067f88.PNG)
 
 
-Assignment  (ADMIN: ROLE)
+## Assignment  (ADMIN: ROLE)->
 
 ![Assignment_View](https://user-images.githubusercontent.com/26190114/130488833-c13788ba-e545-4c33-a3c5-0a7713add9e2.PNG)
 
@@ -232,7 +234,7 @@ Assignment  (ADMIN: ROLE)
 ![Assignment_Upload_Add](https://user-images.githubusercontent.com/26190114/130488924-1e7e5c90-9386-4fa1-9ca1-024eda8548d1.PNG)
 
 
-Student  (ADMIN: ROLE)
+## Student  (ADMIN: ROLE)->
 
 ![Student_View](https://user-images.githubusercontent.com/26190114/130488963-0416553f-8489-492f-b77c-f290320b85e1.PNG)
 
@@ -255,7 +257,7 @@ Student  (ADMIN: ROLE)
 ![Student_Remove_Force](https://user-images.githubusercontent.com/26190114/130489214-83e80466-e178-4a29-9250-5be75af4cd43.PNG)
 
 
-Student-Course-Assignment  (STUDENT: ROLE)
+## Student-Course-Assignment  (STUDENT: ROLE)->
 
 ![Student_MyCourses_View](https://user-images.githubusercontent.com/26190114/130489419-f249449d-ae7a-4bdf-a2cc-5fd054e4fb00.PNG)
 
@@ -277,7 +279,7 @@ Student-Course-Assignment  (STUDENT: ROLE)
 
 
 
-# DIAGRAM___S
+# DIAGRAMS
 
 
 ![0001](https://user-images.githubusercontent.com/26190114/130491398-2313de2e-fad5-4a35-a7fb-4df551a37cbb.jpg)
