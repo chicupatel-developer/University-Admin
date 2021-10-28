@@ -128,7 +128,7 @@ Technology
 	- after successful operation, redirects to it's main respective Component page
   
   
----> [Student]-[Course]-[Assignment] = [StdsToCourses]-[StdToAsmt] STUDENT : Role
+---> [Student]-[Course]-[Assignment] = [StdsToCourses]-[StdToAsmt] ### STUDENT : Role
 
 	- User can view assigned Course(s) information like Course and Faculty info
 	- User can view Assignments only for assigned Courses
