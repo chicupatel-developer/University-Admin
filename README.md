@@ -61,7 +61,8 @@ Technology
 	- after un-successful Registration, error message is displayed___ after successful Registration, redirects to Signin page 
 
 
----> [Department] ADMIN : Role
+---> [Department] 
+### ADMIN : Role
 
 	- User can add / edit / view Department
 	- User can remove Department
@@ -73,7 +74,8 @@ Technology
 	- after successful operation, redirects to it's main respective Component page
 
 
----> [Faculty] ADMIN : Role
+---> [Faculty] 
+### ADMIN : Role
 
 	- User can add / edit / view Faculty
 	- User can remove Faculty
@@ -85,7 +87,8 @@ Technology
 	- after successful operation, redirects to it's main respective Component page
 
 
----> [Course] ADMIN : Role
+---> [Course] 
+### ADMIN : Role
 
 	- User can add / view Course
 	- User can edit Course	
@@ -100,7 +103,8 @@ Technology
 	- after successful operation, redirects to it's main respective Component page
 
 
----> [Assignment] ADMIN : Role
+---> [Assignment] 
+### ADMIN : Role
 
 	- User can add Assignment
 	- User can Upload Assignment File along with other necessary details	
@@ -111,7 +115,8 @@ Technology
 	- after successful operation, redirects to it's main respective Component page
 
 
----> [Student] ADMIN : Role
+---> [Student] 
+### ADMIN : Role
 
 	- User can add / edit / view Student
 	- User can remove Student	
@@ -123,14 +128,16 @@ Technology
 	- after successful operation, redirects to it's main respective Component page
   
 
----> [Student]-[Course] = [StdsToCourses] ADMIN : Role
+---> [Student]-[Course] = [StdsToCourses] 
+### ADMIN : Role
 
 	- User can view / add / remove Course(s) assigned to selected Student
 	- after un-successful operation, error message is displayed
 	- after successful operation, redirects to it's main respective Component page
   
   
----> [Student]-[Course]-[Assignment] = [StdsToCourses]-[StdToAsmt] STUDENT : Role
+---> [Student]-[Course]-[Assignment] = [StdsToCourses]-[StdToAsmt] 
+### STUDENT : Role
 
 	- User can view assigned Course(s) information like Course and Faculty info
 	- User can view Assignments only for assigned Courses
@@ -144,10 +151,7 @@ Technology
 
 ## Home->
 
-![Home1](https://user-images.githubusercontent.com/26190114/130487955-3b907fc2-4657-4dd8-981a-64c1d2169c6a.PNG)
-
-
-![Home2](https://user-images.githubusercontent.com/26190114/130488070-2230b481-c628-4ae5-9f83-ba88ab7cc939.PNG)
+![Home](https://user-images.githubusercontent.com/26190114/139494416-78d0ca71-1b6f-4a1d-9867-96f4c5c8e746.PNG)
 
 
 ## Login->
