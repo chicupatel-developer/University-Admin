@@ -1,8 +1,37 @@
 
-.header {
-  margin-top: -30px;
-  font-size: x-large;
-  text-align: center;
-  background-color: lightyellow;
-  color: coral;  
+
+.divButton{
+    text-align: center;
+vertical-align: middle;
+color:darkblue;
+background-color:lightblue;
+padding-bottom: 10px;
+padding-top: 10px;
+  border: 2px solid red;
+  border-radius: 20px;
 }
+.homePageHeader{
+    text-align: center;
+vertical-align: middle;
+color:blue;
+background-color:lightyellow;
+padding-bottom: 10px;
+padding-top: 10px;
+  border: 2px solid red;
+  border-radius: 20px;
+}
+ .titleHeader {
+        text-align: center;
+        vertical-align: middle;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        border: 2px solid green;
+        border-radius: 10px;
+        background-color: lightskyblue;
+    }
+    .titleHeader {
+      font-size: medium;
+    }
+
+
+

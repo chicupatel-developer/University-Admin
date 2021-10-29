@@ -1,26 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\University\\UniversityAPI\\UniversityAPI\\UniversityAPI.csproj": {}
+    "C:\\University\\University-API-Angular\\UniversityAPI\\UniversityAPI\\UniversityAPI.csproj": {}
   },
   "projects": {
-    "C:\\University\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj": {
+    "C:\\University\\University-API-Angular\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\University\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj",
+        "projectUniqueName": "C:\\University\\University-API-Angular\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj",
         "projectName": "AuthenticationAPI",
-        "projectPath": "C:\\University\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj",
-        "packagesPath": "C:\\Users\\Satellite\\.nuget\\packages\\",
-        "outputPath": "C:\\University\\UniversityAPI\\AuthenticationAPI\\obj\\",
+        "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj",
+        "packagesPath": "C:\\Users\\ankit_2\\.nuget\\packages\\",
+        "outputPath": "C:\\University\\University-API-Angular\\UniversityAPI\\AuthenticationAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Satellite\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\ankit_2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -104,27 +102,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\University\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj": {
+    "C:\\University\\University-API-Angular\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\University\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj",
+        "projectUniqueName": "C:\\University\\University-API-Angular\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj",
         "projectName": "DataAccess.EFCore",
-        "projectPath": "C:\\University\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj",
-        "packagesPath": "C:\\Users\\Satellite\\.nuget\\packages\\",
-        "outputPath": "C:\\University\\UniversityAPI\\DataAccess.EFCore\\obj\\",
+        "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj",
+        "packagesPath": "C:\\Users\\ankit_2\\.nuget\\packages\\",
+        "outputPath": "C:\\University\\University-API-Angular\\UniversityAPI\\DataAccess.EFCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Satellite\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\ankit_2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -137,8 +133,8 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\University\\UniversityAPI\\Entities\\Entities.csproj": {
-                "projectPath": "C:\\University\\UniversityAPI\\Entities\\Entities.csproj"
+              "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\Entities.csproj"
               }
             }
           }
@@ -177,27 +173,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\University\\UniversityAPI\\Entities\\Entities.csproj": {
+    "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\University\\UniversityAPI\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "C:\\University\\UniversityAPI\\Entities\\Entities.csproj",
-        "packagesPath": "C:\\Users\\Satellite\\.nuget\\packages\\",
-        "outputPath": "C:\\University\\UniversityAPI\\Entities\\obj\\",
+        "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\Entities.csproj",
+        "packagesPath": "C:\\Users\\ankit_2\\.nuget\\packages\\",
+        "outputPath": "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Satellite\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\ankit_2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -252,27 +246,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\University\\UniversityAPI\\UniversityAPI\\UniversityAPI.csproj": {
+    "C:\\University\\University-API-Angular\\UniversityAPI\\UniversityAPI\\UniversityAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\University\\UniversityAPI\\UniversityAPI\\UniversityAPI.csproj",
+        "projectUniqueName": "C:\\University\\University-API-Angular\\UniversityAPI\\UniversityAPI\\UniversityAPI.csproj",
         "projectName": "UniversityAPI",
-        "projectPath": "C:\\University\\UniversityAPI\\UniversityAPI\\UniversityAPI.csproj",
-        "packagesPath": "C:\\Users\\Satellite\\.nuget\\packages\\",
-        "outputPath": "C:\\University\\UniversityAPI\\UniversityAPI\\obj\\",
+        "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\UniversityAPI\\UniversityAPI.csproj",
+        "packagesPath": "C:\\Users\\ankit_2\\.nuget\\packages\\",
+        "outputPath": "C:\\University\\University-API-Angular\\UniversityAPI\\UniversityAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Satellite\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\ankit_2\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
@@ -285,14 +277,14 @@
           "netcoreapp3.1": {
             "targetAlias": "netcoreapp3.1",
             "projectReferences": {
-              "C:\\University\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj": {
-                "projectPath": "C:\\University\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj"
+              "C:\\University\\University-API-Angular\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj": {
+                "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj"
               },
-              "C:\\University\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj": {
-                "projectPath": "C:\\University\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj"
+              "C:\\University\\University-API-Angular\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj": {
+                "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj"
               },
-              "C:\\University\\UniversityAPI\\Entities\\Entities.csproj": {
-                "projectPath": "C:\\University\\UniversityAPI\\Entities\\Entities.csproj"
+              "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\Entities.csproj"
               }
             }
           }
@@ -348,7 +340,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.200\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.302\\RuntimeIdentifierGraph.json"
         }
       }
     }
