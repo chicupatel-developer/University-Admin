@@ -144,7 +144,7 @@ Technology
 
 ## Home->
 
-![Home](https://user-images.githubusercontent.com/26190114/139494416-78d0ca71-1b6f-4a1d-9867-96f4c5c8e746.PNG)
+![Home](https://user-images.githubusercontent.com/26190114/139495292-003a19e4-e5d3-4b30-a4a2-85ce3c038933.PNG)
 
 
 ## Login->
