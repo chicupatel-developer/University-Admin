@@ -25,12 +25,12 @@ Technology
 ![DB Dia2](https://user-images.githubusercontent.com/26190114/138126986-1888a9b2-37f0-4148-a079-6be028c3a352.PNG)
 
 
----> exceptions handling
+### ---> exceptions handling
 
 	  - Model validations are handled on Client side - Angular - Component
 	  - all Server side exceptions are handled on Api - Controller / C# Service
 
----> [Role based Authentication]
+### ---> [Role based Authentication]
 
 	- JWT Authentication
 	- sign-in using Google Authentication and Custom JWT Authentication
@@ -44,7 +44,7 @@ Technology
 	- on Angular side auth.interceptor.ts file catches 403 and, redirects to Home page
 		
 		
----> [Signin]
+### ---> [Signin]
 
 	- User can sign-in
 	- after successful sign-in, Token, Role and other User's information is stored
@@ -52,7 +52,7 @@ Technology
 	- after un-successful sign-in, error message is displayed 
 
 
----> [Registration]
+### ---> [Registration]
 
 	- User can be either Admin or Student
 	- @ Registration process, Admin - role profile is created
