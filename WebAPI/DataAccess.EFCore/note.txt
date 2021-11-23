@@ -1,0 +1,3 @@
+﻿PM commands: 
+Add-Migration init-db-create -context DataAccess.EFCore.UniversityContext -OutputDir Migrations
+update-database -context DataAccess.EFCore.UniversityContext

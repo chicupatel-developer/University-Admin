@@ -1,0 +1,193 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            <div class="card">
+                <div class="card-header" style="background-color: lightyellow;">
+                    <h3>
+                        <div>
+                            Faculties
+                        </div>
+                        <hr />
+                        <div>
+                            <button *ngIf="!newFacAddPanel" 
+                                type="button" (click)="addFac()"
+                                class="btn btn-success">Add Faculty</button>
+                        </div>
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="container" *ngIf="newFacAddPanel">
+                        <div class="col-md-10 mx-auto">
+                            <div class="card" style="background-color: lightblue;">
+                                <div class="card-header">
+                                    <h3>
+                                        <div>
+                                            Faculty - Add
+                                        </div>
+                                        <hr />
+                                        <h4 *ngIf="apiResponse">
+                                            <span [style.color]="responseColor">
+                                                {{apiResponse}}
+                                            </span>
+                                            <hr />
+                                        </h4>
+                                    </h3>
+                                </div>
+                                <div class="card-body" >
+                                    <form class="form-fac" 
+                                        [formGroup]="facForm" 
+                                        (ngSubmit)="onSubmit()">
+                                        <div class="row" >
+                                            <div class="col-md-6 mx-auto">
+                                                <div class="form-group">
+                                                    <label>First Name</label>
+                                                    <input type="text" class="form-control" formControlName="FirstName">
+                                                    <div class="alert alert-danger mt-2"
+                                                        *ngIf="(facFormControl.FirstName.touched || submitted) && facFormControl.FirstName.errors?.required">
+                                                        First Name is required
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Last Name</label>
+                                                    <input type="text" class="form-control" formControlName="LastName">
+                                                    <div class="alert alert-danger mt-2"
+                                                        *ngIf="(facFormControl.LastName.touched || submitted) && facFormControl.LastName.errors?.required">
+                                                        Last Name is required
+                                                    </div>
+                                                </div>
+                                                <!-- PhoneNumber -->
+                                                <div class="form-group">
+                                                    <label>Phone </label>
+                                                    <input type="text" 
+                                                        (input)="onPhoneNumberChange($event.target.value)"
+                                                        class="form-control" 
+                                                        formControlName="PhoneNumber">
+                                                    <div *ngIf="(facFormControl.PhoneNumber.touched || submitted) && facFormControl.PhoneNumber.invalid"
+                                                        class="alert alert-danger mt-2">
+                                                        <span *ngIf="facFormControl.PhoneNumber.errors.required">Phone Number is required</span>
+                                                        <span *ngIf="facFormControl.PhoneNumber.errors.pattern">Invalid Phone Number Format</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mx-auto">
+                                                <div class="form-group">
+                                                    <label>Email</label>
+                                                    <input type="text" 
+                                                        class="form-control" 
+                                                        formControlName="Email">
+                                                    <div class="alert alert-danger mt-2"
+                                                        *ngIf="(facFormControl.Email.touched || submitted) && facFormControl.Email.errors?.required">
+                                                        Email is required
+                                                    </div>
+                                                    <div class="alert alert-danger mt-2"
+                                                        *ngIf="(facFormControl.Email.touched || submitted) && facFormControl.Email.errors?.email">
+                                                        Invalid Email address
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Gender </label>
+                                                    <select class="form-control" formControlName="Gender">
+                                                        <option disabled>Select Gender</option>
+                                                        <option value="">Choose Gender</option>
+                                                        <option *ngFor="let g of genderCollection">
+                                                            {{g}}
+                                                        </option>
+                                                    </select>
+                                                    <div class="alert alert-danger mt-2" *ngIf="(facFormControl.Gender.touched || submitted) && handleError('Gender', 'required')">
+                                                        Gender is required
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Department </label>
+                                                    <select class="form-control" formControlName="DepartmentId">
+                                                        <option disabled>Select Department</option>
+                                                        <option value="">Choose Department</option>
+                                                        <option value={{d.departmentId}} *ngFor="let d of departments">
+                                                            {{d.departmentName}}
+                                                        </option>
+                                                    </select>
+                                                    <div class="alert alert-danger mt-2"
+                                                        *ngIf="(facFormControl.DepartmentId.touched || submitted) && handleError('DepartmentId', 'required')">
+                                                        Department is required
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>    
+                                        <hr />
+                                        <div class="row">
+                                            <div class="col-md-12 mx-auto">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-sm-3">
+                                                            <button type="submit" class="btn btn-success">
+                                                                New Faculty
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button type="button" (click)="resetFac()" class="btn btn-primary">
+                                                                Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <p></p>
+                    </div>
+
+                    <!-- faculty list -->
+                    <div class="container-fluid">
+                        <table id="productSizes" class="table">
+                            <thead>
+                                <tr class="d-flex">
+                                    <th class="col-1">#</th>
+                                    <th class="col-2">First Name</th>
+                                    <th class="col-2">Last Name</th>
+                                    <th class="col-1">Phone</th>
+                                    <th class="col-2">Email</th>
+                                    <th class="col-1">Gender</th>
+                                    <th class="col-2">Department</th>
+                                    <th class="col-1"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let f of faculties" class="d-flex">
+                                    <td class="col-1">{{f.facultyId}}</td>
+                                    <td class="col-2">{{displayColumnValue(f.firstName,2)}}</td>
+                                    <td class="col-2">{{displayColumnValue(f.lastName,2)}}</td>
+                                    <td class="col-1" *ngIf="f.phoneNumber">{{displayColumnValue(f.phoneNumber,1)}}</td>
+                                    <td class="col-1" *ngIf="!f.phoneNumber">N/A</td>
+                                    <td class="col-2">{{displayColumnValue(f.email,2)}}</td>
+                                    <td class="col-1" *ngIf="f.gender==0" style="color: blue;">Male</td>
+                                    <td class="col-1" *ngIf="f.gender==1" style="color:red;">Female</td>
+                                    <td class="col-1" *ngIf="f.gender==2">Other</td>
+                                    <td class="col-2">{{displayColumnValue(f.departmentName,2)}}</td>
+                                    <td class="col-1" style="margin-right:20px;">
+                                        <div class="row">
+                                            <div class="col-2">
+                                                <button type="button" (click)="editFac(f)" class="btn btn-primary">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-1"></div>
+                                            <div class="col-1">
+                                                <button type="button" (click)="removeFac(f)" class="btn btn-danger">
+                                                    <i class="bi bi-trash"></i>
+                                                </button>
+                                            </div>
+                                            <div class="col-8"></div>
+                                        </div>
+                                    </td>
+                                </tr>                             
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

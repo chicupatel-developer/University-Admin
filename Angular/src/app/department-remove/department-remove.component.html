@@ -1,0 +1,121 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-header" style="background-color: lightyellow;">
+                    <h3>
+                        <div>
+                            Department-Remove
+                        </div>
+                        <hr />  
+                        <h4 *ngIf="apiResponse">
+                            <span [style.color]="responseColor">
+                                {{apiResponse}}
+                            </span>
+                            <hr />
+                        </h4>                        
+                    </h3>
+                </div>
+                <div *ngIf="deptRemoveVM" class="card-body" 
+                    [style.color]="responseColor">
+                    <div class="container">
+                        <div class="col-md-10 mx-auto">
+                            <h6>
+                                Department # : {{deptRemoveVM.departmentId}}
+                            </h6>
+                            <h6>
+                                Department Name : {{deptRemoveVM.departmentName}}
+                            </h6>
+                            <h6>
+                                Error Code : {{deptRemoveVM.errorCode}}
+                            </h6>
+                            <div>
+                                <h6>
+                                    Error Message : {{deptRemoveVM.errorMessage}}
+                                    <p></p>
+                                    <div *ngIf="deptRemoveVM.errorCode<0">
+                                        <button type="button" 
+                                            (click)="removeDept(deptRemoveVM)" 
+                                            class="btn btn-danger">
+                                            Force Remove Department
+                                        </button>
+                                    </div>
+                                    <div *ngIf="deptRemoveVM.errorCode==0">
+                                        <button type="button" 
+                                            (click)="removeDept(deptRemoveVM)"
+                                            class="btn btn-primary">
+                                            Remove Department
+                                        </button>
+                                    </div>
+                                </h6>
+                            </div>
+                            <hr />
+
+                            <h5>
+                                <u>Depending Faculties...</u>
+                            </h5>
+                            <h6 *ngIf="deptRemoveVM.dependingFaculties.length>=1">                              
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Faculty Name</th>
+                                            <th>Assignments</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let f of deptRemoveVM.dependingFaculties">
+                                            <td>{{f.facultyId}}</td>
+                                            <td>{{f.name}}</td>
+                                            <td *ngIf="f.dependingAssignments.length>=1">
+                                                <div *ngFor="let asmt of f.dependingAssignments">
+                                                    <div>
+                                                        # {{asmt.assignmentId}} - {{asmt.title}}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td *ngIf="f.dependingAssignments.length==0">
+                                                <div>
+                                                    N/A
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </h6>  
+                            <h6 *ngIf="deptRemoveVM.dependingFaculties.length==0">
+                                <div>
+                                    N/A
+                                </div>
+                            </h6>
+                            <h5>
+                                <u>Depending Courses...</u>
+                            </h5>
+                            <h6 *ngIf="deptRemoveVM.dependingCourses.length>=1">                               
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Course Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let c of deptRemoveVM.dependingCourses">
+                                            <td>{{c.courseId}}</td>
+                                            <td>{{c.name}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </h6>
+                            <h6 *ngIf="deptRemoveVM.dependingCourses.length==0">
+                                <div>
+                                    N/A
+                                </div>
+                            </h6>
+                        </div>
+                    </div>              
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

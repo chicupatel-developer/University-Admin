@@ -1,0 +1,4 @@
+﻿Google.Apis.Auth 1.50.0
+
+540442470157-4o0u4lr88bicssg4e9rtjikanuckq73t.apps.googleusercontent.com
+YWwiwL9dpUXh6MLxL2jEK8Q9
