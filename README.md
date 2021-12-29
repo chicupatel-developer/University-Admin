@@ -30,7 +30,7 @@ Technology
 	  - Model validations are handled on Client side - Angular - Component
 	  - all Server side exceptions are handled on Api - Controller / C# Service
 
-### ---> [Role based Authentication]
+### ---> [Signin {Role based Authentication}]
 
 	- JWT Authentication
 	- sign-in using Google Authentication and Custom JWT Authentication
@@ -41,15 +41,7 @@ Technology
 	- when User bypasses Header menu options and directly types url then, on Server side
 		Api's Controller code checks with [Authorize("Admin")] and if un-authorised then,
 		returns 403 (Forbidden)
-	- on Angular side auth.interceptor.ts file catches 403 and, redirects to Home page
-		
-		
-### ---> [Signin]
-
-	- User can sign-in
-	- after successful sign-in, Token, Role and other User's information is stored
-		on Client side and menu options are displayed as per User's Role and redirects to Home page
-	- after un-successful sign-in, error message is displayed 
+	- on Angular side auth.interceptor.ts file catches 403 and, redirects to Home page		
 
 
 ### ---> [Registration]
@@ -63,41 +55,31 @@ Technology
 
 ### [Department] ---> ADMIN : Role
 
-	- User can add / edit / view Department
-	- User can remove Department
+	- User can add / edit / view / remove Department
 	- Faculty, Course and Assignment are depending on Department
 	- before User can remove Department, system displays all possible dependencies
 	- when User execute remove Department action, system safely remove first
         	all possible dependencies and finally remove Department itself 
-	- after un-successful operation, error message is displayed
-	- after successful operation, redirects to it's main respective Component page
 
 
 ### [Faculty] ---> ADMIN : Role
 
-	- User can add / edit / view Faculty
-	- User can remove Faculty
+	- User can add / edit / view / remove Faculty
 	- Course and Assignment are depending on Faculty
 	- before User can remove Faculty, system displays all possible dependencies
 	- when User execute remove Faculty action, system safely remove first
         	all possible dependencies and finally remove Faculty itself
-	- after un-successful operation, error message is displayed
-	- after successful operation, redirects to it's main respective Component page
 
 
 ### [Course] ---> ADMIN : Role
 
-	- User can add / view Course
-	- User can edit Course	
+	- User can add / view / edit / remove Course
 	- User can edit Course's Faculty
 		(Faculty options belong to Course's current Department's Faculties)
-	- User can remove Course
 	- Assignment is depending on Course
 	- before User can remove Course, system displays all possible dependencies
 	- when User execute remove Course action, system safely remove first
         	all possible dependencies and finally remove Course itself
-	- after un-successful operation, error message is displayed
-	- after successful operation, redirects to it's main respective Component page
 
 
 ### [Assignment] ---> ADMIN : Role
@@ -107,27 +89,20 @@ Technology
 	- User can view Assignment
 	- User can Search / Filter Assignment by Department and/or Faculty
 	- User can Download Assignment File
-	- after un-successful operation, error message is displayed
-	- after successful operation, redirects to it's main respective Component page
 
 
 ### [Student] ---> ADMIN : Role
 
-	- User can add / edit / view Student
-	- User can remove Student	
+	- User can add / edit / view / remove Student
 	- Student-Course and Student-Assignment are depending on Student
 	- before User can remove Student, system displays all possible dependencies
 	- when user execute remove Student action, system safely remove first
 		all possible dependencies and finally remove Student itself
-	- after un-successful operation, error message is displayed
-	- after successful operation, redirects to it's main respective Component page
   
 
 ### [Student]-[Course] = [StdsToCourses] ---> ADMIN : Role
 
 	- User can view / add / remove Course(s) assigned to selected Student
-	- after un-successful operation, error message is displayed
-	- after successful operation, redirects to it's main respective Component page
   
   
 ### [Student]-[Course]-[Assignment] = [StdsToCourses]-[StdToAsmt] ---> STUDENT : Role
