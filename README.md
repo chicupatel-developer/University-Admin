@@ -18,11 +18,29 @@ Technology
 
 - Angular, Html, CSS, Javascript, Bootstrap
 
+
+
 ## Database
 
 ![DB Dia1](https://user-images.githubusercontent.com/26190114/138126964-5b44a347-b119-4f98-9853-880d3273e963.PNG)
 
 ![DB Dia2](https://user-images.githubusercontent.com/26190114/138126986-1888a9b2-37f0-4148-a079-6be028c3a352.PNG)
+
+
+
+# DIAGRAMS
+
+![system dia drawio](https://user-images.githubusercontent.com/26190114/147780136-7ec5455d-4373-4ab4-a405-c39e12dfb0a7.png)
+
+
+![Admin Role drawio](https://user-images.githubusercontent.com/26190114/147780148-5f37a9ed-4522-4630-9a75-5daed6ffe097.png)
+
+
+![Student Role drawio](https://user-images.githubusercontent.com/26190114/147780159-7e5b9266-146a-4ae2-a880-dc39932d5e71.png)
+
+
+![0001](https://user-images.githubusercontent.com/26190114/130491398-2313de2e-fad5-4a35-a7fb-4df551a37cbb.jpg)
+
 
 
 ### ---> exceptions handling
@@ -247,33 +265,4 @@ Technology
 
 
 ![Student_MyAssignments_Submit_Submitted](https://user-images.githubusercontent.com/26190114/130489584-d27d5056-0186-4fa5-ae56-87c8efb567ee.PNG)
-
-
-
-
-# DIAGRAMS
-
-
-![0001](https://user-images.githubusercontent.com/26190114/130491398-2313de2e-fad5-4a35-a7fb-4df551a37cbb.jpg)
-
-
-![0002](https://user-images.githubusercontent.com/26190114/130491414-6fd36ec3-03cb-40cf-86cc-71b89022a29d.jpg)
-
-
-![0003](https://user-images.githubusercontent.com/26190114/130491440-523fecff-67d5-4f33-a582-2134528b8fcb.jpg)
-
-
-![0004](https://user-images.githubusercontent.com/26190114/130491444-4cd6b975-bd14-4eb1-b65e-e90081de7e7a.jpg)
-
-
-![0005](https://user-images.githubusercontent.com/26190114/130491458-8c352128-c383-495e-9572-ae24da968538.jpg)
-
-
-![0006](https://user-images.githubusercontent.com/26190114/130491479-6e1803a8-f1c5-4e3d-a80a-fe9fcb650d48.jpg)
-
-
-![0007](https://user-images.githubusercontent.com/26190114/130491491-d49516c6-de2f-419f-a752-e9948c62b805.jpg)
-
-
-![0008](https://user-images.githubusercontent.com/26190114/130491502-6cb7c656-733a-4741-9171-f6623b483bf3.jpg)
 
