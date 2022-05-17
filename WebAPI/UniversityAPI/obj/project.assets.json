@@ -6293,11 +6293,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\University\\University-API-Angular\\UniversityAPI\\UniversityAPI\\UniversityAPI.csproj",
+      "projectUniqueName": "C:\\University-Admin\\WebAPI\\UniversityAPI\\UniversityAPI.csproj",
       "projectName": "UniversityAPI",
-      "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\UniversityAPI\\UniversityAPI.csproj",
+      "projectPath": "C:\\University-Admin\\WebAPI\\UniversityAPI\\UniversityAPI.csproj",
       "packagesPath": "C:\\Users\\ankit_2\\.nuget\\packages\\",
-      "outputPath": "C:\\University\\University-API-Angular\\UniversityAPI\\UniversityAPI\\obj\\",
+      "outputPath": "C:\\University-Admin\\WebAPI\\UniversityAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -6317,14 +6317,14 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "C:\\University\\University-API-Angular\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj": {
-              "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj"
+            "C:\\University-Admin\\WebAPI\\AuthenticationAPI\\AuthenticationAPI.csproj": {
+              "projectPath": "C:\\University-Admin\\WebAPI\\AuthenticationAPI\\AuthenticationAPI.csproj"
             },
-            "C:\\University\\University-API-Angular\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj": {
-              "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj"
+            "C:\\University-Admin\\WebAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj": {
+              "projectPath": "C:\\University-Admin\\WebAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj"
             },
-            "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\Entities.csproj": {
-              "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\Entities.csproj"
+            "C:\\University-Admin\\WebAPI\\Entities\\Entities.csproj": {
+              "projectPath": "C:\\University-Admin\\WebAPI\\Entities\\Entities.csproj"
             }
           }
         }

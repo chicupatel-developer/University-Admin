@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "m9XkkqsRVUb/TJ7jpfED8GEnw68a4B3hPZWl4wOy91+AXjuJZepMeYNb972CIL5gbMsPWMJwNk3NPa/t4wCppg==",
+  "dgSpecHash": "A22OtylKY724PAXcqstRxezNVo2RvxH50Zumqi4YPlQ1xhGiD45IciO8k4XPWFpo0Ys5gNhdV5xAO0zzJxzRhg==",
   "success": true,
-  "projectFilePath": "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\Entities.csproj",
+  "projectFilePath": "C:\\University-Admin\\WebAPI\\Entities\\Entities.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ankit_2\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\ankit_2\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

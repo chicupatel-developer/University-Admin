@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JRAApx3iwMcBQyXW8LiXKbAdyeqyIJgeNdrr/wZPxCXj8+3xPLx7eXkAEArg+IZwSzfHjQ7rHQ0N9jKb1pJ7WA==",
+  "dgSpecHash": "WMB2VvqRtF6MAYGEUPqe0Pv1iY2P2AOGwvz7SlmMrHTyXFAa/VSzhADZ3pxU5v4QfRJQRTchHKvdyJJHcYXZTg==",
   "success": true,
-  "projectFilePath": "C:\\University\\University-API-Angular\\UniversityAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj",
+  "projectFilePath": "C:\\University-Admin\\WebAPI\\DataAccess.EFCore\\DataAccess.EFCore.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ankit_2\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.0\\microsoft.bcl.asyncinterfaces.1.1.0.nupkg.sha512",
     "C:\\Users\\ankit_2\\.nuget\\packages\\microsoft.bcl.hashcode\\1.1.0\\microsoft.bcl.hashcode.1.1.0.nupkg.sha512",

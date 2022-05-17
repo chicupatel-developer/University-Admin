@@ -4952,11 +4952,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\Entities.csproj",
+      "projectUniqueName": "C:\\University-Admin\\WebAPI\\Entities\\Entities.csproj",
       "projectName": "Entities",
-      "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\Entities.csproj",
+      "projectPath": "C:\\University-Admin\\WebAPI\\Entities\\Entities.csproj",
       "packagesPath": "C:\\Users\\ankit_2\\.nuget\\packages\\",
-      "outputPath": "C:\\University\\University-API-Angular\\UniversityAPI\\Entities\\obj\\",
+      "outputPath": "C:\\University-Admin\\WebAPI\\Entities\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

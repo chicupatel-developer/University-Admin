@@ -6108,11 +6108,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\University\\University-API-Angular\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj",
+      "projectUniqueName": "C:\\University-Admin\\WebAPI\\AuthenticationAPI\\AuthenticationAPI.csproj",
       "projectName": "AuthenticationAPI",
-      "projectPath": "C:\\University\\University-API-Angular\\UniversityAPI\\AuthenticationAPI\\AuthenticationAPI.csproj",
+      "projectPath": "C:\\University-Admin\\WebAPI\\AuthenticationAPI\\AuthenticationAPI.csproj",
       "packagesPath": "C:\\Users\\ankit_2\\.nuget\\packages\\",
-      "outputPath": "C:\\University\\University-API-Angular\\UniversityAPI\\AuthenticationAPI\\obj\\",
+      "outputPath": "C:\\University-Admin\\WebAPI\\AuthenticationAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
