@@ -9,8 +9,7 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                    <h3 class="h3 mb-3 font-weight-normal text-center">Please sign in</h3>
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">                    
                     <div class="form-group">
                         <label>User Name</label>
                         <input type="text" 
@@ -59,7 +58,7 @@
                         &nbsp;&nbsp;
                         <button type="button" 
                             (click)="onReset()" 
-                            class="btn btn-info float-right">
+                            class="btn btn-primary float-right">
                             Reset
                         </button>
                     </div>

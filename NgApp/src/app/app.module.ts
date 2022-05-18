@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { SigninComponent } from './signin/signin.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -30,12 +31,14 @@ import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-logi
 import { GoogleLoginProvider } from 'angularx-social-login';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
-    SigninComponent
+    SigninComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
