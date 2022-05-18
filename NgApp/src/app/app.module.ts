@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 ////////components
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
+import { SigninComponent } from './signin/signin.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -23,17 +24,18 @@ import { AuthInterceptor } from './auth/auth.interceptor';
 import { DataService } from './services/data.service';
 import { UserService } from './services/user.service';
 import { LocalDataService } from './services/local-data.service';
-import { CustomValidationService } from './services/custom-validation.service';
 
 /////////google
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    SigninComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
     SocialLoginModule,
     NgxNavbarModule
   ],
-  providers: [HttpClientModule, LocalDataService, DataService, UserService, CustomValidationService, {
+  providers: [HttpClientModule, LocalDataService, DataService, UserService, {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true

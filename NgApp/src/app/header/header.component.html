@@ -1,7 +1,33 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-warning">
-    
+   
+    <a 
+        *ngIf="this._authService.isLoggedIn && !this._authService.isAdmin" 
+        class="navbar-brand" href="#">
+        <b>
+            University-Admin
+            <label 
+                style="font-size:large; color: blue; margin-right: 50px;">
+                [{{this.localDataService.getMyRole()}}]
+            </label>
+        </b>
+    </a>
+    <a 
+        *ngIf="this._authService.isLoggedIn && this._authService.isAdmin" 
+        class="navbar-brand" href="#">
+        <b>
+            University-Admin
+            <label style="font-size:large; color: red; margin-right: 50px;">
+                [{{this.localDataService.getMyRole()}}]
+            </label>
+        </b>
+    </a>
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">University-Admin</a>
+        <a 
+            *ngIf="!this._authService.isLoggedIn" 
+            class="navbar-brand" href="#">
+                <b>University-Admin</b>
+        </a>
+
         <button class="navbar-toggler" 
             type="button" 
             data-bs-toggle="collapse" 
@@ -21,28 +47,29 @@
                         Home
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" 
+                <li class="nav-item" *ngIf="this._authService.isAdmin">
+                    <a class="nav-link"                         
                         [routerLink]="['/department']">Department</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" 
+                <li class="nav-item" *ngIf="this._authService.isAdmin">
+                    <a class="nav-link"                         
                         [routerLink]="['/faculty']">Faculty</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" 
+                <li class="nav-item" *ngIf="this._authService.isAdmin">
+                    <a class="nav-link"                         
                         [routerLink]="['/course']">Course</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" 
+                <li class="nav-item" *ngIf="this._authService.isAdmin">
+                    <a class="nav-link"                         
                         [routerLink]="['/assignment']">Assignment</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" 
+                <li class="nav-item" *ngIf="this._authService.isAdmin">
+                    <a class="nav-link"                         
                         [routerLink]="['/student']">Student
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item"
+                    *ngIf="this._authService.isLoggedIn && !this._authService.isAdmin">
                     <a class="nav-link" 
                         [routerLink]="['/student-mycourses']">MyCourses
                     </a>
@@ -50,16 +77,38 @@
             </ul>
         </ngx-navbar-collapse>
 
-        <ngx-navbar-collapse id="navbarSupportedContent">
+        <ngx-navbar-collapse 
+            id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="!this._authService.isLoggedIn" >
                     <a class='nav-link' [routerLink]="['/signin']">Login
                     </a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" *ngIf="!this._authService.isLoggedIn" >
                     <a class='nav-link' [routerLink]="['/registration']">Register
                     </a>
-                </li>            
+                </li>  
+                <label 
+                    *ngIf="this._authService.isLoggedIn && this._authService.isAdmin"
+                    style="font-size:large; color: red;  margin-right: 50px;">
+                    <b>
+                        Welcome...{{this.localDataService.getUserName()}} !
+                    </b>
+                </label>
+                <label 
+                    *ngIf="this._authService.isLoggedIn && !this._authService.isAdmin"
+                    style="font-size:large; color: blue;  margin-right: 50px;">
+                    <b>
+                        Welcome...{{this.localDataService.getUserName()}} !
+                    </b>
+                </label>
+                <button 
+                    (click)="logout()" 
+                    *ngIf="this._authService.isLoggedIn" 
+                    type="button" 
+                    class="btn btn-danger">
+                        Logout
+                </button>
             </ul>
         </ngx-navbar-collapse>    
     </div>

@@ -1,0 +1,67 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Login</h3>
+                    <h5 style="font-size:medium; color: red;">
+                        {{this.localDataService.getLoginError()}}
+                    </h5>
+                </div>
+                <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                                
+                    <div class="form-group">
+                        <label>User Name</label>
+                        <input type="text" 
+                            formControlName="UserName" 
+                            class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['UserName'].errors }" />
+                        <div *ngIf="submitted && f['UserName'].errors" 
+                            class="invalid-feedback">
+                            <div *ngIf="f['UserName'].errors['required']">User Name is required</div>
+                            <div *ngIf="f['UserName'].errors['minlength']">
+                                User Name must be at least 6 characters
+                            </div>
+                            <div *ngIf="f['UserName'].errors['maxlength']">
+                                User Name must not exceed 20 characters
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" 
+                            formControlName="Password" 
+                            class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['Password'].errors }" />
+                        <div *ngIf="submitted && f['Password'].errors" 
+                            class="invalid-feedback">
+                            <div *ngIf="f['Password'].errors['required']">Password is required</div>
+                            <div *ngIf="f['Password'].errors['minlength']">
+                                Password must be at least 6 characters
+                            </div>
+                            <div *ngIf="f['Password'].errors['maxlength']">
+                                Password must not exceed 40 characters
+                            </div>
+                        </div>
+                    </div>
+                
+                
+                    <div class="form-group">
+                        <button type="submit" 
+                            class="btn btn-primary">
+                            Sign In
+                        </button>
+                        <button type="button" 
+                            (click)="onReset()" 
+                            class="btn btn-warning float-right">
+                            Reset
+                        </button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
