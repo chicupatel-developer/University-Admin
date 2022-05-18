@@ -1,63 +1,66 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-warning">
+    
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">PFM</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="#">University-Admin</a>
+        <button class="navbar-toggler" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <ngx-navbar-collapse id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class='nav-link active' aria-current="page" [routerLink]="['/home']">
+                    <a class='nav-link' 
+                        aria-current="page" 
+                        [routerLink]="['/home']">
                         Home
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class='nav-link' aria-current="page" [routerLink]="['/creditcard']">
-                        Credit-Card
+                    <a class="nav-link" 
+                        [routerLink]="['/department']">Department</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" 
+                        [routerLink]="['/faculty']">Faculty</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" 
+                        [routerLink]="['/course']">Course</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" 
+                        [routerLink]="['/assignment']">Assignment</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" 
+                        [routerLink]="['/student']">Student
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class='nav-link' aria-current="page" [routerLink]="['/payee']">
-                        Payee
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class='nav-link' aria-current="page" [routerLink]="['/bank-ac-tran-stat']">
-                        Bank
-                    </a>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Reports
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                        <li>
-                            <a class='nav-link' aria-current="page" [routerLink]="['/account-payee-report']">
-                                Bank - Account
-                            </a>
-                        </li>
-                        <li>
-                            <a class='nav-link' aria-current="page" [routerLink]="['/credit-card-payee-report']">
-                                Credit-Card
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="nav-item">
-                    <a class='nav-link' aria-current="page" [routerLink]="['/all-project-coding-length']">
-                        Coding Length Report
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class='nav-link' aria-current="page" [routerLink]="['/monitor-account-monthly']">
-                        Account-Health
+                    <a class="nav-link" 
+                        [routerLink]="['/student-mycourses']">MyCourses
                     </a>
                 </li>
             </ul>
-        </div>
+        </ngx-navbar-collapse>
+
+        <ngx-navbar-collapse id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class='nav-link' [routerLink]="['/signin']">Login
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class='nav-link' [routerLink]="['/registration']">Register
+                    </a>
+                </li>            
+            </ul>
+        </ngx-navbar-collapse>    
     </div>
 </nav>
