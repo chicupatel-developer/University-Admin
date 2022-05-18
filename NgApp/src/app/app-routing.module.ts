@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import { AuthGuard } from './auth/auth.guard';
+
 import { HomeComponent } from './home/home.component';
 import { SigninComponent } from './signin/signin.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { DepartmentComponent } from './department/department.component';
-import { AuthGuard } from './auth/auth.guard';
+import { DepartmentEditComponent } from './department-edit/department-edit.component';
+import { DepartmentRemoveComponent } from './department-remove/department-remove.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -13,6 +16,8 @@ const routes: Routes = [
   { path: 'signin', component: SigninComponent },
   { path: 'registration', component: RegistrationComponent },
   { path: 'department', component: DepartmentComponent, canActivate: [AuthGuard] },
+  { path: 'department-edit/:id', component: DepartmentEditComponent, canActivate: [AuthGuard] },
+  { path: 'department-remove', component: DepartmentRemoveComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

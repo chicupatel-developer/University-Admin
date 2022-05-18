@@ -17,6 +17,8 @@ import { HeaderComponent } from './header/header.component';
 import { SigninComponent } from './signin/signin.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { DepartmentComponent } from './department/department.component';
+import { DepartmentEditComponent } from './department-edit/department-edit.component';
+import { DepartmentRemoveComponent } from './department-remove/department-remove.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -31,9 +33,6 @@ import { LocalDataService } from './services/local-data.service';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +40,9 @@ import { GoogleLoginProvider } from 'angularx-social-login';
     HeaderComponent,
     SigninComponent,
     RegistrationComponent,
-    DepartmentComponent
+    DepartmentComponent,
+    DepartmentEditComponent,
+    DepartmentRemoveComponent
   ],
   imports: [
     BrowserModule,
