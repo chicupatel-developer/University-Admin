@@ -23,6 +23,10 @@ export class SigninComponent implements OnInit {
     Password: new FormControl(''),
   });
   submitted = false;
+  signinModel = {
+    UserName: '',
+    Password: ''
+  };
 
   // ok
   constructor(
@@ -78,12 +82,140 @@ export class SigninComponent implements OnInit {
     if (this.form.invalid) {
       return;
     }
-    console.log(JSON.stringify(this.form.value, null, 2));
+    // console.log(JSON.stringify(this.form.value, null, 2));
+      var userTokenData = {
+        UserName: '',
+        Token: '',
+        LoginTime: '',
+        ResponseCode: 0,
+        ResponseMessage: '',       
+        MyRole: ''
+      }
+      
+      this.signinModel.UserName = this.form.value["UserName"];
+      this.signinModel.Password = this.form.value["Password"];
 
+      this.userService.signin(this.signinModel).subscribe(
+        (res: any) => { 
+          console.log(res);
+          // Success     
+          if (res.response.status == '200') {
+
+            //// get role info
+            console.log('my role : '+res.myRole);
+            let jwtData = res.token.split('.')[1];
+            let decodedJwtJsonData = window.atob(jwtData);
+            let decodedJwtData = JSON.parse(decodedJwtJsonData);
+            console.log('jwtData: ' + jwtData);
+            console.log('decodedJwtJsonData: ' + decodedJwtJsonData);
+            console.log('decodedJwtData: ' + decodedJwtData);
+            //// get role info // end
+
+            userTokenData.Token = res.token;
+            userTokenData.ResponseMessage = res.response.message;
+            userTokenData.UserName = res.userName;
+            
+            //// add role info
+            userTokenData.MyRole = res.myRole;
+
+            localStorage.setItem('token', userTokenData.Token);
+            localStorage.setItem('userName', userTokenData.UserName);
+            
+            //// store role info
+            localStorage.setItem('myRole', userTokenData.MyRole);           
+
+            this.localDataService.setUserName(userTokenData.UserName);
+            this.localDataService.setLoginError(res.response.message);
+            
+            //// store role info
+            this.localDataService.setMyRole(userTokenData.MyRole);
+            
+            //// store Student - role login info
+            if (userTokenData.MyRole == 'Student') {
+              localStorage.setItem('studentId', res.studentId);
+              localStorage.setItem('firstName', res.firstName);
+              localStorage.setItem('lastName', res.lastName);
+            }
+            else {
+              // do nothing
+              // role - Admin
+            }
+
+            // redirect to home page
+            setTimeout(() => {
+              this.router.navigate(['/home']);
+            }, 5000);
+          }
+          else {
+            this.localDataService.setLoginError(res.response.message);
+            this.localDataService.setUserName('');
+            
+            //// reset role
+            //// remove role
+            this.localDataService.setMyRole('');
+          }
+        },
+        msg => {          
+        }
+      );     
   }
 
   onReset(): void {
     this.submitted = false;
     this.form.reset();
   }
+
+
+  //////////// google rework
+  // ok
+  public GoogleSignIn = () => {
+    this.userService.signInWithGoogle()
+      .then(res => {
+        const user: SocialUser = { ...res };
+        // console.log(user);
+        const externalAuth: ExternalAuthDto = {
+          provider: user.provider,
+          idToken: user.idToken
+        }
+        this.validateExternalAuth(externalAuth);
+      }, error => console.log(error))
+  }
+  // ok
+  private validateExternalAuth(externalAuth: ExternalAuthDto) {
+    this.userService.ExternalLogin('/ExternalLogin', externalAuth)
+      .subscribe(res => {
+
+        if(res.token){
+          // success
+          localStorage.setItem("token", res.token);
+          localStorage.setItem("userName", res.userName);
+          this.localDataService.setUserName(res.userName);
+          this.localDataService.setLoginError(res.errorMessage);
+          //// get role info
+          console.log('my role : ' + res.myRole);  
+          //// store role info
+          localStorage.setItem('myRole', res.myRole);
+          //// store role info
+          this.localDataService.setMyRole(res.myRole);
+
+          // redirect to home page
+          setTimeout(() => {
+            this.router.navigate(['/home']);
+          }, 5000);
+        }
+        else{
+          // error
+          this.localDataService.setLoginError(res.errorMessage);
+          this.localDataService.setUserName('');
+
+          //// reset role
+          //// remove role
+          this.localDataService.setMyRole('');
+        }    
+      },
+        error => {
+          this.userService.signOutExternal();
+        });
+  }
+  /////////////// google rework end ///////////////
 }

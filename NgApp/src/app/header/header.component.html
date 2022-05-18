@@ -4,7 +4,7 @@
         *ngIf="this._authService.isLoggedIn && !this._authService.isAdmin" 
         class="navbar-brand" href="#">
         <b>
-            University-Admin
+            University
             <label 
                 style="font-size:large; color: blue; margin-right: 50px;">
                 [{{this.localDataService.getMyRole()}}]
@@ -15,7 +15,7 @@
         *ngIf="this._authService.isLoggedIn && this._authService.isAdmin" 
         class="navbar-brand" href="#">
         <b>
-            University-Admin
+            University
             <label style="font-size:large; color: red; margin-right: 50px;">
                 [{{this.localDataService.getMyRole()}}]
             </label>
@@ -25,7 +25,7 @@
         <a 
             *ngIf="!this._authService.isLoggedIn" 
             class="navbar-brand" href="#">
-                <b>University-Admin</b>
+                <b>University</b>
         </a>
 
         <button class="navbar-toggler" 
