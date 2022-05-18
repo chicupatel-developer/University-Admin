@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import { SigninComponent } from './signin/signin.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { DepartmentComponent } from './department/department.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -32,13 +33,15 @@ import { GoogleLoginProvider } from 'angularx-social-login';
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     HeaderComponent,
     SigninComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    DepartmentComponent
   ],
   imports: [
     BrowserModule,
