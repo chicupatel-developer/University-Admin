@@ -33,6 +33,7 @@ import { StudentComponent } from './student/student.component';
 import { StudentEditComponent } from './student-edit/student-edit.component';
 import { StudentRemoveComponent } from './student-remove/student-remove.component';
 import { StudentViewComponent } from './student-view/student-view.component';
+import { AddCoursesToStudentComponent } from './add-courses-to-student/add-courses-to-student.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -46,6 +47,7 @@ import { LocalDataService } from './services/local-data.service';
 /////////google
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
+
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { GoogleLoginProvider } from 'angularx-social-login';
     StudentComponent,
     StudentEditComponent,
     StudentRemoveComponent,
-    StudentViewComponent
+    StudentViewComponent,
+    AddCoursesToStudentComponent
   ],
   imports: [
     BrowserModule,

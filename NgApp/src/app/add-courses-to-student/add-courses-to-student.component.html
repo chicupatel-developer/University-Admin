@@ -1,0 +1,100 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-header" 
+                    style="background-color: lightyellow;">
+                    <h3>
+                        <div>
+                            Student To Courses Map
+                        </div>
+                        <h5 *ngIf="apiResponse">
+                            <p></p>
+                            <span [style.color]="responseColor">
+                                {{apiResponse}}
+                            </span>
+                        </h5>
+                        <div *ngIf="errorMessage" 
+                            [style.color]="responseColor">
+                            <p></p>
+                            {{errorMessage}}
+                        </div>
+                    </h3>
+                </div>
+                <div *ngIf="!errorMessage" 
+                    class="card-body">
+                    <div class="container">
+                        <div class="col-md-12 mx-auto">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="card" 
+                                        style="background-color: lightgoldenrodyellow;">
+                                        <div class="card-header">
+                                            <h4>
+                                                Student
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            <h5>
+                                                # {{studentModel.studentId}} ) {{studentModel.firstName}},
+                                                {{studentModel.lastName}}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <p></p>
+
+                                    <div class="card" style="background-color: lightgoldenrodyellow;">
+                                        <div class="card-header">
+                                            <h4>
+                                                Courses
+                                            </h4>
+                                            <div>
+                                                <label>
+                                                    <input type="checkbox" disabled [checked]="true" [value]="1" />
+                                                    Already Assigned Course
+                                                </label>
+                                            </div>
+                                            <div>
+                                                <label>
+                                                    <input type="checkbox" disabled [checked]="false" [value]="0" />
+                                                    Not Assigned Course
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <form [formGroup]="form"  
+                                                novalidate>
+
+                                                <div *ngIf="submitted && this.form.controls['checkArray'].errors?.required"
+                                                    class="alert alert-danger mt-2">
+                                                    Please select atleast one Course!
+                                                </div>
+                                                <p></p>
+                                                <div *ngFor="let data of courseList; let i=index">
+                                                    <label>
+                                                        <input type="checkbox" 
+                                                            [checked]="data.checked"                                                             
+                                                            [value]="data.courseId"
+                                                            (change)="onCheckboxChange($event, data)" />                                                     
+                                                        {{data.courseId}} - {{data.courseName}}
+                                                    </label>
+                                                    <br />
+                                                </div>
+                                                <p></p>
+                                                <input type="button" 
+                                                    class="btn btn-success"
+                                                    (click)="submitForm()" 
+                                                    value="Connect Course(s) To Student">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

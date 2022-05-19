@@ -1,1 +1,109 @@
-<p>student-remove works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 mx-auto">
+            <div class="card">
+                <div class="card-header" 
+                    style="background-color:lightyellow;">
+                    <h3>
+                        <div>
+                            Student-Remove
+                        </div>
+                        <hr />
+                        <h5 *ngIf="apiResponse">
+                            <span [style.color]="responseColor">
+                                {{apiResponse}}
+                            </span>
+                            <hr />
+                        </h5>
+                    </h3>
+                </div>
+                <div *ngIf="stdRemoveVM" 
+                    class="card-body" 
+                    [style.color]="responseColor">
+                    <div class="container">
+                        <div class="col-md-10 mx-auto">
+                            <h6>
+                                Student # : {{stdRemoveVM.studentId}}
+                            </h6>
+                            <h6>
+                                Student Name : {{stdRemoveVM.studentName}}
+                            </h6>
+                            <h6>
+                                Error Code : {{stdRemoveVM.errorCode}}
+                            </h6>
+                            <div>
+                                <h6>
+                                    Error Message : {{stdRemoveVM.errorMessage}}
+                                    <p></p>
+                                    <div *ngIf="stdRemoveVM.errorCode<0">
+                                        <button type="button" (click)="removeStd(stdRemoveVM)" class="btn btn-danger">
+                                            Force Remove Student
+                                        </button>
+                                    </div>
+                                    <div *ngIf="stdRemoveVM.errorCode==0">
+                                        <button type="button" (click)="removeStd(stdRemoveVM)" class="btn btn-primary">
+                                            Remove Student
+                                        </button>
+                                    </div>
+                                </h6>
+                            </div>
+                            <hr />
+
+                            <h5>
+                                <u>Assigned Courses...</u>
+                            </h5>
+                            <h6 *ngIf="stdRemoveVM.courses.length>=1">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Course Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let cr of stdRemoveVM.courses">
+                                            <td>{{cr.courseId}}</td>
+                                            <td>{{cr.courseName}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </h6>
+                            <h6 *ngIf="stdRemoveVM.courses.length==0">
+                                <div>
+                                    N/A
+                                </div>
+                            </h6>
+
+                            <h5>
+                                <u>Assigned Assignments...</u>
+                            </h5>
+                            <h6 *ngIf="stdRemoveVM.assignments.length>=1">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Title</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let a of stdRemoveVM.assignments">
+                                            <td>{{a.assignmentId}}</td>
+                                            <td>{{a.asmtTitle}}</td>
+                                            <td>{{a.asmtDetails}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </h6>
+                            <h6 *ngIf="stdRemoveVM.assignments.length==0">
+                                <div>
+                                    N/A
+                                </div>
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
