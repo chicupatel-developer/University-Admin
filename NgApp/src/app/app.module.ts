@@ -29,6 +29,10 @@ import { CourseEditComponent } from './course-edit/course-edit.component';
 import { CourseRemoveComponent } from './course-remove/course-remove.component';
 import { AssignmentComponent } from './assignment/assignment.component';
 import { UploadComponent } from './upload/upload.component';
+import { StudentComponent } from './student/student.component';
+import { StudentEditComponent } from './student-edit/student-edit.component';
+import { StudentRemoveComponent } from './student-remove/student-remove.component';
+import { StudentViewComponent } from './student-view/student-view.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -60,7 +64,11 @@ import { GoogleLoginProvider } from 'angularx-social-login';
     CourseEditComponent,
     CourseRemoveComponent,
     AssignmentComponent,
-    UploadComponent
+    UploadComponent,
+    StudentComponent,
+    StudentEditComponent,
+    StudentRemoveComponent,
+    StudentViewComponent
   ],
   imports: [
     BrowserModule,
