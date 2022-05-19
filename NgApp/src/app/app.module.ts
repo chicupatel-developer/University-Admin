@@ -19,6 +19,9 @@ import { RegistrationComponent } from './registration/registration.component';
 import { DepartmentComponent } from './department/department.component';
 import { DepartmentEditComponent } from './department-edit/department-edit.component';
 import { DepartmentRemoveComponent } from './department-remove/department-remove.component';
+import { FacultyComponent } from './faculty/faculty.component';
+import { FacultyEditComponent } from './faculty-edit/faculty-edit.component';
+import { FacultyRemoveComponent } from './faculty-remove/faculty-remove.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -42,7 +45,10 @@ import { GoogleLoginProvider } from 'angularx-social-login';
     RegistrationComponent,
     DepartmentComponent,
     DepartmentEditComponent,
-    DepartmentRemoveComponent
+    DepartmentRemoveComponent,
+    FacultyComponent,
+    FacultyEditComponent,
+    FacultyRemoveComponent
   ],
   imports: [
     BrowserModule,

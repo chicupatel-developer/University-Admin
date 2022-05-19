@@ -9,6 +9,9 @@ import { RegistrationComponent } from './registration/registration.component';
 import { DepartmentComponent } from './department/department.component';
 import { DepartmentEditComponent } from './department-edit/department-edit.component';
 import { DepartmentRemoveComponent } from './department-remove/department-remove.component';
+import { FacultyComponent } from './faculty/faculty.component';
+import { FacultyEditComponent } from './faculty-edit/faculty-edit.component';
+import { FacultyRemoveComponent } from './faculty-remove/faculty-remove.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -18,6 +21,9 @@ const routes: Routes = [
   { path: 'department', component: DepartmentComponent, canActivate: [AuthGuard] },
   { path: 'department-edit/:id', component: DepartmentEditComponent, canActivate: [AuthGuard] },
   { path: 'department-remove', component: DepartmentRemoveComponent, canActivate: [AuthGuard] },
+  { path: 'faculty', component: FacultyComponent, canActivate: [AuthGuard] },
+  { path: 'faculty-remove', component: FacultyRemoveComponent, canActivate: [AuthGuard] },
+  { path: 'faculty-edit/:id', component: FacultyEditComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
