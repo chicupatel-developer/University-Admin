@@ -11,6 +11,8 @@ import { NgxNavbarModule } from 'ngx-bootstrap-navbar';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 ////////components
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
@@ -25,6 +27,8 @@ import { FacultyRemoveComponent } from './faculty-remove/faculty-remove.componen
 import { CourseComponent } from './course/course.component';
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { CourseRemoveComponent } from './course-remove/course-remove.component';
+import { AssignmentComponent } from './assignment/assignment.component';
+import { UploadComponent } from './upload/upload.component';
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -54,10 +58,15 @@ import { GoogleLoginProvider } from 'angularx-social-login';
     FacultyRemoveComponent,
     CourseComponent,
     CourseEditComponent,
-    CourseRemoveComponent
+    CourseRemoveComponent,
+    AssignmentComponent,
+    UploadComponent
   ],
   imports: [
     BrowserModule,
+    
+    NgbModule,
+
     FormsModule,    
     BrowserAnimationsModule,
     ReactiveFormsModule,

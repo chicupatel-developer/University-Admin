@@ -15,6 +15,8 @@ import { FacultyRemoveComponent } from './faculty-remove/faculty-remove.componen
 import { CourseComponent } from './course/course.component';
 import { CourseEditComponent } from './course-edit/course-edit.component';
 import { CourseRemoveComponent } from './course-remove/course-remove.component';
+import { AssignmentComponent } from './assignment/assignment.component';
+import { UploadComponent } from './upload/upload.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -30,6 +32,7 @@ const routes: Routes = [
   { path: 'course', component: CourseComponent, canActivate: [AuthGuard] },
   { path: 'course-edit/:id', component: CourseEditComponent, canActivate: [AuthGuard] },
   { path: 'course-remove', component: CourseRemoveComponent, canActivate: [AuthGuard] },
+  { path: 'assignment', component: AssignmentComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
