@@ -5,7 +5,8 @@
                 <div class="card-header" 
                     style="background-color: lightyellow;">
                     <h3>
-                        <div *ngIf="errorMessage" style="color:red;">
+                        <div *ngIf="errorMessage" 
+                            style="color:red;">
                             {{errorMessage}}
                         </div>
                         <div *ngIf="!errorMessage">
@@ -33,7 +34,8 @@
                                     <div *ngIf="stdToAsmts?.length>0; else noAsmts">
                                         <div *ngFor="let a of stdToAsmts">
                                             <div class="card">
-                                                <div class="card-header" style="background-color: lightskyblue;">
+                                                <div class="card-header" 
+                                                    style="background-color: lightskyblue;">
                                                     <div class="row">
                                                         <div class="col-5">
                                                             <h5>
@@ -65,7 +67,8 @@
                                                                     </app-submit-asmt>
                                                                 </div>
                                                             </div>
-                                                            <span *ngIf="downloadStatus && downloadFile==a.asmtFileName" [style.color]="downloadClass">
+                                                            <span 
+                                                                *ngIf="downloadStatus && downloadFile==a.asmtFileName" [style.color]="downloadClass">
                                                                 <p>
                                                                     {{downloadStatus}}
                                                                 </p>
