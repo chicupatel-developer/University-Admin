@@ -34,6 +34,10 @@ import { StudentEditComponent } from './student-edit/student-edit.component';
 import { StudentRemoveComponent } from './student-remove/student-remove.component';
 import { StudentViewComponent } from './student-view/student-view.component';
 import { AddCoursesToStudentComponent } from './add-courses-to-student/add-courses-to-student.component';
+import { StudentMyCrsMyAsmtsComponent } from './student-my-crs-my-asmts/student-my-crs-my-asmts.component';
+import { StudentMyAssignmentsComponent } from './student-my-assignments/student-my-assignments.component';
+import { SubmitAsmtComponent } from './submit-asmt/submit-asmt.component';
+
 
 ////////auth guard
 import { AuthGuard } from './auth/auth.guard';
@@ -71,7 +75,10 @@ import { GoogleLoginProvider } from 'angularx-social-login';
     StudentEditComponent,
     StudentRemoveComponent,
     StudentViewComponent,
-    AddCoursesToStudentComponent
+    AddCoursesToStudentComponent,
+    StudentMyCrsMyAsmtsComponent,
+    StudentMyAssignmentsComponent,
+    SubmitAsmtComponent
   ],
   imports: [
     BrowserModule,

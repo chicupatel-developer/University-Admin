@@ -34,3 +34,15 @@ C:\University\University-API-Angular\UniversityAPI\DataAccess.EFCore\obj\Debug\n
 C:\University\University-API-Angular\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.csproj.CopyComplete
 C:\University\University-API-Angular\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.dll
 C:\University\University-API-Angular\UniversityAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.pdb
+C:\University-Admin\WebAPI\DataAccess.EFCore\bin\Debug\netcoreapp3.1\DataAccess.EFCore.deps.json
+C:\University-Admin\WebAPI\DataAccess.EFCore\bin\Debug\netcoreapp3.1\DataAccess.EFCore.dll
+C:\University-Admin\WebAPI\DataAccess.EFCore\bin\Debug\netcoreapp3.1\DataAccess.EFCore.pdb
+C:\University-Admin\WebAPI\DataAccess.EFCore\bin\Debug\netcoreapp3.1\Entities.dll
+C:\University-Admin\WebAPI\DataAccess.EFCore\bin\Debug\netcoreapp3.1\Entities.pdb
+C:\University-Admin\WebAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.csproj.AssemblyReference.cache
+C:\University-Admin\WebAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.AssemblyInfoInputs.cache
+C:\University-Admin\WebAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.AssemblyInfo.cs
+C:\University-Admin\WebAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.csproj.CoreCompileInputs.cache
+C:\University-Admin\WebAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.csproj.CopyComplete
+C:\University-Admin\WebAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.dll
+C:\University-Admin\WebAPI\DataAccess.EFCore\obj\Debug\netcoreapp3.1\DataAccess.EFCore.pdb

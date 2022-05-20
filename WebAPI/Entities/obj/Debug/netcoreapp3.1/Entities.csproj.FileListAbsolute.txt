@@ -32,3 +32,14 @@ C:\University\University-API-Angular\UniversityAPI\Entities\obj\Debug\netcoreapp
 C:\University\University-API-Angular\UniversityAPI\Entities\obj\Debug\netcoreapp3.1\Entities.dll
 C:\University\University-API-Angular\UniversityAPI\Entities\obj\Debug\netcoreapp3.1\Entities.pdb
 C:\University\University-API-Angular\UniversityAPI\Entities\obj\Debug\netcoreapp3.1\Entities.genruntimeconfig.cache
+C:\University-Admin\WebAPI\Entities\bin\Debug\netcoreapp3.1\Entities.deps.json
+C:\University-Admin\WebAPI\Entities\bin\Debug\netcoreapp3.1\Entities.runtimeconfig.json
+C:\University-Admin\WebAPI\Entities\bin\Debug\netcoreapp3.1\Entities.runtimeconfig.dev.json
+C:\University-Admin\WebAPI\Entities\bin\Debug\netcoreapp3.1\Entities.dll
+C:\University-Admin\WebAPI\Entities\bin\Debug\netcoreapp3.1\Entities.pdb
+C:\University-Admin\WebAPI\Entities\obj\Debug\netcoreapp3.1\Entities.AssemblyInfoInputs.cache
+C:\University-Admin\WebAPI\Entities\obj\Debug\netcoreapp3.1\Entities.AssemblyInfo.cs
+C:\University-Admin\WebAPI\Entities\obj\Debug\netcoreapp3.1\Entities.csproj.CoreCompileInputs.cache
+C:\University-Admin\WebAPI\Entities\obj\Debug\netcoreapp3.1\Entities.dll
+C:\University-Admin\WebAPI\Entities\obj\Debug\netcoreapp3.1\Entities.pdb
+C:\University-Admin\WebAPI\Entities\obj\Debug\netcoreapp3.1\Entities.genruntimeconfig.cache

@@ -22,6 +22,9 @@ import { StudentEditComponent } from './student-edit/student-edit.component';
 import { StudentRemoveComponent } from './student-remove/student-remove.component';
 import { StudentViewComponent } from './student-view/student-view.component';
 import { AddCoursesToStudentComponent } from './add-courses-to-student/add-courses-to-student.component';
+import { StudentMyCrsMyAsmtsComponent } from './student-my-crs-my-asmts/student-my-crs-my-asmts.component';
+import { StudentMyAssignmentsComponent } from './student-my-assignments/student-my-assignments.component';
+
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -43,6 +46,8 @@ const routes: Routes = [
   { path: 'student-remove', component: StudentRemoveComponent, canActivate: [AuthGuard] },
   { path: 'student-edit/:id', component: StudentEditComponent, canActivate: [AuthGuard] },
   { path: 'add-courses-to-student', component: AddCoursesToStudentComponent, canActivate: [AuthGuard] },  
+  { path: 'student-mycourses', component: StudentMyCrsMyAsmtsComponent, canActivate: [AuthGuard] },
+  { path: 'student-my-assignments', component: StudentMyAssignmentsComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 

@@ -251,7 +251,10 @@ namespace UniversityAPI.Controllers
                     asmtSubmitVM.AsmtLinkStatus = AsmtLinkStatus.AsmtSubmitted;
 
                     asmtSubmitVM = _stdRepo.AsmtSubmit(asmtSubmitVM);
-                    return Ok(new { asmtSubmitVM });
+                    if(asmtSubmitVM!=null)
+                        return Ok(new { asmtSubmitVM });
+                    else
+                        return StatusCode(500, new { Message = "First Download Asmt. File Please!" });
                 }
                 else
                 {

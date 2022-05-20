@@ -234,17 +234,22 @@ namespace DataAccess.EFCore.Repositories
         {
             var stdAsmtSubmit = appDbContext.StdToAsmt
                                     .Where(x => x.StudentId == asmtSubmitVM.StudentId && x.AssignmentId == asmtSubmitVM.AssignmentId).FirstOrDefault();
-            stdAsmtSubmit.AsmtSubmitDate = asmtSubmitVM.AsmtSubmitDate;
-            stdAsmtSubmit.AsmtLinkStatus = asmtSubmitVM.AsmtLinkStatus;
-            stdAsmtSubmit.AsmtSubmitFileName = asmtSubmitVM.AsmtSubmitFileName;
-            stdAsmtSubmit.AsmtSubmitFilePath = asmtSubmitVM.AsmtSubmitFilePath;
+            if (stdAsmtSubmit != null)
+            {
+                stdAsmtSubmit.AsmtSubmitDate = asmtSubmitVM.AsmtSubmitDate;
+                stdAsmtSubmit.AsmtLinkStatus = asmtSubmitVM.AsmtLinkStatus;
+                stdAsmtSubmit.AsmtSubmitFileName = asmtSubmitVM.AsmtSubmitFileName;
+                stdAsmtSubmit.AsmtSubmitFilePath = asmtSubmitVM.AsmtSubmitFilePath;
 
-            // to check @last minute exception
-            // throw new Exception();
+                // to check @last minute exception
+                // throw new Exception();
 
-            appDbContext.SaveChanges();
+                appDbContext.SaveChanges();
 
-            return asmtSubmitVM;
+                return asmtSubmitVM;
+            }
+            else
+                return null;          
         }
 
         // ok
