@@ -1,0 +1,43 @@
+.mainContainer {
+    padding: 50px;
+}
+
+.divButton {
+    text-align: center;
+    vertical-align: middle;
+    color: darkblue;
+    background-color: lightblue;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 2px solid red;
+    border-radius: 20px;
+}
+
+.homePageHeader {
+    text-align: center;
+    vertical-align: middle;
+    color: blue;
+    background-color: lightyellow;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 2px solid red;
+    border-radius: 20px;
+    margin-top: -20px;
+}
+
+.titleHeader {
+    text-align: center;
+    vertical-align: middle;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 2px solid green;
+    border-radius: 10px;
+    background-color: lightskyblue;
+    font-size: medium;
+}
+
+
+p {
+    font-family: Lato;
+    color: lightcoral;
+}
