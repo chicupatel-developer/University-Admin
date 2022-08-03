@@ -57,87 +57,94 @@ namespace UniversityAPI.Controllers
             {
                 // throw new Exception();
 
-                var user = await userManager.FindByNameAsync(model.Username);
-                if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
+                if (ModelState.IsValid)
                 {
-                    var userRoles = await userManager.GetRolesAsync(user);
+                    var user = await userManager.FindByNameAsync(model.Username);
+                    if (user != null && await userManager.CheckPasswordAsync(user, model.Password))
+                    {
+                        var userRoles = await userManager.GetRolesAsync(user);
 
-                    var authClaims = new List<Claim>
+                        var authClaims = new List<Claim>
                     {
                         new Claim(ClaimTypes.Name, user.UserName),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     };
 
-                    foreach (var userRole in userRoles)
-                    {
-                        authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-                    }
-
-                    var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
-
-                    var token = new JwtSecurityToken(
-                        issuer: _configuration["JWT:ValidIssuer"],
-                        audience: _configuration["JWT:ValidAudience"],
-                        expires: DateTime.Now.AddHours(3),
-                        // expires: DateTime.UtcNow.AddSeconds(8),
-                        claims: authClaims,
-                        signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
-                        );
-
-                    response.Status = "200";
-                    response.Message = "Login Success!";
-
-                    // Student
-                    if (authClaims[2].Value == "Student")
-                    {
-                        // get student's info using Id and StudentUserId 
-                        var std = _stdRepo.GetStudentLoginProcess(user.Id);
-                        if (std != null)
+                        foreach (var userRole in userRoles)
                         {
+                            authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                        }
+
+                        var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
+
+                        var token = new JwtSecurityToken(
+                            issuer: _configuration["JWT:ValidIssuer"],
+                            audience: _configuration["JWT:ValidAudience"],
+                            expires: DateTime.Now.AddHours(3),
+                            // expires: DateTime.UtcNow.AddSeconds(8),
+                            claims: authClaims,
+                            signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                            );
+
+                        response.Status = "200";
+                        response.Message = "Login Success!";
+
+                        // Student
+                        if (authClaims[2].Value == "Student")
+                        {
+                            // get student's info using Id and StudentUserId 
+                            var std = _stdRepo.GetStudentLoginProcess(user.Id);
+                            if (std != null)
+                            {
+                                return Ok(new
+                                {
+                                    response = response,
+                                    token = new JwtSecurityTokenHandler().WriteToken(token),
+                                    expiration = token.ValidTo,
+                                    userName = model.Username,
+                                    myRole = authClaims[2].Value,
+                                    StudentId = std.StudentId,
+                                    FirstName = std.FirstName,
+                                    LastName = std.LastName
+                                });
+                            }
+                            else
+                            {
+                                response.Status = "401";
+                                response.Message = "Student Not Linked To App's User Account!";
+                                return Ok(new
+                                {
+                                    response = response,
+                                });
+                            }
+                        }
+                        else
+                        {
+                            // Admin
                             return Ok(new
                             {
                                 response = response,
                                 token = new JwtSecurityTokenHandler().WriteToken(token),
                                 expiration = token.ValidTo,
                                 userName = model.Username,
-                                myRole = authClaims[2].Value,
-                                StudentId = std.StudentId,
-                                FirstName = std.FirstName,
-                                LastName = std.LastName
+                                myRole = authClaims[2].Value
                             });
                         }
-                        else
-                        {
-                            response.Status = "401";
-                            response.Message = "Student Not Linked To App's User Account!";
-                            return Ok(new
-                            {
-                                response = response,
-                            });
-                        }                    
                     }
                     else
                     {
-                        // Admin
+                        response.Status = "401";
+                        response.Message = "Username / Password Incorrect!";
                         return Ok(new
                         {
                             response = response,
-                            token = new JwtSecurityTokenHandler().WriteToken(token),
-                            expiration = token.ValidTo,
-                            userName = model.Username,
-                            myRole = authClaims[2].Value
                         });
                     }
                 }
                 else
                 {
-                    response.Status = "401";
-                    response.Message = "Username / Password Incorrect!";
-                    return Ok(new
-                    {
-                        response = response,
-                    });                 
-                }
+                    return BadRequest(ModelState);
+                }             
             }
             catch(Exception ex)
             {

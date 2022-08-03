@@ -19,6 +19,11 @@ const Login = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    var currUser = AuthService.getCurrentUser();
+    if (currUser !== null) navigate("/home");
+  }, []);
+
   // reset form
   // form reference
   const formRef = useRef(null);
@@ -71,6 +76,9 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // reset local-storage
+    localStorage.setItem("currentUser", null);
+
     const newErrors = findFormErrors();
 
     if (Object.keys(newErrors).length > 0) {
@@ -80,6 +88,8 @@ const Login = () => {
 
       var loginModel = {
         username: form.username,
+        // check for modelstate @api
+        // username: null,
         password: form.password,
       };
       console.log(loginModel);
@@ -88,9 +98,54 @@ const Login = () => {
       AuthService.login(loginModel)
         .then((response) => {
           console.log(response.data);
+          var loginResponse = {
+            responseCode: response.data.response.status,
+            responseMessage: response.data.response.message,
+          };
+          setLoginResponse(loginResponse);
+
+          if (response.data.response.status === "200") {
+            let apiResponse = {
+              userName: response.data.userName,
+              role: response.data.myRole,
+              token: response.data.token,
+            };
+            console.log(apiResponse);
+            localStorage.setItem("currentUser", JSON.stringify(apiResponse));
+
+            // resetForm();
+            formRef.current.reset();
+            setErrors({});
+            setForm({});
+            // setLoginResponse({});
+            setModelErrors([]);
+
+            setTimeout(() => {
+              navigate("/home");
+            }, 3000);
+          } else if (
+            response.data.response.status === "401" ||
+            response.data.response.status === "500"
+          ) {
+            var loginResponse = {
+              responseCode: response.data.response.status,
+              responseMessage: response.data.response.message,
+            };
+            setLoginResponse(loginResponse);
+            setModelErrors([]);
+          }
         })
         .catch((error) => {
           console.log(error);
+          setModelErrors([]);
+          setLoginResponse({});
+          // 400
+          // ModelState
+          if (error.response.status === 400) {
+            console.log("400 !");
+            var modelErrors = handleModelState(error);
+            setModelErrors(modelErrors);
+          }
         });
     }
   };
@@ -116,12 +171,12 @@ const Login = () => {
     <div className="mainContainer">
       <div className="container">
         <div className="row">
-          <div className="col-md-5 mx-auto">
+          <div className="col-md-6 mx-auto">
             <div className="card">
               <div className="card-header">
                 <h3>Login</h3>
                 <p></p>
-                {loginResponse && loginResponse.responseCode === -1 ? (
+                {loginResponse && loginResponse.responseCode !== "200" ? (
                   <span className="loginError">
                     {loginResponse.responseMessage}
                   </span>

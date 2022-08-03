@@ -5,11 +5,13 @@
 .loginSuccess {
     color: green;
     font-size: large;
+    font-weight: bold;
 }
 
 .loginError {
     color: red;
     font-size: large;
+    font-weight: bold;
 }
 
 .modelError {

@@ -10,16 +10,6 @@ class AuthService {
     return currentUser !== null ? currentUser : null;
   };
 
-  getCurrentUserId = () => {
-    var currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    return currentUser !== null ? currentUser.userId : null;
-  };
-
-  getCurrentUserFullName = () => {
-    var currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    return currentUser !== null ? currentUser.fullName : null;
-  };
-
   getToken = () => {
     var currentUser = JSON.parse(localStorage.getItem("currentUser"));
     return currentUser !== null ? currentUser.token : null;
