@@ -26,7 +26,7 @@ Technology
 
 
 
-# DIAGRAMS
+## System Diagram->
 
 ![system dia drawio](https://user-images.githubusercontent.com/26190114/147780136-7ec5455d-4373-4ab4-a405-c39e12dfb0a7.png)
 
@@ -44,7 +44,7 @@ Technology
 
 
 
-# Screens
+## Screens
 
 ## Home->
 
