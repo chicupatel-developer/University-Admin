@@ -1,22 +1,20 @@
 # University-Admin 
 
-# DotNet Core API + Angular
-
 Technology
 ----------
-- .Net Core Web API
-
-- EF Core - Code First - EF Transaction
+- Web API Core - 3.1, EF Core
 
 - Repository pattern
 
-- Sql Server
-
-- Custom JWT Authentication
+- JWT Token Based Authentication / Authorization 
 
 - Google oauth2 Authentication
 
-- Angular, Html, CSS, Javascript, Bootstrap
+- Sql Server
+
+- Client(1) : Angular, Html, Css, Bootstrap
+
+### WIP - Client(2) : React, Html, Css, Bootstrap 
 
 
 
