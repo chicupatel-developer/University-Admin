@@ -26,6 +26,7 @@ namespace UniversityAPI.Controllers
             _deptRepo = deptRepo;
         }
 
+        // react ok
         // ok        
         [HttpGet]
         [Route("allDepartments")]
@@ -35,6 +36,7 @@ namespace UniversityAPI.Controllers
             return Ok(allDepartments);
         }
 
+        // react ok
         // ok
         [HttpPost]
         [Route("addDepartment")]
@@ -44,10 +46,18 @@ namespace UniversityAPI.Controllers
             try
             {
                 // throw new Exception();
-                _deptRepo.AddDepartment(department);
-                _response.ResponseCode = 0;
-                _response.ResponseMessage = "Department Added Successfully!";
-                _response.ResponseError = null;
+
+                if (ModelState.IsValid)
+                {
+                    _deptRepo.AddDepartment(department);
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "Department Added Successfully!";
+                    _response.ResponseError = null;
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }              
             }
             catch(Exception ex)
             {

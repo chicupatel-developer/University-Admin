@@ -43,3 +43,4 @@ C:\University-Admin\WebAPI\Entities\obj\Debug\netcoreapp3.1\Entities.csproj.Core
 C:\University-Admin\WebAPI\Entities\obj\Debug\netcoreapp3.1\Entities.dll
 C:\University-Admin\WebAPI\Entities\obj\Debug\netcoreapp3.1\Entities.pdb
 C:\University-Admin\WebAPI\Entities\obj\Debug\netcoreapp3.1\Entities.genruntimeconfig.cache
+C:\University-Admin\WebAPI\Entities\obj\Debug\netcoreapp3.1\Entities.csproj.AssemblyReference.cache

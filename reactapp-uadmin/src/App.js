@@ -8,6 +8,7 @@ import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Registration from "./components/Registration/Registration";
 import Department from "./components/Department/Department";
+import Department_Create from "./components/Department_Create/Department_Create";
 import UnAuth from "./components/UnAuth/UnAuth";
 import NotFound from "./components/NotFound/NotFound";
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/department" element={<Department />} />
+            <Route path="/department-create" element={<Department_Create />} />
             <Route path="/un-auth" element={<UnAuth />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

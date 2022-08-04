@@ -276,6 +276,7 @@ namespace UniversityAPI.Controllers
             return Ok(listOfCrs);
         }
 
+        // react ok
         // @registration process
         // returns students those are yet not linked to ApplicationUser
         // means students with StudentUserId is null

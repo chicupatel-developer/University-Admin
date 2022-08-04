@@ -45,6 +45,7 @@ namespace UniversityAPI.Controllers
             this._stdRepo = stdRepo;
         }
 
+        // react ok
         // ok
         // local database sign in
         [HttpPost]
@@ -283,7 +284,7 @@ namespace UniversityAPI.Controllers
         }
         */
 
-        
+
         // ok
         /*
         [HttpPost]
@@ -331,6 +332,8 @@ namespace UniversityAPI.Controllers
         }
         */
 
+
+        // react ok
         // ok
         // registration with role
         [HttpPost]

@@ -7,5 +7,10 @@ class DepartmentService {
       headers: authHeader(),
     });
   };
+  createDepartment = async (data) => {
+    return await http.post(`/addDepartment`, data, {
+      headers: authHeader(),
+    });
+  };
 }
 export default new DepartmentService();

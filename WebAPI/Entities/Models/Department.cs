@@ -13,7 +13,7 @@ namespace Entities.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int DepartmentId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Department Name is required")]
         public string DepartmentName { get; set; }
         public ICollection<Faculty> Faculties { get; set; }
         public ICollection<Course> Courses { get; set; }
