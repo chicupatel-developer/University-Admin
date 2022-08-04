@@ -80,7 +80,7 @@ const Header = () => {
                 Home
               </Link>
               <Link to={"/department"} className="nav-link">
-                <i className="bi bi-display"></i>
+                <i className="bi bi-building"></i>
                 Department
               </Link>
             </Nav>
@@ -113,10 +113,10 @@ const Header = () => {
           ) : (
             <Nav>
               <Link to={"/login"} className="nav-link">
-                Login
+                <i className="bi bi-box-arrow-in-right"></i>Login
               </Link>
               <Link to={"/registration"} className="nav-link">
-                Registration
+                <i className="bi bi-person-circle"></i>Registration
               </Link>
             </Nav>
           )}

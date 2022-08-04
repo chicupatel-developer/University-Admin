@@ -120,15 +120,15 @@ const Login = () => {
             // setLoginResponse({});
             setModelErrors([]);
 
-              setTimeout(() => {
-                // this will not complete refresh home page
-                // so also not complete refresh header
-                // navigate("/home");
+            setTimeout(() => {
+              // this will not complete refresh home page
+              // so also not complete refresh header
+              // navigate("/home");
 
-                // this will complete refresh home page
-                // so also complete refresh header
-                window.location.reload("/home", true);
-              }, 3000);
+              // this will complete refresh home page
+              // so also complete refresh header
+              window.location.reload("/home", true);
+            }, 3000);
           } else if (
             response.data.response.status === "401" ||
             response.data.response.status === "500"
@@ -180,7 +180,9 @@ const Login = () => {
           <div className="col-md-6 mx-auto">
             <div className="card">
               <div className="card-header">
-                <h3>Login</h3>
+                <h3>
+                  <i className="bi bi-box-arrow-in-right"></i> &nbsp; Login
+                </h3>
                 <p></p>
                 {loginResponse && loginResponse.responseCode !== "200" ? (
                   <span className="loginError">

@@ -29,8 +29,8 @@ class AuthService {
     localStorage.removeItem("currentUser");
   };
 
-  register = async (data) => {
-    return await http.post(`/register`, data);
+  register = async (data, myRole) => {
+    return await http.post(`/register/${myRole}`, data);
   };
 }
 export default new AuthService();

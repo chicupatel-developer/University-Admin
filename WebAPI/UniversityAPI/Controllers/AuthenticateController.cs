@@ -340,44 +340,55 @@ namespace UniversityAPI.Controllers
             _response = new APIResponse();
             try
             {
-                var userExists = await userManager.FindByNameAsync(model.Username);
-                if (userExists != null)
-                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
+                // check for exception
+                // throw new Exception();
 
-                ApplicationUser user = new ApplicationUser()
+                if (ModelState.IsValid)
                 {
-                    Email = model.Email,
-                    SecurityStamp = Guid.NewGuid().ToString(),
-                    UserName = model.Username
-                };
-                
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (!result.Succeeded)
-                    return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
+                    var userExists = await userManager.FindByNameAsync(model.Username);
+                    if (userExists != null)
+                        return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
 
-                if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
-                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));             
-                if (!await roleManager.RoleExistsAsync(UserRoles.Student))
-                    await roleManager.CreateAsync(new IdentityRole(UserRoles.Student));
+                    ApplicationUser user = new ApplicationUser()
+                    {
+                        Email = model.Email,
+                        SecurityStamp = Guid.NewGuid().ToString(),
+                        UserName = model.Username
+                    };
 
-                await userManager.AddToRoleAsync(user, myRole);
+                    var result = await userManager.CreateAsync(user, model.Password);
+                    if (!result.Succeeded)
+                        return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
 
-                // check if myRole==Student && studentId>0 then get recently created user's Id 
-                // and update Student db table where StudentId == studentId
-                // means, storing Id value of ApplicationUser to Student db table's StudentUserId column
-                if (myRole == "Student")
-                {
-                    _stdRepo.ConnectApplicationUserToStudent(user.Id, model.StudentId);
+                    if (!await roleManager.RoleExistsAsync(UserRoles.Admin))
+                        await roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+                    if (!await roleManager.RoleExistsAsync(UserRoles.Student))
+                        await roleManager.CreateAsync(new IdentityRole(UserRoles.Student));
+
+                    await userManager.AddToRoleAsync(user, myRole);
+
+                    // check if myRole==Student && studentId>0 then get recently created user's Id 
+                    // and update Student db table where StudentId == studentId
+                    // means, storing Id value of ApplicationUser to Student db table's StudentUserId column
+                    if (myRole == "Student")
+                    {
+                        _stdRepo.ConnectApplicationUserToStudent(user.Id, model.StudentId);
+                    }
+                    else
+                    {
+                        // do nothing
+                        // user is Admin role
+                    }
+
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "User created successfully!";
+                    _response.ResponseError = null;
                 }
                 else
                 {
-                    // do nothing
-                    // user is Admin role
+                    return BadRequest(ModelState);
                 }
-
-                _response.ResponseCode = 0;
-                _response.ResponseMessage = "User created successfully!";
-                _response.ResponseError = null;
+             
             }
             catch (Exception ex)
             {
