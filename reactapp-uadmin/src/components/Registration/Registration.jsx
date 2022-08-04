@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import AuthService from "../../services/auth.service";
+import StudentService from "../../services/student.service";
 
 import { useNavigate } from "react-router";
 
@@ -14,8 +15,10 @@ const Registration = () => {
   let navigate = useNavigate();
 
   const [roles, setRoles] = useState([]);
-  const [modelErrors, setModelErrors] = useState([]);
+  const [showStudents, setShowStudents] = useState(false);
+  const [students, setStudents] = useState([]);
 
+  const [modelErrors, setModelErrors] = useState([]);
   const [registerResponse, setRegisterResponse] = useState({});
 
   // form
@@ -33,6 +36,15 @@ const Registration = () => {
   const formRef = useRef(null);
 
   const setField = (field, value) => {
+    if (field === "myRole" && value === "Student") {
+      console.log("loading students!");
+      setShowStudents(true);
+      getStudentList();
+    } else if (field === "myRole" && value === "Admin") {
+      setShowStudents(false);
+      setStudents([]);
+    }
+
     setForm({
       ...form,
       [field]: value,
@@ -46,11 +58,27 @@ const Registration = () => {
       });
   };
 
+  const getStudentList = () => {
+    StudentService.allStudentsNotLinkedToApplicationUser()
+      .then((response) => {
+        console.log(response.data);
+        setStudents(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
   const findFormErrors = () => {
-    const { myRole, username, email, password, confirmPassword } = form;
+    const { myRole, studentId, username, email, password, confirmPassword } =
+      form;
     const newErrors = {};
 
     if (!myRole || myRole === "") newErrors.myRole = "Role is Required!";
+
+    if (myRole === "Student" && (!studentId || studentId === "")) {
+      newErrors.studentId = "Student is Required!";
+    }
 
     if (!username || username === "")
       newErrors.username = "User Name is Required!";
@@ -108,8 +136,12 @@ const Registration = () => {
         password: form.password,
         confirmPassword: form.confirmPassword,
         username: form.username,
-        studentId: 0, // when app-role===Admin
+        studentId: 0, // when my-role===Admin
       };
+
+      // when my-role===Student
+      if (form.myRole === "Student")
+        registerModel.studentId = Number(form.studentId);
 
       console.log(registerModel);
 
@@ -172,6 +204,20 @@ const Registration = () => {
     });
   };
 
+  const renderOptionsForStudents = () => {
+    return students.map((dt, i) => {
+      return (
+        <option
+          value={dt.studentId}
+          key={i}
+          name={dt.firstName + ", " + dt.lastName}
+        >
+          {dt.firstName + ", " + dt.lastName}
+        </option>
+      );
+    });
+  };
+
   let modelErrorList =
     modelErrors.length > 0 &&
     modelErrors.map((item, i) => {
@@ -221,10 +267,29 @@ const Registration = () => {
                             setField("myRole", e.target.value);
                           }}
                         >
+                          <option value="">Choose Role</option>
                           {renderOptionsForRole()}
                         </Form.Control>
                         <Form.Control.Feedback type="invalid">
                           {errors.myRole}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <p></p>
+                      <Form.Group controlId="studentId">
+                        <Form.Label>Student</Form.Label>
+                        <Form.Control
+                          disabled={!showStudents}
+                          as="select"
+                          isInvalid={!!errors.studentId}
+                          onChange={(e) => {
+                            setField("studentId", e.target.value);
+                          }}
+                        >
+                          <option value="">Choose Student</option>
+                          {renderOptionsForStudents()}
+                        </Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                          {errors.studentId}
                         </Form.Control.Feedback>
                       </Form.Group>
                       <p></p>
