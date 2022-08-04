@@ -1,0 +1,14 @@
+.mainHeader {
+    text-align: center;
+    color: darkolivegreen;
+    font-size: xx-large;
+    font-weight: bold;
+
+}
+
+.noDepts {
+    text-align: center;
+    color: red;
+    font-size: xx-large;
+    font-weight: bold;
+}

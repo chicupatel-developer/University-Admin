@@ -7,6 +7,7 @@ import Home from "../Home/Home";
 import Login from "../Login/Login";
 import Register from "../Registration/Registration";
 import NotFound from "../NotFound/NotFound";
+import Department from "../Department/Department";
 
 import "./style.css";
 
@@ -20,6 +21,46 @@ import { useNavigate } from "react-router-dom";
 const Header = () => {
   const navigate = useNavigate();
 
+  const [currentUserName, setCurrentUserName] = useState("");
+  const [currentUserRole, setCurrentUserRole] = useState("");
+  const [currentUserToken, setCurrentUserToken] = useState("");
+
+  // use this when navigate("/home"); used previously @login page
+  /*
+  useEffect(() => {
+    var currUser = AuthService.getCurrentUser();
+
+    if (currUser != null) {
+      setCurrentUserName(currUser.userName);
+      setCurrentUserRole(currUser.role);
+      setCurrentUserToken(currUser.token);
+    } else {
+      console.log("not logged in yet!");
+    }
+  });
+  */
+
+  // use this when window.location.reload("/home", true);
+  // used previously @login page
+  useEffect(() => {
+    var currUser = AuthService.getCurrentUser();
+
+    if (currUser != null) {
+      setCurrentUserName(currUser.userName);
+      setCurrentUserRole(currUser.role);
+      setCurrentUserToken(currUser.token);
+    } else {
+      console.log("not logged in yet!");
+    }
+  }, []);
+
+  const logout = () => {
+    AuthService.logout();
+    setCurrentUserName("");
+    setCurrentUserRole("");
+    setCurrentUserToken("");
+  };
+
   return (
     <>
       <Navbar variant="light" expand="lg" sticky="top" className="navBar">
@@ -32,15 +73,53 @@ const Header = () => {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
-            <Link to={"/home"} className="nav-link">
-              <i className="bi bi-house-fill"></i>
-              Home
-            </Link>
-            <Link to={"/login"} className="nav-link">
-              Login
-            </Link>         
-          </Nav>
+          {currentUserName && currentUserRole === "Admin" ? (
+            <Nav className="me-auto">
+              <Link to={"/home"} className="nav-link">
+                <i className="bi bi-house-fill"></i>
+                Home
+              </Link>
+              <Link to={"/department"} className="nav-link">
+                <i className="bi bi-display"></i>
+                Department
+              </Link>
+            </Nav>
+          ) : (
+            <span></span>
+          )}
+
+          {currentUserName && currentUserRole === "Student" ? (
+            <Nav className="me-auto">
+              <Link to={"/home"} className="nav-link">
+                <i className="bi bi-house-fill"></i>
+                Home
+              </Link>
+            </Nav>
+          ) : (
+            <span></span>
+          )}
+
+          {currentUserName ? (
+            <Nav>
+              <a href="/login" onClick={() => logout()} className="nav-link">
+                <h6>
+                  <b>
+                    [<span className="userRole">({currentUserRole})</span>{" "}
+                    {currentUserName} ]LogOut{" "}
+                  </b>
+                </h6>
+              </a>
+            </Nav>
+          ) : (
+            <Nav>
+              <Link to={"/login"} className="nav-link">
+                Login
+              </Link>
+              <Link to={"/registration"} className="nav-link">
+                Registration
+              </Link>
+            </Nav>
+          )}
         </Navbar.Collapse>
         {/*
         </Container>

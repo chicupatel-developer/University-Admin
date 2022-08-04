@@ -120,9 +120,15 @@ const Login = () => {
             // setLoginResponse({});
             setModelErrors([]);
 
-            setTimeout(() => {
-              navigate("/home");
-            }, 3000);
+              setTimeout(() => {
+                // this will not complete refresh home page
+                // so also not complete refresh header
+                // navigate("/home");
+
+                // this will complete refresh home page
+                // so also complete refresh header
+                window.location.reload("/home", true);
+              }, 3000);
           } else if (
             response.data.response.status === "401" ||
             response.data.response.status === "500"
