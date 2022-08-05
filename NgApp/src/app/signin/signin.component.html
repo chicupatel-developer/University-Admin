@@ -4,8 +4,16 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Login</h3>
-                    <h5 style="font-size:medium; color: red;">
-                        {{this.localDataService.getLoginError()}}
+                    <h5 *ngIf="this.localDataService.getLoginMessage()" 
+                        [style.color]="responseColor">
+                        {{this.localDataService.getLoginMessage()}}
+                    </h5>
+                    <h5 *ngIf="errors?.length > 0">
+                        <ul [style.color]="responseColor">
+                            <li *ngFor="let error of errors">
+                                {{ error }}
+                            </li>
+                        </ul>
                     </h5>
                 </div>
                 <div class="card-body">

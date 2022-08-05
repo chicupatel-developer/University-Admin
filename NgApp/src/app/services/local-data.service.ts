@@ -11,7 +11,7 @@ export class LocalDataService {
   private MyRole;
 
   private UserName;
-  private LoginError;
+  private LoginMessage;
   private RegisterMessage;
   private AsmtUploadId;
 
@@ -73,11 +73,11 @@ export class LocalDataService {
   }
 
   // login
-  setLoginError(val) {
-    this.LoginError = val;
+  setLoginMessage(val) {
+    this.LoginMessage = val;
   }
-  getLoginError() {
-    return this.LoginError;
+  getLoginMessage() {
+    return this.LoginMessage;
   }
 
   // register

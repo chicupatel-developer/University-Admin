@@ -18,6 +18,9 @@ import Validation from '../services/validation';
 
 export class SigninComponent implements OnInit {
 
+  responseColor = '';
+  errors: string[];
+
   form: FormGroup = new FormGroup({
     UserName: new FormControl(''),
     Password: new FormControl(''),
@@ -67,7 +70,7 @@ export class SigninComponent implements OnInit {
     else {
       // not logged in yet
     }
-    this.localDataService.setLoginError('');
+    this.localDataService.setLoginMessage('');
   }
  
   get f(): { [key: string]: AbstractControl } {
@@ -77,6 +80,9 @@ export class SigninComponent implements OnInit {
   // ok
   // local database sign in
   onSubmit(): void {
+    this.responseColor = '';
+    this.errors = [];  
+
     this.submitted = true;
 
     if (this.form.invalid) {
@@ -92,14 +98,21 @@ export class SigninComponent implements OnInit {
         MyRole: ''
       }
       
+      // check for ModelState @api
+      // this.signinModel.UserName = null;
       this.signinModel.UserName = this.form.value["UserName"];
       this.signinModel.Password = this.form.value["Password"];
 
       this.userService.signin(this.signinModel).subscribe(
         (res: any) => { 
           console.log(res);
-          // Success     
-          if (res.response.status == '200') {
+          // Success 
+          // 200
+          if (res.response.status === '200') {
+
+            this.onReset();
+            this.responseColor = 'green';
+            this.localDataService.setLoginMessage(res.response.message);
 
             //// get role info
             console.log('my role : '+res.myRole);
@@ -124,8 +137,7 @@ export class SigninComponent implements OnInit {
             //// store role info
             localStorage.setItem('myRole', userTokenData.MyRole);           
 
-            this.localDataService.setUserName(userTokenData.UserName);
-            this.localDataService.setLoginError(res.response.message);
+            this.localDataService.setUserName(userTokenData.UserName);            
             
             //// store role info
             this.localDataService.setMyRole(userTokenData.MyRole);
@@ -146,8 +158,11 @@ export class SigninComponent implements OnInit {
               this.router.navigate(['/home']);
             }, 5000);
           }
+          // 401,500
           else {
-            this.localDataService.setLoginError(res.response.message);
+            this.responseColor = 'red';
+            // fail
+            this.localDataService.setLoginMessage(res.response.message);
             this.localDataService.setUserName('');
             
             //// reset role
@@ -155,7 +170,17 @@ export class SigninComponent implements OnInit {
             this.localDataService.setMyRole('');
           }
         },
-        msg => {          
+        error => { 
+          this.responseColor = 'red';
+          // 400
+          // ModelState @api
+          if (error.status === 400) {   
+            this.errors = this.localDataService.display400andEx(error, 'Login');      
+          }
+          // 500
+          else{
+            console.log(error);
+          }
         }
       );     
   }
@@ -163,6 +188,9 @@ export class SigninComponent implements OnInit {
   onReset(): void {
     this.submitted = false;
     this.form.reset();
+    this.responseColor = '';
+    this.errors = [];    
+    this.localDataService.setLoginMessage("");
   }
 
 
@@ -182,15 +210,22 @@ export class SigninComponent implements OnInit {
   }
   // ok
   private validateExternalAuth(externalAuth: ExternalAuthDto) {
+
+    this.responseColor = '';
+    this.errors = []; 
+
     this.userService.ExternalLogin('/ExternalLogin', externalAuth)
       .subscribe(res => {
 
-        if(res.token){
+        if (res.token) {
+          this.onReset();
+          this.responseColor = 'green';
+          
           // success
           localStorage.setItem("token", res.token);
           localStorage.setItem("userName", res.userName);
           this.localDataService.setUserName(res.userName);
-          this.localDataService.setLoginError(res.errorMessage);
+          this.localDataService.setLoginMessage(res.errorMessage);
           //// get role info
           console.log('my role : ' + res.myRole);  
           //// store role info
@@ -203,9 +238,10 @@ export class SigninComponent implements OnInit {
             this.router.navigate(['/home']);
           }, 5000);
         }
-        else{
+        else {
+          this.responseColor = 'red';
           // error
-          this.localDataService.setLoginError(res.errorMessage);
+          this.localDataService.setLoginMessage(res.errorMessage);
           this.localDataService.setUserName('');
 
           //// reset role
@@ -214,6 +250,7 @@ export class SigninComponent implements OnInit {
         }    
       },
         error => {
+          this.responseColor = 'red';
           this.userService.signOutExternal();
         });
   }

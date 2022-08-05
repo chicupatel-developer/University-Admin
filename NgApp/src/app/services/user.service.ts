@@ -70,7 +70,7 @@ export class UserService {
     let removeFirstName = localStorage.removeItem('firstName');
     let removeLastName = localStorage.removeItem('lastName');
 
-    this.localDataService.setLoginError('');
+    this.localDataService.setLoginMessage('');
     this.localDataService.setUserName('');
     this.localDataService.setMyRole('');
 

@@ -148,7 +148,7 @@ export class RegistrationComponent implements OnInit {
           // 400
           // ModelState @api
           if (error.status === 400) {   
-            this.errors = this.localDataService.display400andEx(error, 'Bank');      
+            this.errors = this.localDataService.display400andEx(error, 'Registration');      
           }
           // 500
           else{
