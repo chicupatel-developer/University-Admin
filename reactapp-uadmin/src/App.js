@@ -9,6 +9,7 @@ import Login from "./components/Login/Login";
 import Registration from "./components/Registration/Registration";
 import Department from "./components/Department/Department";
 import Department_Create from "./components/Department_Create/Department_Create";
+import Department_Edit from "./components/Department_Edit/Department_Edit";
 import UnAuth from "./components/UnAuth/UnAuth";
 import NotFound from "./components/NotFound/NotFound";
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/registration" element={<Registration />} />
             <Route path="/department" element={<Department />} />
             <Route path="/department-create" element={<Department_Create />} />
+            <Route path="/department-edit/:id" element={<Department_Edit />} />
             <Route path="/un-auth" element={<UnAuth />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

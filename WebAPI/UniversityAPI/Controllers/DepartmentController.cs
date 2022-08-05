@@ -87,22 +87,30 @@ namespace UniversityAPI.Controllers
             try
             {
                 // throw new Exception();
-                Department editedDepartment = _deptRepo.EditDepartment(department);
-                if (editedDepartment == null)
+
+                if (ModelState.IsValid)
                 {
-                    // department not found
-                    // data mis-match either at client or server side
-                    _response.ResponseCode = -1;
-                    _response.ResponseMessage = "Department Not Found @ Server Side!";
-                    _response.ResponseError = "Department Not Found @ Server Side!";
+                    Department editedDepartment = _deptRepo.EditDepartment(department);
+                    if (editedDepartment == null)
+                    {
+                        // department not found
+                        // data mis-match either at client or server side
+                        _response.ResponseCode = -1;
+                        _response.ResponseMessage = "Department Not Found @ Server Side!";
+                        _response.ResponseError = "Department Not Found @ Server Side!";
+                    }
+                    else
+                    {   
+                        // success
+                        _response.ResponseCode = 0;
+                        _response.ResponseMessage = "Department Edited Successfully!";
+                        _response.ResponseError = null;
+                    }
                 }
                 else
                 {
-                    // success
-                    _response.ResponseCode = 0;
-                    _response.ResponseMessage = "Department Edited Successfully!";
-                    _response.ResponseError = null;
-                }               
+                    return BadRequest(ModelState);
+                }                        
             }
             catch (Exception ex)
             {

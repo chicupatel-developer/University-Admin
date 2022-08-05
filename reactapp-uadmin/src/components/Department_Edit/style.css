@@ -1,0 +1,30 @@
+.mainContainer {
+    padding: 50px;
+}
+
+.deptEditSuccess {
+    color: green;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.deptEditError {
+    color: red;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.modelError {
+    color: red;
+    font-size: medium;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.header {
+    background-color: lightcyan;
+    color: rgb(224, 9, 9);
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}

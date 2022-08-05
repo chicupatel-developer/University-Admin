@@ -12,5 +12,15 @@ class DepartmentService {
       headers: authHeader(),
     });
   };
+  getDepartment = async (deptId) => {
+    return await http.get(`/getDepartment/${deptId}`, {
+      headers: authHeader(),
+    });
+  };
+  editDepartment = async (data) => {
+    return await http.post(`/editDepartment`, data, {
+      headers: authHeader(),
+    });
+  };
 }
 export default new DepartmentService();
