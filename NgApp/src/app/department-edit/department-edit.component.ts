@@ -24,7 +24,8 @@ export class DepartmentEditComponent implements OnInit {
   editDeptPanel = true;
 
   apiResponse = '';
-  responseColor='';
+  responseColor = '';
+  errors: string[];
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router, private route: ActivatedRoute)
   { }
@@ -79,15 +80,21 @@ export class DepartmentEditComponent implements OnInit {
 
   // ok
   onSubmit(): void {
+    this.responseColor = '';
+    this.errors = [];    
+    this.apiResponse = '';
+
     this.submitted = true;
     if (this.deptForm.valid) {
       this.departmentModel.departmentName = this.deptForm.value["DepartmentName"];
+      // this.departmentModel.departmentName = null;
       this.departmentModel.departmentId = Number(this.departmentId);
 
       this.dataService.editDept(this.departmentModel)
         .subscribe(
           response => {
-            if (response.responseCode == 0) {
+            // 0
+            if (response.responseCode === 0) {
               // success
               this.apiResponse = response.responseMessage;
               this.responseColor = 'green';
@@ -98,6 +105,7 @@ export class DepartmentEditComponent implements OnInit {
                 this.router.navigate(['/department']);
               }, 3000);
             }
+            // -1
             else {
               // fail
               // display error message
@@ -107,9 +115,17 @@ export class DepartmentEditComponent implements OnInit {
             }
           },
           error => {
-            this.apiResponse = error;
+            this.apiResponse = '';
             this.responseColor = 'red';
             this.editDeptPanel = true;
+            // 400
+            // ModelState @api
+            if (error.status === 400) {   
+              this.errors = this.localDataService.display400andEx(error, 'Registration');      
+            }
+            else {
+              console.log(error);
+            }
           }
         );
     }
@@ -119,6 +135,7 @@ export class DepartmentEditComponent implements OnInit {
   resetDept(){
     this.apiResponse = '';
     this.responseColor = '';
+    this.errors = [];  
     this.deptForm.reset();
     this.submitted = false;
 

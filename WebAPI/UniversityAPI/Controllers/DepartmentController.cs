@@ -68,6 +68,7 @@ namespace UniversityAPI.Controllers
             return Ok(_response);
         }
 
+        // react ok
         // ok
         // edit department
         [HttpGet]
@@ -77,6 +78,8 @@ namespace UniversityAPI.Controllers
             var dept = _deptRepo.GetDepartment(selectedDeptId);
             return Ok(dept);
         }
+
+        // react ok
         // ok
         // edit in action
         [HttpPost]
