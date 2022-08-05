@@ -12,15 +12,17 @@ import {LocalDataService} from '../services/local-data.service';
   styleUrls: ['./department.component.css']
 })
 export class DepartmentComponent implements OnInit {
+
+  responseColor = '';
+  errors: string[];
+  apiResponse = '';  
+
   departments: Array<Department>;
 
   deptForm: FormGroup;
   submitted = false;
   departmentModel = new Department();
   newDeptAddPanel = false;
-
-  apiResponse = '';  
-  responseColor = '';
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
@@ -64,7 +66,10 @@ export class DepartmentComponent implements OnInit {
   }
 
   // ok
-  addDept(){
+  addDept() {
+    this.responseColor = '';
+    this.errors = []; 
+    this.apiResponse = '';  
     this.newDeptAddPanel = true;
   }
 
@@ -75,13 +80,20 @@ export class DepartmentComponent implements OnInit {
 
   // ok
   onSubmit(): void {
+    this.responseColor = '';
+    this.errors = []; 
+    this.apiResponse = '';  
+
     this.submitted = true;
     if (this.deptForm.valid) {
       this.departmentModel.departmentName = this.deptForm.value["DepartmentName"];
+      // check for ModelState @api
+      // this.departmentModel.departmentName = null;
       this.dataService.addDept(this.departmentModel)
         .subscribe(
           response => {
-            if(response.responseCode==0){
+            // 0
+            if(response.responseCode===0){
               // success    
               this.apiResponse = response.responseMessage;
 
@@ -96,6 +108,7 @@ export class DepartmentComponent implements OnInit {
 
               this.loadDepts();
             }
+            // -1
             else{
               // fail
               // display error message
@@ -104,8 +117,16 @@ export class DepartmentComponent implements OnInit {
             }
           },
           error => {
-            this.apiResponse = error;
             this.responseColor = 'red';
+            // 400
+            // ModelState @api
+            if (error.status === 400) {   
+              this.errors = this.localDataService.display400andEx(error, 'Registration');      
+            }
+            // 500
+            else{
+              console.log(error);
+            }
           }
         );
     }
