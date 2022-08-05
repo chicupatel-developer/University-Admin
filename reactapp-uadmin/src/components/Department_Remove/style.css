@@ -1,0 +1,17 @@
+.mainContainer {
+    padding: 50px;
+}
+
+.deptRemoveSuccess {
+    color: green;
+    font-size: large;
+}
+
+.deptRemoveError {
+    color: red;
+    font-size: large;
+}
+
+.headerText {
+    color: red;
+}

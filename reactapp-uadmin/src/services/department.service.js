@@ -22,5 +22,10 @@ class DepartmentService {
       headers: authHeader(),
     });
   };
+  initializeRemoveDepartment = async (deptId) => {
+    return await http.get(`/initializeRemoveDepartment/${deptId}`, {
+      headers: authHeader(),
+    });
+  };
 }
 export default new DepartmentService();
