@@ -153,12 +153,15 @@ const Registration = () => {
             responseCode: response.data.responseCode,
             responseMessage: response.data.responseMessage,
           };
-          resetForm();
+
           setRegisterResponse(registerResponse);
 
-          setTimeout(() => {
-            navigate("/login");
-          }, 3000);
+          if (response.data.responseCode === 0) {
+            resetForm();
+            setTimeout(() => {
+              navigate("/login");
+            }, 3000);
+          }
         })
         .catch((error) => {
           setModelErrors([]);

@@ -15,6 +15,9 @@ import Validation from '../services/validation';
 })
 export class RegistrationComponent implements OnInit {
 
+  responseColor = '';
+  errors: string[];
+  
    form: FormGroup = new FormGroup({
     fullname: new FormControl(''),
     username: new FormControl(''),
@@ -89,6 +92,10 @@ export class RegistrationComponent implements OnInit {
   }
 
   onSubmit(): void {
+    
+    this.responseColor = '';
+    this.errors = [];    
+
     // to ignore validation for studentId select list
     // when Admin - role is selected
     if(this.showStudentList==false){      
@@ -103,9 +110,13 @@ export class RegistrationComponent implements OnInit {
       return;
     }
 
-    // console.log(JSON.stringify(this.form.value, null, 2));
+      // console.log(JSON.stringify(this.form.value, null, 2));
       this.registerModel.FullName = this.form.value["name"];
+      
       this.registerModel.UserName = this.form.value["username"];
+      
+      // check for ModelState @api
+      // this.registerModel.UserName = null;
       this.registerModel.Email = this.form.value["email"];
       this.registerModel.Password = this.form.value["password"];
       var MyRole = this.form.value["MyRole"];
@@ -114,26 +125,35 @@ export class RegistrationComponent implements OnInit {
       this.userService.register(this.registerModel, MyRole).subscribe(
         res => {
           console.log(res);
-          if (res.responseCode == 0) {
+          if (res.responseCode === 0) {
             // success
-            this.localDataService.setRegisterMessage(res.responseMessage);
-
             this.onReset();
+            this.responseColor = 'green';
+            this.localDataService.setRegisterMessage(res.responseMessage);
 
             // redirect to login page
             setTimeout(() => {
               this.router.navigate(['/signin']);
-            }, 5000); 
+            }, 3000); 
           }
+          // -1
           else {
+            this.responseColor = 'red';
             // fail
             this.localDataService.setRegisterMessage(res.responseMessage);
           }
         },
-        error => {
-          // fail
+        error => {    
+          this.responseColor = 'red';
+          // 400
+          // ModelState @api
+          if (error.status === 400) {   
+            this.errors = this.localDataService.display400andEx(error, 'Bank');      
+          }
           // 500
-          this.localDataService.setRegisterMessage(error.error.message);
+          else{
+            this.localDataService.setRegisterMessage(error.error.message);
+          }
         }
       );
   }
@@ -141,6 +161,9 @@ export class RegistrationComponent implements OnInit {
   onReset(): void {
     this.submitted = false;
     this.form.reset();
+    this.responseColor = '';
+    this.errors = [];    
+    this.localDataService.setRegisterMessage("");
   }
 
   // ok

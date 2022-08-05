@@ -1,11 +1,19 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6 mx-auto">
+        <div class="col-md-7 mx-auto">
             <div class="card">
                 <div class="card-header">
                     <h3>Registration</h3>
-                    <h5 *ngIf="this.localDataService.getRegisterMessage()" style="font-size:medium; color: red;">
+                    <h5 *ngIf="this.localDataService.getRegisterMessage()" 
+                        [style.color]="responseColor">
                         {{this.localDataService.getRegisterMessage()}}
+                    </h5>
+                    <h5 *ngIf="errors?.length > 0">
+                        <ul [style.color]="responseColor">
+                            <li *ngFor="let error of errors">
+                                {{ error }}
+                            </li>
+                        </ul>
                     </h5>
                 </div>
                 <div class="card-body">
