@@ -11,6 +11,11 @@ import { useNavigate } from "react-router";
 
 import Moment from "moment";
 
+// react-bootstrap-table-2
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
+import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
+
 const Department_Remove = () => {
   let navigate = useNavigate();
 
@@ -74,7 +79,48 @@ const Department_Remove = () => {
     navigate("/department");
   };
 
-  
+  const facultyColumns = [
+    {
+      dataField: "facultyId",
+      text: "#",
+    },
+    {
+      dataField: "name",
+      text: "Faculty",
+    },
+    {
+      dataField: "dependingAssignments",
+      text: "Assignments",
+      formatter: (cell) => displayAssignments(cell),
+    },
+  ];
+  const displayAssignments = (cell) => {
+    return cell.length > 0 ? (
+      cell.map((item, i) => {
+        return (
+          <div key={i} value={item.assignmentId}>
+            <span>- {item.title}</span>
+            <br />
+          </div>
+        );
+      }, this)
+    ) : (
+      <span>
+        <b>N/A</b>
+      </span>
+    );
+  };
+
+  const courseColumns = [
+    {
+      dataField: "courseId",
+      text: "#",
+    },
+    {
+      dataField: "name",
+      text: "Course",
+    },
+  ];
 
   return (
     <div className="mainContainer">
@@ -138,6 +184,36 @@ const Department_Remove = () => {
                       <h5>
                         <u>Depending Faculties...</u>
                       </h5>
+                      <div>
+                        {dept.dependingFaculties &&
+                        dept.dependingFaculties.length > 0 ? (
+                          <BootstrapTable
+                            bootstrap4
+                            keyField="facultyId"
+                            data={dept.dependingFaculties}
+                            columns={facultyColumns}
+                          />
+                        ) : (
+                          <div className="noData">No Faculties!</div>
+                        )}
+                      </div>
+
+                      <h5>
+                        <u>Depending Courses...</u>
+                      </h5>
+                      <div>
+                        {dept.dependingCourses &&
+                        dept.dependingCourses.length > 0 ? (
+                          <BootstrapTable
+                            bootstrap4
+                            keyField="courseId"
+                            data={dept.dependingCourses}
+                            columns={courseColumns}
+                          />
+                        ) : (
+                          <div className="noData">No Courses!</div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ) : (
