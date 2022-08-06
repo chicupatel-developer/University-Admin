@@ -27,5 +27,10 @@ class DepartmentService {
       headers: authHeader(),
     });
   };
+  removeDepartment = async (data) => {
+    return await http.post(`/removeDepartment`, data, {
+      headers: authHeader(),
+    });
+  };
 }
 export default new DepartmentService();

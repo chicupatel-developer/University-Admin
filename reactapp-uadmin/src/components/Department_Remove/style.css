@@ -5,11 +5,13 @@
 .deptRemoveSuccess {
     color: green;
     font-size: large;
+    font-weight: bold;
 }
 
 .deptRemoveError {
     color: red;
     font-size: large;
+    font-weight: bold;
 }
 
 .headerText {

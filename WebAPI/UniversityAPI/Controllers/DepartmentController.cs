@@ -124,6 +124,7 @@ namespace UniversityAPI.Controllers
             return Ok(_response);
         }
 
+        // react ok
         // ok
         // remove department
         [HttpGet]
@@ -141,6 +142,7 @@ namespace UniversityAPI.Controllers
             }        
         }
 
+        // react ok
         // ok
         // remove in action
         [HttpPost]

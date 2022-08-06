@@ -21,7 +21,6 @@ const Department_Remove = () => {
 
   let { id } = useParams();
   const [getDeptError, setGetDeptError] = useState("");
-  const [responseColor, setResponseColor] = useState("");
   const [displayContentColor, setDisplayContentColor] = useState("");
 
   const [dept, setDept] = useState({});
@@ -45,12 +44,10 @@ const Department_Remove = () => {
           setDept(response.data);
           // if safe to remove, means no dependancy then green
           if (response.data.errorCode >= 0) {
-            setResponseColor("green");
             setDisplayContentColor("green");
           }
           // else not safe to remove, means dependancy then red
           else {
-            setResponseColor("red");
             setDisplayContentColor("red");
           }
         })
@@ -73,6 +70,29 @@ const Department_Remove = () => {
 
     console.log("removing department: ", dept);
     console.log("removing department-id: ", id);
+
+    // api call
+    DepartmentService.removeDepartment(dept)
+      .then((response) => {
+        console.log(response.data);
+        var deptRemoveResponse = {
+          responseCode: response.data.responseCode,
+          responseMessage: response.data.responseMessage,
+        };
+        setDeptRemoveResponse(deptRemoveResponse);
+        // 0: success
+        if (response.data.responseCode === 0) {
+          setTimeout(() => {
+            navigate("/department");
+          }, 3000);
+        }
+        // -1: fail
+        else {
+        }
+      })
+      .catch((error) => {
+        setDeptRemoveResponse(error);
+      });
   };
 
   const goBack = (e) => {
@@ -129,14 +149,27 @@ const Department_Remove = () => {
           <div className="col-md-10 mx-auto">
             <div className="card">
               <div className="card-header">
-                <h3>Remove Department</h3>
-                {!getDeptError && (
-                  <h5>
-                    <span className="headerText">
-                      Are you sure wants to remove department?
-                    </span>
-                  </h5>
-                )}
+                <div className="row">
+                  <div className="col-md-10 mx-auto">
+                    <h3>Remove Department</h3>
+                    {!getDeptError && (
+                      <h5>
+                        <span className="headerText">
+                          Are you sure wants to remove department?
+                        </span>
+                      </h5>
+                    )}
+                  </div>
+                  <div className="col-md-2 mx-auto">
+                    <Button
+                      className="btn btn-primary"
+                      type="button"
+                      onClick={(e) => goBack(e)}
+                    >
+                      <i className="bi bi-arrow-return-left"></i> Back
+                    </Button>
+                  </div>
+                </div>
                 <p></p>{" "}
                 {deptRemoveResponse &&
                 deptRemoveResponse.responseCode === -1 ? (
