@@ -129,9 +129,16 @@ namespace UniversityAPI.Controllers
         [HttpGet]
         [Route("initializeRemoveDepartment/{selectedDeptId}")]
         public IActionResult InitializeRemoveDepartment(int selectedDeptId)
-        {
-            var dept = _deptRepo.InitializeRemoveDepartment(selectedDeptId);
-            return Ok(dept);
+        {            
+            try
+            {
+                var dept = _deptRepo.InitializeRemoveDepartment(selectedDeptId);
+                return Ok(dept);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest("Bad Request! (OR) Server Error!");
+            }        
         }
 
         // ok
