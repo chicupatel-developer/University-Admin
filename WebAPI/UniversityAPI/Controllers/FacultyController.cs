@@ -26,6 +26,7 @@ namespace UniversityAPI.Controllers
             _facRepo = facRepo;
         }
 
+        // react ok
         // ok
         [HttpGet]
         [Route("allFaculties")]

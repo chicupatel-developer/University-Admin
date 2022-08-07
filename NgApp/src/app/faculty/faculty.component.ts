@@ -59,6 +59,7 @@ export class FacultyComponent implements OnInit {
     this.dataService.getFaculties()
       .subscribe(
         data => {
+          console.log(data);
           this.faculties = data;
 
           // assign departmentName property of department object to...

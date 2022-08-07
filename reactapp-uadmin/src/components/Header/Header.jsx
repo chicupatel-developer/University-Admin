@@ -83,6 +83,10 @@ const Header = () => {
                 <i className="bi bi-building"></i>
                 Department
               </Link>
+              <Link to={"/faculty"} className="nav-link">
+                <i className="bi bi-person-lines-fill"></i>
+                Faculty
+              </Link>
             </Nav>
           ) : (
             <span></span>
