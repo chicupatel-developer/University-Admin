@@ -45,10 +45,18 @@ namespace UniversityAPI.Controllers
             try
             {
                 // throw new Exception();
-                _facRepo.AddFaculty(faculty);
-                _response.ResponseCode = 0;
-                _response.ResponseMessage = "Faculty Added Successfully!";
-                _response.ResponseError = null;
+
+                if (ModelState.IsValid)
+                {
+                    _facRepo.AddFaculty(faculty);
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "Faculty Added Successfully!";
+                    _response.ResponseError = null;
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }            
             }
             catch (Exception ex)
             {

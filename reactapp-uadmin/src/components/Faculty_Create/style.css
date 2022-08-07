@@ -1,0 +1,22 @@
+.mainContainer {
+    padding: 50px;
+}
+
+.facCreateSuccess {
+    color: green;
+    font-size: large;
+    font-weight: bold;
+}
+
+.facCreateError {
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}
+
+.modelError {
+    color: red;
+    font-size: medium;
+    font-weight: bold;
+    margin-top: 30px;
+}
