@@ -5,7 +5,8 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import AuthService from "../../services/auth.service";
-import FacultyService from "../../services/department.service";
+import FacultyService from "../../services/faculty.service";
+import DepartmentService from "../../services/department.service";
 
 import { useNavigate } from "react-router";
 
@@ -15,6 +16,7 @@ const Faculty_Create = () => {
   let navigate = useNavigate();
 
   const [genders, setGenders] = useState([]);
+  const [depts, setDepts] = useState([]);
 
   const [modelErrors, setModelErrors] = useState([]);
 
@@ -30,9 +32,26 @@ const Faculty_Create = () => {
     if (currRole === null || (currRole !== null && currRole !== "Admin"))
       navigate("/un-auth");
     else {
-      setGenders(["Male", "Female"]);
+      setGenders(["Male", "Female", "Other"]);
+      getAllDepartments();
     }
   }, []);
+
+  const getAllDepartments = () => {
+    DepartmentService.allDepartments()
+      .then((response) => {
+        console.log(response.data);
+        setDepts(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+        if (e.response.status === 401) {
+          console.log("Token Not Found!");
+          AuthService.logout();
+          navigate("/login");
+        }
+      });
+  };
 
   // reset form
   // form reference
@@ -53,7 +72,14 @@ const Faculty_Create = () => {
   };
 
   const checkForPhoneNumber = (newVal) => {
-    const re = /^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/;
+    // const re = /^(\([0-9]{3}\)|[0-9]{3}-)[0-9]{3}-[0-9]{4}$/;
+    const re = /^(()?\d{3}())?(-|\s)?\d{3}(-|\s)?\d{4}$/;
+    if (re.test(newVal)) return true;
+    else return false;
+  };
+
+  const checkForEmail = (newVal) => {
+    const re = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
     if (re.test(newVal)) return true;
     else return false;
   };
@@ -74,6 +100,9 @@ const Faculty_Create = () => {
     }
 
     if (!email || email === "") newErrors.email = "Email is Required!";
+    if (!(!email || email === "")) {
+      if (!checkForEmail(email)) newErrors.email = "Invalid Email!";
+    }
 
     if (!gender || gender === "") newErrors.gender = "Gender is Required!";
 
@@ -100,6 +129,11 @@ const Faculty_Create = () => {
     return errors;
   };
 
+  const convertGender = (gender) => {
+    if (gender === "Male") return 0;
+    else if (gender === "Female") return 1;
+    else return 2;
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -113,11 +147,46 @@ const Faculty_Create = () => {
         lastName: form.lastName,
         phoneNumber: form.phoneNumber,
         email: form.email,
-        gender: form.gender,
-        departmentId: form.departmentId,
+        gender: convertGender(form.gender),
+        departmentId: Number(form.departmentId),        
       };
 
       console.log(facModel);
+
+      // api call
+      FacultyService.createFaculty(facModel)
+        .then((response) => {
+          setModelErrors([]);
+          setFacCreateResponse({});
+          console.log(response.data);
+
+          var facCreateResponse = {
+            responseCode: response.data.responseCode,
+            responseMessage: response.data.responseMessage,
+          };
+          if (response.data.responseCode === 0) {
+            resetForm();
+            setFacCreateResponse(facCreateResponse);
+
+            setTimeout(() => {
+              navigate("/faculty");
+            }, 3000);
+          } else if (response.data.responseCode === -1) {
+            setFacCreateResponse(facCreateResponse);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          setModelErrors([]);
+          setFacCreateResponse({});
+          // 400
+          // ModelState
+          if (error.response.status === 400) {
+            console.log("400 !");
+            var modelErrors = handleModelState(error);
+            setModelErrors(modelErrors);
+          }
+        });
     }
   };
 
@@ -149,6 +218,16 @@ const Faculty_Create = () => {
     });
   };
 
+  const renderOptionsForDepartments = () => {
+    return depts.map((dt, i) => {
+      return (
+        <option value={dt.departmentId} key={i} name={dt.departmentName}>
+          {dt.departmentName}
+        </option>
+      );
+    });
+  };
+
   return (
     <div className="mainContainer">
       <div className="container">
@@ -156,7 +235,7 @@ const Faculty_Create = () => {
           <div className="col-md-9 mx-auto">
             <div className="card">
               <div className="card-header">
-                <h3>Create New Department</h3>
+                <h3>Create New Faculty</h3>
                 <p></p>{" "}
                 {facCreateResponse && facCreateResponse.responseCode === -1 ? (
                   <span className="facCreateError">
@@ -216,7 +295,8 @@ const Faculty_Create = () => {
                           {errors.phoneNumber}
                         </Form.Control.Feedback>
                       </Form.Group>
-                      <p></p>
+                    </div>
+                    <div className="col-md-5 mx-auto">
                       <Form.Group controlId="email">
                         <Form.Label>Email</Form.Label>
                         <Form.Control
@@ -246,6 +326,22 @@ const Faculty_Create = () => {
                         </Form.Control.Feedback>
                       </Form.Group>
                       <p></p>
+                      <Form.Group controlId="departmentId">
+                        <Form.Label>Department</Form.Label>
+                        <Form.Control
+                          as="select"
+                          isInvalid={!!errors.departmentId}
+                          onChange={(e) => {
+                            setField("departmentId", e.target.value);
+                          }}
+                        >
+                          <option value="">Select Department</option>
+                          {renderOptionsForDepartments()}
+                        </Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                          {errors.departmentId}
+                        </Form.Control.Feedback>
+                      </Form.Group>
                     </div>
                   </div>
 
@@ -258,7 +354,7 @@ const Faculty_Create = () => {
                       type="button"
                       onClick={(e) => handleSubmit(e)}
                     >
-                      Create Department
+                      Create Faculty
                     </Button>
                     <Button
                       className="btn btn-primary"

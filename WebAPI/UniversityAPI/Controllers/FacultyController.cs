@@ -36,6 +36,7 @@ namespace UniversityAPI.Controllers
             return Ok(allFaculties);
         }
 
+        // react ok
         // ok
         [HttpPost]
         [Route("addFaculty")]

@@ -13,19 +13,19 @@ namespace Entities.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int FacultyId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "First Name is required")]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Last Name is required")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
         public Gender Gender { get; set; }
 
         public string PhoneNumber { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Department is required")]
         [ForeignKey(nameof(Department))]
         public int DepartmentId { get; set; }
 
