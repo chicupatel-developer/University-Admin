@@ -22,8 +22,9 @@ export class FacultyComponent implements OnInit {
   facultyModel = new Faculty();
   newFacAddPanel = false;
 
-  apiResponse = '';
   responseColor = '';
+  errors: string[];
+  apiResponse = '';  
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
@@ -105,6 +106,10 @@ export class FacultyComponent implements OnInit {
 
   // ok
   onSubmit(): void {   
+    this.responseColor = '';
+    this.errors = []; 
+    this.apiResponse = '';
+
     this.submitted = true;
     if (this.facForm.valid) {
       this.facultyModel.phoneNumber = this.facForm.value["PhoneNumber"];
@@ -119,10 +124,12 @@ export class FacultyComponent implements OnInit {
           res => {
             if (res.responseCode == 0) {
               // success
-              this.apiResponse = res.responseMessage;
+              this.apiResponse = res.responseMessage;             
+            
               this.responseColor = 'green';
               this.facForm.reset();
               this.submitted = false;
+
               setTimeout(() => {
                 this.newFacAddPanel = false;
                 this.apiResponse = '';
@@ -138,8 +145,16 @@ export class FacultyComponent implements OnInit {
             }
           },
           error => {
-            this.apiResponse = error;
             this.responseColor = 'red';
+            // 400
+            // ModelState @api
+            if (error.status === 400) {   
+              this.errors = this.localDataService.display400andEx(error, 'Registration');      
+            }
+            // 500
+            else{
+              console.log(error);
+            }
           }
         );
     }

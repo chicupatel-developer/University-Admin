@@ -134,6 +134,7 @@ const Faculty_Create = () => {
     else if (gender === "Female") return 1;
     else return 2;
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -148,7 +149,7 @@ const Faculty_Create = () => {
         phoneNumber: form.phoneNumber,
         email: form.email,
         gender: convertGender(form.gender),
-        departmentId: Number(form.departmentId),        
+        departmentId: Number(form.departmentId),
       };
 
       console.log(facModel);

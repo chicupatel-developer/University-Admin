@@ -34,6 +34,14 @@
                                                 {{apiResponse}}
                                             </span>
                                         </h5>
+                                        <h5 *ngIf="errors?.length > 0">
+                                            <p></p>
+                                            <ul [style.color]="responseColor">
+                                                <li *ngFor="let error of errors">
+                                                    {{ error }}
+                                                </li>
+                                            </ul>
+                                        </h5>
                                     </h3>
                                 </div>
                                 <div class="card-body">
