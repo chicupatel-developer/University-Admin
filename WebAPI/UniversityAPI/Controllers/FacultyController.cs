@@ -124,16 +124,25 @@ namespace UniversityAPI.Controllers
             return Ok(_response);
         }
 
+        // react ok
         // ok
         // remove faculty
         [HttpGet]
         [Route("initializeRemoveFaculty/{selectedFacId}")]
         public IActionResult InitializeRemoveFaculty(int selectedFacId)
         {
-            var fac = _facRepo.InitializeRemoveFaculty(selectedFacId);
-            return Ok(fac);
+            try
+            {
+                var fac = _facRepo.InitializeRemoveFaculty(selectedFacId);
+                return Ok(fac);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Bad Request! (OR) Server Error!");
+            }            
         }
-        
+
+        // react ok
         // ok
         // remove in action
         [HttpPost]
