@@ -68,6 +68,7 @@ namespace UniversityAPI.Controllers
             return Ok(_response);
         }
 
+        // react ok
         // ok
         // edit faculty
         [HttpGet]
@@ -77,6 +78,8 @@ namespace UniversityAPI.Controllers
             var fac = _facRepo.GetFaculty(selectedFacId);
             return Ok(fac);
         }
+        
+        // react ok
         // ok
         // edit in action
         [HttpPost]
@@ -87,22 +90,30 @@ namespace UniversityAPI.Controllers
             try
             {
                 // throw new Exception();
-                Faculty editedFaculty = _facRepo.EditFaculty(faculty);
-                if (editedFaculty == null)
+
+                if (ModelState.IsValid)
                 {
-                    // faculty not found
-                    // data mis-match either at client or server side
-                    _response.ResponseCode = -1;
-                    _response.ResponseMessage = "Faculty Not Found @ Server Side!";
-                    _response.ResponseError = "Faculty Not Found @ Server Side!";
+                    Faculty editedFaculty = _facRepo.EditFaculty(faculty);
+                    if (editedFaculty == null)
+                    {
+                        // faculty not found
+                        // data mis-match either at client or server side
+                        _response.ResponseCode = -1;
+                        _response.ResponseMessage = "Faculty Not Found @ Server Side!";
+                        _response.ResponseError = "Faculty Not Found @ Server Side!";
+                    }
+                    else
+                    {
+                        // success
+                        _response.ResponseCode = 0;
+                        _response.ResponseMessage = "Faculty Edited Successfully!";
+                        _response.ResponseError = null;
+                    }
                 }
                 else
                 {
-                    // success
-                    _response.ResponseCode = 0;
-                    _response.ResponseMessage = "Faculty Edited Successfully!";
-                    _response.ResponseError = null;
-                }
+                    return BadRequest(ModelState);
+                }              
             }
             catch (Exception ex)
             {

@@ -13,6 +13,7 @@ import Department_Edit from "./components/Department_Edit/Department_Edit";
 import Department_Remove from "./components/Department_Remove/Department_Remove";
 import Faculty from "./components/Faculty/Faculty";
 import Faculty_Create from "./components/Faculty_Create/Faculty_Create";
+import Faculty_Edit from "./components/Faculty_Edit/Faculty_Edit";
 import UnAuth from "./components/UnAuth/UnAuth";
 import NotFound from "./components/NotFound/NotFound";
 
@@ -37,6 +38,8 @@ function App() {
             />
             <Route path="/faculty" element={<Faculty />} />
             <Route path="/faculty-create" element={<Faculty_Create />} />
+            <Route path="/faculty-edit/:id" element={<Faculty_Edit />} />
+
             <Route path="/un-auth" element={<UnAuth />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

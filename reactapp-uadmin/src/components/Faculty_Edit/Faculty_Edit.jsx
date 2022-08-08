@@ -21,7 +21,6 @@ const Faculty_Edit = () => {
   const [depts, setDepts] = useState([]);
 
   const [modelErrors, setModelErrors] = useState([]);
-
   const [facEditResponse, setFacEditResponse] = useState({});
 
   // form
@@ -41,6 +40,7 @@ const Faculty_Edit = () => {
     else {
       setGenders(["Male", "Female", "Other"]);
       getAllDepartments();
+      getFaculty(id);
     }
   }, []);
 
@@ -80,14 +80,14 @@ const Faculty_Edit = () => {
             setLastName(response.data.lastName);
             setPhoneNumber(response.data.phoneNumber);
             setEmail(response.data.email);
-            setGender(response.data.gender);
+            setGender(convertGenderForDisplay(response.data.gender));
             setDepartmentId(response.data.departmentId);
           }
         })
         .catch((e) => {
           console.log(e);
         });
-    } else navigate("/department");
+    } else navigate("/faculty");
   };
 
   // reset form
@@ -213,6 +213,12 @@ const Faculty_Edit = () => {
     else return 2;
   };
 
+  const convertGenderForDisplay = (genderCode) => {
+    if (genderCode === 0) return "Male";
+    else if (genderCode === 1) return "Female";
+    else return "Other";
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -228,9 +234,43 @@ const Faculty_Edit = () => {
         email: email,
         gender: convertGender(gender),
         departmentId: Number(departmentId),
+        facultyId: Number(id),
       };
 
       console.log(facModel);
+
+      // api call
+      FacultyService.editFaculty(facModel)
+        .then((response) => {
+          console.log(response.data);
+          setModelErrors([]);
+          setFacEditResponse({});
+          var facEditResponse = {
+            responseCode: response.data.responseCode,
+            responseMessage: response.data.responseMessage,
+          };
+
+          resetForm();
+          setFacEditResponse(facEditResponse);
+          if (response.data.responseCode === 0) {
+            setTimeout(() => {
+              navigate("/faculty");
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          setModelErrors([]);
+          setFacEditResponse({});
+          // 400
+          // ModelState
+          if (error.response.status === 400) {
+            console.log("400 !");
+            var modelErrors = handleModelState(error);
+            setModelErrors(modelErrors);
+          } else {
+            console.log(error);
+          }
+        });
     }
   };
 
@@ -281,7 +321,7 @@ const Faculty_Edit = () => {
     <div className="mainContainer">
       <div className="container">
         <div className="row">
-          <div className="col-md-6 mx-auto">
+          <div className="col-md-8 mx-auto">
             <div className="card">
               <div className="card-header header">
                 <h3>Edit Faculty # {id}</h3>
