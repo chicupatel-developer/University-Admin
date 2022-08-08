@@ -21,28 +21,28 @@ const Faculty_Remove = () => {
   let navigate = useNavigate();
 
   let { id } = useParams();
-  const [getDeptError, setGetDeptError] = useState("");
+  const [getFacError, setGetFacError] = useState("");
   const [displayContentColor, setDisplayContentColor] = useState("");
 
-  const [dept, setDept] = useState({});
-  const [deptRemoveResponse, setDeptRemoveResponse] = useState({});
+  const [fac, setFac] = useState({ facultyRemove: {} });
+  const [facRemoveResponse, setFacRemoveResponse] = useState({});
 
   useEffect(() => {
     var currRole = AuthService.getCurrentUserRole();
 
     if (currRole === null || (currRole !== null && currRole !== "Admin"))
       navigate("/un-auth");
-    else initializeRemoveDepartment(id);
+    else initializeRemoveFaculty(id);
   }, []);
 
-  const initializeRemoveDepartment = (id) => {
-    console.log("Initializing Department Remove Process : ", id);
+  const initializeRemoveFaculty = (id) => {
+    console.log("Initializing Faculty Remove Process : ", id);
     if (checkForNumbersOnly(id)) {
-      setGetDeptError("");
-      DepartmentService.initializeRemoveDepartment(id)
+      setGetFacError("");
+      FacultyService.initializeRemoveFaculty(id)
         .then((response) => {
           console.log(response.data);
-          setDept(response.data);
+          setFac(response.data);
           // if safe to remove, means no dependancy then green
           if (response.data.errorCode >= 0) {
             setDisplayContentColor("green");
@@ -54,10 +54,10 @@ const Faculty_Remove = () => {
         })
         .catch((error) => {
           if (error.response.status === 400) {
-            setGetDeptError(error.response.data);
+            setGetFacError(error.response.data);
           } else console.log(error);
         });
-    } else navigate("/department");
+    } else navigate("/faculty");
   };
 
   const checkForNumbersOnly = (newVal) => {
@@ -66,25 +66,25 @@ const Faculty_Remove = () => {
     else return false;
   };
 
-  const removeDept = (e) => {
+  const removeFac = (e) => {
     e.preventDefault();
 
-    console.log("removing department: ", dept);
-    console.log("removing department-id: ", id);
+    console.log("removing faculty: ", getFacError);
+    console.log("removing faculty-id: ", id);
 
     // api call
-    DepartmentService.removeDepartment(dept)
+    FacultyService.removeFaculty(fac)
       .then((response) => {
         console.log(response.data);
-        var deptRemoveResponse = {
+        var facRemoveResponse = {
           responseCode: response.data.responseCode,
           responseMessage: response.data.responseMessage,
         };
-        setDeptRemoveResponse(deptRemoveResponse);
+        setFacRemoveResponse(facRemoveResponse);
         // 0: success
         if (response.data.responseCode === 0) {
           setTimeout(() => {
-            navigate("/department");
+            navigate("/faculty");
           }, 3000);
         }
         // -1: fail
@@ -92,45 +92,28 @@ const Faculty_Remove = () => {
         }
       })
       .catch((error) => {
-        setDeptRemoveResponse(error);
+        setFacRemoveResponse(error);
       });
   };
 
   const goBack = (e) => {
-    navigate("/department");
+    navigate("/faculty");
   };
 
-  const facultyColumns = [
+  const assignmentColumns = [
     {
-      dataField: "facultyId",
+      dataField: "assignmentId",
       text: "#",
     },
     {
-      dataField: "name",
-      text: "Faculty",
+      dataField: "asmtUploadId",
+      text: "File Upload #",
     },
     {
-      dataField: "dependingAssignments",
-      text: "Assignments",
-      formatter: (cell) => displayAssignments(cell),
+      dataField: "title",
+      text: "Title",
     },
   ];
-  const displayAssignments = (cell) => {
-    return cell.length > 0 ? (
-      cell.map((item, i) => {
-        return (
-          <div key={i} value={item.assignmentId}>
-            <span>- {item.title}</span>
-            <br />
-          </div>
-        );
-      }, this)
-    ) : (
-      <span>
-        <b>N/A</b>
-      </span>
-    );
-  };
 
   const courseColumns = [
     {
@@ -152,11 +135,11 @@ const Faculty_Remove = () => {
               <div className="card-header">
                 <div className="row">
                   <div className="col-md-10 mx-auto">
-                    <h3>Remove Department</h3>
-                    {!getDeptError && (
+                    <h3>Remove Faculty</h3>
+                    {!getFacError && (
                       <h5>
                         <span className="headerText">
-                          Are you sure wants to remove department?
+                          Are you sure wants to remove faculty?
                         </span>
                       </h5>
                     )}
@@ -172,42 +155,41 @@ const Faculty_Remove = () => {
                   </div>
                 </div>
                 <p></p>{" "}
-                {deptRemoveResponse &&
-                deptRemoveResponse.responseCode === -1 ? (
-                  <span className="deptRemoveError">
-                    {deptRemoveResponse.responseMessage}
+                {facRemoveResponse && facRemoveResponse.responseCode === -1 ? (
+                  <span className="facRemoveError">
+                    {facRemoveResponse.responseMessage}
                   </span>
                 ) : (
-                  <span className="deptRemoveSuccess">
-                    {deptRemoveResponse.responseMessage}
+                  <span className="facRemoveSuccess">
+                    {facRemoveResponse.responseMessage}
                   </span>
                 )}
               </div>
 
               <div className="card-body">
-                {!getDeptError ? (
+                {!getFacError ? (
                   <div style={{ color: displayContentColor }}>
                     <div className="container">
-                      <h6>Department # : {dept.departmentId}</h6>
-                      <h6>Department Name : {dept.departmentName}</h6>
-                      <h6>API Code : {dept.errorCode}</h6>
+                      <h6>Faculty # : {fac.facultyRemove.facultyId}</h6>
+                      <h6>Faculty Name : {fac.facultyRemove.name}</h6>
+                      <h6>API Code : {fac.errorCode}</h6>
                       <div>
                         <h6>
-                          API Message : {dept.errorMessage}
+                          API Message : {fac.errorMessage}
                           <p></p>
-                          {dept.errorCode < 0 ? (
+                          {fac.errorCode < 0 ? (
                             <Button
                               className="btn btn-danger"
                               type="button"
-                              onClick={(e) => removeDept(e)}
+                              onClick={(e) => removeFac(e)}
                             >
-                              Force Remove Department
+                              Force Remove Faculty
                             </Button>
                           ) : (
                             <Button
                               className="btn btn-primary"
                               type="button"
-                              onClick={(e) => removeDept(e)}
+                              onClick={(e) => removeFac(e)}
                             >
                               Remove Department
                             </Button>
@@ -216,19 +198,19 @@ const Faculty_Remove = () => {
                       </div>
                       <hr />
                       <h5>
-                        <u>Depending Faculties...</u>
+                        <u>Depending Assignments...</u>
                       </h5>
                       <div>
-                        {dept.dependingFaculties &&
-                        dept.dependingFaculties.length > 0 ? (
+                        {fac.facultyRemove.dependingAssignments &&
+                        fac.facultyRemove.dependingAssignments.length > 0 ? (
                           <BootstrapTable
                             bootstrap4
-                            keyField="facultyId"
-                            data={dept.dependingFaculties}
-                            columns={facultyColumns}
+                            keyField="assignmentId"
+                            data={fac.facultyRemove.dependingAssignments}
+                            columns={assignmentColumns}
                           />
                         ) : (
-                          <div className="noData">No Faculties!</div>
+                          <div className="noData">No Assignments!</div>
                         )}
                       </div>
 
@@ -236,12 +218,12 @@ const Faculty_Remove = () => {
                         <u>Depending Courses...</u>
                       </h5>
                       <div>
-                        {dept.dependingCourses &&
-                        dept.dependingCourses.length > 0 ? (
+                        {fac.dependingCourses &&
+                        fac.dependingCourses.length > 0 ? (
                           <BootstrapTable
                             bootstrap4
                             keyField="courseId"
-                            data={dept.dependingCourses}
+                            data={fac.dependingCourses}
                             columns={courseColumns}
                           />
                         ) : (
@@ -251,7 +233,7 @@ const Faculty_Remove = () => {
                     </div>
                   </div>
                 ) : (
-                  <span className="deptRemoveError">{getDeptError}</span>
+                  <span className="facRemoveError">{getFacError}</span>
                 )}
               </div>
             </div>
