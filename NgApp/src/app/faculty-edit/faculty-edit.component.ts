@@ -33,6 +33,7 @@ export class FacultyEditComponent implements OnInit {
 
   apiResponse = '';
   responseColor = '';
+  errors: string[];
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router, private route: ActivatedRoute) { }
 
@@ -95,6 +96,11 @@ export class FacultyEditComponent implements OnInit {
   }
 
   onSubmit(): void {   
+
+    this.responseColor = '';
+    this.errors = [];    
+    this.apiResponse = '';
+
     this.submitted = true;
     if (this.facForm.valid) {
       this.facultyModel.phoneNumber = this.facForm.value["PhoneNumber"];
@@ -128,9 +134,19 @@ export class FacultyEditComponent implements OnInit {
             }
           },
           error => {
-            this.apiResponse = error;
+            this.apiResponse = '';
             this.responseColor = 'red';
             this.editFacPanel = true;
+            // 400
+            // ModelState @api
+            if (error.status === 400) {   
+              this.errors = this.localDataService.display400andEx(error, 'Registration');      
+            }
+            else {
+              console.log(error);
+            }
+
+        
           }
         );
     }
