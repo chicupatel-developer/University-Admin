@@ -30,6 +30,7 @@ namespace UniversityAPI.Controllers
             _crsRepo = courseRepo;
         }
 
+        // react ok
         // ok
         [HttpGet]
         [Route("allCourses")]
@@ -39,6 +40,7 @@ namespace UniversityAPI.Controllers
             return Ok(model);
         }
 
+        // react ok
         // ok
         [HttpPost]
         [Route("addCourse")]
@@ -69,7 +71,8 @@ namespace UniversityAPI.Controllers
             }
             return Ok(_response);
         }
-              
+
+        // react ok
         // ok
         // edit course
         [HttpGet]
@@ -78,7 +81,9 @@ namespace UniversityAPI.Controllers
         {
             var crs = _crsRepo.GetCourse(selectedCrsId);
             return Ok(crs);
-        } 
+        }
+
+        // react ok
         // ok
         // edit in action
         [HttpPost]
@@ -89,22 +94,30 @@ namespace UniversityAPI.Controllers
             try
             {
                 // throw new Exception();
-                Course editedCourse = _crsRepo.EditCourse(course);
-                if (editedCourse == null)
+
+                if (ModelState.IsValid)
                 {
-                    // course not found
-                    // data mis-match either at client or server side
-                    _response.ResponseCode = -1;
-                    _response.ResponseMessage = "Course Not Found @ Server Side!";
-                    _response.ResponseError = "Course Not Found @ Server Side!";
+                    Course editedCourse = _crsRepo.EditCourse(course);
+                    if (editedCourse == null)
+                    {
+                        // course not found
+                        // data mis-match either at client or server side
+                        _response.ResponseCode = -1;
+                        _response.ResponseMessage = "Course Not Found @ Server Side!";
+                        _response.ResponseError = "Course Not Found @ Server Side!";
+                    }
+                    else
+                    {
+                        // success
+                        _response.ResponseCode = 0;
+                        _response.ResponseMessage = "Course Edited Successfully!";
+                        _response.ResponseError = null;
+                    }
                 }
                 else
                 {
-                    // success
-                    _response.ResponseCode = 0;
-                    _response.ResponseMessage = "Course Edited Successfully!";
-                    _response.ResponseError = null;
-                }
+                    return BadRequest(ModelState);
+                }             
             }
             catch (Exception ex)
             {
