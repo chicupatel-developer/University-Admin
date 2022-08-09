@@ -15,6 +15,7 @@ import Faculty from "./components/Faculty/Faculty";
 import Faculty_Create from "./components/Faculty_Create/Faculty_Create";
 import Faculty_Edit from "./components/Faculty_Edit/Faculty_Edit";
 import Faculty_Remove from "./components/Faculty_Remove/Faculty_Remove";
+import Course from "./components/Course/Course";
 import UnAuth from "./components/UnAuth/UnAuth";
 import NotFound from "./components/NotFound/NotFound";
 
@@ -41,6 +42,7 @@ function App() {
             <Route path="/faculty-create" element={<Faculty_Create />} />
             <Route path="/faculty-edit/:id" element={<Faculty_Edit />} />
             <Route path="/faculty-remove/:id" element={<Faculty_Remove />} />
+            <Route path="/course" element={<Course />} />
             <Route path="/un-auth" element={<UnAuth />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
