@@ -42,6 +42,7 @@ export class CourseEditComponent implements OnInit {
 
   apiResponse = '';
   responseColor = '';
+  errors: string[];
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router, private route: ActivatedRoute) { }
 
@@ -101,12 +102,19 @@ export class CourseEditComponent implements OnInit {
   }
 
   onSubmit(): void {
+
+    this.responseColor = '';
+    this.errors = [];    
+    this.apiResponse = ''; 
+
     this.submitted = true;
     if (this.crsForm.valid) {
       this.courseModel.couseName = this.crsForm.value["CourseName"];
+      // this.courseModel.couseName = null;
       this.courseModel.departmentId = this.departmentId;
       this.courseModel.facultyId = Number(this.crsForm.value["FacultyId"]);
       this.courseModel.couseId = Number(this.couseId);
+      // this.courseModel.couseId = 1111;
 
       this.dataService.editCrs(this.courseModel)
         .subscribe(
@@ -131,9 +139,17 @@ export class CourseEditComponent implements OnInit {
             }
           },
           error => {
-            this.apiResponse = error;
+            this.apiResponse = '';
             this.responseColor = 'red';
             this.editCrsPanel = true;
+            // 400
+            // ModelState @api
+            if (error.status === 400) {   
+              this.errors = this.localDataService.display400andEx(error, 'Registration');      
+            }
+            else {
+              console.log(error);
+            }
           }
         );
     }

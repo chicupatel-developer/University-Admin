@@ -144,9 +144,7 @@ export class FacultyEditComponent implements OnInit {
             }
             else {
               console.log(error);
-            }
-
-        
+            }        
           }
         );
     }
