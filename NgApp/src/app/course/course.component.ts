@@ -25,8 +25,9 @@ export class CourseComponent implements OnInit {
   courseModel = new CourseCreate();
   newCourseAddPanel = false;
   
-  apiResponse = '';
   responseColor = '';
+  errors: string[];
+  apiResponse = '';  
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router) { }
 
@@ -104,12 +105,18 @@ export class CourseComponent implements OnInit {
   // ok
   onSubmit(): void {
 
+    this.responseColor = '';
+    this.errors = []; 
+    this.apiResponse = '';
+
     this.submitted = true;
     if (this.courseForm.valid) {
       this.courseModel.couseName = this.courseForm.value["CouseName"];
+      // this.courseModel.couseName = null;
       this.courseModel.facultyId = Number(this.courseForm.value["FacultyId"]);
       this.courseModel.departmentId = Number(this.courseForm.value["DepartmentId"]);
-       
+      console.log(this.courseModel);
+      
       this.dataService.addCourse(this.courseModel)
         .subscribe(
           res => {
@@ -136,8 +143,16 @@ export class CourseComponent implements OnInit {
             }
           },
           error => {
-            this.apiResponse = error;
             this.responseColor = 'red';
+            // 400
+            // ModelState @api
+            if (error.status === 400) {   
+              this.errors = this.localDataService.display400andEx(error, 'Registration');      
+            }
+            // 500
+            else{
+              console.log(error);
+            }
           }
         );
     }

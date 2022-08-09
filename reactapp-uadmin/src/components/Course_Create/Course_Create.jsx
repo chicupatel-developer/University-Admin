@@ -147,7 +147,7 @@ const Course_Create = () => {
       setErrors(newErrors);
     } else {
       var courseModel = {
-        courseName: form.courseName,
+        couseName: form.courseName,
         departmentId: Number(form.departmentId),
         facultyId: Number(form.facultyId),
       };
@@ -197,6 +197,7 @@ const Course_Create = () => {
     setForm({});
     setCourseCreateResponse({});
     setModelErrors([]);
+    setSelectedFacId("");
   };
 
   let modelErrorList =
