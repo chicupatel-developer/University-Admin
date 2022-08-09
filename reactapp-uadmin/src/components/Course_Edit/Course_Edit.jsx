@@ -58,7 +58,7 @@ const Course_Edit = () => {
             setCourseName(response.data.courseName);
             setFacultyId(response.data.currentFacultyId);
             setDepartmentId(response.data.departmentId);
-            setFaculties(response.data.facultyList);;
+            setFaculties(response.data.facultyList);
           }
         })
         .catch((e) => {
@@ -142,10 +142,10 @@ const Course_Edit = () => {
       setErrors(newErrors);
     } else {
       var courseModel = {
-        courseName: courseName,
+        couseName: courseName,
         departmentId: Number(departmentId),
         facultyId: Number(facultyId),
-        courseId: Number(id),
+        couseId: Number(id),
       };
 
       console.log(courseModel);
@@ -154,23 +154,23 @@ const Course_Edit = () => {
         .then((response) => {
           console.log(response.data);
           setModelErrors([]);
-          setFacEditResponse({});
-          var facEditResponse = {
+          setCourseEditResponse({});
+          var courseEditResponse = {
             responseCode: response.data.responseCode,
             responseMessage: response.data.responseMessage,
           };
 
           resetForm();
-          setFacEditResponse(facEditResponse);
+          setCourseEditResponse(courseEditResponse);
           if (response.data.responseCode === 0) {
             setTimeout(() => {
-              navigate("/faculty");
+              navigate("/course");
             }, 3000);
           }
         })
         .catch((error) => {
           setModelErrors([]);
-          setFacEditResponse({});
+          setCourseEditResponse({});
           // 400
           // ModelState
           if (error.response.status === 400) {
