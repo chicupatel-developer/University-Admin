@@ -87,6 +87,10 @@ const Header = () => {
                 <i className="bi bi-person-lines-fill"></i>
                 Faculty
               </Link>
+              <Link to={"/course"} className="nav-link">
+                <i className="bi bi-book"></i>
+                Course
+              </Link>
             </Nav>
           ) : (
             <span></span>

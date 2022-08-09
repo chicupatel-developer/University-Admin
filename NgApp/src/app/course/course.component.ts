@@ -82,6 +82,7 @@ export class CourseComponent implements OnInit {
     this.dataService.getCourses()
       .subscribe(
         data => {
+          console.log(data);
           this.courses = data;
         },
         error => {

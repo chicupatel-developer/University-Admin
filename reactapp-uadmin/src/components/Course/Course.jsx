@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./style.css";
 import AuthService from "../../services/auth.service";
-import FacultyService from "../../services/faculty.service";
+import CourseService from "../../services/course.service";
 import { useNavigate } from "react-router-dom";
 
 // react-bootstrap-table-2
@@ -13,17 +13,15 @@ import Button from "react-bootstrap/Button";
 
 import Moment from "moment";
 
-import { getGender, getGenderStyle } from "../../services/local.service";
-
-const Faculty = () => {
+const Course = () => {
   let navigate = useNavigate();
 
-  const [facs, setFacs] = useState([]);
+  const [courses, setCourses] = useState([]);
 
-  const getAllFaculties = () => {
-    FacultyService.allFaculties()
+  const getAllCourses = () => {
+    CourseService.allCourses()
       .then((response) => {
-        setFacs(response.data);
+        setCourses(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -40,7 +38,7 @@ const Faculty = () => {
 
     if (currRole === null || (currRole !== null && currRole !== "Admin"))
       navigate("/un-auth");
-    else getAllFaculties();
+    else getAllCourses();
   }, []);
 
   const displayActionBtn = (cell, row) => {
@@ -50,7 +48,7 @@ const Faculty = () => {
         <Button
           className="btn btn-info"
           type="button"
-          onClick={(e) => editFac(e, row.facultyId)}
+          onClick={(e) => editCourse(e, row.courseId)}
         >
           <i className="bi bi-pencil-square"></i>
         </Button>
@@ -58,57 +56,35 @@ const Faculty = () => {
         <Button
           className="btn btn-danger"
           type="button"
-          onClick={(e) => removeFac(e, row.facultyId)}
+          onClick={(e) => removeCourse(e, row.courseId)}
         >
           <i className="bi bi-trash"></i>
         </Button>
       </div>
     );
   };
-  const displayName = (cell, row) => {
-    return (
-      <span>
-        {row.firstName} , {row.lastName}
-      </span>
-    );
-  };
-  const displayGender = (cell, row) => {
-    return (
-      <span
-        style={{ color: getGenderStyle(cell) }}
-      >
-        {getGender(cell)}
-      </span>
-    );
-  };
+  
   const columns = [
     {
-      dataField: "facultyId",
+      dataField: "fcourseId",
       text: "#",
       sort: true,
     },
     {
-      dataField: "firstName",
-      text: "Name",
-      sort: true,
-      formatter: (cell, row) => displayName(cell, row),
-    },
-    {
-      dataField: "email",
-      text: "Email",
+      dataField: "courseName",
+      text: "Course",
       sort: true,
     },
     {
-      dataField: "phoneNumber",
-      text: "Phone",
+      dataField: "facultyName",
+      text: "Faculty",
       sort: true,
     },
     {
-      dataField: "gender",
-      text: "Gender",
+      dataField: "departmentName",
+      text: "Department",
       sort: true,
-      formatter: (cell, row) => displayGender(cell, row),
-    },
+    },  
     {
       dataField: "actions",
       text: "Actions",
@@ -116,44 +92,44 @@ const Faculty = () => {
     },
   ];
 
-  const createNewFac = () => {
-    navigate("/faculty-create");
+  const createNewCourse = () => {
+    navigate("/course-create");
   };
-  const editFac = (e, facId) => {
-    console.log("edit fac : ", facId);
-    navigate("/faculty-edit/" + facId);
+  const editCourse = (e, courseId) => {
+    console.log("edit course : ", courseId);
+    navigate("/course-edit/" + courseId);
   };
-  const removeFac = (e, facId) => {
-    console.log("remove fac : ", facId);
-    navigate("/faculty-remove/" + facId);
+  const removeCourse = (e, courseId) => {
+    console.log("remove course : ", courseId);
+    navigate("/course-remove/" + courseId);
   };
 
   return (
     <div className="container">
-      <div className="mainHeader">Faculties</div>
+      <div className="mainHeader">Courses</div>
       <hr />
       <Button
         className="btn btn-success"
         type="button"
-        onClick={(e) => createNewFac(e)}
+        onClick={(e) => createNewCourse(e)}
       >
-        Create New Faculty
+        Create New Course
       </Button>
       <p></p>
-      {facs && facs.length > 0 ? (
+      {courses && courses.length > 0 ? (
         <BootstrapTable
           bootstrap4
-          keyField="facultyId"
-          data={facs}
+          keyField="courseId"
+          data={courses}
           columns={columns}
           pagination={paginationFactory({ sizePerPage: 5 })}
           filter={filterFactory()}
         />
       ) : (
-        <div className="noFacs">No Faculty!</div>
+        <div className="noFacs">No Course!</div>
       )}
     </div>
   );
 };
 
-export default Faculty;
+export default Course;

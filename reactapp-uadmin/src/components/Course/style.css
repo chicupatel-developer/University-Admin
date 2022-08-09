@@ -6,16 +6,10 @@
 
 }
 
-.noFacs {
+.noCourses {
     text-align: center;
     color: red;
     font-size: xx-large;
     font-weight: bold;
 }
 
-.maleStyle {
-    color: blue;
-}
-.femaleStyle{
-    color: red;
-}
