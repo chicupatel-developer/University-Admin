@@ -5,7 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import AuthService from "../../services/auth.service";
-import FacultyService from "../../services/faculty.service";
+import AssignmentService from "../../services/assignment.service";
 import DepartmentService from "../../services/department.service";
 import CourseService from "../../services/course.service";
 
@@ -17,6 +17,7 @@ const Course_Create = () => {
   let navigate = useNavigate();
 
   const [faculties, setFaculties] = useState([]);
+  const [selectedFacId, setSelectedFacId] = useState("");
   const [depts, setDepts] = useState([]);
 
   const [modelErrors, setModelErrors] = useState([]);
@@ -53,11 +54,43 @@ const Course_Create = () => {
       });
   };
 
+  const listOfFaculties = (deptId) => {
+    AssignmentService.listOfFaculties(deptId)
+      .then((response) => {
+        console.log(response.data);
+        setFaculties([]);
+        setSelectedFacId("");
+        setFaculties(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+        if (e.response.status === 401) {
+          console.log("Token Not Found!");
+          AuthService.logout();
+          navigate("/login");
+        }
+      });
+  };
+
   // reset form
   // form reference
   const formRef = useRef(null);
 
   const setField = (field, value) => {
+    // departmentId
+    if (field === "departmentId") {
+      if (value !== "") {
+        console.log(selectedFacId);
+        console.log("getting faculties for department#", value);
+        listOfFaculties(value);
+      }
+    }
+
+    // facultyId
+    if (field === "facultyId") {
+      setSelectedFacId(value);
+    }
+
     setForm({
       ...form,
       [field]: value,
@@ -78,11 +111,11 @@ const Course_Create = () => {
     if (!courseName || courseName === "")
       newErrors.courseName = "Course Name is Required!";
 
-    if (!departmentId || departmentId === "")
-      newErrors.departmentId = "Department is Required!";
-
     if (!facultyId || facultyId === "")
       newErrors.facultyId = "Faculty is Required!";
+
+    if (!departmentId || departmentId === "")
+      newErrors.departmentId = "Department is Required!";
 
     return newErrors;
   };
@@ -113,43 +146,40 @@ const Course_Create = () => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      var facModel = {
-        firstName: form.firstName,
-        lastName: form.lastName,
-        phoneNumber: form.phoneNumber,
-        email: form.email,
-        gender: convertGender(form.gender),
+      var courseModel = {
+        courseName: form.courseName,
         departmentId: Number(form.departmentId),
+        facultyId: Number(form.facultyId),
       };
 
-      console.log(facModel);
+      console.log(courseModel);
 
       // api call
-      FacultyService.createFaculty(facModel)
+      CourseService.createCourse(courseModel)
         .then((response) => {
           setModelErrors([]);
-          setFacCreateResponse({});
+          setCourseCreateResponse({});
           console.log(response.data);
 
-          var facCreateResponse = {
+          var courseCreateResponse = {
             responseCode: response.data.responseCode,
             responseMessage: response.data.responseMessage,
           };
           if (response.data.responseCode === 0) {
             resetForm();
-            setFacCreateResponse(facCreateResponse);
+            setCourseCreateResponse(courseCreateResponse);
 
             setTimeout(() => {
-              navigate("/faculty");
+              navigate("/course");
             }, 3000);
           } else if (response.data.responseCode === -1) {
-            setFacCreateResponse(facCreateResponse);
+            setCourseCreateResponse(courseCreateResponse);
           }
         })
         .catch((error) => {
           console.log(error);
           setModelErrors([]);
-          setFacCreateResponse({});
+          setCourseCreateResponse({});
           // 400
           // ModelState
           if (error.response.status === 400) {
@@ -203,18 +233,19 @@ const Course_Create = () => {
     <div className="mainContainer">
       <div className="container">
         <div className="row">
-          <div className="col-md-9 mx-auto">
+          <div className="col-md-6 mx-auto">
             <div className="card">
               <div className="card-header">
-                <h3>Create New Faculty</h3>
+                <h3>Create New Course</h3>
                 <p></p>{" "}
-                {facCreateResponse && facCreateResponse.responseCode === -1 ? (
-                  <span className="facCreateError">
-                    {facCreateResponse.responseMessage}
+                {courseCreateResponse &&
+                courseCreateResponse.responseCode === -1 ? (
+                  <span className="courseCreateError">
+                    {courseCreateResponse.responseMessage}
                   </span>
                 ) : (
-                  <span className="facCreateSuccess">
-                    {facCreateResponse.responseMessage}
+                  <span className="courseCreateSuccess">
+                    {courseCreateResponse.responseMessage}
                   </span>
                 )}
                 {modelErrors.length > 0 ? (
@@ -226,74 +257,18 @@ const Course_Create = () => {
               <div className="card-body">
                 <Form ref={formRef}>
                   <div className="row">
-                    <div className="col-md-5 mx-auto">
-                      <Form.Group controlId="firstName">
-                        <Form.Label>First Name</Form.Label>
+                    <div className="col-md-10 mx-auto">
+                      <Form.Group controlId="courseName">
+                        <Form.Label>Course Name</Form.Label>
                         <Form.Control
                           type="text"
-                          isInvalid={!!errors.firstName}
+                          isInvalid={!!errors.courseName}
                           onChange={(e) =>
-                            setField("firstName", e.target.value)
+                            setField("courseName", e.target.value)
                           }
                         />
                         <Form.Control.Feedback type="invalid">
-                          {errors.firstName}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                      <p></p>
-                      <Form.Group controlId="lastName">
-                        <Form.Label>Last Name</Form.Label>
-                        <Form.Control
-                          type="text"
-                          isInvalid={!!errors.lastName}
-                          onChange={(e) => setField("lastName", e.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.lastName}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                      <p></p>
-                      <Form.Group controlId="phoneNumber">
-                        <Form.Label>Phone</Form.Label>
-                        <Form.Control
-                          type="text"
-                          isInvalid={!!errors.phoneNumber}
-                          onChange={(e) =>
-                            setField("phoneNumber", e.target.value)
-                          }
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.phoneNumber}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </div>
-                    <div className="col-md-5 mx-auto">
-                      <Form.Group controlId="email">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control
-                          type="text"
-                          isInvalid={!!errors.email}
-                          onChange={(e) => setField("email", e.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.email}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                      <p></p>
-                      <Form.Group controlId="gender">
-                        <Form.Label>Gender</Form.Label>
-                        <Form.Control
-                          as="select"
-                          isInvalid={!!errors.gender}
-                          onChange={(e) => {
-                            setField("gender", e.target.value);
-                          }}
-                        >
-                          <option value="">Select Gender</option>
-                          {renderOptionsForGenders()}
-                        </Form.Control>
-                        <Form.Control.Feedback type="invalid">
-                          {errors.gender}
+                          {errors.courseName}
                         </Form.Control.Feedback>
                       </Form.Group>
                       <p></p>
@@ -313,6 +288,24 @@ const Course_Create = () => {
                           {errors.departmentId}
                         </Form.Control.Feedback>
                       </Form.Group>
+                      <p></p>
+                      <Form.Group controlId="facultyId">
+                        <Form.Label>Faculty</Form.Label>
+                        <Form.Control
+                          as="select"
+                          value={selectedFacId}
+                          isInvalid={!!errors.facultyId}
+                          onChange={(e) => {
+                            setField("facultyId", e.target.value);
+                          }}
+                        >
+                          <option value="">Select Faculty</option>
+                          {renderOptionsForFaculties()}
+                        </Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                          {errors.facultyId}
+                        </Form.Control.Feedback>
+                      </Form.Group>
                     </div>
                   </div>
 
@@ -325,7 +318,7 @@ const Course_Create = () => {
                       type="button"
                       onClick={(e) => handleSubmit(e)}
                     >
-                      Create Faculty
+                      Create Course
                     </Button>
                     <Button
                       className="btn btn-primary"

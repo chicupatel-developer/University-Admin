@@ -14,13 +14,13 @@ namespace Entities.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CouseId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Course Name is required")]
         public string CouseName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Faculty is required")]
         public int FacultyId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Department is required")]
         [ForeignKey(nameof(Department))]
         public int DepartmentId { get; set; }
 

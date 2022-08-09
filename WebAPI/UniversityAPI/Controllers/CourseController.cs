@@ -48,10 +48,18 @@ namespace UniversityAPI.Controllers
             try
             {
                 // throw new Exception();
-                _crsRepo.AddCourse(course);
-                _response.ResponseCode = 0;
-                _response.ResponseMessage = "Course Added Successfully!";
-                _response.ResponseError = null;
+
+                if (ModelState.IsValid)
+                {
+                    _crsRepo.AddCourse(course);
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "Course Added Successfully!";
+                    _response.ResponseError = null;
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }             
             }
             catch (Exception ex)
             {
