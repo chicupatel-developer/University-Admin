@@ -63,10 +63,10 @@ const Course = () => {
       </div>
     );
   };
-  
+
   const columns = [
     {
-      dataField: "fcourseId",
+      dataField: "courseId",
       text: "#",
       sort: true,
     },
@@ -84,7 +84,7 @@ const Course = () => {
       dataField: "departmentName",
       text: "Department",
       sort: true,
-    },  
+    },
     {
       dataField: "actions",
       text: "Actions",

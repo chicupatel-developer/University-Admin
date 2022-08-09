@@ -66,6 +66,7 @@ export class CourseComponent implements OnInit {
     this.dataService.listOfFaculties(selectedDeptId)
       .subscribe(
         data => {
+          console.log(data);
           if (data.length <= 0) {
             // reset facultyId select list control
             this.courseForm.controls['FacultyId'].setValue('');
