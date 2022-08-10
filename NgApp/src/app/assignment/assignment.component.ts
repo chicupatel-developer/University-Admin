@@ -236,6 +236,7 @@ export class AssignmentComponent implements OnInit {
     this.dataService.getAssignments()
       .subscribe(
         data => {
+          console.log(data);
           this.assignments = data;
 
           this.refreshFacs();

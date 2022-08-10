@@ -1,0 +1,18 @@
+.mainHeader {
+    text-align: center;
+    color: darkolivegreen;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.header {
+    background-color: lightgoldenrodyellow;
+    color: black;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 5px;
+}
+
+.asmtInfo{
+    font-weight:bold;    
+}

@@ -91,6 +91,10 @@ const Header = () => {
                 <i className="bi bi-book"></i>
                 Course
               </Link>
+              <Link to={"/assignment"} className="nav-link">
+                <i className="bi bi-bookmark-plus-fill"></i>
+                Assignment
+              </Link>
             </Nav>
           ) : (
             <span></span>

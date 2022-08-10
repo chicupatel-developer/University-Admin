@@ -7,5 +7,12 @@ class AssignmentService {
       headers: authHeader(),
     });
   };
+
+  // display all assignments
+  allAsmtFacDept = async () => {
+    return await http.get(`/allAsmtFacDept`, {
+      headers: authHeader(),
+    });
+  };
 }
 export default new AssignmentService();
