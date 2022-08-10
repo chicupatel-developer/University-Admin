@@ -18,6 +18,9 @@ const Assignment = () => {
 
   const [assignments, setAssignments] = useState([]);
 
+  // download assignment
+  const [asmtToDownload, setAsmtToDownload] = useState(null);
+
   useEffect(() => {
     var currRole = AuthService.getCurrentUserRole();
 
@@ -45,8 +48,9 @@ const Assignment = () => {
   const createNewAssignment = (e) => {
     console.log("create new assignment!");
   };
-  const downloadAssignment = (e, asmt) => {
+  const downloadAssignment = (e, asmt, index) => {
     console.log("download assignment # ", asmt.assignmentId, asmt.asmtUploadId);
+    setAsmtToDownload(asmt.asmtFileName);
   };
 
   const renderAllAssignments = () => {
@@ -67,9 +71,16 @@ const Assignment = () => {
                   <Button
                     className="btn btn-info"
                     type="button"
-                    onClick={(e) => downloadAssignment(e, dt)}
+                    onClick={(e) => downloadAssignment(e, dt, i)}
                   >
-                    Download Assignment
+                    <a
+                      href={
+                        "https://localhost:44354/api/Assignment/download?fileName=" +
+                        dt.asmtFileName
+                      }
+                    >
+                      Download Assignment
+                    </a>
                   </Button>
                 </div>
               </div>

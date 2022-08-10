@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace UniversityAPI.Controllers
 {
-    [Authorize("Admin")]
+    // [Authorize("Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AssignmentController : ControllerBase
@@ -44,6 +44,7 @@ namespace UniversityAPI.Controllers
             return Ok(model);
         }
 
+        // react ok
         // ok
         [HttpGet]
         [Route("allAsmtFacDept")]
@@ -152,6 +153,7 @@ namespace UniversityAPI.Controllers
             }
         }
 
+        // react wip
         // ok
         // assignment file download
         [HttpGet, DisableRequestSizeLimit]
