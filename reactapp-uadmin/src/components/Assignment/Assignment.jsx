@@ -57,7 +57,9 @@ const Assignment = () => {
     AssignmentService.asmtDownload(asmt.asmtFileName)
       .then((blob) => {
         console.log(blob);
-        setDownloadMsg("Downloading..." + asmt.asmtFileName + " !");
+        setDownloadMsg(
+          "Downloading..." + asmt.asmtFileName.substring(0, 35) + " !"
+        );
         setDownloadClass("greenClass");
 
         // const myFile = new Blob([blob.data], { type: 'text/csv' });

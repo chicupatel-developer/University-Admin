@@ -22,5 +22,17 @@ class AssignmentService {
       // "Content-Type": "application/pdf",
     });
   };
+
+  listOfFaculties = async (selectedDeptId) => {
+    return await http.get(`/listOfFaculties/${selectedDeptId}`, {
+      headers: authHeader(),
+    });
+  };
+
+  listOfCourses = async (selectedFacId) => {
+    return await http.get(`/listOfCourses/${selectedFacId}`, {
+      headers: authHeader(),
+    });
+  };
 }
 export default new AssignmentService();
