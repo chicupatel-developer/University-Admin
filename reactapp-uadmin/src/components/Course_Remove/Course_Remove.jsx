@@ -23,7 +23,7 @@ const Course_Remove = () => {
   const [getCourseError, setGetCourseError] = useState("");
   const [displayContentColor, setDisplayContentColor] = useState("");
 
-  const [course, setCourse] = useState({});
+  const [course, setCourse] = useState({ courseRemove: {} });
   const [courseRemoveResponse, setCourseRemoveResponse] = useState({});
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const Course_Remove = () => {
     console.log("removing course-id: ", id);
 
     // api call
-    CourseService.removeCpurse(course)
+    CourseService.removeCourse(course)
       .then((response) => {
         console.log(response.data);
         var courseRemoveResponse = {
@@ -160,7 +160,7 @@ const Course_Remove = () => {
                   <div style={{ color: displayContentColor }}>
                     <div className="container">
                       <h6>Course # : {course.courseRemove.courseId}</h6>
-                      <h6>Course Name : {course.courseRemove.Name}</h6>
+                      <h6>Course Name : {course.courseRemove.name}</h6>
                       <h6>API Code : {course.errorCode}</h6>
                       <div>
                         <h6>

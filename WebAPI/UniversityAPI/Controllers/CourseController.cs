@@ -128,15 +128,25 @@ namespace UniversityAPI.Controllers
             return Ok(_response);
         }
 
+        // react ok
         // ok
         // remove course
         [HttpGet]
         [Route("initializeRemoveCourse/{selectedCrsId}")]
         public IActionResult InitializeRemoveCourse(int selectedCrsId)
         {
-            var crs = _crsRepo.InitializeRemoveCourse(selectedCrsId);
-            return Ok(crs);
+            try
+            {
+                var crs = _crsRepo.InitializeRemoveCourse(selectedCrsId);
+                return Ok(crs);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Bad Request! (OR) Server Error!");
+            }       
         }
+
+        // react ok
         // ok
         // remove in action
         [HttpPost]
