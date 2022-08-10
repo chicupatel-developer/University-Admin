@@ -16,3 +16,12 @@
 .asmtInfo{
     font-weight:bold;    
 }
+
+.greenClass {
+    color: green;
+    font-weight: bold;
+}
+.redClass {
+    color: red;
+    font-weight: bold;
+}

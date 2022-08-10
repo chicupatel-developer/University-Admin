@@ -218,6 +218,8 @@ namespace UniversityAPI.Controllers
         {
             try
             {
+                // throw new Exception();
+
                 var currentDirectory = System.IO.Directory.GetCurrentDirectory();
                 currentDirectory = currentDirectory + "\\StaticFiles\\Assignments";
                 var file = Path.Combine(currentDirectory, fileName);

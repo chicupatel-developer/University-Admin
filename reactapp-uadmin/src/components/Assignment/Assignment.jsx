@@ -20,6 +20,8 @@ const Assignment = () => {
 
   // download assignment
   const [asmtToDownload, setAsmtToDownload] = useState(null);
+  const [downloadMsg, setDownloadMsg] = useState("");
+  const [downloadClass, setDownloadClass] = useState("");
 
   useEffect(() => {
     var currRole = AuthService.getCurrentUserRole();
@@ -55,14 +57,34 @@ const Assignment = () => {
     AssignmentService.asmtDownload(asmt.asmtFileName)
       .then((blob) => {
         console.log(blob);
+        setDownloadMsg("Downloading..." + asmt.asmtFileName + " !");
+        setDownloadClass("greenClass");
 
         // const myFile = new Blob([blob.data], { type: 'text/csv' });
         const myFile = new Blob([blob.data], { type: "application/pdf" });
         const url = window.URL.createObjectURL(myFile);
         window.open(url);
+
+        setTimeout(() => {
+          setAsmtToDownload(null);
+          setDownloadMsg("");
+          setDownloadClass("");
+        }, 4000);
       })
       .catch((e) => {
         console.log(e);
+        if (e.response.status === 500) {
+          setDownloadMsg("Server Error !");
+        } else if (e.response.status === 400) {
+          setDownloadMsg("File Not Found !");
+        }
+        setDownloadClass("redClass");
+
+        setTimeout(() => {
+          setAsmtToDownload(null);
+          setDownloadMsg("");
+          setDownloadClass("");
+        }, 4000);
       });
   };
 
@@ -98,6 +120,10 @@ const Assignment = () => {
                     </a>
                     */}
                   </Button>
+                  <br />
+                  {asmtToDownload && asmtToDownload === dt.asmtFileName && (
+                    <span className={downloadClass}>{downloadMsg}</span>
+                  )}
                 </div>
               </div>
             </div>
