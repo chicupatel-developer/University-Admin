@@ -14,5 +14,13 @@ class AssignmentService {
       headers: authHeader(),
     });
   };
+
+  asmtDownload = async (fileName) => {
+    return await http.get(`/asmtDownload/${fileName}`, {
+      headers: authHeader(),
+      responseType: "blob",
+      // "Content-Type": "application/pdf",
+    });
+  };
 }
 export default new AssignmentService();

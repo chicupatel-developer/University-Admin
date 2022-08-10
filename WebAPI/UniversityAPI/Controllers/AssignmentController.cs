@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace UniversityAPI.Controllers
 {
-    // [Authorize("Admin")]
+    [Authorize("Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class AssignmentController : ControllerBase
@@ -153,7 +153,9 @@ namespace UniversityAPI.Controllers
             }
         }
 
-        // react wip
+        #region download file ng / react [authorization header]
+
+        // ng ok
         // ok
         // assignment file download
         [HttpGet, DisableRequestSizeLimit]
@@ -180,14 +182,14 @@ namespace UniversityAPI.Controllers
                 }
                 else
                 {
-                    return BadRequest(); 
-                }                
+                    return BadRequest();
+                }
             }
             catch (Exception e)
             {
                 return BadRequest(e);
             }
-        }    
+        }
         private string GetMimeType(string file)
         {
             string extension = Path.GetExtension(file).ToLowerInvariant();
@@ -206,5 +208,44 @@ namespace UniversityAPI.Controllers
                 default: return "";
             }
         }
+
+        // react ok
+        // ok
+        // assignment file download
+        [HttpGet, DisableRequestSizeLimit]
+        [Route("asmtDownload/{fileName}")]
+        public async Task<IActionResult> AsmtDownload(string fileName)
+        {
+            try
+            {
+                var currentDirectory = System.IO.Directory.GetCurrentDirectory();
+                currentDirectory = currentDirectory + "\\StaticFiles\\Assignments";
+                var file = Path.Combine(currentDirectory, fileName);
+
+                // check if file exists or not
+                if (System.IO.File.Exists(file))
+                {
+                    var memory = new MemoryStream();
+                    using (var stream = new FileStream(file, FileMode.Open))
+                    {
+                        await stream.CopyToAsync(memory);
+                    }
+
+                    memory.Position = 0;
+                    return File(memory, GetMimeType(file), fileName);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        #endregion
+
     }
 }

@@ -51,6 +51,19 @@ const Assignment = () => {
   const downloadAssignment = (e, asmt, index) => {
     console.log("download assignment # ", asmt.assignmentId, asmt.asmtUploadId);
     setAsmtToDownload(asmt.asmtFileName);
+
+    AssignmentService.asmtDownload(asmt.asmtFileName)
+      .then((blob) => {
+        console.log(blob);
+
+        // const myFile = new Blob([blob.data], { type: 'text/csv' });
+        const myFile = new Blob([blob.data], { type: "application/pdf" });
+        const url = window.URL.createObjectURL(myFile);
+        window.open(url);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   const renderAllAssignments = () => {
@@ -73,6 +86,8 @@ const Assignment = () => {
                     type="button"
                     onClick={(e) => downloadAssignment(e, dt, i)}
                   >
+                    Download Assignment
+                    {/* 
                     <a
                       href={
                         "https://localhost:44354/api/Assignment/download?fileName=" +
@@ -81,6 +96,7 @@ const Assignment = () => {
                     >
                       Download Assignment
                     </a>
+                    */}
                   </Button>
                 </div>
               </div>
