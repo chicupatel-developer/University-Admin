@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./style.css";
 import AuthService from "../../services/auth.service";
 import AssignmentService from "../../services/assignment.service";
+import DepartmentService from "../../services/department.service";
 import { useNavigate } from "react-router-dom";
 
 // react-bootstrap-table-2
@@ -10,6 +11,7 @@ import paginationFactory from "react-bootstrap-table2-paginator";
 import filterFactory, { textFilter } from "react-bootstrap-table2-filter";
 
 import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 
 import Moment from "moment";
 
@@ -23,12 +25,23 @@ const Assignment = () => {
   const [downloadMsg, setDownloadMsg] = useState("");
   const [downloadClass, setDownloadClass] = useState("");
 
+  // search
+  const [enableSearch, setEnableSearch] = useState(false);
+  const [facs, setFacs] = useState([]);
+  const [departments, setDepartments] = useState([]);
+  const [form, setForm] = useState({});
+  // reset form
+  // form reference
+  const formRef = useRef(null);
+
   useEffect(() => {
     var currRole = AuthService.getCurrentUserRole();
 
     if (currRole === null || (currRole !== null && currRole !== "Admin"))
       navigate("/un-auth");
-    else getAllAssignments();
+    else {
+      getAllAssignments();
+    }
   }, []);
 
   const getAllAssignments = () => {
@@ -143,22 +156,164 @@ const Assignment = () => {
     });
   };
 
+  // search
+  // displays faculties belong to all assignments in db
+  // no api call
+  // displays unique list of faculties from current list of assignments
+  const displaySearchPanel = (e) => {
+    loadAllDepartments();
+    refreshFacs();
+    setEnableSearch(true);
+  };
+  const refreshFacs = () => {
+    setFacs([]);
+    let facs_ = [];
+    const map = new Map();
+    for (const item of assignments) {
+      if (!map.has(item.facultyId)) {
+        map.set(item.facultyId, true);
+        facs_.push({
+          facultyId: item.facultyId,
+          facultyName: item.facultyName,
+        });
+      }
+    }
+    setFacs(facs_);
+    console.log(facs);
+  };
+  const loadAllDepartments = () => {
+    DepartmentService.allDepartments()
+      .then((response) => {
+        console.log(response.data);
+        setDepartments(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  const setField = (field, value) => {
+    setForm({
+      ...form,
+      [field]: value,
+    });
+  };
+  const resetForm = (e) => {
+    formRef.current.reset();
+    setForm({});
+    setEnableSearch(false);
+  };
+  const renderOptionsForDepartments = () => {
+    return departments.map((dt, i) => {
+      return (
+        <option value={dt.departmentId} key={i} name={dt.departmentName}>
+          {dt.departmentName}
+        </option>
+      );
+    });
+  };
+  const renderOptionsForFaculties = () => {
+    return facs.map((dt, i) => {
+      return (
+        <option value={dt.facultyId} key={i} name={dt.facultyName}>
+          {dt.facultyName}
+        </option>
+      );
+    });
+  };
+  const searchBy = (e) => {};
+
   return (
     <div className="container">
       <div className="mainHeader">Assignments</div>
       <hr />
-      <Button
-        className="btn btn-success"
-        type="button"
-        onClick={(e) => createNewAssignment(e)}
-      >
-        Create New Assignment
-      </Button>
-      <p></p>
       <div className="row">
         <div className="col-md-12 mx-auto">
           <div className="card">
-            <div className="card-header header">search assignments</div>
+            <div className="card-header header">
+              <div className="row">
+                <div className="col-md-4 mx-auto">
+                  <Button
+                    className="btn btn-success"
+                    type="button"
+                    onClick={(e) => createNewAssignment(e)}
+                  >
+                    Create New Assignment
+                  </Button>
+                </div>
+                <div className="col-md-8 mx-auto">
+                  {!enableSearch && (
+                    <div>
+                      <Button
+                        className="btn btn-info"
+                        type="button"
+                        onClick={(e) => displaySearchPanel(e)}
+                      >
+                        S.E.A.R.C.H
+                      </Button>
+                      <p></p>{" "}
+                    </div>
+                  )}
+
+                  {enableSearch && (
+                    <Form ref={formRef}>
+                      <div className="row searchPanel">
+                        <div className="col-md-4 mx-auto">
+                          <Form.Group controlId="departmentId">
+                            <Form.Label>Department</Form.Label>
+                            <Form.Control
+                              as="select"
+                              onChange={(e) => {
+                                setField("departmentId", e.target.value);
+                              }}
+                            >
+                              <option value="">Select Department</option>
+                              {renderOptionsForDepartments()}
+                            </Form.Control>
+                          </Form.Group>
+                        </div>
+                        <div className="col-md-4 mx-auto">
+                          <Form.Group controlId="facultyId">
+                            <Form.Label>Faculty</Form.Label>
+                            <Form.Control
+                              as="select"
+                              onChange={(e) => {
+                                setField("facultyId", e.target.value);
+                              }}
+                            >
+                              <option value="">Select Faculty</option>
+                              {renderOptionsForFaculties()}
+                            </Form.Control>
+                          </Form.Group>
+                        </div>
+                        <div className="col-md-4 mx-auto">
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Button
+                              className="btn btn-success"
+                              type="button"
+                              onClick={(e) => searchBy(e)}
+                            >
+                              Search
+                            </Button>
+                            <Button
+                              className="btn btn-primary"
+                              type="button"
+                              onClick={(e) => resetForm(e)}
+                            >
+                              Reset
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    </Form>
+                  )}
+                </div>
+              </div>
+            </div>
             <div className="card-body">{renderAllAssignments()}</div>
           </div>
         </div>
