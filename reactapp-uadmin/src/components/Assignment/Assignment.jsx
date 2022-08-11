@@ -26,6 +26,7 @@ const Assignment = () => {
   const [downloadClass, setDownloadClass] = useState("");
 
   // search
+  const [assignments_, setAssignments_] = useState([]);
   const [enableSearch, setEnableSearch] = useState(false);
   const [facs, setFacs] = useState([]);
   const [departments, setDepartments] = useState([]);
@@ -198,6 +199,7 @@ const Assignment = () => {
     });
   };
   const resetForm = (e) => {
+    setAssignments_([]);
     formRef.current.reset();
     setForm({});
     setEnableSearch(false);
@@ -220,7 +222,88 @@ const Assignment = () => {
       );
     });
   };
-  const searchBy = (e) => {};
+  const searchBy = (e) => {
+    let filteredAssignmentsByDepartments = [];
+    let filteredAssignmentsByFaculties = [];
+    let filteredByDeptAndFac = [];
+    if (form.departmentId !== null || form.departmentId !== "") {
+      filteredAssignmentsByDepartments = assignments.filter(
+        (xx) => xx.departmentId === Number(form.departmentId)
+      );
+    }
+    if (form.facultyId !== null || form.facultyId !== "") {
+      filteredAssignmentsByFaculties = assignments.filter(
+        (xx) => xx.facultyId === Number(form.facultyId)
+      );
+    }
+
+    // first combine filterByDepartment and filterByFaculty
+    filteredByDeptAndFac = [
+      ...filteredAssignmentsByDepartments,
+      ...filteredAssignmentsByFaculties,
+    ];
+
+    const key = "assignmentId";
+    const arrayUniqueByKey = [
+      ...new Map(
+        filteredByDeptAndFac.map((item) => [item[key], item])
+      ).values(),
+    ];
+    console.log(arrayUniqueByKey);
+    setAssignments_(arrayUniqueByKey);
+  };
+  const renderAllAssignments_ = () => {
+    return assignments_.map((dt, i) => {
+      return (
+        <div key={i}>
+          <div className="card">
+            <div className="card-header">
+              <div className="row">
+                <div className="col-md-6 mx-auto asmtInfo">
+                  {dt.departmentName} / {dt.courseName}
+                  <br />
+                  Faculty : {dt.facultyName}
+                </div>
+                <div className="col-md-6 mx-auto">
+                  {dt.asmtFileName}
+                  <br />
+                  <Button
+                    className="btn btn-info"
+                    type="button"
+                    onClick={(e) => downloadAssignment(e, dt, i)}
+                  >
+                    Download Assignment
+                    {/* 
+                    <a
+                      href={
+                        "https://localhost:44354/api/Assignment/download?fileName=" +
+                        dt.asmtFileName
+                      }
+                    >
+                      Download Assignment
+                    </a>
+                    */}
+                  </Button>
+                  <br />
+                  {asmtToDownload && asmtToDownload === dt.asmtFileName && (
+                    <span className={downloadClass}>{downloadMsg}</span>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="card-body">
+              Assignment : {dt.assignmentId} # {dt.title}
+              <br />
+              Details : {dt.details}
+              <br />
+              Submission Date : {Moment(dt.asmtLastDate).format("DD-MMM YYYY")}
+            </div>
+          </div>
+          <hr />
+        </div>
+      );
+    });
+  };
 
   return (
     <div className="container">
@@ -314,7 +397,11 @@ const Assignment = () => {
                 </div>
               </div>
             </div>
-            <div className="card-body">{renderAllAssignments()}</div>
+            <div className="card-body">
+              {assignments_ && assignments_.length > 0
+                ? renderAllAssignments_()
+                : renderAllAssignments()}
+            </div>
           </div>
         </div>
       </div>
