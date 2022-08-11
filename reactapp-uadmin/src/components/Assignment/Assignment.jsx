@@ -28,6 +28,7 @@ const Assignment = () => {
   // search
   const [assignments_, setAssignments_] = useState([]);
   const [enableSearch, setEnableSearch] = useState(false);
+  const [searchDone, setSearchDone] = useState(false);
   const [facs, setFacs] = useState([]);
   const [departments, setDepartments] = useState([]);
   const [form, setForm] = useState({});
@@ -165,6 +166,7 @@ const Assignment = () => {
     loadAllDepartments();
     refreshFacs();
     setEnableSearch(true);
+    setSearchDone(false);
   };
   const refreshFacs = () => {
     setFacs([]);
@@ -199,6 +201,7 @@ const Assignment = () => {
     });
   };
   const resetForm = (e) => {
+    setSearchDone(false);
     setAssignments_([]);
     formRef.current.reset();
     setForm({});
@@ -223,6 +226,7 @@ const Assignment = () => {
     });
   };
   const searchBy = (e) => {
+    setSearchDone(true);
     let filteredAssignmentsByDepartments = [];
     let filteredAssignmentsByFaculties = [];
     let filteredByDeptAndFac = [];
@@ -303,6 +307,9 @@ const Assignment = () => {
         </div>
       );
     });
+  };
+  const renderEmptyAssignments_ = () => {
+    return <span>Search Assignments Not Found!</span>;
   };
 
   return (
@@ -398,9 +405,21 @@ const Assignment = () => {
               </div>
             </div>
             <div className="card-body">
-              {assignments_ && assignments_.length > 0
-                ? renderAllAssignments_()
-                : renderAllAssignments()}
+              {enableSearch &&
+                assignments_ &&
+                assignments_.length > 0 &&
+                renderAllAssignments_()}
+              {enableSearch &&
+                searchDone &&
+                assignments_ &&
+                assignments &&
+                assignments_.length < 1 &&
+                renderEmptyAssignments_()}
+
+              {!searchDone &&
+                assignments &&
+                assignments.length > 0 &&
+                renderAllAssignments()}
             </div>
           </div>
         </div>
