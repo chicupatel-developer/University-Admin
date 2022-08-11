@@ -104,7 +104,7 @@ export class AssignmentComponent implements OnInit {
             facultyId: item.facultyId,
             facultyName: item.facultyName,
             departmentId: item.departmentId,
-            departmentName: item.departmentName,
+            departmentName: item.departmentName,  
             title: item.title,
             details: item.details,
             assignmentId: item.assignmentId,
