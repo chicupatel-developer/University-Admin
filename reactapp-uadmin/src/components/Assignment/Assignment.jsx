@@ -63,7 +63,7 @@ const Assignment = () => {
   };
 
   const createNewAssignment = (e) => {
-    console.log("create new assignment!");
+    navigate("/assignment-create");
   };
   const downloadAssignment = (e, asmt, index) => {
     console.log("download assignment # ", asmt.assignmentId, asmt.asmtUploadId);

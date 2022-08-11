@@ -49,6 +49,7 @@ const Assignment_Create = () => {
   const listOfFaculties = (deptId) => {
     AssignmentService.listOfFaculties(deptId)
       .then((response) => {
+        setFaculties([]);
         console.log(response.data);
         setFaculties(response.data);
       })
@@ -59,8 +60,9 @@ const Assignment_Create = () => {
   const listOfCourses = (facId) => {
     AssignmentService.listOfCourses(facId)
       .then((response) => {
+        setCourses(response.data);
         console.log(response.data);
-        setFaculties(response.data);
+        setCourses(response.data);
       })
       .catch((e) => {
         console.log(e);
@@ -72,8 +74,14 @@ const Assignment_Create = () => {
   const formRef = useRef(null);
 
   const setField = (field, value) => {
+    const { departmentId, facultyId, courseId } = form;
+
     // departmentId
     if (field === "departmentId") {
+      setFaculties([]);
+      setCourses([]);
+      form.facultyId = "";
+      form.courseId = "";
       if (value !== "") {
         console.log("getting faculties for department#", value);
         listOfFaculties(value);
@@ -82,6 +90,8 @@ const Assignment_Create = () => {
 
     // facultyId
     if (field === "facultyId") {
+      setCourses([]);
+      form.courseId = "";
       if (value !== "") {
         console.log("getting courses for faculty#", value);
         listOfCourses(value);
@@ -105,14 +115,14 @@ const Assignment_Create = () => {
     const { departmentId, facultyId, courseId } = form;
     const newErrors = {};
 
-    if (!courseId || courseId === "")
-      newErrors.courseId = "Course is Required!";
+    if (!departmentId || departmentId === "")
+      newErrors.departmentId = "Department is Required!";
 
     if (!facultyId || facultyId === "")
       newErrors.facultyId = "Faculty is Required!";
 
-    if (!departmentId || departmentId === "")
-      newErrors.departmentId = "Department is Required!";
+    if (!courseId || courseId === "")
+      newErrors.courseId = "Course is Required!";
 
     return newErrors;
   };
@@ -207,7 +217,7 @@ const Assignment_Create = () => {
           <div className="col-md-6 mx-auto">
             <div className="card">
               <div className="card-header">
-                <h3>Create New Course</h3>
+                <h3>Create New Assignment</h3>
                 <p></p>{" "}
                 {asmtCreateResponse &&
                 asmtCreateResponse.responseCode === -1 ? (
