@@ -112,7 +112,8 @@ const Assignment_Create = () => {
   };
 
   const findFormErrors = () => {
-    const { departmentId, facultyId, courseId } = form;
+    const { departmentId, facultyId, courseId, title, details, asmtLastDate } =
+      form;
     const newErrors = {};
 
     if (!departmentId || departmentId === "")
@@ -123,6 +124,13 @@ const Assignment_Create = () => {
 
     if (!courseId || courseId === "")
       newErrors.courseId = "Course is Required!";
+
+    if (!title || title === "") newErrors.title = "Title is Required!";
+
+    if (!details || details === "") newErrors.details = "Details is Required!";
+
+    if (!asmtLastDate || asmtLastDate === "")
+      newErrors.asmtLastDate = "Last Submission Date is Required!";
 
     return newErrors;
   };
@@ -157,6 +165,9 @@ const Assignment_Create = () => {
         courseId: Number(form.courseId),
         departmentId: Number(form.departmentId),
         facultyId: Number(form.facultyId),
+        title: form.title,
+        details: form.details,
+        asmtLastDate: form.asmtLastDate,
       };
 
       console.log(asmtModel);
@@ -214,7 +225,7 @@ const Assignment_Create = () => {
     <div className="mainContainer">
       <div className="container">
         <div className="row">
-          <div className="col-md-6 mx-auto">
+          <div className="col-md-10 mx-auto">
             <div className="card">
               <div className="card-header">
                 <h3>Create New Assignment</h3>
@@ -238,7 +249,7 @@ const Assignment_Create = () => {
               <div className="card-body">
                 <Form ref={formRef}>
                   <div className="row">
-                    <div className="col-md-10 mx-auto">
+                    <div className="col-md-5 mx-auto">
                       <Form.Group controlId="departmentId">
                         <Form.Label>Department</Form.Label>
                         <Form.Control
@@ -287,6 +298,47 @@ const Assignment_Create = () => {
                         </Form.Control>
                         <Form.Control.Feedback type="invalid">
                           {errors.courseId}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </div>
+                    <div className="col-md-5 mx-auto">
+                      <Form.Group controlId="title">
+                        <Form.Label>Title</Form.Label>
+                        <Form.Control
+                          type="text"
+                          isInvalid={!!errors.title}
+                          onChange={(e) => setField("title", e.target.value)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.title}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <p></p>
+                      <Form.Group controlId="details">
+                        <Form.Label>Details</Form.Label>
+                        <Form.Control
+                          type="text"
+                          isInvalid={!!errors.details}
+                          onChange={(e) => setField("details", e.target.value)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.details}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <p></p>
+                      <Form.Group controlId="asmtLastDate">
+                        <Form.Label>Last Submission Date</Form.Label>
+                        <Form.Control
+                          type="date"
+                          name="asmtLastDate"
+                          placeholder="Last Submission Date"
+                          isInvalid={!!errors.asmtLastDate}
+                          onChange={(e) =>
+                            setField("asmtLastDate", e.target.value)
+                          }
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.asmtLastDate}
                         </Form.Control.Feedback>
                       </Form.Group>
                     </div>
