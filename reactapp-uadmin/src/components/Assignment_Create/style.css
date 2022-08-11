@@ -20,3 +20,13 @@
     font-weight: bold;
     margin-top: 30px;
 }
+
+.uploadSuccess {
+    color: green;
+    font-size: large;
+}
+
+.uploadError {
+    color: red;
+    font-size: large;
+}

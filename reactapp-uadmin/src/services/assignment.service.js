@@ -34,5 +34,14 @@ class AssignmentService {
       headers: authHeader(),
     });
   };
+
+  upload = async (file, partId, onUploadProgress) => {
+    let formData = new FormData();
+    formData.append("asmtFile", file, file.name);
+    return await http.post("/upload", formData, {
+      headers: authHeader(),
+      onUploadProgress,
+    });
+  };
 }
 export default new AssignmentService();

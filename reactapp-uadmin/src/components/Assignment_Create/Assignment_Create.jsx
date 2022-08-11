@@ -26,6 +26,53 @@ const Assignment_Create = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
+  // file upload
+  const [asmtUploadId, setAsmtUploadId] = useState(0);
+  const [selectedFiles, setSelectedFiles] = useState(undefined);
+  const [currentFile, setCurrentFile] = useState(undefined);
+  const [progress, setProgress] = useState(0);
+  const [message, setMessage] = useState("");
+  const [className, setClassName] = useState("");
+  const selectFile = (event) => {
+    setSelectedFiles(event.target.files);
+  };
+  const upload = () => {
+    let currentFile = selectedFiles[0];
+    console.log(currentFile);
+    setProgress(0);
+    setCurrentFile(currentFile);
+    AssignmentService.upload(currentFile, (event) => {
+      setProgress(Math.round((100 * event.loaded) / event.total));
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          setMessage("Asmt File Upload Success!");
+          setClassName("uploadSuccess");
+          setSelectedFiles(undefined);
+          setCurrentFile(undefined);
+          setAsmtUploadId(response.data.model.asmtUploadId);
+        }
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+        // 400
+        if (error.response.status === 400) {
+          console.log("400 !");
+          setMessage("400 !");
+          setClassName("uploadError");
+        }
+        // 500
+        else {
+          setMessage(error.response.data.message);
+          setClassName("uploadError");
+        }
+        setSelectedFiles(undefined);
+        setCurrentFile(undefined);
+        setAsmtUploadId(0);
+      });
+  };
+
   useEffect(() => {
     var currRole = AuthService.getCurrentUserRole();
 
@@ -224,150 +271,197 @@ const Assignment_Create = () => {
   return (
     <div className="mainContainer">
       <div className="container">
-        <div className="row">
-          <div className="col-md-10 mx-auto">
-            <div className="card">
-              <div className="card-header">
-                <h3>Create New Assignment</h3>
-                <p></p>{" "}
-                {asmtCreateResponse &&
-                asmtCreateResponse.responseCode === -1 ? (
-                  <span className="asmtCreateError">
-                    {asmtCreateResponse.responseMessage}
-                  </span>
-                ) : (
-                  <span className="asmtCreateSuccess">
-                    {asmtCreateResponse.responseMessage}
-                  </span>
-                )}
-                {modelErrors.length > 0 ? (
-                  <div className="modelError">{modelErrorList}</div>
-                ) : (
-                  <span></span>
-                )}
+        <p></p>
+        <div>
+          <label className="btn btn-info">
+            <input type="file" onChange={selectFile} />
+          </label>
+          <p></p>
+          {currentFile && (
+            <div className="progress">
+              <div
+                className="progress-bar progress-bar-info progress-bar-striped"
+                role="progressbar"
+                aria-valuenow={progress}
+                aria-valuemin="0"
+                aria-valuemax="100"
+                style={{ width: progress + "%" }}
+              >
+                {progress}%
               </div>
-              <div className="card-body">
-                <Form ref={formRef}>
-                  <div className="row">
-                    <div className="col-md-5 mx-auto">
-                      <Form.Group controlId="departmentId">
-                        <Form.Label>Department</Form.Label>
-                        <Form.Control
-                          as="select"
-                          isInvalid={!!errors.departmentId}
-                          onChange={(e) => {
-                            setField("departmentId", e.target.value);
-                          }}
-                        >
-                          <option value="">Select Department</option>
-                          {renderOptionsForDepartments()}
-                        </Form.Control>
-                        <Form.Control.Feedback type="invalid">
-                          {errors.departmentId}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                      <p></p>
-                      <Form.Group controlId="facultyId">
-                        <Form.Label>Faculty</Form.Label>
-                        <Form.Control
-                          as="select"
-                          isInvalid={!!errors.facultyId}
-                          onChange={(e) => {
-                            setField("facultyId", e.target.value);
-                          }}
-                        >
-                          <option value="">Select Faculty</option>
-                          {renderOptionsForFaculties()}
-                        </Form.Control>
-                        <Form.Control.Feedback type="invalid">
-                          {errors.facultyId}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                      <p></p>
-                      <Form.Group controlId="courseId">
-                        <Form.Label>Course</Form.Label>
-                        <Form.Control
-                          as="select"
-                          isInvalid={!!errors.courseId}
-                          onChange={(e) => {
-                            setField("courseId", e.target.value);
-                          }}
-                        >
-                          <option value="">Select Course</option>
-                          {renderOptionsForCourses()}
-                        </Form.Control>
-                        <Form.Control.Feedback type="invalid">
-                          {errors.courseId}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </div>
-                    <div className="col-md-5 mx-auto">
-                      <Form.Group controlId="title">
-                        <Form.Label>Title</Form.Label>
-                        <Form.Control
-                          type="text"
-                          isInvalid={!!errors.title}
-                          onChange={(e) => setField("title", e.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.title}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                      <p></p>
-                      <Form.Group controlId="details">
-                        <Form.Label>Details</Form.Label>
-                        <Form.Control
-                          type="text"
-                          isInvalid={!!errors.details}
-                          onChange={(e) => setField("details", e.target.value)}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.details}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                      <p></p>
-                      <Form.Group controlId="asmtLastDate">
-                        <Form.Label>Last Submission Date</Form.Label>
-                        <Form.Control
-                          type="date"
-                          name="asmtLastDate"
-                          placeholder="Last Submission Date"
-                          isInvalid={!!errors.asmtLastDate}
-                          onChange={(e) =>
-                            setField("asmtLastDate", e.target.value)
-                          }
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.asmtLastDate}
-                        </Form.Control.Feedback>
-                      </Form.Group>
-                    </div>
-                  </div>
+            </div>
+          )}
+          <p></p>
+          <button
+            className="btn btn-success"
+            disabled={!selectedFiles}
+            onClick={upload}
+          >
+            Upload Assignment File
+          </button>
 
-                  <p></p>
-                  <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                  >
-                    <Button
-                      className="btn btn-success"
-                      type="button"
-                      onClick={(e) => handleSubmit(e)}
+          {className === "uploadSuccess" ? (
+            <div className="alert alert-light uploadSuccess" role="alert">
+              {message}
+            </div>
+          ) : (
+            <div className="alert alert-light uploadError" role="alert">
+              <span>{message}</span>
+            </div>
+          )}
+        </div>
+        <p></p>
+        {asmtUploadId > 0 && (
+          <div className="row">
+            <div className="col-md-10 mx-auto">
+              <div className="card">
+                <div className="card-header">
+                  <h3>Create New Assignment</h3>
+                  <p></p>{" "}
+                  {asmtCreateResponse &&
+                  asmtCreateResponse.responseCode === -1 ? (
+                    <span className="asmtCreateError">
+                      {asmtCreateResponse.responseMessage}
+                    </span>
+                  ) : (
+                    <span className="asmtCreateSuccess">
+                      {asmtCreateResponse.responseMessage}
+                    </span>
+                  )}
+                  {modelErrors.length > 0 ? (
+                    <div className="modelError">{modelErrorList}</div>
+                  ) : (
+                    <span></span>
+                  )}
+                </div>
+                <div className="card-body">
+                  <Form ref={formRef}>
+                    <div className="row">
+                      <div className="col-md-5 mx-auto">
+                        <Form.Group controlId="departmentId">
+                          <Form.Label>Department</Form.Label>
+                          <Form.Control
+                            as="select"
+                            isInvalid={!!errors.departmentId}
+                            onChange={(e) => {
+                              setField("departmentId", e.target.value);
+                            }}
+                          >
+                            <option value="">Select Department</option>
+                            {renderOptionsForDepartments()}
+                          </Form.Control>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.departmentId}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                        <p></p>
+                        <Form.Group controlId="facultyId">
+                          <Form.Label>Faculty</Form.Label>
+                          <Form.Control
+                            as="select"
+                            isInvalid={!!errors.facultyId}
+                            onChange={(e) => {
+                              setField("facultyId", e.target.value);
+                            }}
+                          >
+                            <option value="">Select Faculty</option>
+                            {renderOptionsForFaculties()}
+                          </Form.Control>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.facultyId}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                        <p></p>
+                        <Form.Group controlId="courseId">
+                          <Form.Label>Course</Form.Label>
+                          <Form.Control
+                            as="select"
+                            isInvalid={!!errors.courseId}
+                            onChange={(e) => {
+                              setField("courseId", e.target.value);
+                            }}
+                          >
+                            <option value="">Select Course</option>
+                            {renderOptionsForCourses()}
+                          </Form.Control>
+                          <Form.Control.Feedback type="invalid">
+                            {errors.courseId}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </div>
+                      <div className="col-md-5 mx-auto">
+                        <Form.Group controlId="title">
+                          <Form.Label>Title</Form.Label>
+                          <Form.Control
+                            type="text"
+                            isInvalid={!!errors.title}
+                            onChange={(e) => setField("title", e.target.value)}
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            {errors.title}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                        <p></p>
+                        <Form.Group controlId="details">
+                          <Form.Label>Details</Form.Label>
+                          <Form.Control
+                            type="text"
+                            isInvalid={!!errors.details}
+                            onChange={(e) =>
+                              setField("details", e.target.value)
+                            }
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            {errors.details}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                        <p></p>
+                        <Form.Group controlId="asmtLastDate">
+                          <Form.Label>Last Submission Date</Form.Label>
+                          <Form.Control
+                            type="date"
+                            name="asmtLastDate"
+                            placeholder="Last Submission Date"
+                            isInvalid={!!errors.asmtLastDate}
+                            onChange={(e) =>
+                              setField("asmtLastDate", e.target.value)
+                            }
+                          />
+                          <Form.Control.Feedback type="invalid">
+                            {errors.asmtLastDate}
+                          </Form.Control.Feedback>
+                        </Form.Group>
+                      </div>
+                    </div>
+
+                    <p></p>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
                     >
-                      Create Assignment
-                    </Button>
-                    <Button
-                      className="btn btn-primary"
-                      type="button"
-                      onClick={(e) => resetForm(e)}
-                    >
-                      Reset
-                    </Button>
-                  </div>
-                </Form>
+                      <Button
+                        className="btn btn-success"
+                        type="button"
+                        onClick={(e) => handleSubmit(e)}
+                      >
+                        Create Assignment
+                      </Button>
+                      <Button
+                        className="btn btn-primary"
+                        type="button"
+                        onClick={(e) => resetForm(e)}
+                      >
+                        Reset
+                      </Button>
+                    </div>
+                  </Form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

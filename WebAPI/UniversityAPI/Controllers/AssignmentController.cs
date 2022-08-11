@@ -63,6 +63,7 @@ namespace UniversityAPI.Controllers
             return Ok(allAssignments);
         }
 
+        // react ok
         // ok
         [HttpGet]
         [Route("listOfFaculties/{selectedDeptId}")]
@@ -72,6 +73,7 @@ namespace UniversityAPI.Controllers
             return Ok(listOfFacs);
         }
 
+        // react ok
         // ok
         [HttpGet]
         [Route("listOfCourses/{selectedFacId}")]
