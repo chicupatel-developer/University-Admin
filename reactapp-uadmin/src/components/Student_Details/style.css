@@ -12,10 +12,13 @@
 
 .femaleGender{
     color: red;
+    font-weight: bold;
 }
 .maleGender {
     color: blue;
+    font-weight: bold;
 }
 .otherGender {
     color: green;
+    font-weight: bold;
 }

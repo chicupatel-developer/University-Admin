@@ -70,6 +70,15 @@ const Student_Details = () => {
     console.log(displayClass);
   };
 
+  const editStudent = (e, stdId) => {
+    console.log("edit student : ", stdId);
+    navigate("/student-edit/" + stdId);
+  };
+  const removeStudent = (e, stdId) => {
+    console.log("remove student : ", stdId);
+    navigate("/student-remove/" + stdId);
+  };
+
   return (
     <div className="mainContainer">
       <div className="container">
@@ -77,10 +86,31 @@ const Student_Details = () => {
           <div className="col-md-8 mx-auto">
             <div className="card">
               <div className="card-header header">
-                <h3>Student # {id}</h3>
+                <div className="row">
+                  <div className="col-md-7 mx-auto">
+                    <h3>Student # {id}</h3>
+                  </div>
+                  <div className="col-md-5 mx-auto">
+                    <Button
+                      className="btn btn-primary"
+                      type="button"
+                      onClick={(e) => editStudent(e, id)}
+                    >
+                      <i className="bi bi-pencil-square"></i> Student
+                    </Button>
+                    &nbsp;&nbsp;
+                    <Button
+                      className="btn btn-danger"
+                      type="button"
+                      onClick={(e) => removeStudent(e, id)}
+                    >
+                      <i className="bi bi-trash"></i> Student
+                    </Button>
+                  </div>
+                </div>
                 <p></p>{" "}
               </div>
-              <div className="card-body femaleGender">
+              <div className={`card-body ${displayClass}`}>
                 <div className="row">
                   <div className="col-md-3 mx-auto">Student #</div>
                   <div className="col-md-9 mx-auto">{student.studentId}</div>
