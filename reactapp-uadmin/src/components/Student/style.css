@@ -1,0 +1,22 @@
+.mainHeader {
+    text-align: center;
+    color: darkolivegreen;
+    font-size: xx-large;
+    font-weight: bold;
+
+}
+
+.noStudents {
+    text-align: center;
+    color: red;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.maleStyle {
+    color: blue;
+}
+
+.femaleStyle {
+    color: red;
+}
