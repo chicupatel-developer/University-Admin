@@ -64,30 +64,26 @@ const Student = () => {
       </span>
     );
   };
+  const displayEmail = (cell) => {
+    return (
+      <span>
+        {cell.length >= 20 ? (
+          <span>
+            {cell.substring(0, 20)}
+            <span className="longEmail"> ,,,</span>
+          </span>
+        ) : (
+          <span>{cell} </span>
+        )}
+      </span>
+    );
+  };
   const displayGender = (cell, row) => {
     return (
       <span style={{ color: getGenderStyle(cell) }}>{getGender(cell)}</span>
     );
   };
-  const displayHomeAddress = (cell, row) => {
-    return (
-      <span>
-        {row.homeAddress}
-        <br />
-        {row.homePostalCode}
-      </span>
-    );
-  };
 
-  const displayMailAddress = (cell, row) => {
-    return (
-      <span>
-        {row.mailAddress}
-        <br />
-        {row.mailPostalCode}
-      </span>
-    );
-  };
   const columns = [
     {
       dataField: "studentId",
@@ -103,7 +99,7 @@ const Student = () => {
     {
       dataField: "email",
       text: "Email",
-      sort: true,
+      formatter: (cell) => displayEmail(cell),
     },
     {
       dataField: "phoneNumber",
@@ -115,16 +111,6 @@ const Student = () => {
       text: "Gender",
       sort: true,
       formatter: (cell, row) => displayGender(cell, row),
-    },
-    {
-      dataField: "homeAddress",
-      text: "Home Address",
-      formatter: (cell, row) => displayHomeAddress(cell, row),
-    },
-    {
-      dataField: "mailAddress",
-      text: "Mail Address",
-      formatter: (cell, row) => displayMailAddress(cell, row),
     },
     {
       dataField: "actions",
@@ -163,7 +149,7 @@ const Student = () => {
           filter={filterFactory()}
         />
       ) : (
-        <div className="noFacs">No Student!</div>
+        <div className="noStudents">No Student!</div>
       )}
     </div>
   );
