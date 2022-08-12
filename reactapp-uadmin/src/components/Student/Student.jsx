@@ -50,9 +50,9 @@ const Student = () => {
         <Button
           className="btn btn-info"
           type="button"
-          onClick={(e) => editStudent(e, row.studentId)}
+          onClick={(e) => editStudentCourse(e, row.studentId)}
         >
-          <i className="bi bi-pencil-square"></i>
+          <i className="bi bi-pencil-square"></i> Course
         </Button>
       </div>
     );
@@ -84,11 +84,26 @@ const Student = () => {
     );
   };
 
+  const displayKey = (cell) => {
+    return (
+      <div>
+        <Button
+          className="btn btn-primary"
+          type="button"
+          onClick={(e) => studentDetails(e, cell)}
+        >
+          # {cell}
+        </Button>
+      </div>
+    );
+  };
+
   const columns = [
     {
       dataField: "studentId",
       text: "#",
       sort: true,
+      formatter: (cell) => displayKey(cell),
     },
     {
       dataField: "firstName",
@@ -122,9 +137,13 @@ const Student = () => {
   const createNewStudent = () => {
     navigate("/student-create");
   };
-  const editStudent = (e, stdId) => {
-    console.log("edit student : ", stdId);
-    navigate("/student-edit/" + stdId);
+  const editStudentCourse = (e, stdId) => {
+    console.log("edit student course : ", stdId);
+    navigate("/student-course-edit/" + stdId);
+  };
+  const studentDetails = (e, stdId) => {
+    console.log("getting student details : ", stdId);
+    navigate("/student-details/" + stdId);
   };
 
   return (

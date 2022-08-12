@@ -22,6 +22,7 @@ import Course_Remove from "./components/Course_Remove/Course_Remove";
 import Assignment from "./components/Assignment/Assignment";
 import Assignment_Create from "./components/Assignment_Create/Assignment_Create";
 import Student from "./components/Student/Student";
+import Student_Details from "./components/Student_Details/Student_Details";
 import UnAuth from "./components/UnAuth/UnAuth";
 import NotFound from "./components/NotFound/NotFound";
 
@@ -55,6 +56,7 @@ function App() {
             <Route path="/assignment" element={<Assignment />} />
             <Route path="/assignment-create" element={<Assignment_Create />} />
             <Route path="/student" element={<Student />} />
+            <Route path="/student-details/:id" element={<Student_Details />} />
             <Route path="/un-auth" element={<UnAuth />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
