@@ -19,6 +19,7 @@ const Student_Details = () => {
 
   // form
   const [student, setStudent] = useState({});
+  const [displayClass, setDisplayClass] = useState("");
 
   useEffect(() => {
     var currRole = AuthService.getCurrentUserRole();
@@ -36,6 +37,7 @@ const Student_Details = () => {
         .then((response) => {
           console.log(response.data);
           setStudent(response.data);
+          getDisplayClass(response.data.gender);
         })
         .catch((e) => {
           console.log(e);
@@ -56,6 +58,17 @@ const Student_Details = () => {
     else if (genderCode === 1) return "Female";
     else return "Other";
   };
+  const handleNullValue = (value) => {
+    if (value === null || value === "") return "N/A";
+    else return value;
+  };
+  const getDisplayClass = (value) => {
+    console.log(value);
+    if (value === 0) setDisplayClass("maleGender");
+    else if (value === 1) setDisplayClass("femaleGender");
+    else setDisplayClass("otherGender");
+    console.log(displayClass);
+  };
 
   return (
     <div className="mainContainer">
@@ -67,7 +80,67 @@ const Student_Details = () => {
                 <h3>Student # {id}</h3>
                 <p></p>{" "}
               </div>
-              <div className="card-body">student details</div>
+              <div className="card-body femaleGender">
+                <div className="row">
+                  <div className="col-md-3 mx-auto">Student #</div>
+                  <div className="col-md-9 mx-auto">{student.studentId}</div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-md-3 mx-auto">First Name</div>
+                  <div className="col-md-9 mx-auto">{student.firstName}</div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-md-3 mx-auto">Last Name</div>
+                  <div className="col-md-9 mx-auto">{student.lastName}</div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-md-3 mx-auto">Email</div>
+                  <div className="col-md-9 mx-auto">{student.email}</div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-md-3 mx-auto">Phone</div>
+                  <div className="col-md-9 mx-auto">{student.phoneNumber}</div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-md-3 mx-auto">Gender</div>
+                  <div className="col-md-9 mx-auto">
+                    {convertGenderForDisplay(student.gender)}
+                  </div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-md-3 mx-auto">Home Address</div>
+                  <div className="col-md-9 mx-auto">
+                    {handleNullValue(student.homeAddress)}
+                  </div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-md-3 mx-auto">Home Postal</div>
+                  <div className="col-md-9 mx-auto">
+                    {handleNullValue(student.homePostalCode)}
+                  </div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-md-3 mx-auto">Mail Address</div>
+                  <div className="col-md-9 mx-auto">
+                    {handleNullValue(student.mailAddress)}
+                  </div>
+                </div>
+                <hr />
+                <div className="row">
+                  <div className="col-md-3 mx-auto">Mail Postal</div>
+                  <div className="col-md-9 mx-auto">
+                    {handleNullValue(student.mailPostalCode)}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

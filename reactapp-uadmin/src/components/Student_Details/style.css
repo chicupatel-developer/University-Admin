@@ -9,3 +9,13 @@
     padding-left: 10px;
     padding-bottom: 5px;
 }
+
+.femaleGender{
+    color: red;
+}
+.maleGender {
+    color: blue;
+}
+.otherGender {
+    color: green;
+}
