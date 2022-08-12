@@ -83,6 +83,7 @@ namespace UniversityAPI.Controllers
             return Ok(listOfCrs);
         }
 
+        // react ok
         // ok
         [HttpPost]
         [Route("addAssignment")]
@@ -92,10 +93,18 @@ namespace UniversityAPI.Controllers
             try
             {
                 // throw new Exception();
-                _asmtRepo.AddAssignment(assignment);
-                _response.ResponseCode = 0;
-                _response.ResponseMessage = "Assignment Added Successfully!";
-                _response.ResponseError = null;
+
+                if (ModelState.IsValid)
+                {
+                    _asmtRepo.AddAssignment(assignment);
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "Assignment Added Successfully!";
+                    _response.ResponseError = null;
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }            
             }
             catch (Exception ex)
             {
@@ -105,12 +114,13 @@ namespace UniversityAPI.Controllers
             }
             return Ok(_response);
         }
-                
+
+        // react ok
         // ok
         // assignment file upload
         [HttpPost, DisableRequestSizeLimit]
         [Route("upload")]
-        public IActionResult Upload()
+        public async Task<ActionResult> Upload()
         {
             try
             {
@@ -133,7 +143,7 @@ namespace UniversityAPI.Controllers
 
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
-                        file.CopyTo(stream);
+                        await file.CopyToAsync(stream);
                     }
 
                     AsmtUpload model = new AsmtUpload()

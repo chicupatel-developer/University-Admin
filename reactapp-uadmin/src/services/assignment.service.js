@@ -35,12 +35,18 @@ class AssignmentService {
     });
   };
 
-  upload = async (file, partId, onUploadProgress) => {
+  upload = async (file, onUploadProgress) => {
     let formData = new FormData();
     formData.append("asmtFile", file, file.name);
     return await http.post("/upload", formData, {
       headers: authHeader(),
       onUploadProgress,
+    });
+  };
+
+  createAssignment = async (data) => {
+    return await http.post(`/addAssignment`, data, {
+      headers: authHeader(),
     });
   };
 }

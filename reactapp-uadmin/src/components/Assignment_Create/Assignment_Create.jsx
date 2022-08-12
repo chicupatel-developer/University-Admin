@@ -49,8 +49,6 @@ const Assignment_Create = () => {
         if (response.status === 200) {
           setMessage("Asmt File Upload Success!");
           setClassName("uploadSuccess");
-          setSelectedFiles(undefined);
-          setCurrentFile(undefined);
           setAsmtUploadId(response.data.model.asmtUploadId);
         }
       })
@@ -67,10 +65,9 @@ const Assignment_Create = () => {
           setMessage(error.response.data.message);
           setClassName("uploadError");
         }
-        setSelectedFiles(undefined);
-        setCurrentFile(undefined);
         setAsmtUploadId(0);
       });
+    setSelectedFiles(undefined);
   };
 
   useEffect(() => {
@@ -215,9 +212,44 @@ const Assignment_Create = () => {
         title: form.title,
         details: form.details,
         asmtLastDate: form.asmtLastDate,
+        asmtUploadId: asmtUploadId,
       };
 
       console.log(asmtModel);
+      // api call
+      AssignmentService.createAssignment(asmtModel)
+        .then((response) => {
+          setModelErrors([]);
+          setAsmtCreateResponse({});
+          console.log(response.data);
+
+          var asmtCreateResponse = {
+            responseCode: response.data.responseCode,
+            responseMessage: response.data.responseMessage,
+          };
+          if (response.data.responseCode === 0) {
+            resetForm();
+            setAsmtCreateResponse(asmtCreateResponse);
+
+            setTimeout(() => {
+              navigate("/assignment");
+            }, 3000);
+          } else if (response.data.responseCode === -1) {
+            setAsmtCreateResponse(asmtCreateResponse);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          setModelErrors([]);
+          setAsmtCreateResponse({});
+          // 400
+          // ModelState
+          if (error.response.status === 400) {
+            console.log("400 !");
+            var modelErrors = handleModelState(error);
+            setModelErrors(modelErrors);
+          }
+        });
     }
   };
 
@@ -271,45 +303,54 @@ const Assignment_Create = () => {
   return (
     <div className="mainContainer">
       <div className="container">
-        <p></p>
-        <div>
-          <label className="btn btn-info">
-            <input type="file" onChange={selectFile} />
-          </label>
-          <p></p>
-          {currentFile && (
-            <div className="progress">
-              <div
-                className="progress-bar progress-bar-info progress-bar-striped"
-                role="progressbar"
-                aria-valuenow={progress}
-                aria-valuemin="0"
-                aria-valuemax="100"
-                style={{ width: progress + "%" }}
+        <div className="row">
+          <div className="col-md-6 mx-auto">
+            <div className="asmtUploadPanel">
+              <label className="btn btn-info">
+                <input type="file" onChange={selectFile} />
+              </label>
+              <p></p>
+              {currentFile && (
+                <div className="progress">
+                  <div
+                    className="progress-bar progress-bar-info progress-bar-striped"
+                    role="progressbar"
+                    aria-valuenow={progress}
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    style={{ width: progress + "%" }}
+                  >
+                    {progress}%
+                  </div>
+                </div>
+              )}
+              <p></p>
+              <button
+                className="btn btn-success"
+                disabled={!selectedFiles}
+                onClick={upload}
               >
-                {progress}%
-              </div>
+                Upload Assignment File
+              </button>
+              {className === "uploadSuccess" ? (
+                <div className="alert alert-light uploadSuccess" role="alert">
+                  {message}
+                </div>
+              ) : (
+                <div>
+                  {className === "uploadError" ? (
+                    <div className="alert alert-light uploadError" role="alert">
+                      <span>{message}</span>
+                    </div>
+                  ) : (
+                    <span></span>
+                  )}
+                </div>
+              )}
             </div>
-          )}
-          <p></p>
-          <button
-            className="btn btn-success"
-            disabled={!selectedFiles}
-            onClick={upload}
-          >
-            Upload Assignment File
-          </button>
-
-          {className === "uploadSuccess" ? (
-            <div className="alert alert-light uploadSuccess" role="alert">
-              {message}
-            </div>
-          ) : (
-            <div className="alert alert-light uploadError" role="alert">
-              <span>{message}</span>
-            </div>
-          )}
+          </div>
         </div>
+
         <p></p>
         {asmtUploadId > 0 && (
           <div className="row">

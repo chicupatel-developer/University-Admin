@@ -12,19 +12,19 @@ namespace Entities.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AssignmentId { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Assignment Title is required")]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Assignment Details is required")]
         public string Details { get; set; }
 
         [Required]
         public DateTime AsmtCreateDate { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Assignment Submission Date is required")]
         public DateTime AsmtLastDate { get; set; }
-        
-        [Required]
+
+        [Required(ErrorMessage = "Faculty is required")]
         [ForeignKey(nameof(Faculty))]
         public int FacultyId { get; set; }
 

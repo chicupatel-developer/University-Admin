@@ -22,11 +22,24 @@
 }
 
 .uploadSuccess {
+    margin-top: 20px;
     color: green;
     font-size: large;
 }
 
 .uploadError {
+    margin-top: 20px;
     color: red;
     font-size: large;
+}
+
+.asmtUploadPanel{
+    text-align: center;
+    vertical-align: middle;
+    color: darkblue;
+    background-color: lightblue;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 2px solid red;
+    border-radius: 20px;
 }
