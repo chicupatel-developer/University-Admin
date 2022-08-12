@@ -35,6 +35,7 @@ namespace UniversityAPI.Controllers
             _configuration = configuration;            
         }
 
+        // react ok
         // ok
         [HttpGet]
         [Route("allDept")]
@@ -54,6 +55,7 @@ namespace UniversityAPI.Controllers
             return Ok(model);
         }
 
+        // react ok
         // ok
         [HttpGet]
         [Route("allAssignments")]
