@@ -7,7 +7,6 @@ import Button from "react-bootstrap/Button";
 
 import AuthService from "../../services/auth.service";
 import StudentService from "../../services/student.service";
-import FacultyService from "../../services/faculty.service";
 
 import { useNavigate } from "react-router";
 
@@ -291,6 +290,187 @@ const Student_Edit = () => {
     });
   };
 
-  return <div className="mainContainer">student-edit</div>;
+  return (
+    <div className="mainContainer">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-8 mx-auto">
+            <div className="card">
+              <div className="card-header header">
+                <h3>Edit Student # {id}</h3>
+                <p></p>{" "}
+                {studentEditResponse &&
+                studentEditResponse.responseCode === -1 ? (
+                  <span className="studentEditError">
+                    {studentEditResponse.responseMessage}
+                  </span>
+                ) : (
+                  <span className="studentEditSuccess">
+                    {studentEditResponse.responseMessage}
+                  </span>
+                )}
+                {modelErrors.length > 0 ? (
+                  <div className="modelError">{modelErrorList}</div>
+                ) : (
+                  <span></span>
+                )}
+              </div>
+              <div className="card-body">
+                <Form ref={formRef}>
+                  <div className="row">
+                    <div className="col-md-5 mx-auto">
+                      <Form.Group controlId="firstName">
+                        <Form.Label>First Name</Form.Label>
+                        <Form.Control
+                          value={firstName}
+                          type="text"
+                          isInvalid={!!errors.firstName}
+                          onChange={(e) => handleFirstName(e)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.firstName}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <p></p>
+                      <Form.Group controlId="lastName">
+                        <Form.Label>Last Name</Form.Label>
+                        <Form.Control
+                          type="text"
+                          value={lastName}
+                          isInvalid={!!errors.lastName}
+                          onChange={(e) => handleLastName(e)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.lastName}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <p></p>
+                      <Form.Group controlId="phoneNumber">
+                        <Form.Label>Phone</Form.Label>
+                        <Form.Control
+                          type="text"
+                          value={phoneNumber}
+                          isInvalid={!!errors.phoneNumber}
+                          onChange={(e) => handlePhoneNumber(e)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.phoneNumber}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <p></p>
+                      <Form.Group controlId="email">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control
+                          type="text"
+                          value={email}
+                          isInvalid={!!errors.email}
+                          onChange={(e) => handleEmail(e)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.email}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </div>
+                    <div className="col-md-5 mx-auto">
+                      <Form.Group controlId="gender">
+                        <Form.Label>Gender</Form.Label>
+                        <Form.Control
+                          as="select"
+                          value={gender}
+                          isInvalid={!!errors.gender}
+                          onChange={(e) => handleGender(e)}
+                        >
+                          <option value="">Select Gender</option>
+                          {renderOptionsForGenders()}
+                        </Form.Control>
+                        <Form.Control.Feedback type="invalid">
+                          {errors.gender}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <p></p>
+                      <Form.Group controlId="homeAddress">
+                        <Form.Label>Home Address</Form.Label>
+                        <Form.Control
+                          value={homeAddress}
+                          type="text"
+                          isInvalid={!!errors.homeAddress}
+                          onChange={(e) => handleHomeAddress(e)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.homeAddress}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <p></p>
+                      <Form.Group controlId="homePostalCode">
+                        <Form.Label>Home Postal Code</Form.Label>
+                        <Form.Control
+                          value={homePostalCode}
+                          type="text"
+                          isInvalid={!!errors.homePostalCode}
+                          onChange={(e) => handleHomePostalCode(e)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.homePostalCode}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <p></p>{" "}
+                      <Form.Group controlId="mailAddress">
+                        <Form.Label>Mail Address</Form.Label>
+                        <Form.Control
+                          value={mailAddress}
+                          type="text"
+                          isInvalid={!!errors.mailAddress}
+                          onChange={(e) => handleMailAddress(e)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.mailAddress}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                      <p></p>
+                      <Form.Group controlId="mailAPostalCode">
+                        <Form.Label>Mail Postal Code</Form.Label>
+                        <Form.Control
+                          value={mailPostalCode}
+                          type="text"
+                          isInvalid={!!errors.mailPostalCode}
+                          onChange={(e) => handleMailPostalCode(e)}
+                        />
+                        <Form.Control.Feedback type="invalid">
+                          {errors.mailPostalCode}
+                        </Form.Control.Feedback>
+                      </Form.Group>
+                    </div>
+                  </div>
+
+                  <p></p>
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Button
+                      className="btn btn-success"
+                      type="button"
+                      onClick={(e) => handleSubmit(e)}
+                    >
+                      Edit Student
+                    </Button>
+                    <Button
+                      className="btn btn-primary"
+                      type="button"
+                      onClick={(e) => resetForm(e)}
+                    >
+                      Reset
+                    </Button>
+                  </div>
+                </Form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 export default Student_Edit;
