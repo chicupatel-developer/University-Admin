@@ -106,10 +106,16 @@ const Student_Create = () => {
 
     if (!(!homePostalCode || homePostalCode === "")) {
       if (!checkPostalCode(homePostalCode))
-        newErrors.homePostalCode = "Invalid Postal Code!";
+        newErrors.homePostalCode = "Invalid Home Postal Code!";
     }
 
-    console.log(sameAddress);
+    if (!sameAddress) {
+      if (!(!mailPostalCode || mailPostalCode === "")) {
+        if (!checkPostalCode(mailPostalCode))
+          newErrors.mailPostalCode = "Invalid Mail Postal Code!";
+      }
+    }
+
     return newErrors;
   };
 
@@ -145,17 +151,32 @@ const Student_Create = () => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      var stdModel = {
-        firstName: form.firstName,
-        lastName: form.lastName,
-        phoneNumber: form.phoneNumber,
-        email: form.email,
-        gender: convertGender(form.gender),
-        homeAddress: form.homeAddress,
-        homePostalCode: form.homePostalCode,
-        mailAddress: form.mailAddress,
-        mailPostalCode: form.mailPostalCode,
-      };
+      var stdModel = {};
+      if (form.sameAddress) {
+        stdModel = {
+          firstName: form.firstName,
+          lastName: form.lastName,
+          phoneNumber: form.phoneNumber,
+          email: form.email,
+          gender: convertGender(form.gender),
+          homeAddress: form.homeAddress,
+          homePostalCode: form.homePostalCode,
+          mailAddress: form.homeAddress,
+          mailPostalCode: form.homePostalCode,
+        };
+      } else {
+        stdModel = {
+          firstName: form.firstName,
+          lastName: form.lastName,
+          phoneNumber: form.phoneNumber,
+          email: form.email,
+          gender: convertGender(form.gender),
+          homeAddress: form.homeAddress,
+          homePostalCode: form.homePostalCode,
+          mailAddress: form.mailAddress,
+          mailPostalCode: form.mailPostalCode,
+        };
+      }
 
       console.log(stdModel);
     }
@@ -316,35 +337,39 @@ const Student_Create = () => {
                         <Form.Check
                           type="checkbox"
                           onChange={(e) =>
-                            setField("sameAddress", e.target.value)
+                            setField("sameAddress", e.target.checked)
                           }
                           label={`Same Home-Address and Mail-Address!`}
                         />
                       </Form.Group>
                       <p></p>
-                      <Form.Group controlId="mailAddress">
-                        <Form.Label>Mail Address</Form.Label>
-                        <Form.Control
-                          type="text"
-                          onChange={(e) =>
-                            setField("mailAddress", e.target.value)
-                          }
-                        />
-                      </Form.Group>
-                      <p></p>
-                      <Form.Group controlId="mailPostalCode">
-                        <Form.Label>Mail Postal</Form.Label>
-                        <Form.Control
-                          type="text"
-                          isInvalid={!!errors.mailPostalCode}
-                          onChange={(e) =>
-                            setField("mailPostalCode", e.target.value)
-                          }
-                        />
-                        <Form.Control.Feedback type="invalid">
-                          {errors.mailPostalCode}
-                        </Form.Control.Feedback>
-                      </Form.Group>
+                      {!form.sameAddress && (
+                        <div>
+                          <Form.Group controlId="mailAddress">
+                            <Form.Label>Mail Address</Form.Label>
+                            <Form.Control
+                              type="text"
+                              onChange={(e) =>
+                                setField("mailAddress", e.target.value)
+                              }
+                            />
+                          </Form.Group>
+                          <p></p>
+                          <Form.Group controlId="mailPostalCode">
+                            <Form.Label>Mail Postal</Form.Label>
+                            <Form.Control
+                              type="text"
+                              isInvalid={!!errors.mailPostalCode}
+                              onChange={(e) =>
+                                setField("mailPostalCode", e.target.value)
+                              }
+                            />
+                            <Form.Control.Feedback type="invalid">
+                              {errors.mailPostalCode}
+                            </Form.Control.Feedback>
+                          </Form.Group>
+                        </div>
+                      )}
                     </div>
                   </div>
 
