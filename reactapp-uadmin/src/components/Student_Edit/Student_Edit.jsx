@@ -58,7 +58,7 @@ const Student_Edit = () => {
               responseMessage: "Student Not Found!",
             };
 
-            setStudentEditResponse(facEditResponse);
+            setStudentEditResponse(studentEditResponse);
           } else {
             console.log(response.data);
 
@@ -67,7 +67,7 @@ const Student_Edit = () => {
             setPhoneNumber(response.data.phoneNumber);
             setEmail(response.data.email);
             setGender(convertGenderForDisplay(response.data.gender));
-            setHomeAdress(response.data.homeAddress);
+            setHomeAddress(response.data.homeAddress);
             setHomePostalCode(response.data.homePostalCode);
             setMailAddress(response.data.mailAddress);
             setMailPostalCode(response.data.mailPostalCode);
@@ -123,12 +123,36 @@ const Student_Edit = () => {
         gender: "",
       });
   };
-  const handleDepartmentId = (event) => {
-    setDepartmentId(event.target.value);
-    if (!errors[departmentId])
+  const handleHomeAddress = (event) => {
+    setHomeAddress(event.target.value);
+    if (!errors[homeAddress])
       setErrors({
         ...errors,
-        departmentId: "",
+        homeAddress: "",
+      });
+  };
+  const handleHomePostalCode = (event) => {
+    setHomePostalCode(event.target.value);
+    if (!errors[homePostalCode])
+      setErrors({
+        ...errors,
+        homePostalCode: "",
+      });
+  };
+  const handleMailAddress = (event) => {
+    setMailAddress(event.target.value);
+    if (!errors[mailAddress])
+      setErrors({
+        ...errors,
+        mailAddress: "",
+      });
+  };
+  const handleMailPostalCode = (event) => {
+    setMailPostalCode(event.target.value);
+    if (!errors[mailPostalCode])
+      setErrors({
+        ...errors,
+        mailPostalCode: "",
       });
   };
 
@@ -171,8 +195,6 @@ const Student_Edit = () => {
 
     if (!gender || gender === "") newErrors.gender = "Gender is Required!";
 
-    if (!departmentId || departmentId === "")
-      newErrors.departmentId = "Department is Required!";
     return newErrors;
   };
 
@@ -216,50 +238,20 @@ const Student_Edit = () => {
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
     } else {
-      var facModel = {
+      var studentModel = {
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
         email: email,
         gender: convertGender(gender),
-        departmentId: Number(departmentId),
-        facultyId: Number(id),
+        homeAddress: homeAddress,
+        homePostalCode: homePostalCode,
+        mailAddress: mailAddress,
+        mailPostalCode: mailPostalCode,
+        studentId: Number(id),
       };
 
-      console.log(facModel);
-
-      // api call
-      FacultyService.editFaculty(facModel)
-        .then((response) => {
-          console.log(response.data);
-          setModelErrors([]);
-          setFacEditResponse({});
-          var facEditResponse = {
-            responseCode: response.data.responseCode,
-            responseMessage: response.data.responseMessage,
-          };
-
-          resetForm();
-          setFacEditResponse(facEditResponse);
-          if (response.data.responseCode === 0) {
-            setTimeout(() => {
-              navigate("/faculty");
-            }, 3000);
-          }
-        })
-        .catch((error) => {
-          setModelErrors([]);
-          setFacEditResponse({});
-          // 400
-          // ModelState
-          if (error.response.status === 400) {
-            console.log("400 !");
-            var modelErrors = handleModelState(error);
-            setModelErrors(modelErrors);
-          } else {
-            console.log(error);
-          }
-        });
+      console.log(studentModel);
     }
   };
 
@@ -271,8 +263,11 @@ const Student_Edit = () => {
     setPhoneNumber("");
     setEmail("");
     setGender("");
-    setDepartmentId("");
-    setFacEditResponse({});
+    setHomeAddress("");
+    setHomePostalCode("");
+    setMailAddress("");
+    setMailPostalCode("");
+    setStudentEditResponse({});
     setModelErrors([]);
   };
 
@@ -291,16 +286,6 @@ const Student_Edit = () => {
       return (
         <option value={dt} key={i} name={dt}>
           {dt}
-        </option>
-      );
-    });
-  };
-
-  const renderOptionsForDepartments = () => {
-    return depts.map((dt, i) => {
-      return (
-        <option value={dt.departmentId} key={i} name={dt.departmentName}>
-          {dt.departmentName}
         </option>
       );
     });
