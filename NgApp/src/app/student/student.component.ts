@@ -24,8 +24,9 @@ export class StudentComponent implements OnInit {
   newStdAddPanel = false;
   genderCollection: any = ['Male', 'Female', 'Other'];
 
-  apiResponse = '';
   responseColor = '';
+  errors: string[];
+  apiResponse = ''; 
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router)
   { }
@@ -111,6 +112,11 @@ export class StudentComponent implements OnInit {
 
   // ok
   onSubmit(): void {
+
+    this.responseColor = '';
+    this.errors = []; 
+    this.apiResponse = '';
+
     this.showMailAddress = true;
     this.stdForm.patchValue({
       SameAddress: false
@@ -156,8 +162,16 @@ export class StudentComponent implements OnInit {
             }
           },
           error => {
-            this.apiResponse = error;
             this.responseColor = 'red';
+            // 400
+            // ModelState @api
+            if (error.status === 400) {   
+              this.errors = this.localDataService.display400andEx(error, 'Registration');      
+            }
+            // 500
+            else{
+              console.log(error);
+            }
           }
         );
     }

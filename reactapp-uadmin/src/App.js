@@ -24,6 +24,7 @@ import Assignment_Create from "./components/Assignment_Create/Assignment_Create"
 import Student from "./components/Student/Student";
 import Student_Details from "./components/Student_Details/Student_Details";
 import Student_Create from "./components/Student_Create/Student_Create";
+import Student_Edit from "./components/Student_Edit/Student_Edit";
 import UnAuth from "./components/UnAuth/UnAuth";
 import NotFound from "./components/NotFound/NotFound";
 
@@ -58,6 +59,7 @@ function App() {
             <Route path="/student" element={<Student />} />
             <Route path="/student-details/:id" element={<Student_Details />} />
             <Route path="/student-create" element={<Student_Create />} />
+            <Route path="/student-edit/:id" element={<Student_Edit />} />
             <Route path="/un-auth" element={<UnAuth />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
