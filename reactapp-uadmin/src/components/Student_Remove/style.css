@@ -1,0 +1,26 @@
+.mainContainer {
+    padding: 50px;
+}
+
+.studentRemoveSuccess {
+    color: green;
+    font-size: large;
+    font-weight: bold;
+}
+
+.studentRemoveError {
+    color: red;
+    font-size: large;
+    font-weight: bold;
+}
+
+.headerText {
+    color: red;
+}
+
+.noData{
+    text-align: center;
+    color: red;
+    font-size: xx-large;
+    font-weight: bold;
+}
