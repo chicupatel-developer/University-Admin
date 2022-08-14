@@ -309,17 +309,30 @@ namespace UniversityAPI.Controllers
             return Ok(allStudents);
         }
 
+        // react ok
         // ok
         // remove student
+        [Authorize("Admin")]
         [HttpGet]
         [Route("initializeRemoveStudent/{selectedStdId}")]
         public IActionResult InitializeRemoveStudent(int selectedStdId)
         {
-            var std = _stdRepo.InitializeRemoveStudent(selectedStdId);
-            return Ok(std);
+            try
+            {
+                var std = _stdRepo.InitializeRemoveStudent(selectedStdId);
+                return Ok(std);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Bad Request! (OR) Server Error!");
+            }
+           
         }
+
+        // react ok
         // ok
         // remove in action
+        [Authorize("Admin")]
         [HttpPost]
         [Route("removeStudent")]
         public IActionResult RemoveStudent(StdRemoveVM student)

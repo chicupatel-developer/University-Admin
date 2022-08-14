@@ -31,6 +31,17 @@ class StudentService {
       headers: authHeader(),
     });
   };
+  initializeRemoveStudent = async (stdId) => {
+    return await http.get(`/initializeRemoveStudent/${stdId}`, {
+      headers: authHeader(),
+    });
+  };
+  removeStudent = async (data) => {
+    return await http.post(`/removeStudent`, data, {
+      headers: authHeader(),
+    });
+  };
+
   editCourseToStd = async (data) => {
     return await http.post(`/editCourseToStd`, data, {
       headers: authHeader(),

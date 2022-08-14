@@ -53,7 +53,7 @@ const Faculty_Remove = () => {
         })
         .catch((error) => {
           if (error.response.status === 400) {
-            setGetFacError(error.response.data);
+            setGetStudentError(error.response.data);
           } else console.log(error);
         });
     } else navigate("/student");
@@ -134,11 +134,11 @@ const Faculty_Remove = () => {
               <div className="card-header">
                 <div className="row">
                   <div className="col-md-10 mx-auto">
-                    <h3>Remove Faculty</h3>
-                    {!getFacError && (
+                    <h3>Remove Student</h3>
+                    {!getStudentError && (
                       <h5>
                         <span className="headerText">
-                          Are you sure wants to remove faculty?
+                          Are you sure wants to remove student?
                         </span>
                       </h5>
                     )}
@@ -154,43 +154,44 @@ const Faculty_Remove = () => {
                   </div>
                 </div>
                 <p></p>{" "}
-                {facRemoveResponse && facRemoveResponse.responseCode === -1 ? (
-                  <span className="facRemoveError">
-                    {facRemoveResponse.responseMessage}
+                {studentRemoveResponse &&
+                studentRemoveResponse.responseCode === -1 ? (
+                  <span className="studentRemoveError">
+                    {studentRemoveResponse.responseMessage}
                   </span>
                 ) : (
-                  <span className="facRemoveSuccess">
-                    {facRemoveResponse.responseMessage}
+                  <span className="studentRemoveSuccess">
+                    {studentRemoveResponse.responseMessage}
                   </span>
                 )}
               </div>
 
               <div className="card-body">
-                {!getFacError ? (
+                {!getStudentError ? (
                   <div style={{ color: displayContentColor }}>
                     <div className="container">
-                      <h6>Faculty # : {fac.facultyRemove.facultyId}</h6>
-                      <h6>Faculty Name : {fac.facultyRemove.name}</h6>
-                      <h6>API Code : {fac.errorCode}</h6>
+                      <h6>Student # : {student.studentId}</h6>
+                      <h6>Student Name : {student.studentName}</h6>
+                      <h6>API Code : {student.errorCode}</h6>
                       <div>
                         <h6>
-                          API Message : {fac.errorMessage}
+                          API Message : {student.errorMessage}
                           <p></p>
-                          {fac.errorCode < 0 ? (
+                          {student.errorCode < 0 ? (
                             <Button
                               className="btn btn-danger"
                               type="button"
-                              onClick={(e) => removeFac(e)}
+                              onClick={(e) => removeStudent(e)}
                             >
-                              Force Remove Faculty
+                              Force Remove Student
                             </Button>
                           ) : (
                             <Button
                               className="btn btn-primary"
                               type="button"
-                              onClick={(e) => removeFac(e)}
+                              onClick={(e) => removeStudent(e)}
                             >
-                              Remove Department
+                              Remove Student
                             </Button>
                           )}
                         </h6>
@@ -200,12 +201,12 @@ const Faculty_Remove = () => {
                         <u>Depending Assignments...</u>
                       </h5>
                       <div>
-                        {fac.facultyRemove.dependingAssignments &&
-                        fac.facultyRemove.dependingAssignments.length > 0 ? (
+                        {student.assignments &&
+                        student.assignments.length > 0 ? (
                           <BootstrapTable
                             bootstrap4
                             keyField="assignmentId"
-                            data={fac.facultyRemove.dependingAssignments}
+                            data={student.assignments}
                             columns={assignmentColumns}
                           />
                         ) : (
@@ -217,12 +218,11 @@ const Faculty_Remove = () => {
                         <u>Depending Courses...</u>
                       </h5>
                       <div>
-                        {fac.dependingCourses &&
-                        fac.dependingCourses.length > 0 ? (
+                        {student.courses && student.courses.length > 0 ? (
                           <BootstrapTable
                             bootstrap4
                             keyField="courseId"
-                            data={fac.dependingCourses}
+                            data={student.courses}
                             columns={courseColumns}
                           />
                         ) : (
@@ -232,7 +232,7 @@ const Faculty_Remove = () => {
                     </div>
                   </div>
                 ) : (
-                  <span className="facRemoveError">{getFacError}</span>
+                  <span className="studentRemoveError">{getStudentError}</span>
                 )}
               </div>
             </div>
