@@ -155,6 +155,7 @@ const Student_Create = () => {
       if (form.sameAddress) {
         stdModel = {
           firstName: form.firstName,
+          // firstName: null,
           lastName: form.lastName,
           phoneNumber: form.phoneNumber,
           email: form.email,
@@ -179,6 +180,41 @@ const Student_Create = () => {
       }
 
       console.log(stdModel);
+
+      // api call
+      StudentService.createStudent(stdModel)
+        .then((response) => {
+          setModelErrors([]);
+          setStudentCreateResponse({});
+          console.log(response.data);
+
+          var studentCreateResponse = {
+            responseCode: response.data.responseCode,
+            responseMessage: response.data.responseMessage,
+          };
+          if (response.data.responseCode === 0) {
+            resetForm();
+            setStudentCreateResponse(studentCreateResponse);
+
+            setTimeout(() => {
+              navigate("/student");
+            }, 3000);
+          } else if (response.data.responseCode === -1) {
+            setStudentCreateResponse(studentCreateResponse);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          setModelErrors([]);
+          setStudentCreateResponse({});
+          // 400
+          // ModelState
+          if (error.response.status === 400) {
+            console.log("400 !");
+            var modelErrors = handleModelState(error);
+            setModelErrors(modelErrors);
+          }
+        });
     }
   };
 
@@ -290,8 +326,7 @@ const Student_Create = () => {
                           {errors.email}
                         </Form.Control.Feedback>
                       </Form.Group>
-                    </div>
-                    <div className="col-md-5 mx-auto">
+                      <p></p>
                       <Form.Group controlId="gender">
                         <Form.Label>Gender</Form.Label>
                         <Form.Control
@@ -308,7 +343,8 @@ const Student_Create = () => {
                           {errors.gender}
                         </Form.Control.Feedback>
                       </Form.Group>
-                      <p></p>
+                    </div>
+                    <div className="col-md-5 mx-auto">
                       <Form.Group controlId="homeAddress">
                         <Form.Label>Home Address</Form.Label>
                         <Form.Control

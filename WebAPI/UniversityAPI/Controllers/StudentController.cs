@@ -33,6 +33,7 @@ namespace UniversityAPI.Controllers
             _configuration = configuration;
         }
 
+        // react ok
         // ok        
         [Authorize("Admin")]
         [HttpGet]
@@ -42,7 +43,8 @@ namespace UniversityAPI.Controllers
             var allStudents = _stdRepo.GetAllStudents();
             return Ok(allStudents);
         }
-
+        
+        // react ok
         // ok
         [Authorize("Admin")]
         [HttpPost]
@@ -53,10 +55,17 @@ namespace UniversityAPI.Controllers
             try
             {
                 // throw new Exception();
-                _stdRepo.AddStudent(student);
-                _response.ResponseCode = 0;
-                _response.ResponseMessage = "Student Added Successfully!";
-                _response.ResponseError = null;
+                if (ModelState.IsValid)
+                {
+                    _stdRepo.AddStudent(student);
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "Student Added Successfully!";
+                    _response.ResponseError = null;
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }          
             }
             catch(Exception ex)
             {

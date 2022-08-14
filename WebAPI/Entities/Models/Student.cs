@@ -12,12 +12,12 @@ namespace Entities.Models
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int StudentId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "First Name is required")]
         public string FirstName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Last Name is required")]
         public string LastName { get; set; }
-        
-        [Required]
+
+        [Required(ErrorMessage = "Email is required")]
         public string Email { get; set; }
         public Gender Gender { get; set; }
         public string PhoneNumber { get; set; }
