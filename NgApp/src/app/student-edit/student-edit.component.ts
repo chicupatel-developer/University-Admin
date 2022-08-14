@@ -23,8 +23,9 @@ export class StudentEditComponent implements OnInit {
   editStdPanel = true;
   genderCollection: any = ['Male', 'Female', 'Other'];
 
-  apiResponse = '';
   responseColor = '';
+  errors: string[];
+  apiResponse = ''; 
 
   constructor(public localDataService: LocalDataService, private fb: FormBuilder, public dataService: DataService, private router: Router, private route: ActivatedRoute) { }
 
@@ -120,6 +121,12 @@ export class StudentEditComponent implements OnInit {
 
   // ok
   onSubmit(): void {
+
+    this.responseColor = '';
+    this.errors = []; 
+    this.apiResponse = '';
+
+
     this.submitted = true;
     if (this.stdForm.valid) {
       this.studentModel.studentId = Number(this.studentId);
@@ -157,8 +164,16 @@ export class StudentEditComponent implements OnInit {
             }
           },
           error => {
-            this.apiResponse = error;
             this.responseColor = 'red';
+            // 400
+            // ModelState @api
+            if (error.status === 400) {   
+              this.errors = this.localDataService.display400andEx(error, 'Registration');      
+            }
+            // 500
+            else{
+              console.log(error);
+            }     
             this.editStdPanel = true;
           }
         );
