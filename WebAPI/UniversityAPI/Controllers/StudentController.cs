@@ -76,6 +76,7 @@ namespace UniversityAPI.Controllers
             return Ok(_response);
         }
 
+        // react ok
         // ok
         // edit student
         [Authorize("Admin")]
@@ -86,6 +87,8 @@ namespace UniversityAPI.Controllers
             var std = _stdRepo.GetStudent(selectedStdId);
             return Ok(std);
         }
+
+        // react ok
         // ok
         // edit in action
         [Authorize("Admin")]
@@ -97,10 +100,18 @@ namespace UniversityAPI.Controllers
             try
             {
                 // throw new Exception();
-                _stdRepo.EditStudent(student);
-                _response.ResponseCode = 0;
-                _response.ResponseMessage = "Student Edited Successfully!";
-                _response.ResponseError = null;
+
+                if (ModelState.IsValid)
+                {
+                    _stdRepo.EditStudent(student);
+                    _response.ResponseCode = 0;
+                    _response.ResponseMessage = "Student Edited Successfully!";
+                    _response.ResponseError = null;
+                }
+                else
+                {
+                    return BadRequest(ModelState);
+                }        
             }
             catch (Exception ex)
             {

@@ -63,13 +63,23 @@ const Student_Edit = () => {
 
             setFirstName(response.data.firstName);
             setLastName(response.data.lastName);
-            setPhoneNumber(response.data.phoneNumber);
+            response.data.phoneNumber !== null
+              ? setPhoneNumber(response.data.phoneNumber)
+              : setPhoneNumber("");
             setEmail(response.data.email);
             setGender(convertGenderForDisplay(response.data.gender));
-            setHomeAddress(response.data.homeAddress);
-            setHomePostalCode(response.data.homePostalCode);
-            setMailAddress(response.data.mailAddress);
-            setMailPostalCode(response.data.mailPostalCode);
+            response.data.homeAddress !== null
+              ? setHomeAddress(response.data.homeAddress)
+              : setHomeAddress("");
+            response.data.homePostalCode !== null
+              ? setHomePostalCode(response.data.homePostalCode)
+              : setHomePostalCode("");
+            response.data.mailAddress !== null
+              ? setMailAddress(response.data.mailAddress)
+              : setMailAddress("");
+            response.data.mailPostalCode !== null
+              ? setMailPostalCode(response.data.mailPostalCode)
+              : setMailPostalCode("");
           }
         })
         .catch((e) => {
@@ -243,14 +253,55 @@ const Student_Edit = () => {
         phoneNumber: phoneNumber,
         email: email,
         gender: convertGender(gender),
-        homeAddress: homeAddress,
-        homePostalCode: homePostalCode,
-        mailAddress: mailAddress,
-        mailPostalCode: mailPostalCode,
+        homeAddress:
+          homeAddress !== "" || homeAddress !== undefined ? homeAddress : "",
+        homePostalCode:
+          homePostalCode !== "" || homePostalCode !== undefined
+            ? homePostalCode
+            : "",
+        mailAddress:
+          mailAddress !== "" || mailAddress !== undefined ? mailAddress : "",
+        mailPostalCode:
+          mailPostalCode !== "" || mailPostalCode !== undefined
+            ? mailPostalCode
+            : "",
         studentId: Number(id),
       };
 
       console.log(studentModel);
+
+      // api call
+      StudentService.editStudent(studentModel)
+        .then((response) => {
+          console.log(response.data);
+          setModelErrors([]);
+          setStudentEditResponse({});
+          var studentEditResponse = {
+            responseCode: response.data.responseCode,
+            responseMessage: response.data.responseMessage,
+          };
+
+          resetForm();
+          setStudentEditResponse(studentEditResponse);
+          if (response.data.responseCode === 0) {
+            setTimeout(() => {
+              navigate("/student");
+            }, 3000);
+          }
+        })
+        .catch((error) => {
+          setModelErrors([]);
+          setStudentEditResponse({});
+          // 400
+          // ModelState
+          if (error.response.status === 400) {
+            console.log("400 !");
+            var modelErrors = handleModelState(error);
+            setModelErrors(modelErrors);
+          } else {
+            console.log(error);
+          }
+        });
     }
   };
 

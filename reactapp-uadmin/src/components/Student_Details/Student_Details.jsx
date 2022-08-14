@@ -133,7 +133,9 @@ const Student_Details = () => {
                 <hr />
                 <div className="row">
                   <div className="col-md-3 mx-auto">Phone</div>
-                  <div className="col-md-9 mx-auto">{student.phoneNumber}</div>
+                  <div className="col-md-9 mx-auto">
+                    {handleNullValue(student.phoneNumber)}
+                  </div>
                 </div>
                 <hr />
                 <div className="row">
