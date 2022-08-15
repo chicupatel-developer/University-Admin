@@ -109,6 +109,8 @@ export class AddCoursesToStudentComponent implements OnInit {
         });
       }
       
+
+      console.log(this.stdsToCourses);
       // if 0 course is selected then display validation error
       // if 1 or more courses selected then it will pass form validation 
       if (this.form.valid) {
@@ -199,6 +201,8 @@ export class AddCoursesToStudentComponent implements OnInit {
             let index = this.courseList.findIndex((obj => obj.courseId == stdCrs.courseId));
             this.courseList[index].checked = stdCrs.checked;
 
+            
+
             // this will popup runtimeChkUnChkCrs[] as per api's data
             // to keep track of already added courses to db for a respective studentid
             this.runtimeChkUnChkCrs.push({
@@ -207,6 +211,7 @@ export class AddCoursesToStudentComponent implements OnInit {
               checked: stdCrs.checked
             });
           }
+          console.log(this.courseList);
         },
         error => {
           console.log(error);
