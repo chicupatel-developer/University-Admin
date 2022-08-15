@@ -26,6 +26,7 @@ import Student_Details from "./components/Student_Details/Student_Details";
 import Student_Create from "./components/Student_Create/Student_Create";
 import Student_Edit from "./components/Student_Edit/Student_Edit";
 import Student_Remove from "./components/Student_Remove/Student_Remove";
+import Add_Courses_To_Student from "./components/Add_Courses_To_Student/Add_Courses_To_Student";
 import UnAuth from "./components/UnAuth/UnAuth";
 import NotFound from "./components/NotFound/NotFound";
 
@@ -62,6 +63,10 @@ function App() {
             <Route path="/student-create" element={<Student_Create />} />
             <Route path="/student-edit/:id" element={<Student_Edit />} />
             <Route path="/student-remove/:id" element={<Student_Remove />} />
+            <Route
+              path="/add-courses-to-student/:id"
+              element={<Add_Courses_To_Student />}
+            />
             <Route path="/un-auth" element={<UnAuth />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

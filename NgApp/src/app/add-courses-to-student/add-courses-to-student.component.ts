@@ -172,6 +172,7 @@ export class AddCoursesToStudentComponent implements OnInit {
     this.dataService.getCourses()
       .subscribe(
         data => {
+          console.log(data);
           this.courseListVM = data;
           for (const item of this.courseListVM) {
               this.courseList.push({

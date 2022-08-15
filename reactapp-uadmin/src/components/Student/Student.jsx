@@ -139,7 +139,7 @@ const Student = () => {
   };
   const editStudentCourse = (e, stdId) => {
     console.log("edit student course : ", stdId);
-    navigate("/student-course-edit/" + stdId);
+    navigate("/add-courses-to-student/" + stdId);
   };
   const studentDetails = (e, stdId) => {
     console.log("getting student details : ", stdId);
