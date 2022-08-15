@@ -17,6 +17,11 @@ const Add_Courses_To_Student = () => {
   let navigate = useNavigate();
   let { id } = useParams();
 
+  const [allCourses, setAllCourses] = useState([]);
+  const [stdCourses, setStdCourses] = useState([]);
+  const [processCourses, setProcessCourses] = useState([]);
+  const [myCourses, setMyCourses] = useState([]);
+
   const selectedLanguageList = [
     { value: 1, label: "English", checked: true },
     { value: 2, label: "Hindi", checked: true },
@@ -29,6 +34,8 @@ const Add_Courses_To_Student = () => {
   ];
   const [lang, setLang] = useState([]);
   const [langList, setLangList] = useState([]);
+
+  // ok
   const handleChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
@@ -38,6 +45,31 @@ const Add_Courses_To_Student = () => {
       // remove unchecked value from the list
       setLang((prev) => prev.filter((x) => x !== value));
     }
+  };
+  const handleChange_ = (e) => {
+    const { value, checked } = e.target;
+    if (checked) {
+      // push selected value in list
+      setMyCourses((prev) => [...prev, value]);
+    } else {
+      // remove unchecked value from the list
+      setMyCourses((prev) => prev.filter((x) => x !== value));
+    }
+  };
+
+  // ok
+  const fcuk_ = (selectedCourseList, courseList) => {
+    const newState = courseList.map((obj) => {
+      if (obj.courseId === 3) {
+        return { ...obj, checked: true };
+      }
+      if (obj.courseId === 4) {
+        return { ...obj, checked: true };
+      }
+      return obj;
+    });
+    setProcessCourses(newState);
+    console.log(processCourses);
   };
   const fcuk = (selectedLanguageList, languageList) => {
     const newState = languageList.map((obj) => {
@@ -52,6 +84,8 @@ const Add_Courses_To_Student = () => {
     setLangList(newState);
     console.log(langList);
   };
+
+  // ok
   const getLangList = () => {
     setLangList(languageList);
   };
@@ -62,7 +96,7 @@ const Add_Courses_To_Student = () => {
     if (currRole === null || (currRole !== null && currRole !== "Admin"))
       navigate("/un-auth");
     else {
-      // getAllCourses();
+      getAllCourses();
 
       getLangList();
       fcuk(selectedLanguageList, languageList);
@@ -74,6 +108,9 @@ const Add_Courses_To_Student = () => {
     CourseService.allCourses()
       .then((response) => {
         console.log("getting all courses" + response.data);
+        setAllCourses(response.data);
+
+        getCoursesForStudent(id);
       })
       .catch((e) => {
         console.log(e);
@@ -85,6 +122,8 @@ const Add_Courses_To_Student = () => {
       StudentService.loadCoursesForStudent(id)
         .then((response) => {
           console.log("loading courses for student", response.data);
+
+          fcuk_(response.data, allCourses);
         })
         .catch((e) => {
           console.log(e);
@@ -100,6 +139,29 @@ const Add_Courses_To_Student = () => {
 
   return (
     <div className="mainContainer">
+      <div className="container">
+        <div className="title">Select languages from the list</div>
+        {processCourses &&
+          processCourses.length > 0 &&
+          processCourses.map((x, i) => (
+            <label key={i}>
+              <input
+                defaultChecked={x.checked}
+                type="checkbox"
+                name="lang"
+                value={x.courseId}
+                onChange={handleChange_}
+              />{" "}
+              {x.courseName}
+            </label>
+          ))}
+
+        <div>
+          Selected courses: {myCourses.length ? myCourses.join(", ") : null}
+        </div>
+      </div>
+      <hr />
+      <p></p>
       <div className="container">
         <div className="title">Select languages from the list</div>
         {langList.map((x, i) => (
