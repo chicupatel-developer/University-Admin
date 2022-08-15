@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./style.css";
 import AuthService from "../../services/auth.service";
 import StudentService from "../../services/student.service";
+import CourseService from "../../services/course.service";
 import { useNavigate } from "react-router-dom";
 
 // react-bootstrap-table-2
