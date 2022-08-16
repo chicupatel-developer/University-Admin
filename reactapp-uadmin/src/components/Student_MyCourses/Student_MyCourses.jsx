@@ -13,7 +13,7 @@ import Button from "react-bootstrap/Button";
 
 import Moment from "moment";
 
-const Student_Crs_Assignments = () => {
+const Student_MyCourses = () => {
   let navigate = useNavigate();
 
   const [currentUser, setCurrentUser] = useState({});
@@ -88,6 +88,15 @@ const Student_Crs_Assignments = () => {
 
   const myAssignments = (e, courseId) => {
     console.log("getting my-assignments for course # : ", courseId);
+    var student = {
+      studentId: currentUser.studentId,
+      firstName: currentUser.firstName,
+      lastName: currentUser.lastName,
+      courseId: courseId,
+    };
+    navigate("/student-my-assignments", {
+      state: student,
+    });
   };
 
   return (
@@ -121,4 +130,4 @@ const Student_Crs_Assignments = () => {
   );
 };
 
-export default Student_Crs_Assignments;
+export default Student_MyCourses;

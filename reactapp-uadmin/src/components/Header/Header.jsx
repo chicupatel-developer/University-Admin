@@ -110,8 +110,8 @@ const Header = () => {
                 <i className="bi bi-house-fill"></i>
                 Home
               </Link>
-              <Link to={"/student_crs_assignments"} className="nav-link">
-                <i className="bi bi-house-fill"></i>
+              <Link to={"/student-my-courses"} className="nav-link">
+                <i className="bi bi-book"></i>
                 My-Courses
               </Link>
             </Nav>
