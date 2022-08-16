@@ -58,7 +58,7 @@ const Header = () => {
     AuthService.logout();
     setCurrentUserName("");
     setCurrentUserRole("");
-    setCurrentUserToken("");
+    setCurrentUserToken("");   
   };
 
   return (
@@ -109,6 +109,10 @@ const Header = () => {
               <Link to={"/home"} className="nav-link">
                 <i className="bi bi-house-fill"></i>
                 Home
+              </Link>
+              <Link to={"/student_crs_assignments"} className="nav-link">
+                <i className="bi bi-house-fill"></i>
+                My-Courses
               </Link>
             </Nav>
           ) : (

@@ -52,5 +52,14 @@ class StudentService {
       headers: authHeader(),
     });
   };
+
+  // Student : role
+  // this will load courses and faculty info only assigned to respective student
+  getMyCourses = async (stdId) => {
+    return await http.get(`/getMyCourses/${stdId}`, {
+      headers: authHeader(),
+    });
+  };
+  
 }
 export default new StudentService();

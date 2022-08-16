@@ -1,0 +1,28 @@
+.mainHeader {
+    text-align: center;
+    color: darkolivegreen;
+    font-size: xx-large;
+    font-weight: bold;
+
+}
+
+.noData {
+    text-align: center;
+    color: red;
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+.studentHeader {
+    text-align: center;
+    vertical-align: middle;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 2px solid green;
+    border-radius: 10px;
+    background-color: lightskyblue;
+    font-size: x-large;
+    color: white;
+    font-weight: bold;
+
+}

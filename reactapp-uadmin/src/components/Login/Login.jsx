@@ -110,6 +110,14 @@ const Login = () => {
               role: response.data.myRole,
               token: response.data.token,
             };
+            if (response.data.myRole === "Student") {
+              apiResponse = {
+                ...apiResponse,
+                firstName: response.data.firstName,
+                lastName: response.data.lastName,
+                studentId: response.data.studentId,
+              };
+            }
             console.log(apiResponse);
             localStorage.setItem("currentUser", JSON.stringify(apiResponse));
 
