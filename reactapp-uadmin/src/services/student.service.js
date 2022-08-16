@@ -60,6 +60,11 @@ class StudentService {
       headers: authHeader(),
     });
   };
-  
+  // Student : role
+  loadAsmtsForStudentCourse = async (data) => {
+    return await http.post(`/loadAsmtsForStudentCourse`, data, {
+      headers: authHeader(),
+    });
+  };
 }
 export default new StudentService();

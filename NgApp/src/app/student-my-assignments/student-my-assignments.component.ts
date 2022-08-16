@@ -56,6 +56,7 @@ export class StudentMyAssignmentsComponent implements OnInit {
       .subscribe(
         data => {
           this.stdToAsmts = data;
+          console.log(data);
         },
         error => {
           console.log(error);
