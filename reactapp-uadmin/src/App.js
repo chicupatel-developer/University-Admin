@@ -64,7 +64,8 @@ function App() {
             <Route path="/student-edit/:id" element={<Student_Edit />} />
             <Route path="/student-remove/:id" element={<Student_Remove />} />
             <Route
-              path="/add-courses-to-student/:id"
+              // path="/add-courses-to-student/:id"
+              path="/add-courses-to-student"
               element={<Add_Courses_To_Student />}
             />
             <Route path="/un-auth" element={<UnAuth />} />

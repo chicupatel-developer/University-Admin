@@ -122,6 +122,7 @@ namespace UniversityAPI.Controllers
             return Ok(_response);
         }
 
+        // react ok
         // ok
         [Authorize("Admin")]
         [HttpPost]
@@ -144,6 +145,7 @@ namespace UniversityAPI.Controllers
             return Ok(_response);
         }
 
+        // react ok
         // ok
         // this will load courses only assigned to respective student
         [Authorize("Admin")]

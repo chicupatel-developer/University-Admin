@@ -51,7 +51,9 @@ const Student = () => {
         <Button
           className="btn btn-info"
           type="button"
-          onClick={(e) => editStudentCourse(e, row.studentId)}
+          onClick={(e) =>
+            editStudentCourse(e, row.studentId, row.firstName, row.lastName)
+          }
         >
           <i className="bi bi-pencil-square"></i> Course
         </Button>
@@ -138,9 +140,12 @@ const Student = () => {
   const createNewStudent = () => {
     navigate("/student-create");
   };
-  const editStudentCourse = (e, stdId) => {
+  const editStudentCourse = (e, stdId, firstName, lastName) => {
     console.log("edit student course : ", stdId);
-    navigate("/add-courses-to-student/" + stdId);
+    // navigate("/add-courses-to-student/" + stdId);
+    navigate("/add-courses-to-student", {
+      state: { id: stdId, studentName: firstName + ", " + lastName },
+    });
   };
   const studentDetails = (e, stdId) => {
     console.log("getting student details : ", stdId);
