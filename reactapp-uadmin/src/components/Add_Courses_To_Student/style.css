@@ -23,3 +23,9 @@
 .not-checked-item {
     margin-left: 10px;
 }
+.title{
+    font-weight: bold;
+    color: blue;
+    text-decoration: underline;
+    font-size: xx-large;
+}

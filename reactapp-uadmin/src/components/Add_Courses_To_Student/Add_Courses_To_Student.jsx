@@ -17,7 +17,6 @@ const Add_Courses_To_Student = () => {
   let { id } = useParams();
 
   const [allCourses, setAllCourses] = useState([]);
-  const [stdCourses, setStdCourses] = useState([]);
   const [processCourses, setProcessCourses] = useState([]);
   const [myCourses, setMyCourses] = useState([]);
 
@@ -28,11 +27,10 @@ const Add_Courses_To_Student = () => {
       navigate("/un-auth");
     else {
       getAllCourses();
-      // getCoursesForStudent(id);
     }
   }, []);
 
-  const handleChange_ = (e) => {
+  const handleChange = (e) => {
     const { value, checked } = e.target;
     if (checked) {
       setMyCourses((prev) => [...prev, value]);
@@ -42,22 +40,15 @@ const Add_Courses_To_Student = () => {
   };
   const updateAllCourseList = (selectedCourseList, courseList) => {
     const newState = courseList.map((obj) => {
-      selectedCourseList.map((selectedCrs) => {
-        if (obj.courseId === selectedCrs.courseId) {
-          console.log("found : ", selectedCrs.courseId);
-          return { ...obj, checked: true };
-        }
-        // return obj;
+      const found = selectedCourseList.find((selectedCrs) => {
+        return selectedCrs.courseId === obj.courseId;
       });
-      /*
-      if (obj.courseId === 3) {
+
+      if (found !== undefined) {
         return { ...obj, checked: true };
+      } else {
+        return obj;
       }
-      if (obj.courseId === 4) {
-        return { ...obj, checked: true };
-      }
-      */
-      return obj;
     });
     setProcessCourses(newState);
   };
@@ -87,26 +78,27 @@ const Add_Courses_To_Student = () => {
     if (re.test(newVal)) return true;
     else return false;
   };
-  const isChecked = (item) =>
-    stdCourses.includes(item) ? "checked-item" : "not-checked-item";
 
   const renderList = () => {
     return (
       processCourses &&
-      processCourses?.length > 0 &&
+      processCourses.length > 0 &&
       processCourses.map((dt, i) => {
         return (
-          <label key={i}>
-            <input
-              className={isChecked(dt)}
-              defaultChecked={dt.checked}
-              type="checkbox"
-              name="lang"
-              value={dt.courseId}
-              onChange={handleChange_}
-            />{" "}
-            {dt.courseName}
-          </label>
+          <div key={i}>
+            <label>
+              <input
+                className="checked-item"
+                defaultChecked={dt.checked}
+                type="checkbox"
+                name="lang"
+                value={dt.courseId}
+                onChange={handleChange}
+              />
+              &nbsp;
+              {dt.courseId}- {dt.courseName}
+            </label>
+          </div>
         );
       })
     );
@@ -117,27 +109,52 @@ const Add_Courses_To_Student = () => {
   };
   return (
     <div className="mainContainer">
-      <Button
-        className="btn btn-success"
-        type="button"
-        onClick={(e) => getAlreadySelectedCoursesForStudent(e)}
-      >
-        Get My Courses
-      </Button>
-      <p></p>
-      <hr />
-      <p></p>
+      {!(processCourses && processCourses.length > 0) && (
+        <Button
+          className="btn btn-success"
+          type="button"
+          onClick={(e) => getAlreadySelectedCoursesForStudent(e)}
+        >
+          Get My Courses
+        </Button>
+      )}
+
       <div className="list-container">
-        <div className="title">Select courses from the list</div>
+        {processCourses && processCourses.length > 0 ? (
+          <div>
+            <div className="title">
+              <p></p>
+              Select Courses
+            </div>
+            <p></p>
+            {processCourses && processCourses.length > 0 && renderList()}
+          </div>
+        ) : (
+          <span></span>
+        )}
 
-        {processCourses && processCourses.length > 0 && renderList()}
+        {myCourses && myCourses.length > 0 ? (
+          <div>
+            Your updated Course-List:{" "}
+            {myCourses.length ? myCourses.join(", ") : null}
+          </div>
+        ) : (
+          <span></span>
+        )}
 
-        <div>
-          Selected courses: {myCourses.length ? myCourses.join(", ") : null}
+        <p></p>
+        <div className="row">
+          <div className="col-md-6 mx-auto">
+            <Button
+              className="btn btn-success"
+              type="button"
+              onClick={(e) => getAlreadySelectedCoursesForStudent(e)}
+            >
+              Connect Course(s) To Student
+            </Button>
+          </div>
         </div>
       </div>
-      <hr />
-      <p></p>
     </div>
   );
 };
