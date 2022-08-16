@@ -66,5 +66,13 @@ class StudentService {
       headers: authHeader(),
     });
   };
+  // Student : role
+  downloadAsmt = async (data) => {
+    return await http.post(`/downloadAsmt`, data, {
+      headers: authHeader(),
+      responseType: "blob",
+      // "Content-Type": "application/pdf",
+    });
+  };
 }
 export default new StudentService();

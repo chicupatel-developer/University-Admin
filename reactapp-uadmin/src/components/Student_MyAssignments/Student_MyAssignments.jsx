@@ -50,8 +50,34 @@ const Student_MyAssignments = () => {
       });
   };
 
-  const downloadAssignment = (e, asmt, index) => {};
+  const downloadAssignment = (e, asmt, index) => {
+    var stdToAsmtDownload = {
+      studentId: studentId,
+      assignmentId: asmt.assignmentId,
+      asmtFileName: asmt.asmtFileName,
+    };
+    console.log(stdToAsmtDownload);
+
+    StudentService.downloadAsmt(stdToAsmtDownload)
+      .then((blob) => {
+        console.log(blob);
+
+        // const myFile = new Blob([blob.data], { type: 'text/csv' });
+        const myFile = new Blob([blob.data], { type: "application/pdf" });
+        const url = window.URL.createObjectURL(myFile);
+        window.open(url);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   const submitAssignment = (e, asmt, index) => {};
+
+  const checkAsmtLinkStatus = (a) => {
+    if (a.asmtLinkStatus === 2) return false;
+    else return true;
+  };
+
   const renderAllAssignments = () => {
     return myAsmts.map((dt, i) => {
       return (
@@ -70,24 +96,29 @@ const Student_MyAssignments = () => {
                   {dt.asmtFileName}
                   <br />
                   <div className="row">
-                    <div className="col-md-6 mx-auto ">
-                      <Button
-                        className="btn btn-info"
-                        type="button"
-                        onClick={(e) => downloadAssignment(e, dt, i)}
-                      >
-                        Download Assignment
-                      </Button>
-                    </div>
-                    <div className="col-md-6 mx-auto ">
-                      <Button
-                        className="btn btn-success"
-                        type="button"
-                        onClick={(e) => submitAssignment(e, dt, i)}
-                      >
-                        Submit Assignment
-                      </Button>
-                    </div>
+                    {checkAsmtLinkStatus(dt) && (
+                      <div className="col-md-6 mx-auto ">
+                        <Button
+                          className="btn btn-info"
+                          type="button"
+                          onClick={(e) => downloadAssignment(e, dt, i)}
+                        >
+                          Download Assignment
+                        </Button>
+                      </div>
+                    )}
+
+                    {checkAsmtLinkStatus(dt) && (
+                      <div className="col-md-6 mx-auto ">
+                        <Button
+                          className="btn btn-success"
+                          type="button"
+                          onClick={(e) => submitAssignment(e, dt, i)}
+                        >
+                          Submit Assignment
+                        </Button>
+                      </div>
+                    )}
                   </div>
 
                   <br />

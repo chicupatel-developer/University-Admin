@@ -157,6 +157,7 @@ namespace UniversityAPI.Controllers
             return Ok(listOfCrs);
         }
 
+        // react ok
         // ok
         // this will load assignments of selected course to respective student 
         [Authorize("Student")]
@@ -168,6 +169,7 @@ namespace UniversityAPI.Controllers
             return Ok(listOfAsmts);
         }
 
+        // react wip
         // ok
         // assignment file download
         [Authorize("Student")]
@@ -288,7 +290,8 @@ namespace UniversityAPI.Controllers
                 return StatusCode(500, new { Message = "Server Error!" });
             }
         }
-                
+
+        // react ok
         [Authorize("Student")]
         [HttpGet]
         [Route("getMyCourses/{stdId}")]
