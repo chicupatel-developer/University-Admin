@@ -24,6 +24,10 @@ const Student_MyAssignments = () => {
   const [myAsmts, setMyAsmts] = useState([]);
   const [asmtLinkStatusClass, setAsmtLinkStatusClass] = useState("");
 
+  const [asmtToDownload, setAsmtToDownload] = useState(null);
+  const [downloadMsg, setDownloadMsg] = useState("");
+  const [downloadClass, setDownloadClass] = useState("");
+
   useEffect(() => {
     var currRole = AuthService.getCurrentUserRole();
 
@@ -51,6 +55,8 @@ const Student_MyAssignments = () => {
   };
 
   const downloadAssignment = (e, asmt, index) => {
+    setAsmtToDownload(asmt.asmtFileName);
+
     var stdToAsmtDownload = {
       studentId: studentId,
       assignmentId: asmt.assignmentId,
@@ -62,13 +68,38 @@ const Student_MyAssignments = () => {
       .then((blob) => {
         console.log(blob);
 
+        setDownloadMsg(
+          "Downloading..." + asmt.asmtFileName.substring(0, 35) + " !"
+        );
+        setDownloadClass("greenClass");
+
         // const myFile = new Blob([blob.data], { type: 'text/csv' });
         const myFile = new Blob([blob.data], { type: "application/pdf" });
         const url = window.URL.createObjectURL(myFile);
         window.open(url);
+
+        setTimeout(() => {
+          setAsmtToDownload(null);
+          setDownloadMsg("");
+          setDownloadClass("");
+        }, 4000);
       })
       .catch((e) => {
         console.log(e);
+        if (e.response.status === 500) {
+          setDownloadMsg("Server Error !");
+        } else if (e.response.status === 400) {
+          setDownloadMsg("File Not Found !");
+        } else {
+          setDownloadMsg("Error while downloading assignment file !");
+        }
+        setDownloadClass("redClass");
+
+        setTimeout(() => {
+          setAsmtToDownload(null);
+          setDownloadMsg("");
+          setDownloadClass("");
+        }, 4000);
       });
   };
   const submitAssignment = (e, asmt, index) => {};
@@ -105,6 +136,11 @@ const Student_MyAssignments = () => {
                         >
                           Download Assignment
                         </Button>
+                        <br />
+                        {asmtToDownload &&
+                          asmtToDownload === dt.asmtFileName && (
+                            <span className={downloadClass}>{downloadMsg}</span>
+                          )}
                       </div>
                     )}
 

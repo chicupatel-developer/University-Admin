@@ -44,3 +44,13 @@
 .asmtInfo{
     background-color: lightblue;
 }
+
+.greenClass {
+    color: green;
+    font-weight: bold;
+}
+
+.redClass {
+    color: red;
+    font-weight: bold;
+}
