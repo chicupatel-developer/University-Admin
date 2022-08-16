@@ -6,7 +6,10 @@ import Button from "react-bootstrap/Button";
 
 import AuthService from "../../services/auth.service";
 import StudentService from "../../services/student.service";
-
+import {
+  convertAsmtStatus,
+  getAsmtStatusClass,
+} from "../../services/local.service";
 import { useNavigate, useLocation } from "react-router";
 
 import Moment from "moment";
@@ -19,6 +22,7 @@ const Student_MyAssignments = () => {
   const { studentId, firstName, lastName, courseId } = state; // Read values passed on state
 
   const [myAsmts, setMyAsmts] = useState([]);
+  const [asmtLinkStatusClass, setAsmtLinkStatusClass] = useState("");
 
   useEffect(() => {
     var currRole = AuthService.getCurrentUserRole();
@@ -54,29 +58,38 @@ const Student_MyAssignments = () => {
         <div key={i}>
           <div className="card">
             <div className="card-header">
-              <div className="row">
-                <div className="col-md-6 mx-auto asmtInfo">
+              <div className="row asmtInfo">
+                <div className="col-md-6 mx-auto ">
                   {dt.courseName}
                   <br />
-                  {dt.asmtLinkStatus}
+                  <span className={`${getAsmtStatusClass(dt.asmtLinkStatus)}`}>
+                    {convertAsmtStatus(dt.asmtLinkStatus)}
+                  </span>
                 </div>
                 <div className="col-md-6 mx-auto">
                   {dt.asmtFileName}
                   <br />
-                  <Button
-                    className="btn btn-info"
-                    type="button"
-                    onClick={(e) => downloadAssignment(e, dt, i)}
-                  >
-                    Download Assignment
-                  </Button>
-                  <Button
-                    className="btn btn-success"
-                    type="button"
-                    onClick={(e) => submitAssignment(e, dt, i)}
-                  >
-                    Submit Assignment
-                  </Button>
+                  <div className="row">
+                    <div className="col-md-6 mx-auto ">
+                      <Button
+                        className="btn btn-info"
+                        type="button"
+                        onClick={(e) => downloadAssignment(e, dt, i)}
+                      >
+                        Download Assignment
+                      </Button>
+                    </div>
+                    <div className="col-md-6 mx-auto ">
+                      <Button
+                        className="btn btn-success"
+                        type="button"
+                        onClick={(e) => submitAssignment(e, dt, i)}
+                      >
+                        Submit Assignment
+                      </Button>
+                    </div>
+                  </div>
+
                   <br />
                   {/* display download/submit asmt. response message from api */}
                 </div>
