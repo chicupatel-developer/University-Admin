@@ -2,10 +2,32 @@
     margin-top: 20px;
     color: green;
     font-size: large;
+    font-weight: bold;
 }
 
 .uploadError {
     margin-top: 20px;
     color: red;
     font-size: large;
+    font-weight: bold;
+}
+
+.asmtUploadPanel {
+    text-align: center;
+    vertical-align: middle;
+    color: darkblue;
+    background-color: lightgoldenrodyellow;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border: 2px solid red;
+    border-radius: 20px;
+}
+.mainHeader{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.stdInfoPanel{
+    padding-top: 20px;
+    padding-bottom: 20px;
+
 }

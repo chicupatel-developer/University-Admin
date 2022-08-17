@@ -19,7 +19,7 @@ const Student_MyAssignments = () => {
   // let { id } = useParams();
 
   const { state } = useLocation();
-  const { studentId, firstName, lastName, courseId } = state; // Read values passed on state
+  const { studentId, firstName, lastName, courseId, courseName } = state; // Read values passed on state
 
   const [myAsmts, setMyAsmts] = useState([]);
   const [asmtLinkStatusClass, setAsmtLinkStatusClass] = useState("");
@@ -107,9 +107,11 @@ const Student_MyAssignments = () => {
     var stdToAsmt = {
       studentId: studentId,
       assignmentId: asmt.assignmentId,
+      title: asmt.title,
       courseId: courseId,
+      courseName: asmt.courseName,
       firstName: firstName,
-      lastName: lastName
+      lastName: lastName,
     };
     navigate("/submit-assignment", {
       state: stdToAsmt,

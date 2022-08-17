@@ -59,7 +59,7 @@ const Student_MyCourses = () => {
         <Button
           className="btn btn-info"
           type="button"
-          onClick={(e) => myAssignments(e, row.courseId)}
+          onClick={(e) => myAssignments(e, row.courseId, row.courseName)}
         >
           <i className="bi bi-pencil-square"></i>
           My Assignments
@@ -86,13 +86,14 @@ const Student_MyCourses = () => {
     },
   ];
 
-  const myAssignments = (e, courseId) => {
+  const myAssignments = (e, courseId, courseName) => {
     console.log("getting my-assignments for course # : ", courseId);
     var student = {
       studentId: currentUser.studentId,
       firstName: currentUser.firstName,
       lastName: currentUser.lastName,
       courseId: courseId,
+      courseName: courseName,
     };
     navigate("/student-my-assignments", {
       state: student,

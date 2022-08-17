@@ -230,12 +230,13 @@ namespace UniversityAPI.Controllers
             }
         }
 
+        // react ok
         // ok
         // assignment submit
         [Authorize("Student")]
         [HttpPost, DisableRequestSizeLimit]
         [Route("asmtSubmit")]
-        public IActionResult AsmtSubmit()
+        public async Task<ActionResult> AsmtSubmit()
         {
             try
             {
@@ -266,7 +267,7 @@ namespace UniversityAPI.Controllers
 
                     using (var stream = new FileStream(fullPath, FileMode.Create))
                     {
-                        file.CopyTo(stream);
+                        await file.CopyToAsync(stream);
                     }
                     
                     asmtSubmitVM.AsmtSubmitFilePath = asmtStoragePath;
