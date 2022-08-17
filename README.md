@@ -42,7 +42,7 @@ Technology
 
 ## Home->
 
-![Home](https://user-images.githubusercontent.com/26190114/185214224-1326ac6a-2c8e-4963-a86e-e4847a3b885c.PNG)
+![Home](https://user-images.githubusercontent.com/26190114/185222094-cb213e86-7349-4d6b-993a-45d895a63acc.PNG)
 
 
 ## Login->
