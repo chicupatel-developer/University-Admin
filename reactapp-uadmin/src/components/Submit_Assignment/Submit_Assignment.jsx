@@ -5,14 +5,17 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import StudentService from "../../services/student.service";
+import AuthService from "../../services/auth.service";
 
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 
 import Moment from "moment";
-const Submit_Assignment = (studentId, assignmentId) => {
+const Submit_Assignment = () => {
   let navigate = useNavigate();
 
-  const [asmtUploadId, setAsmtUploadId] = useState(0);
+  const { state } = useLocation();
+  const { studentId, assignmentId, courseId, firstName, lastName } = state; // Read values passed on state
+
   const [selectedFiles, setSelectedFiles] = useState(undefined);
   const [currentFile, setCurrentFile] = useState(undefined);
   const [progress, setProgress] = useState(0);
@@ -40,7 +43,6 @@ const Submit_Assignment = (studentId, assignmentId) => {
         if (response.status === 200) {
           setMessage("Asmt File Upload Success!");
           setClassName("uploadSuccess");
-          setAsmtUploadId(response.data.model.asmtUploadId);
         }
       })
       .catch((error) => {
@@ -56,16 +58,35 @@ const Submit_Assignment = (studentId, assignmentId) => {
           setMessage(error.response.data.message);
           setClassName("uploadError");
         }
-        setAsmtUploadId(0);
       });
     setSelectedFiles(undefined);
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    var currRole = AuthService.getCurrentUserRole();
+
+    if (currRole === null || (currRole !== null && currRole !== "Student"))
+      navigate("/un-auth");
+    else {
+      console.log(studentId, assignmentId, firstName, lastName, courseId);
+    }
+  }, []);
 
   return (
     <div className="mainContainer">
       <div className="container">
+        <p></p>
+        <div className="row">
+          <div className="col-md-3 mx-auto"></div>
+          <div className="col-md-6 mx-auto">
+            <div className="studentHeader">
+              # {studentId} ) {firstName}, {lastName}
+            </div>
+          </div>
+          <div className="col-md-3 mx-auto"></div>
+        </div>
+        <p></p>
+
         <div className="row">
           <div className="col-md-6 mx-auto">
             <label className="btn btn-info">

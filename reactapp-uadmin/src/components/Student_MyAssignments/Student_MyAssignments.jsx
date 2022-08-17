@@ -102,55 +102,19 @@ const Student_MyAssignments = () => {
         }, 4000);
       });
   };
-  // submit assignment
-  const [asmtUploadId, setAsmtUploadId] = useState(0);
-  const [selectedFiles, setSelectedFiles] = useState(undefined);
-  const [currentFile, setCurrentFile] = useState(undefined);
-  const [progress, setProgress] = useState(0);
-  const [message, setMessage] = useState("");
-  const [className, setClassName] = useState("");
-  const selectFile = (event) => {
-    setSelectedFiles(event.target.files);
-  };
-  const displaySubmitAsmtPanel = (e, asmt, index) => {};
+
   const submitAssignment = (e, asmt, index) => {
-    let currentFile = selectedFiles[0];
-    console.log(currentFile);
-    setProgress(0);
-    setCurrentFile(currentFile);
     var stdToAsmt = {
       studentId: studentId,
       assignmentId: asmt.assignmentId,
+      courseId: courseId,
+      firstName: firstName,
+      lastName: lastName
     };
-    StudentService.submitAsmt(currentFile, stdToAsmt, (event) => {
-      setProgress(Math.round((100 * event.loaded) / event.total));
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          setMessage("Asmt File Upload Success!");
-          setClassName("uploadSuccess");
-          setAsmtUploadId(response.data.model.asmtUploadId);
-        }
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-        // 400
-        if (error.response.status === 400) {
-          console.log("400 !");
-          setMessage("400 !");
-          setClassName("uploadError");
-        }
-        // 500
-        else {
-          setMessage(error.response.data.message);
-          setClassName("uploadError");
-        }
-        setAsmtUploadId(0);
-      });
-    setSelectedFiles(undefined);
+    navigate("/submit-assignment", {
+      state: stdToAsmt,
+    });
   };
-
   const checkAsmtLinkStatus = (a) => {
     if (a.asmtLinkStatus === 2) return false;
     else return true;
@@ -196,63 +160,13 @@ const Student_MyAssignments = () => {
                         <Button
                           className="btn btn-success"
                           type="button"
-                          onClick={(e) => displaySubmitAsmtPanel(e, dt, i)}
+                          onClick={(e) => submitAssignment(e, dt, i)}
                         >
                           Submit Assignment
                         </Button>
                       </div>
                     )}
-                  </div>
-                  <div className="row">
-                    <div className="col-md-6 mx-auto submitAsmtPanel ">
-                      <label className="btn btn-info">
-                        <input type="file" onChange={selectFile} />
-                      </label>
-                      <p></p>
-                      {currentFile && (
-                        <div className="progress">
-                          <div
-                            className="progress-bar progress-bar-info progress-bar-striped"
-                            role="progressbar"
-                            aria-valuenow={progress}
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            style={{ width: progress + "%" }}
-                          >
-                            {progress}%
-                          </div>
-                        </div>
-                      )}
-                      <p></p>
-                      <button
-                        className="btn btn-success"
-                        disabled={!selectedFiles}
-                        onClick={(e) => submitAssignment(e, dt, i)}
-                      >
-                        Submit Assignment
-                      </button>
-                      {className === "uploadSuccess" ? (
-                        <div
-                          className="alert alert-light uploadSuccess"
-                          role="alert"
-                        >
-                          {message}
-                        </div>
-                      ) : (
-                        <div>
-                          {className === "uploadError" ? (
-                            <div
-                              className="alert alert-light uploadError"
-                              role="alert"
-                            >
-                              <span>{message}</span>
-                            </div>
-                          ) : (
-                            <span></span>
-                          )}
-                        </div>
-                      )}
-                    </div>
+                    <p></p>
                   </div>
                 </div>
               </div>

@@ -169,7 +169,7 @@ namespace UniversityAPI.Controllers
             return Ok(listOfAsmts);
         }
 
-        // react wip
+        // react ok
         // ok
         // assignment file download
         [Authorize("Student")]
