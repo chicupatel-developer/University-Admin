@@ -14,7 +14,7 @@ Technology
 
 - Client(1) : Angular, Html, Css, Bootstrap
 
-- ### WIP Client(2) : React, Html, Css, Bootstrap 
+- Client(2) : React, Html, Css, Bootstrap 
 
 
 
