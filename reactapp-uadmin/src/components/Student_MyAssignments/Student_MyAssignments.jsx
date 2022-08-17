@@ -19,7 +19,7 @@ const Student_MyAssignments = () => {
   // let { id } = useParams();
 
   const { state } = useLocation();
-  const { studentId, firstName, lastName, courseId, courseName } = state; // Read values passed on state
+  const { studentId, firstName, lastName, courseId, courseName } = state || {}; // Read values passed on state
 
   const [myAsmts, setMyAsmts] = useState([]);
   const [asmtLinkStatusClass, setAsmtLinkStatusClass] = useState("");
@@ -34,6 +34,8 @@ const Student_MyAssignments = () => {
     if (currRole === null || (currRole !== null && currRole !== "Student"))
       navigate("/un-auth");
     else {
+      if (studentId === undefined || courseId === undefined)
+        navigate("/student-my-courses");
       console.log(studentId, firstName, lastName, courseId);
       loadAsmtsForStudentCourse();
     }

@@ -22,7 +22,7 @@ const Submit_Assignment = () => {
     courseName,
     firstName,
     lastName,
-  } = state; // Read values passed on state
+  } = state || {}; // Read values passed on state
 
   const [selectedFiles, setSelectedFiles] = useState(undefined);
   const [currentFile, setCurrentFile] = useState(undefined);
@@ -89,6 +89,8 @@ const Submit_Assignment = () => {
       navigate("/un-auth");
     else {
       console.log(studentId, assignmentId, firstName, lastName, courseId);
+      if (studentId === undefined || assignmentId === undefined)
+        navigate("/student-my-courses");
     }
   }, []);
 
