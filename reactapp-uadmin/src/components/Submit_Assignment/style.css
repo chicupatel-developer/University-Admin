@@ -1,0 +1,11 @@
+.uploadSuccess {
+    margin-top: 20px;
+    color: green;
+    font-size: large;
+}
+
+.uploadError {
+    margin-top: 20px;
+    color: red;
+    font-size: large;
+}

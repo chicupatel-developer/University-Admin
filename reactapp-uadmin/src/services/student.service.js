@@ -74,5 +74,15 @@ class StudentService {
       // "Content-Type": "application/pdf",
     });
   };
+  // Student : role
+  submitAsmt = async (file, stdToAsmt, onUploadProgress) => {
+    let formData = new FormData();
+    formData.append("asmtFile", file, file.name);
+    formData.append("stdToAsmt", stdToAsmt);
+    return await http.post("/asmtSubmit", formData, {
+      headers: authHeader(),
+      onUploadProgress,
+    });
+  };
 }
 export default new StudentService();
